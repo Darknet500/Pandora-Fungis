@@ -359,6 +359,44 @@
 											"height": 13,
 											"text": "+removeHypa(h: Hypa)",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGVdnuRMNq4El0=",
+											"_parent": {
+												"$ref": "AAAAAAGVQevXVJYlh2Q="
+											},
+											"model": {
+												"$ref": "AAAAAAGVdnuRKdq1BRw="
+											},
+											"fillColor": "#FFFFFF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 861,
+											"top": 1262,
+											"width": 286.0478515625,
+											"height": 13,
+											"text": "+checkOwnedHypas()()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGVdnvtltuuLwg=",
+											"_parent": {
+												"$ref": "AAAAAAGVQevXVJYlh2Q="
+											},
+											"model": {
+												"$ref": "AAAAAAGVdnvtktursTY="
+											},
+											"fillColor": "#FFFFFF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 861,
+											"top": 1277,
+											"width": 286.0478515625,
+											"height": 13,
+											"text": "+checkPossibleNewMushroom()",
+											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#FFFFFF",
@@ -367,7 +405,7 @@
 									"left": 856,
 									"top": 1122,
 									"width": 296.0478515625,
-									"height": 143
+									"height": 173
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -413,7 +451,7 @@
 							"left": 856,
 							"top": 1072,
 							"width": 295.0478515625,
-							"height": 193,
+							"height": 223,
 							"nameCompartment": {
 								"$ref": "AAAAAAGVQevXU5YfpxM="
 							},
@@ -4174,7 +4212,7 @@
 							"tail": {
 								"$ref": "AAAAAAGVQ0mzVTtQtiE="
 							},
-							"points": "728:1312;728:1296;952:1296;952:1265",
+							"points": "728:1312;728:1296;952:1296;952:1295",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGVQ1mdgrpms2A="
@@ -4271,7 +4309,7 @@
 							"tail": {
 								"$ref": "AAAAAAGVQ0nFTz2+D/k="
 							},
-							"points": "873:1312;873:1296;952:1296;952:1265",
+							"points": "873:1312;873:1296;952:1296;952:1295",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGVQ1otnfGN4t8="
@@ -4368,7 +4406,7 @@
 							"tail": {
 								"$ref": "AAAAAAGVQ0nMST71bUM="
 							},
-							"points": "1187:1312;1187:1296;952:1296;952:1265",
+							"points": "1187:1312;1187:1296;952:1296;952:1295",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGVQ1srykalwR4="
@@ -12768,6 +12806,22 @@
 									}
 								}
 							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGVdnuRKdq1BRw=",
+							"_parent": {
+								"$ref": "AAAAAAGVQevXU5YcEdw="
+							},
+							"name": "checkOwnedHypas()"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGVdnvtktursTY=",
+							"_parent": {
+								"$ref": "AAAAAAGVQevXU5YcEdw="
+							},
+							"name": "checkPossibleNewMushroom"
 						}
 					]
 				},
