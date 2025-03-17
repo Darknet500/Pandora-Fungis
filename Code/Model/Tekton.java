@@ -7,6 +7,31 @@ import java.util.*;
 public class Tekton {
 
     /**
+     *
+     */
+    private Bug bug;
+
+    /**
+     *
+     */
+    private Mushroom mushroom;
+
+    /**
+     *
+     */
+    private List<Spore> storedSpores;
+
+    /**
+     *
+     */
+    private List<Tekton> neighbours;
+
+    /**
+     *
+     */
+    private List<Hypa> connectedHypas;
+
+    /**
      * Default constructor
      */
     public Tekton() {
