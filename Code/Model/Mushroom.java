@@ -22,6 +22,16 @@ public abstract class Mushroom {
     private int sporesThrown;
 
     /**
+     *
+     */
+    private Tekton tekton;
+
+    /**
+     *
+     */
+    private Shroomer shroomer;
+
+    /**
      * Default constructor
      */
     public Mushroom() {

@@ -10,7 +10,7 @@ public class Bug extends Player {
     /**
      *
      */
-    private Tekton onTekton;
+    private Tekton tekton;
 
     /**
      *
