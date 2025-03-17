@@ -10,6 +10,16 @@ public class Bug extends Player {
     /**
      *
      */
+    private Tekton onTekton;
+
+    /**
+     *
+     */
+    private Strategy strategy;
+
+    /**
+     *
+     */
     private int underEffectSince;
 
     /**
