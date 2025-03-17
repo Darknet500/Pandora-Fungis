@@ -8,6 +8,16 @@ import java.util.*;
 public abstract class Spore {
 
     /**
+     *
+     */
+    private Shroomer shroomer;
+
+    /**
+     *
+     */
+
+
+    /**
      * Default constructor
      */
     public Spore() {
