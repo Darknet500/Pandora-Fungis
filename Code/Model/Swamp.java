@@ -16,11 +16,6 @@ public class Swamp extends Tekton {
     /**
      * 
      */
-    private void Attribute1;
-
-    /**
-     * 
-     */
     public void checkForDeleteHypa() {
         // TODO implement here
     }

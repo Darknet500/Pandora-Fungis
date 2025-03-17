@@ -8,15 +8,16 @@ import java.util.*;
 public class Shroomer extends Player {
 
     /**
+     *
+     */
+    private Function mushroomctor;
+
+    /**
      * Default constructor
      */
     public Shroomer() {
     }
 
-    /**
-     * 
-     */
-    private Function mushroomctor;
 
     /**
      * 
@@ -86,13 +87,7 @@ public class Shroomer extends Player {
     /**
      * 
      */
-    public void growHypaFar(from: Tekton, middle: Tekton, to: Tekton)() {
+    public void growHypaFar(Tekton from, Tekton middle, Tekton to) {
         // TODO implement here
     }
-
-    /**
-     * 
-     */
-    public abstract void chooseAction();
-
 }

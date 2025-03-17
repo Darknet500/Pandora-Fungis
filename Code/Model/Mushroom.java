@@ -6,6 +6,20 @@ import java.util.*;
  * 
  */
 public abstract class Mushroom {
+    /**
+     *
+     */
+    private int age;
+
+    /**
+     *
+     */
+    private int numeberOfSpores;
+
+    /**
+     *
+     */
+    private int sporesThrown;
 
     /**
      * Default constructor
@@ -14,27 +28,7 @@ public abstract class Mushroom {
     }
 
     /**
-     * 
-     */
-    private int age;
-
-    /**
-     * 
-     */
-    private int numeberOfSpores;
-
-    /**
-     * 
-     */
-    private int sporesThrown;
-
-    /**
-     * @param to
-     */
-    public abstract void sporeThrown(Tekton to);
-
-    /**
-     * @param s 
+     * @param s
      * @param pos
      */
     public Mushroom(Shroomer s, Tekton pos) {
@@ -42,17 +36,22 @@ public abstract class Mushroom {
     }
 
     /**
-     * 
+     *
      */
     public void die() {
         // TODO implement here
     }
 
     /**
-     * 
+     *
      */
     public void age() {
         // TODO implement here
     }
+
+    /**
+     * @param to
+     */
+    public abstract void sporeThrown(Tekton to);
 
 }

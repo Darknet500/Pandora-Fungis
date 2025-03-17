@@ -16,9 +16,9 @@ public class Stone extends Tekton {
     /**
      * @return
      */
-    public bool canMushroomGrow() {
+    public boolean canMushroomGrow() {
         // TODO implement here
-        return null;
+        return false;
     }
 
 }

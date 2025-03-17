@@ -19,10 +19,4 @@ public class BoosterMushroom extends Mushroom {
     public void sporeThrown(Tekton to) {
         // TODO implement here
     }
-
-    /**
-     * @param to
-     */
-    public abstract void sporeThrown(Tekton to);
-
 }

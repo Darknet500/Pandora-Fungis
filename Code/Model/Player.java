@@ -8,15 +8,16 @@ import java.util.*;
 public abstract class Player {
 
     /**
+     *
+     */
+    private int score;
+
+    /**
      * Default constructor
      */
     public Player() {
     }
 
-    /**
-     * 
-     */
-    private int score;
 
     /**
      * 

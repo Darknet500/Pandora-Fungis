@@ -8,15 +8,16 @@ import java.util.*;
 public class Bug extends Player {
 
     /**
+     *
+     */
+    private int underEffectSince;
+
+    /**
      * Default constructor
      */
     public Bug() {
     }
 
-    /**
-     * 
-     */
-    public int underEffectSince;
 
     /**
      * 
@@ -52,10 +53,4 @@ public class Bug extends Player {
     public void eat(Spore s) {
         // TODO implement here
     }
-
-    /**
-     * 
-     */
-    public abstract void chooseAction();
-
 }

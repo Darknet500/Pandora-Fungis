@@ -6,6 +6,15 @@ import java.util.*;
  * 
  */
 public class Hypa {
+    /**
+     *
+     */
+    private int age;
+
+    /**
+     *
+     */
+    private int isDyingSince;
 
     /**
      * Default constructor
@@ -13,15 +22,6 @@ public class Hypa {
     public Hypa() {
     }
 
-    /**
-     * 
-     */
-    private int age;
-
-    /**
-     * 
-     */
-    private int isDyingSince;
 
     /**
      * 

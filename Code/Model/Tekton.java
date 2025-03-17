@@ -1,5 +1,4 @@
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -16,7 +15,7 @@ public class Tekton {
     /**
      * 
      */
-    public void break() {
+    public void breakTekton() {
         // TODO implement here
     }
 
@@ -38,9 +37,9 @@ public class Tekton {
      * @param shroomer 
      * @return
      */
-    public bool acceptHypa(Shroomer shroomer) {
+    public boolean acceptHypa(Shroomer shroomer) {
         // TODO implement here
-        return null;
+        return false;
     }
 
     /**
@@ -83,9 +82,9 @@ public class Tekton {
      * @param s 
      * @return
      */
-    public bool canMushroomGrow(Shroomer s) {
+    public boolean canMushroomGrow(Shroomer s) {
         // TODO implement here
-        return null;
+        return false;
     }
 
     /**

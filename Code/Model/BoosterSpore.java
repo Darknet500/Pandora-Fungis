@@ -21,11 +21,4 @@ public class BoosterSpore extends Spore {
         // TODO implement here
         return 0;
     }
-
-    /**
-     * @param b 
-     * @return
-     */
-    public abstract int haveEffect(Bug b);
-
 }

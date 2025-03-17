@@ -16,8 +16,9 @@ public class Peat extends Tekton {
     /**
      * @param shroomer
      */
-    public void acceptHypa(Shroomer shroomer) {
+    public boolean acceptHypa(Shroomer shroomer) {
         // TODO implement here
+        return false;
     }
 
 }

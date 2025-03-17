@@ -19,10 +19,4 @@ public class ParalyzerMushroom extends Mushroom {
     public void sporeThrown(Tekton to) {
         // TODO implement here
     }
-
-    /**
-     * @param to
-     */
-    public abstract void sporeThrown(Tekton to);
-
 }
