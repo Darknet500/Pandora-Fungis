@@ -17,6 +17,16 @@ public class Hypa {
     private int isDyingSince;
 
     /**
+     *
+     */
+    private List<Tekton> ends;
+
+    /**
+     *
+     */
+    private Shroomer shroomer;
+
+    /**
      * Default constructor
      */
     public Hypa() {
