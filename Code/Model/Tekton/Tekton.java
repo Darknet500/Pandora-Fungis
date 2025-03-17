@@ -1,3 +1,10 @@
+package Tekton;
+
+import Bug.Bug;
+import Shroomer.Hypa;
+import Shroomer.Mushroom;
+import Shroomer.Shroomer;
+import Shroomer.Spore;
 
 import java.util.*;
 

@@ -1,11 +1,13 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public class Slowed extends Strategy {
+public class Slowed implements Strategy {
 
     /**
      *

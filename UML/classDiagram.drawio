@@ -4,7 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-3" value="&lt;i&gt;Player&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-3" value="&lt;i&gt;Controll.Player&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="30" y="160" width="210" height="120" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-4" value="- score: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-3">
@@ -19,7 +19,7 @@
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-7" value="Game" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="30" y="10" width="160" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-8" value="-&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;round: int&lt;/span&gt;&lt;div&gt;+&amp;nbsp;map: List&amp;lt;Tekton&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-7">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-8" value="-&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;round: int&lt;/span&gt;&lt;div&gt;+&amp;nbsp;map: List&amp;lt;Tekton.Tekton&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-7">
           <mxGeometry y="26" width="160" height="44" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-9" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-7">
@@ -28,13 +28,13 @@
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-10" value="+ gameLoop()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-7">
           <mxGeometry y="78" width="160" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-11" value="Shroomer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-11" value="Shroomer.Shroomer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="360" width="250" height="160" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-12" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-11">
           <mxGeometry y="26" width="250" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-13" value="- growHypa(from: Tekton, to: Tekton)&lt;div&gt;- throwSpore( with MUshroom, to: Tekton)&lt;/div&gt;&lt;div&gt;+&amp;nbsp;&lt;/div&gt;&lt;div&gt;executeRound(roundNumber: int)&lt;/div&gt;&lt;div&gt;- selectAction(): int&lt;/div&gt;&lt;div&gt;+ mushroomGrown()&lt;/div&gt;&lt;div&gt;+ mushroomDied()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-11">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-13" value="- growHypa(from: Tekton.Tekton, to: Tekton.Tekton)&lt;div&gt;- throwSpore( with MUshroom, to: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;+&amp;nbsp;&lt;/div&gt;&lt;div&gt;executeRound(roundNumber: int)&lt;/div&gt;&lt;div&gt;- selectAction(): int&lt;/div&gt;&lt;div&gt;+ mushroomGrown()&lt;/div&gt;&lt;div&gt;+ mushroomDied()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-11">
           <mxGeometry y="34" width="250" height="126" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-14" value="Bugger" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -46,7 +46,7 @@
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-16" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-14">
           <mxGeometry y="52" width="190" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-17" value="&lt;div&gt;- selectAction(): int&lt;/div&gt;+ executeRound(roundNumber: int)&lt;div&gt;+ setStrategy(s: Strategy)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-14">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-17" value="&lt;div&gt;- selectAction(): int&lt;/div&gt;+ executeRound(roundNumber: int)&lt;div&gt;+ setStrategy(s: Bug.Bug.Strategy)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-14">
           <mxGeometry y="60" width="190" height="80" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-18" value="" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=0;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -54,7 +54,7 @@
             <mxRectangle x="350" y="320" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OPrOjzVIBu2OuI2TAhG9-1" value="&lt;i&gt;Mushroom&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-18">
+        <mxCell id="OPrOjzVIBu2OuI2TAhG9-1" value="&lt;i&gt;Shroomer.Mushroom&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-18">
           <mxGeometry width="160" height="190" as="geometry" />
         </mxCell>
         <mxCell id="OPrOjzVIBu2OuI2TAhG9-2" value="- age:int&lt;div&gt;- numberOfSpores: int&lt;/div&gt;&lt;div&gt;- sporesThrown: int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OPrOjzVIBu2OuI2TAhG9-1">
@@ -63,19 +63,19 @@
         <mxCell id="OPrOjzVIBu2OuI2TAhG9-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OPrOjzVIBu2OuI2TAhG9-1">
           <mxGeometry y="90" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="OPrOjzVIBu2OuI2TAhG9-4" value="&lt;i&gt;+ sporeThrown(to: Tekton)&lt;/i&gt;&lt;div&gt;+ Mushroom(s: Shroomer, pos: Tekton)&lt;/div&gt;&lt;div&gt;+ die()&lt;/div&gt;&lt;div&gt;+ age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OPrOjzVIBu2OuI2TAhG9-1">
+        <mxCell id="OPrOjzVIBu2OuI2TAhG9-4" value="&lt;i&gt;+ sporeThrown(to: Tekton.Tekton)&lt;/i&gt;&lt;div&gt;+ Shroomer.Mushroom(s: Shroomer.Shroomer, pos: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;+ die()&lt;/div&gt;&lt;div&gt;+ age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OPrOjzVIBu2OuI2TAhG9-1">
           <mxGeometry y="98" width="160" height="92" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-20" value="" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=0;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="650" y="80" width="160" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="oB7HETbNgXNL-HXYYyWf-1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;div&gt;&lt;i&gt;Strategy&lt;/i&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-20">
+        <mxCell id="oB7HETbNgXNL-HXYYyWf-1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;div&gt;&lt;i&gt;Bug.Bug.Strategy&lt;/i&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-20">
           <mxGeometry width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="oB7HETbNgXNL-HXYYyWf-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="oB7HETbNgXNL-HXYYyWf-1">
           <mxGeometry y="40" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="oB7HETbNgXNL-HXYYyWf-3" value="&lt;i&gt;+ eat(s: Spore)&lt;/i&gt;&lt;div&gt;&lt;i&gt;+ bite(h: Hypa)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;+ move(t: Tekton)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="oB7HETbNgXNL-HXYYyWf-1">
+        <mxCell id="oB7HETbNgXNL-HXYYyWf-3" value="&lt;i&gt;+ eat(s: Shroomer.Spore)&lt;/i&gt;&lt;div&gt;&lt;i&gt;+ bite(h: Shroomer.Hypa)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;+ move(t: Tekton.Tekton)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="oB7HETbNgXNL-HXYYyWf-1">
           <mxGeometry y="48" width="160" height="62" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.137;entryY=1.015;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="1kFGFJCWvxmLALMKL_oT-3">
@@ -99,16 +99,16 @@
             <mxRectangle x="350" y="320" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="1kFGFJCWvxmLALMKL_oT-1" value="&lt;i&gt;Spore&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-26">
+        <mxCell id="1kFGFJCWvxmLALMKL_oT-1" value="&lt;i&gt;Shroomer.Spore&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-26">
           <mxGeometry width="190" height="100" as="geometry" />
         </mxCell>
         <mxCell id="1kFGFJCWvxmLALMKL_oT-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="1kFGFJCWvxmLALMKL_oT-1">
           <mxGeometry y="26" width="190" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="1kFGFJCWvxmLALMKL_oT-3" value="+&lt;i&gt;&amp;nbsp;haveEffect(chosenAction: int)&lt;/i&gt;&lt;div&gt;+ Spore(g: Gombasz)&lt;/div&gt;&lt;div&gt;+ beEaten(b: Bugger)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="1kFGFJCWvxmLALMKL_oT-1">
+        <mxCell id="1kFGFJCWvxmLALMKL_oT-3" value="+&lt;i&gt;&amp;nbsp;haveEffect(chosenAction: int)&lt;/i&gt;&lt;div&gt;+ Shroomer.Spore(g: Gombasz)&lt;/div&gt;&lt;div&gt;+ beEaten(b: Bugger)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="1kFGFJCWvxmLALMKL_oT-1">
           <mxGeometry y="34" width="190" height="66" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-28" value="Hypa" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-28" value="Shroomer.Hypa" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="40" y="670" width="160" height="160" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-29" value="+ age: int&lt;div&gt;+ isDying: int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-28">
@@ -117,7 +117,7 @@
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-30" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-28">
           <mxGeometry y="70" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-31" value="+ die()&lt;div&gt;+ Hypa(end1: Tekton, end2: Tekton)&lt;/div&gt;&lt;div&gt;+Age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-28">
+        <mxCell id="FG8BIOksSfUQ8eZlH9Ch-31" value="+ die()&lt;div&gt;+ Shroomer.Hypa(end1: Tekton.Tekton, end2: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;+Age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="FG8BIOksSfUQ8eZlH9Ch-28">
           <mxGeometry y="78" width="160" height="82" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-32" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.313;exitY=0.99;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="FG8BIOksSfUQ8eZlH9Ch-10">
@@ -393,7 +393,7 @@
         <mxCell id="scsG5AHn41_8tty3_izh-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="scsG5AHn41_8tty3_izh-1">
           <mxGeometry y="52" width="320" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="scsG5AHn41_8tty3_izh-4" value="+ createMushroom(String, Shroomer, Tekton): Mushroom&lt;div&gt;+ registerMushroom(type: String,co&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;nstructor: Function )&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="scsG5AHn41_8tty3_izh-1">
+        <mxCell id="scsG5AHn41_8tty3_izh-4" value="+ createMushroom(String, Shroomer.Shroomer, Tekton.Tekton): Shroomer.Mushroom&lt;div&gt;+ registerMushroom(type: String,co&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;nstructor: Function )&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="scsG5AHn41_8tty3_izh-1">
           <mxGeometry y="60" width="320" height="50" as="geometry" />
         </mxCell>
         <mxCell id="scsG5AHn41_8tty3_izh-5" value="Call" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.791;exitY=-0.015;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.026;entryY=0.966;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FG8BIOksSfUQ8eZlH9Ch-11" target="scsG5AHn41_8tty3_izh-4">
@@ -413,7 +413,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="k42B-ygskFCItDhpjXDD-1" value="Tekton" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="k42B-ygskFCItDhpjXDD-1" value="Tekton.Tekton" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="360" y="900" width="160" height="230" as="geometry" />
         </mxCell>
         <mxCell id="k42B-ygskFCItDhpjXDD-2" value="+&amp;nbsp;hasBug: bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="k42B-ygskFCItDhpjXDD-1">
@@ -422,7 +422,7 @@
         <mxCell id="k42B-ygskFCItDhpjXDD-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="k42B-ygskFCItDhpjXDD-1">
           <mxGeometry y="52" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="k42B-ygskFCItDhpjXDD-4" value="+ break()&lt;div&gt;+hasMushroom()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtual&amp;gt;&amp;gt; - growMushroom()&lt;/div&gt;&lt;div&gt;+storeSpore(s: Spore)&lt;/div&gt;&lt;div&gt;+getNeighbours()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtuals&amp;gt;&amp;gt; + acceptHypa(shroomer: Schroomer) bool&lt;/div&gt;&lt;div&gt;+ removeSpore(s: Spore)&lt;/div&gt;&lt;div&gt;+hasBug()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="k42B-ygskFCItDhpjXDD-1">
+        <mxCell id="k42B-ygskFCItDhpjXDD-4" value="+ break()&lt;div&gt;+hasMushroom()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtual&amp;gt;&amp;gt; - growMushroom()&lt;/div&gt;&lt;div&gt;+storeSpore(s: Shroomer.Spore)&lt;/div&gt;&lt;div&gt;+getNeighbours()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtuals&amp;gt;&amp;gt; + acceptHypa(shroomer: Schroomer) bool&lt;/div&gt;&lt;div&gt;+ removeSpore(s: Shroomer.Spore)&lt;/div&gt;&lt;div&gt;+hasBug()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="k42B-ygskFCItDhpjXDD-1">
           <mxGeometry y="60" width="160" height="170" as="geometry" />
         </mxCell>
         <mxCell id="FG8BIOksSfUQ8eZlH9Ch-37" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.982;exitY=0.272;exitDx=0;exitDy=0;entryX=1.015;entryY=0.887;entryDx=0;entryDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="k42B-ygskFCItDhpjXDD-1" source="k42B-ygskFCItDhpjXDD-4" target="k42B-ygskFCItDhpjXDD-4">
@@ -453,7 +453,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-1" value="Stone" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-1" value="Tekton.Stone" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="320" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="AcIH4K8weNF2bj_M9ikB-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="AcIH4K8weNF2bj_M9ikB-1" vertex="1">
@@ -462,7 +462,7 @@
         <mxCell id="AcIH4K8weNF2bj_M9ikB-4" value="+growMushroom()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-1" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-5" value="Tekton" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-5" value="Tekton.Tekton" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="40" width="220" height="230" as="geometry" />
         </mxCell>
         <mxCell id="AcIH4K8weNF2bj_M9ikB-6" value="+&amp;nbsp;hasBug: bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-5" vertex="1">
@@ -471,10 +471,10 @@
         <mxCell id="AcIH4K8weNF2bj_M9ikB-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="AcIH4K8weNF2bj_M9ikB-5" vertex="1">
           <mxGeometry y="52" width="220" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-8" value="+ break()&lt;div&gt;+hasMushroom()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtual&amp;gt;&amp;gt; - growMushroom()&lt;/div&gt;&lt;div&gt;+storeSpore(s: Spore)&lt;/div&gt;&lt;div&gt;+getNeighbours()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtuals&amp;gt;&amp;gt; + acceptHypa(shroomer: Schroomer) bool&lt;/div&gt;&lt;div&gt;+ removeSpore(s: Spore)&lt;/div&gt;&lt;div&gt;+hasBug()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-5" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-8" value="+ break()&lt;div&gt;+hasMushroom()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtual&amp;gt;&amp;gt; - growMushroom()&lt;/div&gt;&lt;div&gt;+storeSpore(s: Shroomer.Spore)&lt;/div&gt;&lt;div&gt;+getNeighbours()&lt;/div&gt;&lt;div&gt;&amp;lt;&amp;lt;virtuals&amp;gt;&amp;gt; + acceptHypa(shroomer: Schroomer) bool&lt;/div&gt;&lt;div&gt;+ removeSpore(s: Shroomer.Spore)&lt;/div&gt;&lt;div&gt;+hasBug()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-5" vertex="1">
           <mxGeometry y="60" width="220" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-9" value="Swamp" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-9" value="Tekton.Swamp" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="280" y="320" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="AcIH4K8weNF2bj_M9ikB-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="AcIH4K8weNF2bj_M9ikB-9" vertex="1">
@@ -483,13 +483,13 @@
         <mxCell id="AcIH4K8weNF2bj_M9ikB-12" value="+checkForDeleteHypa()&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-9" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-13" value="Peat" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-13" value="Tekton.Peat" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="320" width="220" height="60" as="geometry" />
         </mxCell>
         <mxCell id="AcIH4K8weNF2bj_M9ikB-15" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="AcIH4K8weNF2bj_M9ikB-13" vertex="1">
           <mxGeometry y="26" width="220" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="AcIH4K8weNF2bj_M9ikB-16" value="+acceptHypa(shroomer: Shroomer)&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-13" vertex="1">
+        <mxCell id="AcIH4K8weNF2bj_M9ikB-16" value="+acceptHypa(shroomer: Shroomer.Shroomer)&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="AcIH4K8weNF2bj_M9ikB-13" vertex="1">
           <mxGeometry y="34" width="220" height="26" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-4" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.733;entryY=1.009;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="AcIH4K8weNF2bj_M9ikB-1" target="AcIH4K8weNF2bj_M9ikB-8" edge="1">
@@ -514,58 +514,58 @@
             <mxPoint x="320" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-12" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;div&gt;&lt;i&gt;Strategy&lt;/i&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-12" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;div&gt;&lt;i&gt;Bug.Bug.Strategy&lt;/i&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="540" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-12" vertex="1">
           <mxGeometry y="40" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-15" value="&lt;i&gt;+ eat(s: Spore)&lt;/i&gt;&lt;div&gt;&lt;i&gt;+ bite(h: Hypa)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;+ move(t: Tekton)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-12" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-15" value="&lt;i&gt;+ eat(s: Shroomer.Spore)&lt;/i&gt;&lt;div&gt;&lt;i&gt;+ bite(h: Shroomer.Hypa)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;+ move(t: Tekton.Tekton)&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-12" vertex="1">
           <mxGeometry y="48" width="160" height="62" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-16" value="BiteBlocked" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-16" value="Bug.Bug.BiteBlocked" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="50" y="810" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-18" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-16" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-19" value="+ eat(s: Spore)&lt;div&gt;+ bite(h: Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-16" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-19" value="+ eat(s: Shroomer.Spore)&lt;div&gt;+ bite(h: Shroomer.Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-16" vertex="1">
           <mxGeometry y="34" width="160" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-20" value="Boosted" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-20" value="Bug.Bug.Boosted" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="580" y="810" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-22" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-20" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-23" value="+ eat(s: Spore)&lt;div&gt;+ bite(h: Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-20" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-23" value="+ eat(s: Shroomer.Spore)&lt;div&gt;+ bite(h: Shroomer.Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-20" vertex="1">
           <mxGeometry y="34" width="160" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-24" value="Slowed" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-24" value="Bug.Bug.Slowed" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="810" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-26" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-24" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-27" value="+ eat(s: Spore)&lt;div&gt;+ bite(h: Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-24" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-27" value="+ eat(s: Shroomer.Spore)&lt;div&gt;+ bite(h: Shroomer.Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-24" vertex="1">
           <mxGeometry y="34" width="160" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-28" value="Paralyzed" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-28" value="Bug.Bug.Paralyzed" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="220" y="810" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-30" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-28" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-31" value="+ eat(s: Spore)&lt;div&gt;+ bite(h: Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-28" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-31" value="+ eat(s: Shroomer.Spore)&lt;div&gt;+ bite(h: Shroomer.Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-28" vertex="1">
           <mxGeometry y="34" width="160" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-32" value="Normal" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-32" value="Bug.Bug.Normal" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="300" y="630" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="qZkgUv2Q61EB_jadTJDF-34" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="qZkgUv2Q61EB_jadTJDF-32" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="qZkgUv2Q61EB_jadTJDF-35" value="&lt;div&gt;+ chooseAction(): int&lt;/div&gt;+ eat(s: Spore)&lt;div&gt;+ bite(h: Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-32" vertex="1">
+        <mxCell id="qZkgUv2Q61EB_jadTJDF-35" value="&lt;div&gt;+ chooseAction(): int&lt;/div&gt;+ eat(s: Shroomer.Spore)&lt;div&gt;+ bite(h: Shroomer.Hypa)&lt;/div&gt;&lt;div&gt;+ move(t: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="qZkgUv2Q61EB_jadTJDF-32" vertex="1">
           <mxGeometry y="34" width="160" height="76" as="geometry" />
         </mxCell>
         <mxCell id="UocgCYC0JBfxs-M5fhTi-1" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.608;exitY=-0.027;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.438;entryY=1.013;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="qZkgUv2Q61EB_jadTJDF-20" target="qZkgUv2Q61EB_jadTJDF-15">
@@ -613,7 +613,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-1" value="&lt;i&gt;Mushroom&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-1" value="&lt;i&gt;Shroomer.Mushroom&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="30" width="220" height="170" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-2" value="- age:int&lt;div&gt;- numberOfSpores: int&lt;/div&gt;&lt;div&gt;- sporesThrown: int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-1" vertex="1">
@@ -622,16 +622,16 @@
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-1" vertex="1">
           <mxGeometry y="90" width="220" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-4" value="&lt;i&gt;+ sporeThrown(to: Tekton)&lt;/i&gt;&lt;div&gt;+ Mushroom(s: Shroomer, pos: Tekton)&lt;/div&gt;&lt;div&gt;+ die()&lt;/div&gt;&lt;div&gt;+ age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-4" value="&lt;i&gt;+ sporeThrown(to: Tekton.Tekton)&lt;/i&gt;&lt;div&gt;+ Shroomer.Mushroom(s: Shroomer.Shroomer, pos: Tekton.Tekton)&lt;/div&gt;&lt;div&gt;+ die()&lt;/div&gt;&lt;div&gt;+ age()&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-1" vertex="1">
           <mxGeometry y="98" width="220" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-5" value="BoosterMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-5" value="Shroomer.BoosterMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="250" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-5" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-8" value="+ sporeThrown(to: Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-5" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-8" value="+ sporeThrown(to: Tekton.Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-5" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-9" value="BiteBlocker" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -643,40 +643,40 @@
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-12" value="+ haveEffect(chosenAction: int)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-9" vertex="1">
           <mxGeometry y="34" width="180" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-13" value="&lt;i&gt;Spore&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-13" value="&lt;i&gt;Shroomer.Spore&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="300" y="580" width="180" height="100" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-15" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-13" vertex="1">
           <mxGeometry y="26" width="180" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-16" value="+&lt;i&gt;&amp;nbsp;haveEffect(chosenAction: int)&lt;/i&gt;&lt;div&gt;+ Spore(g: Gombasz)&lt;/div&gt;&lt;div&gt;+ beEaten(b: Bugger)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-13" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-16" value="+&lt;i&gt;&amp;nbsp;haveEffect(chosenAction: int)&lt;/i&gt;&lt;div&gt;+ Shroomer.Spore(g: Gombasz)&lt;/div&gt;&lt;div&gt;+ beEaten(b: Bugger)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-13" vertex="1">
           <mxGeometry y="34" width="180" height="66" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-21" value="SlowerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-21" value="Shroomer.SlowerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="260" y="250" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-22" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-21" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-23" value="+ sporeThrown(to: Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-21" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-23" value="+ sporeThrown(to: Tekton.Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-21" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-24" value="ParalyzerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-24" value="Shroomer.ParalyzerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="440" y="250" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-25" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-24" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-26" value="+ sporeThrown(to: Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-24" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-26" value="+ sporeThrown(to: Tekton.Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-24" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-27" value="BiteBlockerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-27" value="Shroomer.Shroomer.BiteBlockerMushroom" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="620" y="250" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-28" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="6WlqW3tdLEVUMyMOWgQi-27" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="6WlqW3tdLEVUMyMOWgQi-29" value="+ sporeThrown(to: Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-27" vertex="1">
+        <mxCell id="6WlqW3tdLEVUMyMOWgQi-29" value="+ sporeThrown(to: Tekton.Tekton)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="6WlqW3tdLEVUMyMOWgQi-27" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="6WlqW3tdLEVUMyMOWgQi-30" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.55;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="6WlqW3tdLEVUMyMOWgQi-5" target="6WlqW3tdLEVUMyMOWgQi-4" edge="1">

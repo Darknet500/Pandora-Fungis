@@ -1,11 +1,14 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public class Normal extends Strategy {
+public class Normal implements Strategy {
 
     /**
      * Default constructor

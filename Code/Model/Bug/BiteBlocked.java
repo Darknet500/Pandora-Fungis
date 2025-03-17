@@ -1,11 +1,14 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public class BiteBlocked extends Strategy {
+public class BiteBlocked implements Strategy {
 
     /**
      * Default constructor

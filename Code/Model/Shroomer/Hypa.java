@@ -1,11 +1,12 @@
+package Shroomer;
 
-import java.io.*;
 import java.util.*;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public abstract class Mushroom {
+public class Hypa {
     /**
      *
      */
@@ -14,17 +15,12 @@ public abstract class Mushroom {
     /**
      *
      */
-    private int numeberOfSpores;
+    private int isDyingSince;
 
     /**
      *
      */
-    private int sporesThrown;
-
-    /**
-     *
-     */
-    private Tekton tekton;
+    private List<Tekton> ends;
 
     /**
      *
@@ -34,34 +30,31 @@ public abstract class Mushroom {
     /**
      * Default constructor
      */
-    public Mushroom() {
+    public Hypa() {
     }
 
-    /**
-     * @param s
-     * @param pos
-     */
-    public Mushroom(Shroomer s, Tekton pos) {
-        // TODO implement here
-    }
 
     /**
-     *
+     * 
      */
     public void die() {
         // TODO implement here
     }
 
     /**
-     *
+     * @param end1 
+     * @param end2 
+     * @param s
      */
-    public void age() {
+    public Hypa(Tekton end1, Tekton end2, Shroomer s) {
         // TODO implement here
     }
 
     /**
-     * @param to
+     * 
      */
-    public abstract void sporeThrown(Tekton to);
+    public void age() {
+        // TODO implement here
+    }
 
 }

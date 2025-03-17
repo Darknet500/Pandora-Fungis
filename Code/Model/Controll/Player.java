@@ -1,6 +1,4 @@
-
-import java.io.*;
-import java.util.*;
+package Controll;
 
 /**
  * 
@@ -18,18 +16,10 @@ public abstract class Player {
     public Player() {
     }
 
-
     /**
      * 
      */
     public abstract void chooseAction();
-
-    /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
-    }
 
     /**
      * @param howMuch

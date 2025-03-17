@@ -1,17 +1,13 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public abstract class Strategy {
-
-    /**
-     * Default constructor
-     */
-    public Strategy() {
-    }
+public interface  Strategy {
 
     /**
      * @param b 

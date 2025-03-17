@@ -238,7 +238,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Q8xAdufbQUyKPDSiKzdz-77" value="eat()/ setStrategy(new: Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-30;" parent="1" vertex="1">
+        <mxCell id="Q8xAdufbQUyKPDSiKzdz-77" value="eat()/ setStrategy(new: Bug.Bug.Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-30;" parent="1" vertex="1">
           <mxGeometry x="500" y="330" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Q8xAdufbQUyKPDSiKzdz-80" value="move()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
@@ -329,13 +329,13 @@
         <mxCell id="kd4C5FMF_OA7qxTcNZzd-4" value="setStrategy(new: N&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ormal)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=45;" vertex="1" parent="1">
           <mxGeometry x="540" y="510" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="kd4C5FMF_OA7qxTcNZzd-5" value="eat()/ setStrategy(new: Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=30;" vertex="1" parent="1">
+        <mxCell id="kd4C5FMF_OA7qxTcNZzd-5" value="eat()/ setStrategy(new: Bug.Bug.Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=30;" vertex="1" parent="1">
           <mxGeometry x="410" y="520" width="200" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="kd4C5FMF_OA7qxTcNZzd-7" value="eat()/ setStrategy(new: Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-45;" vertex="1" parent="1">
+        <mxCell id="kd4C5FMF_OA7qxTcNZzd-7" value="eat()/ setStrategy(new: Bug.Bug.Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-45;" vertex="1" parent="1">
           <mxGeometry x="100" y="490" width="200" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="kd4C5FMF_OA7qxTcNZzd-8" value="eat()/ setStrategy(new: Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=15;" vertex="1" parent="1">
+        <mxCell id="kd4C5FMF_OA7qxTcNZzd-8" value="eat()/ setStrategy(new: Bug.Bug.Strategy)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=15;" vertex="1" parent="1">
           <mxGeometry x="220" y="320" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="kd4C5FMF_OA7qxTcNZzd-9" value="gameOver()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">

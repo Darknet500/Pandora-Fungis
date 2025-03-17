@@ -67,7 +67,7 @@
 											"top": 983,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "Tekton"
+											"text": "Tekton.Tekton"
 										},
 										{
 											"_type": "LabelView",
@@ -262,7 +262,7 @@
 											"top": 1076,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+storeSpore(s: Spore)",
+											"text": "+storeSpore(s: Shroomer.Spore)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -281,7 +281,7 @@
 											"top": 1091,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "«virtual»+acceptHypa(shroomer: Shroomer): bool",
+											"text": "«virtual»+acceptHypa(shroomer: Shroomer.Shroomer): bool",
 											"horizontalAlignment": 0
 										},
 										{
@@ -300,7 +300,7 @@
 											"top": 1106,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+removeSpore(s: Spore)",
+											"text": "+removeSpore(s: Shroomer.Spore)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -338,7 +338,7 @@
 											"top": 1136,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+getNeighboursByHypa(): List<Tekton>",
+											"text": "+getNeighboursByHypa(): List<Tekton.Tekton>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -357,7 +357,7 @@
 											"top": 1151,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+removeHypa(h: Hypa)",
+											"text": "+removeHypa(h: Shroomer.Hypa)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -515,7 +515,7 @@
 											"top": 687,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "Mushroom"
+											"text": "Shroomer.Mushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -671,7 +671,7 @@
 											"top": 763,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -690,7 +690,7 @@
 											"top": 778,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "+Mushroom(s: Shroomer, pos: Tekton)",
+											"text": "+Shroomer.Mushroom(s: Shroomer.Shroomer, pos: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -847,7 +847,7 @@
 											"top": 471,
 											"width": 201.52880859375,
 											"height": 13,
-											"text": "Bug"
+											"text": "Bug.Bug"
 										},
 										{
 											"_type": "LabelView",
@@ -1002,7 +1002,7 @@
 											"top": 534,
 											"width": 201.52880859375,
 											"height": 13,
-											"text": "+setStrategy(s: Strategy)",
+											"text": "+setStrategy(s: Bug.Bug.Strategy)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1118,7 +1118,7 @@
 											"top": 471,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "Shroomer"
+											"text": "Shroomer.Shroomer"
 										},
 										{
 											"_type": "LabelView",
@@ -1249,7 +1249,7 @@
 											"top": 519,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+growHypa(from: Tekton, to: Tekton)",
+											"text": "+growHypa(from: Tekton.Tekton, to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1267,7 +1267,7 @@
 											"top": 534,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+throwSpore(with: Mushroom, to: Tekton)",
+											"text": "+throwSpore(with: Shroomer.Mushroom, to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1303,7 +1303,7 @@
 											"top": 564,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+mushroomDied(m: Mushroom)",
+											"text": "+mushroomDied(m: Shroomer.Mushroom)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1321,7 +1321,7 @@
 											"top": 579,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+growMushroom(t: Tekton): Mushroom",
+											"text": "+growMushroom(t: Tekton.Tekton): Shroomer.Mushroom",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1339,7 +1339,7 @@
 											"top": 594,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+Shroomer(mushroomctor: Function)",
+											"text": "+Shroomer.Shroomer(mushroomctor: Function)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1357,7 +1357,7 @@
 											"top": 609,
 											"width": 243.02978515625,
 											"height": 13,
-											"text": "+removeHypa(h: Hypa)",
+											"text": "+removeHypa(h: Shroomer.Hypa)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1471,7 +1471,7 @@
 											"top": 327,
 											"width": 201.52880859375,
 											"height": 13,
-											"text": "Player"
+											"text": "Controll.Player"
 										},
 										{
 											"_type": "LabelView",
@@ -2426,7 +2426,7 @@
 											"top": 711,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "Spore"
+											"text": "Shroomer.Spore"
 										},
 										{
 											"_type": "LabelView",
@@ -2523,7 +2523,7 @@
 											"top": 744,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "+Spore(s: Shroomer)",
+											"text": "+Shroomer.Spore(s: Shroomer.Shroomer)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2542,7 +2542,7 @@
 											"top": 759,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2662,7 +2662,7 @@
 											"top": 943,
 											"width": 281.73779296875,
 											"height": 13,
-											"text": "Hypa"
+											"text": "Shroomer.Hypa"
 										},
 										{
 											"_type": "LabelView",
@@ -2818,7 +2818,7 @@
 											"top": 1019,
 											"width": 281.73779296875,
 											"height": 13,
-											"text": "+Hypa(end1: Tekton, end2: Tekton, s: Shroomer)",
+											"text": "+Shroomer.Hypa(end1: Tekton.Tekton, end2: Tekton.Tekton, s: Shroomer.Shroomer)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4690,7 +4690,7 @@
 											"top": 484,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Strategy"
+											"text": "Bug.Bug.Strategy"
 										},
 										{
 											"_type": "LabelView",
@@ -4782,7 +4782,7 @@
 											"top": 517,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4800,7 +4800,7 @@
 											"top": 532,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4818,7 +4818,7 @@
 											"top": 547,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -6778,7 +6778,7 @@
 											"top": 2423,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "Tekton"
+											"text": "Tekton.Tekton"
 										},
 										{
 											"_type": "LabelView",
@@ -6973,7 +6973,7 @@
 											"top": 2516,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+storeSpore(s: Spore)",
+											"text": "+storeSpore(s: Shroomer.Spore)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6992,7 +6992,7 @@
 											"top": 2531,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "«virtual»+acceptHypa(shroomer: Shroomer): bool",
+											"text": "«virtual»+acceptHypa(shroomer: Shroomer.Shroomer): bool",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7011,7 +7011,7 @@
 											"top": 2546,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+removeSpore(s: Spore)",
+											"text": "+removeSpore(s: Shroomer.Spore)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7049,7 +7049,7 @@
 											"top": 2576,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+getNeighboursByHypa(): List<Tekton>",
+											"text": "+getNeighboursByHypa(): List<Tekton.Tekton>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7068,7 +7068,7 @@
 											"top": 2591,
 											"width": 286.0478515625,
 											"height": 13,
-											"text": "+removeHypa(h: Hypa)",
+											"text": "+removeHypa(h: Shroomer.Hypa)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7226,7 +7226,7 @@
 											"top": 2111,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "Mushroom"
+											"text": "Shroomer.Mushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -7382,7 +7382,7 @@
 											"top": 2187,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7401,7 +7401,7 @@
 											"top": 2202,
 											"width": 222.45068359375,
 											"height": 13,
-											"text": "+Mushroom(s: Shroomer, pos: Tekton)",
+											"text": "+Shroomer.Mushroom(s: Shroomer.Shroomer, pos: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7559,7 +7559,7 @@
 											"top": 1895,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "Spore"
+											"text": "Shroomer.Spore"
 										},
 										{
 											"_type": "LabelView",
@@ -7656,7 +7656,7 @@
 											"top": 1928,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "+Spore(s: Shroomer)",
+											"text": "+Shroomer.Spore(s: Shroomer.Shroomer)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7675,7 +7675,7 @@
 											"top": 1943,
 											"width": 190.693359375,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7793,7 +7793,7 @@
 											"top": 2663,
 											"width": 225.326171875,
 											"height": 13,
-											"text": "Peat"
+											"text": "Tekton.Peat"
 										},
 										{
 											"_type": "LabelView",
@@ -7885,7 +7885,7 @@
 											"top": 2696,
 											"width": 225.326171875,
 											"height": 13,
-											"text": "+acceptHypa(shroomer: Shroomer)",
+											"text": "+acceptHypa(shroomer: Shroomer.Shroomer)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7999,7 +7999,7 @@
 											"top": 2663,
 											"width": 205.10888671875,
 											"height": 13,
-											"text": "Stone"
+											"text": "Tekton.Stone"
 										},
 										{
 											"_type": "LabelView",
@@ -8205,7 +8205,7 @@
 											"top": 2663,
 											"width": 205.10888671875,
 											"height": 13,
-											"text": "Swamp"
+											"text": "Tekton.Swamp"
 										},
 										{
 											"_type": "LabelView",
@@ -8723,7 +8723,7 @@
 											"top": 2071,
 											"width": 149.484375,
 											"height": 13,
-											"text": "BoosterMushroom"
+											"text": "Shroomer.BoosterMushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -8815,7 +8815,7 @@
 											"top": 2104,
 											"width": 149.484375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -8929,7 +8929,7 @@
 											"top": 2231,
 											"width": 149.484375,
 											"height": 13,
-											"text": "ParalyzerMushroom"
+											"text": "Shroomer.ParalyzerMushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -9021,7 +9021,7 @@
 											"top": 2264,
 											"width": 149.484375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -9135,7 +9135,7 @@
 											"top": 2311,
 											"width": 149.484375,
 											"height": 13,
-											"text": "BiteBlockerMushroom"
+											"text": "Shroomer.Shroomer.BiteBlockerMushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -9227,7 +9227,7 @@
 											"top": 2344,
 											"width": 149.484375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -9341,7 +9341,7 @@
 											"top": 2151,
 											"width": 149.484375,
 											"height": 13,
-											"text": "SlowerMushroom"
+											"text": "Shroomer.SlowerMushroom"
 										},
 										{
 											"_type": "LabelView",
@@ -9433,7 +9433,7 @@
 											"top": 2184,
 											"width": 149.484375,
 											"height": 13,
-											"text": "+sporeThrown(to: Tekton)",
+											"text": "+sporeThrown(to: Tekton.Tekton)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10027,7 +10027,7 @@
 											"top": 2104,
 											"width": 177.44580078125,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10233,7 +10233,7 @@
 											"top": 2184,
 											"width": 177.44580078125,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10439,7 +10439,7 @@
 											"top": 2264,
 											"width": 177.44580078125,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10645,7 +10645,7 @@
 											"top": 2344,
 											"width": 177.44580078125,
 											"height": 13,
-											"text": "+haveEffect(b: Bug)",
+											"text": "+haveEffect(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11539,7 +11539,7 @@
 											"top": 3079,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Boosted"
+											"text": "Bug.Bug.Boosted"
 										},
 										{
 											"_type": "LabelView",
@@ -11631,7 +11631,7 @@
 											"top": 3112,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11649,7 +11649,7 @@
 											"top": 3127,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11667,7 +11667,7 @@
 											"top": 3142,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11781,7 +11781,7 @@
 											"top": 3079,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Slowed"
+											"text": "Bug.Bug.Slowed"
 										},
 										{
 											"_type": "LabelView",
@@ -11893,7 +11893,7 @@
 											"top": 3125,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11911,7 +11911,7 @@
 											"top": 3140,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11929,7 +11929,7 @@
 											"top": 3155,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -12043,7 +12043,7 @@
 											"top": 3079,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Paralyzed"
+											"text": "Bug.Bug.Paralyzed"
 										},
 										{
 											"_type": "LabelView",
@@ -12135,7 +12135,7 @@
 											"top": 3112,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12153,7 +12153,7 @@
 											"top": 3127,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12171,7 +12171,7 @@
 											"top": 3142,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -12285,7 +12285,7 @@
 											"top": 3079,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "BiteBlocked"
+											"text": "Bug.Bug.BiteBlocked"
 										},
 										{
 											"_type": "LabelView",
@@ -12377,7 +12377,7 @@
 											"top": 3112,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12395,7 +12395,7 @@
 											"top": 3127,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12413,7 +12413,7 @@
 											"top": 3142,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -12527,7 +12527,7 @@
 											"top": 3079,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Normal"
+											"text": "Bug.Bug.Normal"
 										},
 										{
 											"_type": "LabelView",
@@ -12619,7 +12619,7 @@
 											"top": 3112,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12637,7 +12637,7 @@
 											"top": 3127,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12655,7 +12655,7 @@
 											"top": 3142,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -12771,7 +12771,7 @@
 											"top": 2447,
 											"width": 281.73779296875,
 											"height": 13,
-											"text": "Hypa"
+											"text": "Shroomer.Hypa"
 										},
 										{
 											"_type": "LabelView",
@@ -12927,7 +12927,7 @@
 											"top": 2523,
 											"width": 281.73779296875,
 											"height": 13,
-											"text": "+Hypa(end1: Tekton, end2: Tekton, s: Shroomer)",
+											"text": "+Shroomer.Hypa(end1: Tekton.Tekton, end2: Tekton.Tekton, s: Shroomer.Shroomer)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13554,7 +13554,7 @@
 											"top": 2860,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "Strategy"
+											"text": "Bug.Bug.Strategy"
 										},
 										{
 											"_type": "LabelView",
@@ -13646,7 +13646,7 @@
 											"top": 2893,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+eat(b: Bug)",
+											"text": "+eat(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13664,7 +13664,7 @@
 											"top": 2908,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+bite(b: Bug)",
+											"text": "+bite(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13682,7 +13682,7 @@
 											"top": 2923,
 											"width": 116.25439453125,
 											"height": 13,
-											"text": "+move(b: Bug)",
+											"text": "+move(b: Bug.Bug)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -14244,7 +14244,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Tekton",
+					"name": "Tekton.Tekton",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -14571,7 +14571,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGVWJvlYWqfLsc="
 									},
-									"type": "List<Tekton>",
+									"type": "List<Tekton.Tekton>",
 									"direction": "return"
 								}
 							]
@@ -14621,7 +14621,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Mushroom",
+					"name": "Shroomer.Mushroom",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -14740,7 +14740,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGVQevtzJZGTaI="
 							},
-							"name": "Mushroom",
+							"name": "Shroomer.Mushroom",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -14791,7 +14791,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Bug",
+					"name": "Bug.Bug",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -14948,7 +14948,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Shroomer",
+					"name": "Shroomer.Shroomer",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -15231,7 +15231,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGVQe2eBZdLEe0="
 							},
-							"name": "Shroomer",
+							"name": "Shroomer.Shroomer",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -15273,7 +15273,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Player",
+					"name": "Controll.Player",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -15341,7 +15341,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Spore",
+					"name": "Shroomer.Spore",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -15410,7 +15410,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGVQtQ4E9Wnyho="
 							},
-							"name": "Spore",
+							"name": "Shroomer.Spore",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -15456,7 +15456,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Hypa",
+					"name": "Shroomer.Hypa",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -15571,7 +15571,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGVQtZUceuOByE="
 							},
-							"name": "Hypa",
+							"name": "Shroomer.Hypa",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -15624,7 +15624,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Peat",
+					"name": "Tekton.Peat",
 					"operations": [
 						{
 							"_type": "UMLOperation",
@@ -15655,7 +15655,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Stone",
+					"name": "Tekton.Stone",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -15688,7 +15688,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Swamp",
+					"name": "Tekton.Swamp",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -15755,7 +15755,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "BoosterMushroom",
+					"name": "Shroomer.BoosterMushroom",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -15815,7 +15815,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ParalyzerMushroom",
+					"name": "Shroomer.ParalyzerMushroom",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -15875,7 +15875,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "BiteBlockerMushroom",
+					"name": "Shroomer.Shroomer.BiteBlockerMushroom",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -15935,7 +15935,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "SlowerMushroom",
+					"name": "Shroomer.SlowerMushroom",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -16179,7 +16179,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Boosted",
+					"name": "Bug.Bug.Boosted",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -16280,7 +16280,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Slowed",
+					"name": "Bug.Bug.Slowed",
 					"ownedElements": [
 						{
 							"_type": "UMLRealization",
@@ -16380,7 +16380,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Paralyzed",
+					"name": "Bug.Bug.Paralyzed",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -16481,7 +16481,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "BiteBlocked",
+					"name": "Bug.Bug.BiteBlocked",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -16582,7 +16582,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Normal",
+					"name": "Bug.Bug.Normal",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -16683,7 +16683,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Strategy",
+					"name": "Bug.Bug.Strategy",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -16819,7 +16819,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Strategy",
+					"name": "Bug.Bug.Strategy",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",

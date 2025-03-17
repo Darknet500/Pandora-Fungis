@@ -1,6 +1,6 @@
+package Shroomer;
 
-import java.io.*;
-import java.util.*;
+import Bug.Bug;
 
 /**
  * 

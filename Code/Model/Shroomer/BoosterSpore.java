@@ -1,16 +1,16 @@
+package Shroomer;
 
-import java.io.*;
-import java.util.*;
+import Bug.Bug;
 
 /**
  * 
  */
-public class ParalyzerSpore extends Spore {
+public class BoosterSpore extends Spore {
 
     /**
      * Default constructor
      */
-    public ParalyzerSpore() {
+    public BoosterSpore() {
     }
 
     /**

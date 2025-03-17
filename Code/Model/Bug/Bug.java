@@ -1,6 +1,9 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+import Controll.Player;
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 

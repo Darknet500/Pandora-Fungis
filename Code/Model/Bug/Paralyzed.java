@@ -1,11 +1,13 @@
+package Bug;
 
-import java.io.*;
-import java.util.*;
+import Shroomer.Hypa;
+import Shroomer.Spore;
+import Tekton.Tekton;
 
 /**
  * 
  */
-public class Paralyzed extends Strategy {
+public class Paralyzed implements Strategy {
 
     /**
      * Default constructor

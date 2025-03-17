@@ -1,16 +1,17 @@
+package Shroomer;
 
-import java.io.*;
-import java.util.*;
+import Tekton.Tekton;
+
 
 /**
  * 
  */
-public class BoosterMushroom extends Mushroom {
+public class ParalyzerMushroom extends Mushroom {
 
     /**
      * Default constructor
      */
-    public BoosterMushroom() {
+    public ParalyzerMushroom() {
     }
 
     /**
