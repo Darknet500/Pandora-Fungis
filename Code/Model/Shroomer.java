@@ -13,6 +13,16 @@ public class Shroomer extends Player {
     private Function mushroomctor;
 
     /**
+     *
+     */
+    private List<Mushroom> mushrooms;
+
+    /**
+     *
+     */
+    private List<Hypa> HypaList;
+
+    /**
      * Default constructor
      */
     public Shroomer() {
