@@ -1,7 +1,8 @@
 package Shroomer;
 
 import java.util.*;
-
+import Controll.Player;
+import Tekton.Tekton;
 /**
  * 
  */
@@ -9,8 +10,8 @@ public class Shroomer extends Player {
 
     /**
      *
-     */
     private Function mushroomctor;
+     */
 
     /**
      *
@@ -68,10 +69,10 @@ public class Shroomer extends Player {
 
     /**
      * @param mushroomctor
-     */
     public Shroomer(Function mushroomctor) {
         // TODO implement here
     }
+     */
 
     /**
      * @param h
