@@ -10,13 +10,16 @@ public class BoosterMushroom extends Mushroom {
     /**
      * Default constructor
      */
-    public BoosterMushroom() {
+    public BoosterMushroom(Shroomer shroomer, Tekton location) {
+        super(shroomer, location);
     }
 
     /**
-     * @param to
+     * @param target
      */
-    public void sporeThrown(Tekton to) {
-        // TODO implement here
+    public void sporeThrown(Tekton target) {
+        BoosterSpore spore = new BoosterSpore(this.shroomer);
+        target.storeSpore(spore);
+
     }
 }

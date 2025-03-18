@@ -10,7 +10,8 @@ public class BiteBlockerSpore extends Spore {
     /**
      * Default constructor
      */
-    public BiteBlockerSpore() {
+    public BiteBlockerSpore(Shroomer shroomer) {
+        super(shroomer);
     }
 
     /**

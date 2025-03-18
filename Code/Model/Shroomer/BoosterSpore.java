@@ -10,7 +10,8 @@ public class BoosterSpore extends Spore {
     /**
      * Default constructor
      */
-    public BoosterSpore() {
+    public BoosterSpore(Shroomer shroomer) {
+        super(shroomer);
     }
 
     /**

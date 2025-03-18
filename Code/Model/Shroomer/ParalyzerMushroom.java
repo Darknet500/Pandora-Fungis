@@ -11,13 +11,16 @@ public class ParalyzerMushroom extends Mushroom {
     /**
      * Default constructor
      */
-    public ParalyzerMushroom() {
+    public ParalyzerMushroom(Shroomer shroomer, Tekton location) {
+        super(shroomer, location);
     }
 
     /**
-     * @param to
+     * @param target
      */
-    public void sporeThrown(Tekton to) {
-        // TODO implement here
+    public void sporeThrown(Tekton target) {
+        ParalyzerSpore spore = new ParalyzerSpore(this.shroomer);
+        target.storeSpore(spore);
+
     }
 }

@@ -6,43 +6,30 @@ import Tekton.Tekton;
  * 
  */
 public abstract class Mushroom {
-    /**
-     *
-     */
-    private int age;
 
     /**
      *
      */
-    private int numeberOfSpores;
+    protected Tekton location;
 
     /**
      *
      */
-    private int sporesThrown;
+    protected Shroomer shroomer;
 
-    /**
-     *
-     */
-    private Tekton tekton;
 
-    /**
-     *
-     */
-    private Shroomer shroomer;
-
-    /**
-     * Default constructor
-     */
-    public Mushroom() {
-    }
 
     /**
      * @param s
      * @param pos
      */
     public Mushroom(Shroomer s, Tekton pos) {
-        // TODO implement here
+        shroomer = s;
+        location = pos;
+    }
+
+    Tekton getLocation() {
+        return location;
     }
 
     /**
@@ -57,6 +44,21 @@ public abstract class Mushroom {
      */
     public void age() {
         // TODO implement here
+    }
+
+
+    public int getAge(){
+        return SKELETON.getNUmericInput("Milyen idős a gombatest (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
+    }
+
+    public int getNumberOfSpores(){
+        return SKELETON.getNUmericInput("Készen áll-e a gombatest egy spóra szórásra?\n -1 - most szórt spórát\n 0 - az előző körben szór spórát\n 1 - régebben szórt spórát, újra tud szórni\n", -1,1);
+
+    }
+
+    public int getSporesThrown(){
+        return SKELETON.getNUmericInput("Hány spórát szórt már a gombatest?\n Kérek egy 0 és 5 közötti egész számot.\n", 0,5);
+
     }
 
     /**
