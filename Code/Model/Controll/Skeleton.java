@@ -105,6 +105,32 @@ public class Skeleton {
         }
     }
 
+    public boolean getBoolInput(String message) {
+        System.out.println(message);
+        System.out.print("Please enter a number between 0 (false) and 1 (ture): ");
+        Scanner scn = new Scanner(System.in);
+
+        /**Looping while user gives a correct input */
+        while (true) {
+            String input = scn.nextLine();
+
+            try {
+                int number = Integer.parseInt(input);
+
+                /** If the number is correct it return the user's input as integer */
+                if (number == 0) {
+                    return false;
+                } else if (number == 1) {
+                    return true;
+                } else {
+                    System.out.println("Invalid number! Please enter a number between 1 and 12.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Please enter a number between 0 (false) and 1 (ture): ");
+            }
+        }
+    }
+
     public void testCase1(){System.out.println("Test case 1");}
     public void testCase2(){System.out.println("Test case 2");}
     public void testCase3(){System.out.println("Test case 3");}
