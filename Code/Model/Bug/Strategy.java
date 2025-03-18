@@ -13,18 +13,18 @@ public interface  Strategy {
      * @param b 
      * @param s
      */
-    public abstract void eat(Bug b, Spore s);
+    boolean eat(Bug b, Spore s);
 
     /**
      * @param b 
      * @param h
      */
-    public abstract void bite(Bug b, Hypa h);
+    boolean bite(Bug b, Hypa h);
 
     /**
      * @param b 
      * @param to
      */
-    public abstract void move(Bug b, Tekton to);
+    boolean move(Bug b, Tekton to);
 
 }

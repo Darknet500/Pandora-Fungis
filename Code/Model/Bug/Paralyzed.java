@@ -9,34 +9,30 @@ import Tekton.Tekton;
  */
 public class Paralyzed implements Strategy {
 
-    /**
-     * Default constructor
-     */
-    public Paralyzed() {
-    }
+    public Paralyzed(){}
 
     /**
      * @param b 
      * @param to
      */
-    public void move(Bug b, Tekton to) {
-        // TODO implement here
+    public boolean move(Bug b, Tekton to) {
+        return false;
     }
 
     /**
      * @param b 
      * @param s
      */
-    public void eat(Bug b, Spore s) {
-        // TODO implement here
+    public boolean eat(Bug b, Spore s) {
+        return false;
     }
 
     /**
      * @param b 
      * @param h
      */
-    public void bite(Bug b, Hypa h) {
-        // TODO implement here
+    public boolean bite(Bug b, Hypa h) {
+        return false;
     }
 
 }
