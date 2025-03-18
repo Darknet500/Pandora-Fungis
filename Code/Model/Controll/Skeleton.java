@@ -22,16 +22,17 @@ public class Skeleton {
                                 "Egy gombatest növesztése megfelelő körülmények után"
     };
 
+    /** Title and the user inputs printing*/
     public void start(){
         System.out.println("|-------------------------------------------------------|\n" +
-                            "|\t\t\t\t\t\tSkeleton\t\t\t\t\t\t|\n" +
+                            "|\t\t\t\t\t\tSkeleton\t\t\t\t\t\t|\n" +                    /**Title*/
                             "|-------------------------------------------------------|");
 
         for (int i = 0; i < useCases.length; i++) {
-            System.out.println("\t\t" + i + ":\t" + useCases[i]);
+            System.out.println("\t\t" + i + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
         }
 
-        System.out.println("press q if you want to exit");
+        System.out.println("press q if you want to exit"); //Quite obvious :)
 
     }
 
@@ -77,6 +78,30 @@ public class Skeleton {
             m.invoke(this);
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);
+        }
+    }
+
+    public int getNumericInput(String message, int min, int max) {
+        System.out.println(message);
+        System.out.print("Please enter a number between " + min + " and " + max + ": ");
+        Scanner scn = new Scanner(System.in);
+
+        /**Looping while user gives a correct input */
+        while (true) {
+            String input = scn.nextLine();
+
+            try {
+                int number = Integer.parseInt(input);
+
+                /** If the number is correct it return the user's input as integer */
+                if (number >= min && number <= max) {
+                    return number;
+                } else {
+                    System.out.println("Invalid number! Please enter a number between 1 and 12.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Please enter a number between " + min + " and " + max + ": ");
+            }
         }
     }
 
