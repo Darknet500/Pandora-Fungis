@@ -10,13 +10,16 @@ public class SlowerMushroom extends Mushroom {
     /**
      * Default constructor
      */
-    public SlowerMushroom() {
+    public SlowerMushroom(Shroomer shroomer, Tekton location) {
+        super(shroomer, location);
     }
 
     /**
-     * @param to
+     * @param target
      */
-    public void sporeThrown(Tekton to) {
-        // TODO implement here
+    public void sporeThrown(Tekton target) {
+        SlowerSpore spore = new SlowerSpore(this.shroomer);
+        target.storeSpore(spore);
+
     }
 }

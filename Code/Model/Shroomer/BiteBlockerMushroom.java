@@ -10,13 +10,16 @@ public class BiteBlockerMushroom extends Mushroom {
     /**
      * Default constructor
      */
-    public BiteBlockerMushroom() {
+    public BiteBlockerMushroom(Shroomer shroomer, Tekton location) {
+        super(shroomer, location);
     }
 
     /**
-     * @param to
+     * @param target
      */
-    public void sporeThrown(Tekton to) {
-        // TODO implement here
+    public void sporeThrown(Tekton target) {
+        BiteBlockerSpore spore = new BiteBlockerSpore(this.shroomer);
+        target.storeSpore(spore);
+
     }
 }

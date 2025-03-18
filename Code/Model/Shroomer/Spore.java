@@ -20,15 +20,11 @@ public abstract class Spore {
     /**
      * Default constructor
      */
-    public Spore() {
+    public Spore(Shroomer shroomer) {
+        this.shroomer = shroomer;
     }
 
-    /**
-     * @param s
-     */
-    public Spore(Shroomer s) {
-        // TODO implement here
-    }
+
 
     /**
      * @param b 

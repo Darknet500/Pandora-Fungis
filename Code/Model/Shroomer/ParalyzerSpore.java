@@ -10,7 +10,8 @@ public class ParalyzerSpore extends Spore {
     /**
      * Default constructor
      */
-    public ParalyzerSpore() {
+    public ParalyzerSpore(Shroomer shroomer) {
+        super(shroomer);
     }
 
     /**
