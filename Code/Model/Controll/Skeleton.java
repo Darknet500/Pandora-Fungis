@@ -97,7 +97,7 @@ public class Skeleton {
                 if (number >= min && number <= max) {
                     return number;
                 } else {
-                    System.out.println("Invalid number! Please enter a number between 1 and 12.");
+                    System.out.println("Invalid number! Please enter a number between " + min + " and " + max + ": ");
                 }
             } catch (NumberFormatException e) {
                 System.out.print("Please enter a number between " + min + " and " + max + ": ");
@@ -123,7 +123,7 @@ public class Skeleton {
                 } else if (number == 1) {
                     return true;
                 } else {
-                    System.out.println("Invalid number! Please enter a number between 1 and 12.");
+                    System.out.println("Invalid number!Please enter a number between 0 (false) and 1 (ture): ");
                 }
             } catch (NumberFormatException e) {
                 System.out.print("Please enter a number between 0 (false) and 1 (ture): ");
