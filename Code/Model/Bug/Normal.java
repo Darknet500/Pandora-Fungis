@@ -39,4 +39,8 @@ public class Normal implements Strategy {
         List<Hypa> hypas = location.getHypas();
         return hypas.contains(h);
     }
+
+    public void endOfTurn(Bug b){
+        return;
+    }
 }
