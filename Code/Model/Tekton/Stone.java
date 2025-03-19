@@ -1,5 +1,7 @@
 package Tekton;
 
+import Shroomer.Shroomer;
+
 /**
  * 
  */
@@ -9,13 +11,14 @@ public class Stone extends Tekton {
      * Default constructor
      */
     public Stone() {
+        super();
     }
 
     /**
      * @return
      */
-    public boolean canMushroomGrow() {
-        // TODO implement here
+    @Override
+    public boolean canMushroomGrow(Shroomer s) {
         return false;
     }
 
