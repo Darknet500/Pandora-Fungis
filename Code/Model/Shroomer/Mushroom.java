@@ -2,6 +2,8 @@ package Shroomer;
 
 import Tekton.Tekton;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -46,18 +48,22 @@ public abstract class Mushroom {
         // TODO implement here
     }
 
+    public Shroomer getShroomer() {
+        return shroomer;
+    }
+
 
     public int getAge(){
-        return SKELETON.getNUmericInput("Milyen idős a gombatest (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
+        return SKELETON.getNumericInput("Milyen idős a gombatest (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
     }
 
     public int getNumberOfSpores(){
-        return SKELETON.getNUmericInput("Készen áll-e a gombatest egy spóra szórásra?\n -1 - most szórt spórát\n 0 - az előző körben szór spórát\n 1 - régebben szórt spórát, újra tud szórni\n", -1,1);
+        return SKELETON.getNumericInput("Készen áll-e a gombatest egy spóra szórásra?\n -1 - most szórt spórát\n 0 - az előző körben szór spórát\n 1 - régebben szórt spórát, újra tud szórni\n", -1,1);
 
     }
 
     public int getSporesThrown(){
-        return SKELETON.getNUmericInput("Hány spórát szórt már a gombatest?\n Kérek egy 0 és 5 közötti egész számot.\n", 0,5);
+        return SKELETON.getNumericInput("Hány spórát szórt már a gombatest?\n Kérek egy 0 és 5 közötti egész számot.\n", 0,5);
 
     }
 
