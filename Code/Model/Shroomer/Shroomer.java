@@ -160,7 +160,31 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void traverseHypaNetwork() {
-        // TODO implement here
+        Set<Tekton> inNetworkTektons = new HashSet<Tekton>();
+        for(Mushroom mus: mushrooms){
+            inNetworkTektons.add(mus.getLocation());
+        }
+        for(Tekton tekton: inNetworkTektons){
+            List<Hypa> hypas = tekton.getHypas();
+            for (Hypa hypa : hypas) {
+                if(hypa.getShroomer()==this){
+                    inNetworkTektons.add(hypa.getEnd1());
+                    inNetworkTektons.add(hypa.getEnd2());
+                }
+            }
+        }
+
+        for(Hypa hypa: HypaList){
+            if (inNetworkTektons.contains(hypa.getEnd1())||inNetworkTektons.contains(hypa.getEnd2())) {
+                hypa.setIsDyingSince(-1);
+            }else{
+                if (hypa.getIsDyingSince() == -1)
+                    hypa.setIsDyingSince(0);
+            }
+        }
+
+
+
     }
 
 
