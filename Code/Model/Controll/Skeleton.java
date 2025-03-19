@@ -1,11 +1,23 @@
 package Controll;
 
+import Bug.Bug;
+import Tekton.Tekton;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
+
+    public HashMap<Object, String> objectNameMap;
+
+    public Skeleton(){
+        objectNameMap = new HashMap<>();
+    }
+
+    public int callStackDepth = 0;
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
                                 "Bogár harapni akar (harapás gátolt)",
@@ -131,7 +143,25 @@ public class Skeleton {
         }
     }
 
-    public void testCase1(){System.out.println("Test case 1");}
+    public void printCall(String message){
+        for(int i = 0; i < callStackDepth; i++){
+            System.out.print('\t');
+        }
+        System.out.print(message + '\n');
+    }
+
+    public void testCase1(){
+        System.out.println("Test case 1");
+        Tekton t = new Tekton();
+        objectNameMap.put(t, "t");
+        Bug buggg = new Bug();
+        objectNameMap.put(buggg, "buggg");
+        System.out.println(objectNameMap.get(t));
+
+        //... end of test case
+        objectNameMap.clear();
+
+    }
     public void testCase2(){System.out.println("Test case 2");}
     public void testCase3(){System.out.println("Test case 3");}
     public void testCase4(){System.out.println("Test case 4");}
