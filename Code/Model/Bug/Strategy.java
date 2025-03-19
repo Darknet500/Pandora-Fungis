@@ -7,7 +7,7 @@ import Tekton.Tekton;
 /**
  * 
  */
-public interface  Strategy {
+public interface Strategy {
 
     /**
      * @param b 
@@ -26,5 +26,7 @@ public interface  Strategy {
      * @param to
      */
     boolean move(Bug b, Tekton to);
+
+    void endOfTurn(Bug b);
 
 }

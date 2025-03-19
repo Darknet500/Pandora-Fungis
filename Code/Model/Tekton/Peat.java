@@ -11,14 +11,15 @@ public class Peat extends Tekton {
      * Default constructor
      */
     public Peat() {
+        super();
     }
 
     /**
      * @param shroomer
      */
+    @Override
     public boolean acceptHypa(Shroomer shroomer) {
-        // TODO implement here
-        return false;
+        return shroomer != null;
     }
 
 }
