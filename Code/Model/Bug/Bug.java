@@ -31,14 +31,6 @@ public class Bug extends Player {
     public Bug() {
     }
 
-
-    /**
-     * 
-     */
-    public void chooseAction() {
-        // TODO implement here
-    }
-
     /**
      * @param s
      */

@@ -3,7 +3,7 @@ package Bug;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
-
+import Controll.Skeleton;
 import java.util.List;
 
 /**
@@ -38,6 +38,9 @@ public class Slowed implements Strategy {
      * @param to
      */
     public boolean move(Bug b, Tekton to) {
-        
+        Tekton location = b.getLocation();
+        List<Tekton> canReach = location.getNeighboursByHypa();
+        return canReach.contains(to)&& Skeleton.SKELETON.getNumericInput(
+                "moves made in the prev. 2 rounds = ?", 0, 1)==0;
     }
 }

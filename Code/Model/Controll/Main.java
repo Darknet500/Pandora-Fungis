@@ -3,7 +3,7 @@ package Controll;
 public class Main {
     public static void main(String[] args) {
         Skeleton s = Skeleton.SKELETON;
-
+/**
         while(true){
             s.start();
         try {
@@ -12,5 +12,11 @@ public class Main {
             throw new RuntimeException(e);
         }
         }
+ * */
+
+
+        System.out.println(s.getNumericInput("Integer", 3, 6));
+        System.out.println(s.getBoolInput("False"));
+        System.out.println(s.getBoolInput("Trrue"));
     }
 }
