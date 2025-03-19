@@ -44,4 +44,10 @@ public class Boosted implements Strategy {
         return canReach.contains(to);
     }
 
+    public void endOfTurn(Bug b){
+        if(b.getUnderEffectSince()==2){
+            b.setStrategy(new Normal());
+        }
+    }
+
 }

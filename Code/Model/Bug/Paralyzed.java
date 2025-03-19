@@ -35,4 +35,10 @@ public class Paralyzed implements Strategy {
         return false;
     }
 
+    public void endOfTurn(Bug b){
+        if(b.getUnderEffectSince()==2){
+            b.setStrategy(new Normal());
+        }
+    }
+
 }
