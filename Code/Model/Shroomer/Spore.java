@@ -32,4 +32,8 @@ public abstract class Spore {
      */
     public abstract int haveEffect(Bug b);
 
+    public Shroomer getShroomer() {
+        return shroomer;
+    }
+
 }
