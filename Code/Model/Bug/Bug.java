@@ -21,11 +21,6 @@ public class Bug extends Player {
     private Strategy strategy;
 
     /**
-     *
-     */
-    private int underEffectSince;
-
-    /**
      * Default constructor
      */
     public Bug() {
@@ -58,4 +53,6 @@ public class Bug extends Player {
     public void eat(Spore s) {
         // TODO implement here
     }
+
+    public Tekton getLocation(){return tekton;}
 }

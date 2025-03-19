@@ -140,4 +140,6 @@ public class Tekton {
         // TODO implement here
     }
 
+    public List<Hypa> getHypas(){return connectedHypas;}
+
 }
