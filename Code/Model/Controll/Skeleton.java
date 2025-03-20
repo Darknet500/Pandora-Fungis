@@ -5,19 +5,22 @@ import Tekton.Tekton;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
+    private List<Object> objectStack;
 
     public HashMap<Object, String> objectNameMap;
 
     public Skeleton(){
-        objectNameMap = new HashMap<>();
-    }
 
-    public int callStackDepth = 0;
+        objectNameMap = new HashMap<>();
+        objectStack = new ArrayList<>();
+    }
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
                                 "Bogár harapni akar (harapás gátolt)",
@@ -143,11 +146,26 @@ public class Skeleton {
         }
     }
 
-    public void printCall(String message){
-        for(int i = 0; i < callStackDepth; i++){
+    public void printCall(Object called, List<Object> parameters, String functionHeader){
+        for(int i = 0; i < objectStack.size(); i++){
             System.out.print('\t');
         }
-        System.out.print(message + '\n');
+        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(called)+": "+functionHeader+"(");
+        for(Object o: parameters){
+            if(SKELETON.objectNameMap.containsKey(o)) {
+                System.out.print(SKELETON.objectNameMap.get(o) + ",");
+            }
+        }
+        System.out.print(")\n");
+        objectStack.addLast(called);
+    }
+
+    public void printReturn(String message){
+        for(int i = 0; i < objectStack.size(); i++){
+            System.out.print('\t');
+        }
+        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(SKELETON.objectNameMap.size()-2)+": "+message);
+        objectStack.removeLast();
     }
 
     public void testCase1(){
