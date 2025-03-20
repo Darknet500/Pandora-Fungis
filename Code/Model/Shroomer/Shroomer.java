@@ -4,7 +4,11 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import Controll.Player;
+import Controll.Skeleton;
 import Tekton.Tekton;
+
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -131,6 +135,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * @param h
      */
     public void removeHypa(Hypa h) {
+
         HypaList.remove(h);
     }
 
@@ -138,20 +143,35 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void endOfRoundAdministration() {
+        SKELETON.callStackDepth++;
         for(Mushroom mus: mushrooms){
+            SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> " + SKELETON.objectNameMap.get(mus) + ": age()");
             mus.age();
+            SKELETON.printCall(SKELETON.objectNameMap.get(mus) + " -->> " + SKELETON.objectNameMap.get(this));
         }
         for(Hypa hyp: HypaList){
             if(hyp.getIsDyingSince()==1){
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> "+SKELETON.objectNameMap.get(hyp) + ": getEnd1()");
                 Tekton end1 = hyp.getEnd1();
+                SKELETON.printCall(SKELETON.objectNameMap.get(hyp) + " -->> "+SKELETON.objectNameMap.get(this) + ": end1: Tekton");
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> "+SKELETON.objectNameMap.get(end1) + ": removeHypa("+SKELETON.objectNameMap.get(hyp)+")");
                 end1.removeHypa(hyp);
+                SKELETON.printCall(SKELETON.objectNameMap.get(end1) + " -->> "+SKELETON.objectNameMap.get(this));
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> "+SKELETON.objectNameMap.get(hyp) + ": getEnd2()");
                 Tekton end2 = hyp.getEnd2();
+                SKELETON.printCall(SKELETON.objectNameMap.get(hyp) + " -->> "+SKELETON.objectNameMap.get(this) + ": end2: Tekton");
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> "+SKELETON.objectNameMap.get(end1) + ": removeHypa("+SKELETON.objectNameMap.get(hyp)+")");
                 end2.removeHypa(hyp);
+                SKELETON.printCall(SKELETON.objectNameMap.get(end1) + " -->> "+SKELETON.objectNameMap.get(this));
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " ->> "+SKELETON.objectNameMap.get(this) + ": removeHypa("+SKELETON.objectNameMap.get(hyp)+")");
                 removeHypa(hyp);
             }else{
+                SKELETON.printCall(SKELETON.objectNameMap.get(this) + " -> "+SKELETON.objectNameMap.get(hyp) + ": age()");
                 hyp.age();
+                SKELETON.printCall(SKELETON.objectNameMap.get(hyp) + " -->> "+SKELETON.objectNameMap.get(this) );
             }
         }
+        SKELETON.callStackDepth--;
 
 
     }
@@ -160,6 +180,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void traverseHypaNetwork() {
+
         Set<Tekton> inNetworkTektons = new HashSet<Tekton>();
         for(Mushroom mus: mushrooms){
             inNetworkTektons.add(mus.getLocation());
