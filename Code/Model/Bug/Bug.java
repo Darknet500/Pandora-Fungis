@@ -1,12 +1,9 @@
 package Bug;
 
 import Controll.Player;
-import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
-import java.util.List;
-
 /**
  * 
  */
@@ -15,27 +12,35 @@ public class Bug extends Player {
     /**
      *
      */
+    private int underEffectSince;
     private Tekton tekton;
-
-    /**
-     *
-     */
     private Strategy strategy;
 
     /**
      * Default constructor
      */
-    public Bug() {}
+    public Bug() {
+        underEffectSince = 0;
+        tekton = null;
+        strategy = new Normal();
+    }
+
+    /**
+     * @param s
+     */
+    public void setStrategy(Strategy s) {
+        strategy = s;
+    }
 
     /**
      * @param to
      */
     public void move(Tekton to) {
-        boolean canDo = strategy.move(this, to);
-        if (canDo) {
+        if (strategy.move(this, to)) {
             to.tryBug(this);
             tekton.setBug(null);
-            setLocation(to);
+            this.tekton = to;
+            strategy.endOfTurn(this);
         }
     }
 
@@ -43,45 +48,26 @@ public class Bug extends Player {
      * @param h
      */
     public void bite(Hypa h) {
-        boolean canDo = strategy.bite(this, h);
-        if (canDo) { h.die(); }
+
+        if (strategy.bite(this, h)) {
+            h.die();
+            strategy.endOfTurn(this);
+        }
     }
 
     /**
      * @param s
      */
     public void eat(Spore s) {
-        boolean canDo = strategy.eat(this, s);
-        if (canDo) {
-            List<Spore> spores = tekton.getStoredSpores();
-            if(spores.contains(s)){
-                s.haveEffect(this);
-                tekton.removeSpore(s);
-            }
+        if (strategy.eat(this, s)) {
+                if(tekton.getStoredSpores().contains(s)) {
+                    s.haveEffect(this);
+                    strategy.endOfTurn(this);
+                }
         }
     }
 
-    /**
-     *
-     * @return
-     */
+    public Tekton getLocation(){return tekton;}
 
-    public Tekton getLocation(){
-        return tekton;
-    }
-
-    /**
-     * @param newLoc
-     */
-
-    public void setLocation(Tekton newLoc){
-        this.tekton = newLoc;
-    }
-
-    /**
-     * @param s
-     */
-    public void setStrategy(Strategy s) {
-        this.strategy = s;
-    }
+    public int getUnderEffectSince(){return underEffectSince;}
 }
