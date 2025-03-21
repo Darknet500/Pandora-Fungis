@@ -103,6 +103,10 @@ public class Skeleton {
             m.invoke(this);
             objectStack.clear();
             objectNameMap.clear();
+
+            Object user = new Object(); //dont worry about this....
+            objectNameMap.put(user, "User");
+
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);
         }
