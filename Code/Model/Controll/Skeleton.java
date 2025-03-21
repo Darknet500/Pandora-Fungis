@@ -1,11 +1,27 @@
 package Controll;
 
+import Bug.Bug;
+import Shroomer.*;
+import Tekton.Tekton;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
+    private List<Object> objectStack;
+
+    public HashMap<Object, String> objectNameMap;
+
+    public Skeleton(){
+
+        objectNameMap = new HashMap<>();
+        objectStack = new ArrayList<>();
+    }
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
                                 "Bogár harapni akar (harapás gátolt)",
@@ -33,7 +49,14 @@ public class Skeleton {
         }
 
         System.out.println("press q if you want to exit"); //Quite obvious :)
+        while (true) {
+            try {
+                getChoosenTestCase();
 
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /** Gets the user input while it's not correct */
@@ -75,7 +98,11 @@ public class Skeleton {
         try {
             /** gets the method's name then calls it */
             Method m = this.getClass().getDeclaredMethod(name);
+            objectStack.addFirst(this);
+            objectNameMap.put(this, "Skeleton");
             m.invoke(this);
+            objectStack.clear();
+            objectNameMap.clear();
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);
         }
@@ -131,14 +158,67 @@ public class Skeleton {
         }
     }
 
-    public void testCase1(){System.out.println("Test case 1");}
+    public void printCall(Object called, List<Object> parameters, String functionHeader){
+        for(int i = 0; i < objectStack.size(); i++){
+            System.out.print('\t');
+        }
+        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(called)+": "+functionHeader+"(");
+        for(Object o: parameters){
+            if(SKELETON.objectNameMap.containsKey(o)) {
+                System.out.print(SKELETON.objectNameMap.get(o) + ",");
+            }
+        }
+        System.out.print(")\n");
+        objectStack.addLast(called);
+    }
+
+    public void printReturn(String message){
+        for(int i = 0; i < objectStack.size()-1; i++){
+            System.out.print('\t');
+        }
+        System.out.println(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size()-2))+": "+message);
+        objectStack.removeLast();
+
+    }
+
+    public void testCase1(){
+        System.out.println("Test case 1");
+        Tekton t = new Tekton();
+        objectNameMap.put(t, "t");
+        Bug buggg = new Bug();
+        objectNameMap.put(buggg, "buggg");
+        System.out.println(objectNameMap.get(t));
+
+        //... end of test case
+
+
+    }
     public void testCase2(){System.out.println("Test case 2");}
     public void testCase3(){System.out.println("Test case 3");}
     public void testCase4(){System.out.println("Test case 4");}
     public void testCase5(){System.out.println("Test case 5");}
     public void testCase6(){System.out.println("Test case 6");}
     public void testCase7(){System.out.println("Test case 7");}
-    public void testCase8(){System.out.println("Test case 8");}
+
+    public void testCase8(){
+        System.out.println("Test case 8");
+        Tekton start = new Tekton();
+        objectNameMap.put(start, "start");
+        Tekton target = new Tekton();
+        objectNameMap.put(target, "target");
+        start.setNeighbours(List.of(target));
+        target.setNeighbours(List.of(start));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        BoosterMushroom mushroom = new BoosterMushroom(shroomer, start);
+        start.setMushroom(mushroom);
+        shroomer.addMushroom(mushroom);
+        objectNameMap.put(shroomer, "shroomer");
+        objectNameMap.put(mushroom, "mushroom");
+        System.out.println(" size"+objectStack.size());
+        shroomer.growHypa(start, target);
+
+    }
+
     public void testCase9(){System.out.println("Test case 9");}
     public void testCase10(){System.out.println("Test case 10");}
     public void testCase11(){System.out.println("Test case 11");}

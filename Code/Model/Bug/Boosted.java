@@ -1,5 +1,6 @@
 package Bug;
 
+import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
@@ -16,9 +17,7 @@ public class Boosted implements Strategy {
      * @param b 
      * @param s
      */
-    public boolean eat(Bug b, Spore s) {
-        return false;
-    }
+    public boolean eat(Bug b, Spore s) { return false; }
 
     /**
      * @param b 
@@ -42,6 +41,12 @@ public class Boosted implements Strategy {
             canReach.addAll(t.getNeighboursByHypa());
         }
         return canReach.contains(to);
+    }
+
+    public void endOfTurn(Bug b){
+        if(b.getUnderEffectSince()==2){
+            b.setStrategy(new Normal());
+        }
     }
 
 }

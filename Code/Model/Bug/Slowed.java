@@ -43,4 +43,10 @@ public class Slowed implements Strategy {
         return canReach.contains(to)&& Skeleton.SKELETON.getNumericInput(
                 "moves made in the prev. 2 rounds = ?", 0, 1)==0;
     }
+
+    public void endOfTurn(Bug b){
+        if(b.getUnderEffectSince()==2){
+            b.setStrategy(new Normal());
+        }
+    }
 }
