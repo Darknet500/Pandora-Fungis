@@ -32,22 +32,36 @@ public class Hypa {
     }
 
     public int getIsDyingSince(){
+        SKELETON.printCall(this, Collections.emptyList(), "getIsDyingSince");
+        SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
+        SKELETON.printReturn("numericInput: int");
+        SKELETON.printReturn("numericInput: int");
         return SKELETON.getNumericInput("Hány köre nem része egy testes hálózatnak ez a hypa?\n-1 - még most is része\n0 - ebben a körben vált le\n1 - egy köre nem csatlakozik már", -1,1);
     }
     public void setIsDyingSince(int isDyingSince){
 
     }
     public int getAge(){
+        SKELETON.printCall(this, Collections.emptyList(), "getAge");
+        SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
+        SKELETON.printReturn("numericInput: int");
+        SKELETON.printReturn("numericInput: int");
         return SKELETON.getNumericInput("Milyen idős a hypa (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
     }
 
     public Tekton getEnd1() {
+        SKELETON.printCall(this, Collections.emptyList(), "getEnd1");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(end1)+": Tekton");
         return end1;
     }
     public Tekton getEnd2() {
+        SKELETON.printCall(this, Collections.emptyList(), "getEnd2");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(end2)+": Tekton");
         return end2;
     }
     public Shroomer getShroomer() {
+        SKELETON.printCall(this, Collections.emptyList(), "getShroomer");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(shroomer)+": Shroomer");
         return shroomer;
     }
 
@@ -56,10 +70,12 @@ public class Hypa {
      * 
      */
     public void die() {
+        SKELETON.printCall(this, Collections.emptyList(), "die");
        end1.removeHypa(this);
        end2.removeHypa(this);
        shroomer.removeHypa(this);
        shroomer.traverseHypaNetwork();
+       SKELETON.printReturn("");
     }
 
 
