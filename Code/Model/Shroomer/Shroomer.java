@@ -1,6 +1,7 @@
 package Shroomer;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import Controll.Player;
@@ -18,7 +19,7 @@ public class Shroomer extends Player {
      *
     private Function mushroomctor;
      */
-    private Supplier<Mushroom> mushroomctor;
+    private BiFunction<Shroomer, Tekton, Mushroom> mushroomctor;
 
 
     /**
@@ -35,7 +36,7 @@ public class Shroomer extends Player {
     /**
      * Default constructor
      */
-    public Shroomer(Supplier<Mushroom> mushroomctor) {
+    public Shroomer(BiFunction<Shroomer, Tekton, Mushroom> mushroomctor) {
 
         mushrooms = new ArrayList<Mushroom>();
         HypaList = new ArrayList<Hypa>();
@@ -48,7 +49,7 @@ public class Shroomer extends Player {
      * @param target
      */
     public void growHypa(Tekton start, Tekton target) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Arrays.asList(start, target), "growHypa" );
+        SKELETON.printCall(this, Arrays.asList(start, target), "growHypa" );
 
         if(start.getStoredSpores().isEmpty()){
            if (target.acceptHypa(this)){
@@ -59,7 +60,11 @@ public class Shroomer extends Player {
                traverseHypaNetwork();
            }
         }
-        SKELETON.printReturn("");
+        SKELETON.printReturn("asdasd");
+    }
+
+    public void addMushroom(Mushroom mushroom){
+        mushrooms.add(mushroom);
     }
 
 /**
@@ -139,7 +144,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(target), "growMushroom" );
 
         if (target.canMushroomGrow(this)) {
-            Mushroom mush = mushroomctor.get();
+            Mushroom mush = mushroomctor.apply(this, target);
             target.setMushroomRemoveSpores(mush);
             traverseHypaNetwork();
         }
