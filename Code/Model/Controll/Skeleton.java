@@ -199,7 +199,7 @@ public class Skeleton {
         tekton2.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Normal strategy = new Normal();
         objectNameMap.put(strategy, "strategy");
@@ -210,7 +210,9 @@ public class Skeleton {
         location.connectHypa(hypa);
         tekton2.connectHypa(hypa);
         shroomer.addHypa(hypa);
+        print=true;
         bug.bite(hypa);
+        print=false;
 
     }
     public void testCase2(){System.out.println("Test case 2");}

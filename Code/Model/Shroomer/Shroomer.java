@@ -244,5 +244,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         SKELETON.printReturn("");
     }
 
+    public void addHypa(Hypa h){
+        HypaList.add(h);
+    }
+
 
 }
