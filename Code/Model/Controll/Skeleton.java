@@ -11,8 +11,7 @@ import java.util.*;
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
     private List<Object> objectStack;
-    public static Object user; // csak hogy tudjunk hivatkozni mindenhonnan az User-re
-    //public static Object nullStr; // csak hogy tudjunk kiiratni "null" stringet a hashmapből;
+
     public static boolean print=false;
 
     public HashMap<Object, String> objectNameMap;
@@ -100,7 +99,6 @@ public class Skeleton {
             Method m = this.getClass().getDeclaredMethod(name);
             objectStack.addFirst(this);
             objectNameMap.put(this, "Skeleton");
-            objectNameMap.put(user, "User");
             objectNameMap.put(null, "null");
             m.invoke(this);
             objectStack.clear();
@@ -115,6 +113,7 @@ public class Skeleton {
     }
 
     public int getNumericInput(String message, int min, int max) {
+        printCall(this, Collections.emptyList(),"getNumericInput( "+message+")");
         System.out.println(message);
         System.out.print("Please enter a number between " + min + " and " + max + ": ");
         Scanner scn = new Scanner(System.in);
@@ -128,6 +127,7 @@ public class Skeleton {
 
                 /** If the number is correct it return the user's input as integer */
                 if (number >= min && number <= max) {
+                    printReturn("numericInput: int");
                     return number;
                 } else {
                     System.out.println("Invalid number! Please enter a number between " + min + " and " + max + ": ");
@@ -136,6 +136,7 @@ public class Skeleton {
                 System.out.print("Please enter a number between " + min + " and " + max + ": ");
             }
         }
+
     }
 
     public boolean getBoolInput(String message) {
