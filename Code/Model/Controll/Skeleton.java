@@ -48,7 +48,14 @@ public class Skeleton {
         }
 
         System.out.println("press q if you want to exit"); //Quite obvious :)
+        while (true) {
+            try {
+                getChoosenTestCase();
 
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /** Gets the user input while it's not correct */
