@@ -52,6 +52,17 @@ public class Tekton {
         this.connectedHypas = new ArrayList<>();
     }
 
+
+
+    public boolean hasSpore(){
+        SKELETON.printCall(this, Collections.emptyList(), "hasSpore");
+        if(storedSpores.isEmpty()){
+            SKELETON.printReturn("false");
+            return false;
+        }
+        SKELETON.printReturn("true");
+        return true;
+    }
     /**
      * 
      */
@@ -60,7 +71,7 @@ public class Tekton {
         Tekton newTekton = new Tekton();
 
         // Szétosztjuk a szomszédokat 50-50%
-        Iterator<Tekton> iterator = getNeighbours().iterator();
+        Iterator<Tekton> iterator = neighbours.iterator();
         while (iterator.hasNext()) {
             Tekton neighbour = iterator.next();
             if (Math.random() < 0.5) { // 50%, h áthelyezzük az újhoz
@@ -83,7 +94,7 @@ public class Tekton {
      */
     public boolean hasMushroom() {
         SKELETON.printCall(this, Collections.emptyList(), "hasMushroom");
-        if(getMushroom() == null){
+        if(mushroom == null){
             SKELETON.printReturn("false");
             return false;
         }else{
@@ -100,7 +111,7 @@ public class Tekton {
         SKELETON.printCall(this, Collections.singletonList(s), "storeSpore");
 
         if (s != null) {
-            getStoredSpores().add(s);
+            storedSpores.add(s);
         }
         SKELETON.printReturn("");
     }
@@ -140,7 +151,7 @@ public class Tekton {
     public void removeSpore(Spore s) {
         SKELETON.printCall(this, Collections.singletonList(s), "removeSpore");
         if (s != null) {
-            getStoredSpores().remove(s);
+            storedSpores.remove(s);
         }
         SKELETON.printReturn("");
     }
@@ -150,8 +161,8 @@ public class Tekton {
      */
     public void tryBug(Bug b) {
         SKELETON.printCall(this, Collections.singletonList(b), "tryBug");
-        if(getBug() == null) {
-            setBug(b);
+        if(bug == null) {
+            bug = b;
         }
         SKELETON.printReturn("");
     }
@@ -164,7 +175,7 @@ public class Tekton {
         List<Tekton> neighboursByHypa = new ArrayList<>();
 
         // végigmegyünk az összes hypa-n
-        for (Hypa hypa : getHypas()) {
+        for (Hypa hypa : connectedHypas) {
             Tekton end1 = hypa.getEnd1();
             Tekton end2 = hypa.getEnd2();
 
@@ -190,7 +201,7 @@ public class Tekton {
     public void removeHypa(Hypa h) {
         SKELETON.printCall(this, Collections.singletonList(h), "removeHypa");
         if (h != null) {
-            getHypas().remove(h);
+            connectedHypas.remove(h);
         }
         SKELETON.printReturn("");
     }
@@ -208,7 +219,7 @@ public class Tekton {
 
         // 1. Ellenőrizzük, hogy van-e csatlakozó Hypa-ja a Tekton-hoz
         boolean hasHypa = false;
-        for (Hypa hypa : getHypas()) {
+        for (Hypa hypa : connectedHypas) {
             if (hypa.getShroomer() != null && hypa.getShroomer().equals(s)) {
                 hasHypa = true;
                 break;  // Ha van csatlakozó Hypa, akkor továbblépünk
@@ -244,9 +255,10 @@ public class Tekton {
      */
     public void connectHypa(Hypa h) {
         SKELETON.printCall(this, Collections.singletonList(h), "connectHypa");
-        if (h != null && !getHypas().contains(h)) {
-            getHypas().add(h);
-        }
+        //if (h != null && !getHypas().contains(h)) {
+        //    getHypas().add(h);
+        //}
+        connectedHypas.add(h);
         SKELETON.printReturn("");
     }
 
@@ -255,9 +267,9 @@ public class Tekton {
      */
     public void setMushroomRemoveSpores(Mushroom shr) {
         SKELETON.printCall(this, Collections.singletonList(shr), "setMushroomRemoveSpores");
-        if(getMushroom() == null && shr != null) {
+        if(mushroom == null && shr != null) {
             //gomba beállítása
-            setMushroom(shr);
+            mushroom = shr;
 
             //shroomer lekérése
             Shroomer shroomer = shr.getShroomer();
@@ -266,7 +278,7 @@ public class Tekton {
                 int removedCount = 0;
 
                 // Ciklus a Tekton storedSpores listáján
-                Iterator<Spore> iterator = getStoredSpores().iterator();
+                Iterator<Spore> iterator = storedSpores.iterator();
                 while (iterator.hasNext() && removedCount < 3) {
                     Spore spore = iterator.next();
 
