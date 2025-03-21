@@ -55,6 +55,7 @@ public class Shroomer extends Player {
            if (target.acceptHypa(this)){
 
                Hypa hypa= new Hypa(start, target, this);
+               SKELETON.objectNameMap.put(hypa, "hypa");
                SKELETON.printCall(hypa, Arrays.asList(start, target, this), "Hypa" );
                SKELETON.printReturn("");
                start.connectHypa(hypa);
@@ -82,12 +83,14 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     if(!start.getStoredSpores().isEmpty())
         if (middle.acceptHypa(this)){
             Hypa hypa1= new Hypa(start, middle, this);
+            SKELETON.objectNameMap.put(hypa1, "hypa1");
             start.connectHypa(hypa1);
             middle.connectHypa(hypa1);
             HypaList.add(hypa1);
             tryGrowMushroom(middle);
             if (target.acceptHypa(this)) {
                 Hypa hypa2= new Hypa(middle, target, this);
+                SKELETON.objectNameMap.put(hypa2, "hypa2");
                 start.connectHypa(hypa2);
                 middle.connectHypa(hypa2);
                 HypaList.add(hypa2);
