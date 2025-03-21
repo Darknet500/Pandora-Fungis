@@ -255,9 +255,10 @@ public class Tekton {
      */
     public void connectHypa(Hypa h) {
         SKELETON.printCall(this, Collections.singletonList(h), "connectHypa");
-        if (h != null && !getHypas().contains(h)) {
-            getHypas().add(h);
-        }
+        //if (h != null && !getHypas().contains(h)) {
+        //    getHypas().add(h);
+        //}
+        connectedHypas.add(h);
         SKELETON.printReturn("");
     }
 
