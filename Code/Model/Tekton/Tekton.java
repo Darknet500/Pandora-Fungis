@@ -9,6 +9,8 @@ import Shroomer.Spore;
 
 import java.util.*;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -54,6 +56,7 @@ public class Tekton {
      * 
      */
     public void breakTekton() {
+        SKELETON.printCall(this, Collections.emptyList(), "breakTekton");
         Tekton newTekton = new Tekton();
 
         // Szétosztjuk a szomszédokat 50-50%
@@ -72,22 +75,34 @@ public class Tekton {
 
         // A régi Tekton összes fonala elhal
         this.connectedHypas.clear();
+        SKELETON.printReturn("");
     }
 
     /**
      * 
      */
     public boolean hasMushroom() {
-        return getMushroom() != null;
+        SKELETON.printCall(this, Collections.emptyList(), "hasMushroom");
+        if(getMushroom() == null){
+            SKELETON.printReturn("false");
+            return false;
+        }else{
+            SKELETON.printReturn("true");
+            return true;
+        }
+
     }
 
     /**
      * @param s
      */
     public void storeSpore(Spore s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "storeSpore");
+
         if (s != null) {
             getStoredSpores().add(s);
         }
+        SKELETON.printReturn("");
     }
 
     /**
@@ -95,20 +110,27 @@ public class Tekton {
      * @return
      */
     public boolean acceptHypa(Shroomer shroomer) {
-
+        SKELETON.printCall(this, Collections.singletonList(shroomer), "acceptHypa");
         if (shroomer == null) {
+            SKELETON.printReturn("false");
             return false;  // Ha a paraméterül kapott Shroomer null, akkor nem fogadjuk el
         }
 
-        if(connectedHypas.size()==0) return true;
+        if(connectedHypas.size()==0) {
+            SKELETON.printReturn("true");
+
+            return true;
+        }
 
         // Ha már van egy Hypa ezen a Tekton-on, akkor ellenőrizzük, hogy a paraméterül kapott Shroomer-e
         for (Hypa hypa : getHypas()) {
             if (hypa.getShroomer() != null && hypa.getShroomer().equals(shroomer)) {
+                SKELETON.printReturn("true");
+
                 return true;  // Ha már a paraméterül kapott Shroomer-nek van Hypa-ja, akkor true-t adunk vissza
             }
         }
-
+        SKELETON.printReturn("false");
         return false;
     }
 
@@ -116,24 +138,29 @@ public class Tekton {
      * @param s
      */
     public void removeSpore(Spore s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "removeSpore");
         if (s != null) {
             getStoredSpores().remove(s);
         }
+        SKELETON.printReturn("");
     }
 
     /**
      * @param b
      */
     public void tryBug(Bug b) {
+        SKELETON.printCall(this, Collections.singletonList(b), "tryBug");
         if(getBug() == null) {
             setBug(b);
         }
+        SKELETON.printReturn("");
     }
 
     /**
      * @return
      */
     public List<Tekton> getNeighboursByHypa() {
+        SKELETON.printCall(this, Collections.emptyList(), "getNeighboursByHypa");
         List<Tekton> neighboursByHypa = new ArrayList<>();
 
         // végigmegyünk az összes hypa-n
@@ -151,6 +178,8 @@ public class Tekton {
                 neighboursByHypa.add(end2);
             }
         }
+
+        SKELETON.printReturn("neighboursByHypa: List<Tekton>");
         // vissztér az új listával
         return neighboursByHypa;
     }
@@ -159,9 +188,11 @@ public class Tekton {
      * @param h
      */
     public void removeHypa(Hypa h) {
+        SKELETON.printCall(this, Collections.singletonList(h), "removeHypa");
         if (h != null) {
             getHypas().remove(h);
         }
+        SKELETON.printReturn("");
     }
 
     /**
@@ -169,7 +200,9 @@ public class Tekton {
      * @return
      */
     public boolean canMushroomGrow(Shroomer s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "canMushroomGrow");
         if (s == null) {
+            SKELETON.printReturn("false");
             return false;  // Ha a Shroomer null, akkor nem tud nőni gomba
         }
 
@@ -183,6 +216,7 @@ public class Tekton {
         }
 
         if (!hasHypa) {
+            SKELETON.printReturn("false");
             return false;  // Ha nincs csatlakozó Hypa, akkor nem nőhet gomba
         }
 
@@ -195,22 +229,32 @@ public class Tekton {
         }
 
         // Ha legalább három spóra van, akkor visszaadjuk, hogy nőhet gomba
-        return sporeCount >= 3;
+        if(sporeCount>=3) {
+            SKELETON.printReturn("true");
+            return true;
+        }else{
+            SKELETON.printReturn("false");
+            return false;
+        }
+
     }
 
     /**
      * @param h
      */
     public void connectHypa(Hypa h) {
+        SKELETON.printCall(this, Collections.singletonList(h), "connectHypa");
         if (h != null && !getHypas().contains(h)) {
             getHypas().add(h);
         }
+        SKELETON.printReturn("");
     }
 
     /**
      * @param shr
      */
     public void setMushroomRemoveSpores(Mushroom shr) {
+        SKELETON.printCall(this, Collections.singletonList(shr), "setMushroomRemoveSpores");
         if(getMushroom() == null && shr != null) {
             //gomba beállítása
             setMushroom(shr);
@@ -234,39 +278,60 @@ public class Tekton {
                 }
             }
         }
+        SKELETON.printReturn("");
     }
 
-    public List<Hypa> getHypas(){return connectedHypas;}
+    public List<Hypa> getHypas(){
+        SKELETON.printCall(this, Collections.emptyList(), "getHypas");
+        SKELETON.printReturn("connectedHypas: List<Hypa>");
+        return connectedHypas;
+    }
 
     public List<Tekton> getNeighbours() {
+        SKELETON.printCall(this, Collections.emptyList(), "getNeighbours");
+        SKELETON.printReturn("neighbours: List<Tekton>");
         return neighbours;
     }
 
     public void setNeighbours(List<Tekton> neighbours) {
+        SKELETON.printCall(this, Collections.singletonList(neighbours), "setNeighbours");
         this.neighbours = neighbours;
+        SKELETON.printReturn("");
     }
 
     public List<Spore> getStoredSpores() {
+        SKELETON.printCall(this, Collections.emptyList(), "getStoredSpores");
+        SKELETON.printReturn("storedSpores: List<Spore>");
         return storedSpores;
     }
 
     public void setStoredSpores(List<Spore> storedSpores) {
+        SKELETON.printCall(this, Collections.singletonList(storedSpores), "setStoredSpores");
         this.storedSpores = storedSpores;
+        SKELETON.printReturn("");
     }
 
     public Mushroom getMushroom() {
+        SKELETON.printCall(this, Collections.emptyList(), "getMushroom");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(mushroom)+": Mushroom");
         return mushroom;
     }
 
     public void setMushroom(Mushroom mushroom) {
+        SKELETON.printCall(this, Collections.singletonList(mushroom), "setMushroom");
         this.mushroom = mushroom;
+        SKELETON.printReturn("");
     }
 
     public Bug getBug() {
+        SKELETON.printCall(this, Collections.emptyList(), "getBug");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(bug)+": Bug");
         return bug;
     }
 
     public void setBug(Bug bug) {
+        SKELETON.printCall(this, Collections.singletonList(bug), "setBug");
         this.bug = bug;
+        SKELETON.printReturn("");
     }
 }

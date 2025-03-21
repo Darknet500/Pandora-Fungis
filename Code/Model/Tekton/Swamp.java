@@ -3,6 +3,8 @@ package Tekton;
 import java.util.*;
 import Shroomer.Hypa;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -19,6 +21,7 @@ public class Swamp extends Tekton {
      * 
      */
     public void checkForDeleteHypa() {
+        SKELETON.printCall(this, Collections.emptyList(), "checkForDeleteHypa");
         // Mivel a lista közben változni fog, biztonságosabb, ha először készítünk egy másolatot.
         Iterator<Hypa> iterator = getHypas().iterator();
 
@@ -32,6 +35,7 @@ public class Swamp extends Tekton {
                 iterator.remove();
             }
         }
+        SKELETON.printReturn("");
     }
 
 }
