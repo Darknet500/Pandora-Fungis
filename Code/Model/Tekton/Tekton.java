@@ -52,6 +52,17 @@ public class Tekton {
         this.connectedHypas = new ArrayList<>();
     }
 
+
+
+    public boolean hasSpore(){
+        SKELETON.printCall(this, Collections.emptyList(), "hasSpore");
+        if(getStoredSpores().isEmpty()){
+            SKELETON.printReturn("false");
+            return false;
+        }
+        SKELETON.printReturn("true");
+        return true;
+    }
     /**
      * 
      */
