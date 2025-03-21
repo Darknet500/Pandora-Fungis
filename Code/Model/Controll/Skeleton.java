@@ -44,7 +44,7 @@ public class Skeleton {
                             "|-------------------------------------------------------|");
 
         for (int i = 0; i < useCases.length; i++) {
-            System.out.println("\t\t" + i + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
+            System.out.println("\t\t" + (i+1) + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
         }
 
         System.out.println("press q if you want to exit"); //Quite obvious :)
@@ -77,7 +77,7 @@ public class Skeleton {
                 int number = Integer.parseInt(choosenTestCase);
 
                 /** If the number is correct it leaves the loop and calls the excecuter method */
-                if (number >= 1 && number <= 12) {
+                if (number >= 1 && number <= 13) {
                     executeTestCase(number);
                     break;
                 } else {
@@ -460,6 +460,8 @@ public class Skeleton {
         objectNameMap.put(swamp, "swamp");
         Tekton tekton = new Tekton();
         objectNameMap.put(tekton, "tekton");
+        swamp.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(swamp));
         Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
         objectNameMap.put(shroomer, "shroomer");
         Hypa hypa1 = new Hypa(swamp, tekton, shroomer);
@@ -485,16 +487,50 @@ public class Skeleton {
         objectNameMap.put(breaking, "breaking");
         Tekton tekton = new Tekton();
         objectNameMap.put(tekton, "tekton");
+        breaking.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(breaking));
         Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
         objectNameMap.put(shroomer, "shroomer");
         Hypa hypa = new Hypa(breaking, tekton, shroomer);
         objectNameMap.put(hypa,"hypa");
+        shroomer.addHypa(hypa);
         BoosterSpore boospore = new BoosterSpore(shroomer);
         objectNameMap.put(boospore, "boospore");
         breaking.storeSpore(boospore);
 
         print = true;
         breaking.breakTekton();
+        print = false;
+    }
+
+    public void testCase13(){
+        System.out.println("Test case 13");
+        Tekton applicable = new Tekton();
+        objectNameMap.put(applicable, "applicable");
+        Tekton tekton = new Tekton();
+        applicable.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(applicable));
+        objectNameMap.put(tekton, "tekton");
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa = new Hypa(applicable, tekton, shroomer);
+        objectNameMap.put(hypa,"hypa");
+        applicable.connectHypa(hypa);
+        tekton.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+        BoosterSpore spore1 = new BoosterSpore(shroomer);
+        BoosterSpore spore2 = new BoosterSpore(shroomer);
+        BoosterSpore spore3 = new BoosterSpore(shroomer);
+        objectNameMap.put(spore1, "spore1");
+        objectNameMap.put(spore2, "spore2");
+        objectNameMap.put(spore3, "spore3");
+
+        applicable.storeSpore(spore1);
+        applicable.storeSpore(spore2);
+        applicable.storeSpore(spore3);
+
+        print = true;
+        shroomer.tryGrowMushroom(applicable);
         print = false;
     }
 
