@@ -5,6 +5,7 @@ import Shroomer.Spore;
 import Tekton.Tekton;
 import Controll.Skeleton;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,10 +33,16 @@ public class Slowed extends Normal {
      */
     @Override
     public boolean move(Bug b, Tekton to) {
+        SKELETON.printCall(this, Arrays.asList(b, to), "move");
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
-        return canReach.contains(to)&& Skeleton.SKELETON.getNumericInput(
-                "moves made in the prev. 2 rounds = ?", 0, 1)==0;
+        int rethalf = Skeleton.SKELETON.getNumericInput(
+                "moves made in the prev. 2 rounds = ?", 0, 1);
+
+        boolean ret = canReach.contains(to)&& rethalf ==0;
+
+        SKELETON.printReturn(ret?"true":"false");
+        return ret;
     }
 
     public void endOfTurn(Bug b){
