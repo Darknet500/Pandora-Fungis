@@ -94,7 +94,7 @@ public class Skeleton {
      * */
     private void executeTestCase(int number) {
         String name = "testCase" + number;
-
+        System.out.flush();
         try {
             /** gets the method's name then calls it */
             Method m = this.getClass().getDeclaredMethod(name);
@@ -176,7 +176,7 @@ public class Skeleton {
         for(int i = 0; i < objectStack.size()-1; i++){
             System.out.print('\t');
         }
-        System.out.println(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size()-2))+": "+message);
+        System.out.println(SKELETON.objectNameMap.get(objectStack.getLast())+"-->"+SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size()-2))+": "+message);
         objectStack.removeLast();
 
     }

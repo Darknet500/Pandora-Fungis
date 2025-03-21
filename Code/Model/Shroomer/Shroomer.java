@@ -171,7 +171,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void endOfRoundAdministration() {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.emptyList(), "endOfRoundAdministration" );
+        SKELETON.printCall(this, Collections.emptyList(), "endOfRoundAdministration" );
         for(Mushroom mus: mushrooms){
             mus.age();
         }
@@ -196,7 +196,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void traverseHypaNetwork() {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.emptyList(), "endOfRoundAdministration" );
+        SKELETON.printCall(this, Collections.emptyList(), "traverseHypaNetwork" );
         Set<Tekton> inNetworkTektons = new HashSet<Tekton>();
         for(Mushroom mus: mushrooms){
             inNetworkTektons.add(mus.getLocation());
