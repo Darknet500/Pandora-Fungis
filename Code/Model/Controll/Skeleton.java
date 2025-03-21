@@ -113,9 +113,12 @@ public class Skeleton {
     }
 
     public int getNumericInput(String message, int min, int max) {
-        printCall(this, Collections.emptyList(),"getNumericInput( "+message+")");
+        printCall(this, Collections.emptyList(),"getNumericInput");
+
         System.out.println(message);
-        System.out.print("Please enter a number between " + min + " and " + max + ": ");
+
+        //System.out.print("Please enter a number between " + min + " and " + max + ": ");
+
         Scanner scn = new Scanner(System.in);
 
         /**Looping while user gives a correct input */
@@ -127,7 +130,7 @@ public class Skeleton {
 
                 /** If the number is correct it return the user's input as integer */
                 if (number >= min && number <= max) {
-                    printReturn("numericInput: int");
+                    printReturn(String.format("%d",number));
                     return number;
                 } else {
                     System.out.println("Invalid number! Please enter a number between " + min + " and " + max + ": ");
