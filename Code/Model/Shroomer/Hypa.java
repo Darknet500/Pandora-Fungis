@@ -27,16 +27,19 @@ public class Hypa {
      * @param shroomer
      */
     public Hypa(Tekton end1, Tekton end2, Shroomer shroomer) {
+        SKELETON.objectNameMap.put(this, "hypa");
+        SKELETON.printCall(this, Arrays.asList(end1, end2, shroomer), "Hypa" );
+
+
         this.end1 = end1;
         this.end2 = end2;
         this.shroomer = shroomer;
-        initialize();
-    }
-
-    private void initialize() {
-        SKELETON.printCall(this, Arrays.asList(end1, end2, shroomer), "Hypa" );
+        end1.connectHypa(this);
+        end2.connectHypa(this);
         SKELETON.printReturn("");
     }
+
+
 
     public int getIsDyingSince(){
         SKELETON.printCall(this, Collections.emptyList(), "getIsDyingSince");
