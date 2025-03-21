@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
     private List<Object> objectStack;
+    public static Object user; // csak hogy tudjunk hivatkozni mindenhonnan az User-re
 
     public HashMap<Object, String> objectNameMap;
 
@@ -104,7 +105,7 @@ public class Skeleton {
             objectStack.clear();
             objectNameMap.clear();
 
-            Object user = new Object(); //dont worry about this....
+
             objectNameMap.put(user, "User");
 
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
