@@ -198,7 +198,7 @@ public class Skeleton {
         tekton2.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Normal strategy = new Normal();
         objectNameMap.put(strategy, "strategy");
@@ -226,7 +226,7 @@ public class Skeleton {
         tekton2.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         BiteBlocked strategy = new BiteBlocked();
         objectNameMap.put(strategy, "strategy");
@@ -256,7 +256,7 @@ public class Skeleton {
         to.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Normal strategy = new Normal();
         objectNameMap.put(strategy, "strategy");
@@ -285,7 +285,7 @@ public class Skeleton {
         to.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Boosted strategy = new Boosted();
         objectNameMap.put(strategy, "strategy");
@@ -313,7 +313,7 @@ public class Skeleton {
         to.setNeighbours(List.of(location));
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Slowed strategy = new Slowed();
         objectNameMap.put(strategy, "strategy");
@@ -337,7 +337,7 @@ public class Skeleton {
         objectNameMap.put(location, "location");
         Bug bug = new Bug();
         objectNameMap.put(bug, "bug");
-        bug.setPosition(location);
+        bug.setLocation(location);
         location.setBug(bug);
         Normal strategy = new Normal();
         objectNameMap.put(strategy, "strategy");
