@@ -1,15 +1,13 @@
 package Controll;
 
 import Bug.Bug;
+import Bug.Normal;
 import Shroomer.*;
 import Tekton.Tekton;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
@@ -193,14 +191,26 @@ public class Skeleton {
 
     public void testCase1(){
         System.out.println("Test case 1");
-        Tekton t = new Tekton();
-        objectNameMap.put(t, "t");
-        Bug buggg = new Bug();
-        objectNameMap.put(buggg, "buggg");
-        System.out.println(objectNameMap.get(t));
-
-        //... end of test case
-
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton tekton2 = new Tekton();
+        objectNameMap.put(tekton2, "tekton2");
+        location.setNeighbours(List.of(tekton2));
+        tekton2.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setPosition(location);
+        location.setBug(bug);
+        Normal strategy = new Normal();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        Hypa hypa= new Hypa(location, tekton2, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        tekton2.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+        bug.bite(hypa);
 
     }
     public void testCase2(){System.out.println("Test case 2");}
