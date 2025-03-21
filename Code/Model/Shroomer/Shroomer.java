@@ -51,7 +51,7 @@ public class Shroomer extends Player {
     public void growHypa(Tekton start, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(start, target), "growHypa" );
 
-        if(start.hasSpore()){
+        if(!start.hasSpore()){
            if (target.acceptHypa(this)){
 
                Hypa hypa= new Hypa(start, target, this);
