@@ -1,6 +1,7 @@
 package Tekton;
 
 import Bug.Bug;
+import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Mushroom;
 import Shroomer.Shroomer;
@@ -94,9 +95,12 @@ public class Tekton {
      * @return
      */
     public boolean acceptHypa(Shroomer shroomer) {
+
         if (shroomer == null) {
             return false;  // Ha a paraméterül kapott Shroomer null, akkor nem fogadjuk el
         }
+
+        if(connectedHypas.size()==0) return true;
 
         // Ha már van egy Hypa ezen a Tekton-on, akkor ellenőrizzük, hogy a paraméterül kapott Shroomer-e
         for (Hypa hypa : getHypas()) {
