@@ -53,10 +53,14 @@ public class Shroomer extends Player {
 
         if(start.getStoredSpores().isEmpty()){
            if (target.acceptHypa(this)){
+
                Hypa hypa= new Hypa(start, target, this);
+               SKELETON.printCall(hypa, Arrays.asList(start, target, this), "Hypa" );
+               SKELETON.printReturn("");
                start.connectHypa(hypa);
                target.connectHypa(hypa);
                HypaList.add(hypa);
+               tryGrowMushroom(target);
                traverseHypaNetwork();
            }
         }
@@ -81,11 +85,13 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
             start.connectHypa(hypa1);
             middle.connectHypa(hypa1);
             HypaList.add(hypa1);
+            tryGrowMushroom(middle);
             if (target.acceptHypa(this)) {
                 Hypa hypa2= new Hypa(middle, target, this);
                 start.connectHypa(hypa2);
                 middle.connectHypa(hypa2);
                 HypaList.add(hypa2);
+                tryGrowMushroom(target);
             }
             traverseHypaNetwork();
         }
@@ -122,6 +128,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         }
 
         mushroom.sporeThrown(target);
+        tryGrowMushroom(target);
         SKELETON.printReturn("");
     }
 
@@ -140,8 +147,8 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     /**
      *
      */
-    public void growMushroom(Tekton target) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(target), "growMushroom" );
+    public void tryGrowMushroom(Tekton target) {
+        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(target), "tryGrowMushroom" );
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
@@ -162,7 +169,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * @param h
      */
     public void removeHypa(Hypa h) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(h), "removeHypa" );
+        SKELETON.printCall(this, Collections.singletonList(h), "removeHypa" );
         HypaList.remove(h);
         SKELETON.printReturn("");
     }
@@ -171,7 +178,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * 
      */
     public void endOfRoundAdministration() {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.emptyList(), "endOfRoundAdministration" );
+        SKELETON.printCall(this, Collections.emptyList(), "endOfRoundAdministration" );
         for(Mushroom mus: mushrooms){
             mus.age();
         }
