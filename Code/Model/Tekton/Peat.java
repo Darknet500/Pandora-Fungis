@@ -2,6 +2,10 @@ package Tekton;
 
 import Shroomer.Shroomer;
 
+import java.util.Collections;
+
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -19,7 +23,9 @@ public class Peat extends Tekton {
      */
     @Override
     public boolean acceptHypa(Shroomer shroomer) {
-        return shroomer != null;
+        SKELETON.printCall(this, Collections.singletonList(shroomer), "acceptHypa");
+        SKELETON.printReturn("true");
+        return true;
     }
 
 }
