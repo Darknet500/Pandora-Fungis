@@ -155,6 +155,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
+            SKELETON.objectNameMap.put(mush, "mushroom");
             target.setMushroomRemoveSpores(mush);
             traverseHypaNetwork();
         }
