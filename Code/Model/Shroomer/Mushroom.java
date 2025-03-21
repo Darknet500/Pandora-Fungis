@@ -5,6 +5,7 @@ import Tekton.Tekton;
 import java.util.Collections;
 
 import static Controll.Skeleton.SKELETON;
+import static Controll.Skeleton.user;
 
 /**
  * 
@@ -73,7 +74,6 @@ public abstract class Mushroom {
         SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
         SKELETON.printReturn("numericInput: int");
         SKELETON.printReturn("numericInput: int");
-        return SKELETON.getNumericInput("Milyen idős a gombatest (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
 
         return SKELETON.getNumericInput("Készen áll-e a gombatest egy spóra szórásra?\n -1 - most szórt spórát\n 0 - az előző körben szór spórát\n 1 - régebben szórt spórát, újra tud szórni\n", -1,1);
 
@@ -84,7 +84,6 @@ public abstract class Mushroom {
         SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
         SKELETON.printReturn("numericInput: int");
         SKELETON.printReturn("numericInput: int");
-        return SKELETON.getNumericInput("Milyen idős a gombatest (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
 
         return SKELETON.getNumericInput("Hány spórát szórt már a gombatest?\n Kérek egy 0 és 5 közötti egész számot.\n", 0,5);
 
