@@ -53,12 +53,15 @@ public class Shroomer extends Player {
 
         if(!start.hasSpore()){
            if (target.acceptHypa(this)){
-
+               //Hypa hypa;
+               //SKELETON.objectNameMap.put(hypa, "hypa");
+               //SKELETON.printCall(hypa, Arrays.asList(start, target, this), "Hypa" );
                Hypa hypa= new Hypa(start, target, this);
+               //SKELETON.printReturn("");
 
-               start.connectHypa(hypa);
-               target.connectHypa(hypa);
-               SKELETON.objectNameMap.put(hypa, "hypa");
+
+
+
 
                HypaList.add(hypa);
                tryGrowMushroom(target);
