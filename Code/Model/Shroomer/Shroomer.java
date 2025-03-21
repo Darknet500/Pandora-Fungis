@@ -186,7 +186,10 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         for(Mushroom mus: mushrooms){
             mus.age();
         }
-        for(Hypa hyp: HypaList){
+
+        Iterator<Hypa> iterator = HypaList.iterator();
+        while(iterator.hasNext()){
+            Hypa hyp = iterator.next();
             if(hyp.getIsDyingSince()==1){
                 Tekton end1 = hyp.getEnd1();
                 end1.removeHypa(hyp);
@@ -214,7 +217,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         }
         for(Tekton tekton: inNetworkTektons){
             List<Hypa> hypas = tekton.getHypas();
-            for (Hypa hypa : hypas) {
+            Iterator<Hypa> iterator = hypas.iterator();
+            while (iterator.hasNext()) {
+                Hypa hypa = iterator.next();
                 if(hypa.getShroomer()==this){
                     inNetworkTektons.add(hypa.getEnd1());
                     inNetworkTektons.add(hypa.getEnd2());
@@ -222,7 +227,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
             }
         }
 
-        for(Hypa hypa: HypaList){
+        Iterator<Hypa> iterator = HypaList.iterator();
+        while (iterator.hasNext()) {
+            Hypa hypa = iterator.next();
             if (inNetworkTektons.contains(hypa.getEnd1())||inNetworkTektons.contains(hypa.getEnd2())) {
                 hypa.setIsDyingSince(-1);
             }else{
