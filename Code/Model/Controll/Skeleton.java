@@ -12,7 +12,7 @@ public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
     private List<Object> objectStack;
     public static Object user; // csak hogy tudjunk hivatkozni mindenhonnan az User-re
-    public static Object nullStr; // csak hogy tudjunk kiiratni "null" stringet a hashmapből;
+    //public static Object nullStr; // csak hogy tudjunk kiiratni "null" stringet a hashmapből;
     public static boolean print=false;
 
     public HashMap<Object, String> objectNameMap;
@@ -100,13 +100,14 @@ public class Skeleton {
             Method m = this.getClass().getDeclaredMethod(name);
             objectStack.addFirst(this);
             objectNameMap.put(this, "Skeleton");
+            objectNameMap.put(user, "User");
+            objectNameMap.put(null, "null");
             m.invoke(this);
             objectStack.clear();
             objectNameMap.clear();
 
 
-            objectNameMap.put(user, "User");
-            objectNameMap.put(nullStr, "null");
+
 
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);

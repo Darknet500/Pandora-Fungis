@@ -10,7 +10,6 @@ import Shroomer.Spore;
 import java.util.*;
 
 import static Controll.Skeleton.SKELETON;
-import static Controll.Skeleton.nullStr;
 
 /**
  * 
@@ -343,7 +342,7 @@ public class Tekton {
     }
 
     public void setBug(Bug bug) {
-        SKELETON.printCall(this, bug==null?Collections.singletonList(nullStr):Collections.singletonList(bug), "setBug");
+        SKELETON.printCall(this,Collections.singletonList(bug), "setBug");
         this.bug = bug;
         SKELETON.printReturn("");
     }
