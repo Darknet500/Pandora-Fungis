@@ -30,7 +30,10 @@ public class Hypa {
         this.end1 = end1;
         this.end2 = end2;
         this.shroomer = shroomer;
+
     }
+
+
 
     public int getIsDyingSince(){
         SKELETON.printCall(this, Collections.emptyList(), "getIsDyingSince");

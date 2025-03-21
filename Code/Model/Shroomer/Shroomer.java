@@ -51,15 +51,19 @@ public class Shroomer extends Player {
     public void growHypa(Tekton start, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(start, target), "growHypa" );
 
-        if(start.getStoredSpores().isEmpty()){
+        if(!start.hasSpore()){
            if (target.acceptHypa(this)){
-
                Hypa hypa= new Hypa(start, target, this);
-               SKELETON.objectNameMap.put(hypa, "hypa");
-               SKELETON.printCall(hypa, Arrays.asList(start, target, this), "Hypa" );
-               SKELETON.printReturn("");
+               SKELETON.objectNameMap.put(this, "hypa");
+               SKELETON.printCall(this, Arrays.asList(start, target, this), "Hypa" );
                start.connectHypa(hypa);
                target.connectHypa(hypa);
+               SKELETON.printReturn("");
+
+
+
+
+
                HypaList.add(hypa);
                tryGrowMushroom(target);
                traverseHypaNetwork();
@@ -80,7 +84,7 @@ public class Shroomer extends Player {
 public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     SKELETON.printCall(SKELETON.objectNameMap.get(this), Arrays.asList(start,middle, target), "growHypaFar" );
 
-    if(!start.getStoredSpores().isEmpty())
+    if(!start.hasSpore())
         if (middle.acceptHypa(this)){
             Hypa hypa1= new Hypa(start, middle, this);
             SKELETON.objectNameMap.put(hypa1, "hypa1");
@@ -151,7 +155,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      *
      */
     public void tryGrowMushroom(Tekton target) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(target), "tryGrowMushroom" );
+        SKELETON.printCall(this, Collections.singletonList(target), "tryGrowMushroom" );
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
@@ -186,7 +190,10 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         for(Mushroom mus: mushrooms){
             mus.age();
         }
-        for(Hypa hyp: HypaList){
+
+        Iterator<Hypa> iterator = HypaList.iterator();
+        while(iterator.hasNext()){
+            Hypa hyp = iterator.next();
             if(hyp.getIsDyingSince()==1){
                 Tekton end1 = hyp.getEnd1();
                 end1.removeHypa(hyp);
@@ -214,7 +221,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         }
         for(Tekton tekton: inNetworkTektons){
             List<Hypa> hypas = tekton.getHypas();
-            for (Hypa hypa : hypas) {
+            Iterator<Hypa> iterator = hypas.iterator();
+            while (iterator.hasNext()) {
+                Hypa hypa = iterator.next();
                 if(hypa.getShroomer()==this){
                     inNetworkTektons.add(hypa.getEnd1());
                     inNetworkTektons.add(hypa.getEnd2());
@@ -222,7 +231,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
             }
         }
 
-        for(Hypa hypa: HypaList){
+        Iterator<Hypa> iterator = HypaList.iterator();
+        while (iterator.hasNext()) {
+            Hypa hypa = iterator.next();
             if (inNetworkTektons.contains(hypa.getEnd1())||inNetworkTektons.contains(hypa.getEnd2())) {
                 hypa.setIsDyingSince(-1);
             }else{
