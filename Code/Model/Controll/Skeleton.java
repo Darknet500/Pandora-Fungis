@@ -15,6 +15,7 @@ public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
     private List<Object> objectStack;
     public static Object user; // csak hogy tudjunk hivatkozni mindenhonnan az User-re
+    public static boolean print=false;
 
     public HashMap<Object, String> objectNameMap;
 
@@ -163,27 +164,31 @@ public class Skeleton {
         }
     }
 
-    public void printCall(Object called, List<Object> parameters, String functionHeader){
-        for(int i = 0; i < objectStack.size(); i++){
-            System.out.print('\t');
-        }
-        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(called)+": "+functionHeader+"(");
-        for(Object o: parameters){
-            if(SKELETON.objectNameMap.containsKey(o)) {
-                System.out.print(SKELETON.objectNameMap.get(o) + ",");
+    public void printCall(Object called, List<Object> parameters, String functionHeader) {
+        if (print) {
+            for (int i = 0; i < objectStack.size(); i++) {
+                System.out.print('\t');
             }
+            System.out.print(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(called) + ": " + functionHeader + "(");
+            for (Object o : parameters) {
+                if (SKELETON.objectNameMap.containsKey(o)) {
+                    System.out.print(SKELETON.objectNameMap.get(o) + ",");
+                }
+            }
+            System.out.print(")\n");
+            objectStack.addLast(called);
+
         }
-        System.out.print(")\n");
-        objectStack.addLast(called);
     }
 
     public void printReturn(String message){
-        for(int i = 0; i < objectStack.size()-1; i++){
-            System.out.print('\t');
+        if(print) {
+            for (int i = 0; i < objectStack.size() - 1; i++) {
+                System.out.print('\t');
+            }
+            System.out.println(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size() - 2)) + ": " + message);
+            objectStack.removeLast();
         }
-        System.out.println(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size()-2))+": "+message);
-        objectStack.removeLast();
-
     }
 
     public void testCase1(){
@@ -219,9 +224,9 @@ public class Skeleton {
         shroomer.addMushroom(mushroom);
         objectNameMap.put(shroomer, "shroomer");
         objectNameMap.put(mushroom, "mushroom");
-        System.out.println(" size"+objectStack.size());
+        print = true;
         shroomer.growHypa(start, target);
-
+        print = false;
     }
 
     public void testCase9(){System.out.println("Test case 9");}
