@@ -151,7 +151,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      *
      */
     public void tryGrowMushroom(Tekton target) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(target), "tryGrowMushroom" );
+        SKELETON.printCall(this, Collections.singletonList(target), "tryGrowMushroom" );
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
