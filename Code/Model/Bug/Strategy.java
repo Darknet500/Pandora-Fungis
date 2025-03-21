@@ -9,11 +9,7 @@ import Tekton.Tekton;
  */
 public interface Strategy {
 
-    /**
-     * @param b 
-     * @param s
-     */
-    boolean eat(Bug b, Spore s);
+    boolean eat();
 
     /**
      * @param b 

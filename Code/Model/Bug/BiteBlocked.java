@@ -1,46 +1,44 @@
 package Bug;
 
-
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
+import static Controll.Skeleton.SKELETON;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * 
  */
-public class BiteBlocked implements Strategy {
+public class BiteBlocked extends Normal {
     /**
      * @param b 
      * @param h
      */
+    @Override
     public boolean bite(Bug b, Hypa h) {
+        SKELETON.printCall(this, List.of(b, h), "bite");
+        SKELETON.printReturn("false");
         return false;
     }
 
-    /**
-     * @param b 
-     * @param to
-     */
-    public boolean move(Bug b, Tekton to) {
-        Tekton location = b.getLocation();
-        List<Tekton> canReach = location.getNeighboursByHypa();
-        return canReach.contains(to);
-    }
-
-    /**
-     * @param b
-     * @param s
-     */
-    public boolean eat(Bug b, Spore s) {
+    @Override
+    public boolean eat() {
+        SKELETON.printCall(this, Collections.emptyList(), "eat");
+        SKELETON.printReturn("false");
         return false;
     }
 
+    @Override
     public void endOfTurn(Bug b){
+        SKELETON.printCall(this, List.of(b), "endOfTurn");
         if(b.getUnderEffectSince()==2){
-            b.setStrategy(new Normal());
+            Normal normal = new Normal();
+            SKELETON.objectNameMap.put(normal, "normal");
+            b.setStrategy(normal);
         }
+        SKELETON.printReturn("");
     }
 
 }

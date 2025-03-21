@@ -172,7 +172,7 @@ public class Skeleton {
             System.out.print(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(called) + ": " + functionHeader + "(");
             for (Object o : parameters) {
                 if (SKELETON.objectNameMap.containsKey(o)) {
-                    System.out.print(SKELETON.objectNameMap.get(o) + ",");
+                    System.out.print(SKELETON.objectNameMap.get(o) + (o==parameters.getLast()?"":", "));
                 }
             }
             System.out.print(")\n");
@@ -186,7 +186,7 @@ public class Skeleton {
             for (int i = 0; i < objectStack.size() - 1; i++) {
                 System.out.print('\t');
             }
-            System.out.println(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size() - 2)) + ": " + message);
+            System.out.println(SKELETON.objectNameMap.get(objectStack.getLast()) + "-->" + SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size() - 2)) + (message==""?"":": " + message));
             objectStack.removeLast();
         }
     }
