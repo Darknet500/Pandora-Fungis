@@ -51,7 +51,7 @@ public class Shroomer extends Player {
     public void growHypa(Tekton start, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(start, target), "growHypa" );
 
-        if(start.getStoredSpores().isEmpty()){
+        if(start.hasSpore()){
            if (target.acceptHypa(this)){
 
                Hypa hypa= new Hypa(start, target, this);
@@ -80,7 +80,7 @@ public class Shroomer extends Player {
 public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     SKELETON.printCall(SKELETON.objectNameMap.get(this), Arrays.asList(start,middle, target), "growHypaFar" );
 
-    if(!start.getStoredSpores().isEmpty())
+    if(!start.hasSpore())
         if (middle.acceptHypa(this)){
             Hypa hypa1= new Hypa(start, middle, this);
             SKELETON.objectNameMap.put(hypa1, "hypa1");
