@@ -38,9 +38,10 @@ public class Hypa {
     public int getIsDyingSince(){
         SKELETON.printCall(this, Collections.emptyList(), "getIsDyingSince");
         SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
-        SKELETON.printReturn("numericInput: int");
-        SKELETON.printReturn("numericInput: int");
-        return SKELETON.getNumericInput("Hány köre nem része egy testes hálózatnak ez a hypa?\n-1 - még most is része\n0 - ebben a körben vált le\n1 - egy köre nem csatlakozik már", -1,1);
+        int ni = SKELETON.getNumericInput("Hány köre nem része egy testes hálózatnak ez a hypa?\n-1 - még most is része\n0 - ebben a körben vált le\n1 - egy köre nem csatlakozik már", -1,1);
+        SKELETON.printReturn(String.format("%d", ni));
+        SKELETON.printReturn(String.format("%d", ni));
+        return ni;
     }
     public void setIsDyingSince(int isDyingSince){
 
@@ -48,9 +49,10 @@ public class Hypa {
     public int getAge(){
         SKELETON.printCall(this, Collections.emptyList(), "getAge");
         SKELETON.printCall(user, Collections.emptyList(), "getNumericInput");
-        SKELETON.printReturn("numericInput: int");
-        SKELETON.printReturn("numericInput: int");
-        return SKELETON.getNumericInput("Milyen idős a hypa (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
+        int ni = SKELETON.getNumericInput("Milyen idős a hypa (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
+        SKELETON.printReturn(String.format("%d", ni));
+        SKELETON.printReturn(String.format("%d", ni));
+        return ni;
     }
 
     public Tekton getEnd1() {

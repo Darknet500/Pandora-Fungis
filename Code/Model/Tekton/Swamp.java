@@ -32,7 +32,8 @@ public class Swamp extends Tekton {
             // Ellenőrizzük a Hypa korát
             if (hypa.getAge() >= 3) {
                 // Ha a Hypa kora legalább 3, akkor eltávolítjuk
-                iterator.remove();
+                //iterator.remove();
+                hypa.die();
             }
         }
         SKELETON.printReturn("");

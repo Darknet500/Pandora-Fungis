@@ -69,23 +69,33 @@ public class Tekton {
     public void breakTekton() {
         SKELETON.printCall(this, Collections.emptyList(), "breakTekton");
         Tekton newTekton = new Tekton();
+        SKELETON.objectNameMap.put(newTekton, "newTekton");
+        SKELETON.printCall(newTekton, Collections.emptyList(), "Tekton");
+        SKELETON.printReturn("");
 
         // Szétosztjuk a szomszédokat 50-50%
-        Iterator<Tekton> iterator = neighbours.iterator();
-        while (iterator.hasNext()) {
-            Tekton neighbour = iterator.next();
+
+        for (Tekton neighbour: neighbours) {
             if (Math.random() < 0.5) { // 50%, h áthelyezzük az újhoz
-                newTekton.neighbours.add(neighbour);
-                iterator.remove();
+                newTekton.addNeighbour(neighbour);
+                removeNeighbour(neighbour);
             }
         }
 
         // A régi és az új szomszédok lesznek
-        this.neighbours.add(newTekton);
-        newTekton.neighbours.add(this);
+        addNeighbour(newTekton);
+        newTekton.addNeighbour(this);
 
         // A régi Tekton összes fonala elhal
-        this.connectedHypas.clear();
+        for(Hypa h : connectedHypas){
+            h.die();
+        }
+        SKELETON.printReturn("");
+    }
+
+    public void removeNeighbour(Tekton neighbour) {
+        SKELETON.printCall(this, Collections.emptyList(), "removeNeighbour");
+        this.neighbours.remove(neighbour);
         SKELETON.printReturn("");
     }
 
@@ -308,6 +318,12 @@ public class Tekton {
     public void setNeighbours(List<Tekton> neighbours) {
         SKELETON.printCall(this, Collections.singletonList(neighbours), "setNeighbours");
         this.neighbours = neighbours;
+        SKELETON.printReturn("");
+    }
+
+    public void addNeighbour(Tekton t){
+        SKELETON.printCall(this, List.of(t), "addNeighbour");
+        neighbours.add(t);
         SKELETON.printReturn("");
     }
 

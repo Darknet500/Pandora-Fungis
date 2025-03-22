@@ -20,6 +20,7 @@ public class Skeleton {
 
         objectNameMap = new HashMap<>();
         objectStack = new ArrayList<>();
+        user = new Object();
     }
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
@@ -44,7 +45,7 @@ public class Skeleton {
                             "|-------------------------------------------------------|");
 
         for (int i = 0; i < useCases.length; i++) {
-            System.out.println("\t\t" + i + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
+            System.out.println("\t\t" + (i+1) + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
         }
 
         System.out.println("press q if you want to exit"); //Quite obvious :)
@@ -169,8 +170,11 @@ public class Skeleton {
             System.out.print(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(called) + ": " + functionHeader + "(");
             for (Object o : parameters) {
                 if (SKELETON.objectNameMap.containsKey(o)) {
-                    System.out.print(SKELETON.objectNameMap.get(o) + (o==parameters.getLast()?"":", "));
+                    System.out.print(SKELETON.objectNameMap.get(o));
+                } else if(o==null){
+                    System.out.print("null");
                 }
+                System.out.print((o==parameters.getLast()?"":", "));
             }
             System.out.print(")\n");
             objectStack.addLast(called);
@@ -443,7 +447,7 @@ public class Skeleton {
 
         print = true;
         shroomer.throwSpore(mushroom, tekton1);
-        shroomer.throwSpore(mushroom, tekton2);
+        //shroomer.throwSpore(mushroom, tekton2);
         print = false;
 
     }
@@ -477,6 +481,8 @@ public class Skeleton {
         Tekton breaking = new Tekton();
         objectNameMap.put(breaking, "breaking");
         Tekton tekton = new Tekton();
+        breaking.addNeighbour(tekton);
+        tekton.addNeighbour(breaking);
         objectNameMap.put(tekton, "tekton");
         Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
         objectNameMap.put(shroomer, "shroomer");
