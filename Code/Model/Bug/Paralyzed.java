@@ -11,16 +11,20 @@ import java.util.List;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A Paralyzed osztály olyan stratégia, amely teljesen megbénítja a Bugot,
+ * így nem tud mozogni, harapni vagy enni.
  */
 public class Paralyzed extends Normal {
-
+    /**
+     * Minden művelet le van tiltva ebben az állapotban.
+     * @return Mindig hamis.
+     */
+    
+     /**
+     * Alapértelmezett paraméter nélküli konstruktor a stratégiára
+     */
     public Paralyzed(){}
 
-    /**
-     * @param b 
-     * @param to
-     */
     @Override
     public boolean move(Bug b, Tekton to) {
         SKELETON.printCall(this, List.of(b, to), "move");
@@ -35,10 +39,6 @@ public class Paralyzed extends Normal {
         return false;
     }
 
-    /**
-     * @param b 
-     * @param h
-     */
     @Override
     public boolean bite(Bug b, Hypa h) {
         SKELETON.printCall(this, List.of(b, h), "bite");
