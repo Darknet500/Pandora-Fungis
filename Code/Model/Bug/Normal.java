@@ -29,7 +29,7 @@ public class Normal implements Strategy {
     }
 
     public boolean eat() {
-        SKELETON.printCall(this, Collections.emptyList(), "move");
+        SKELETON.printCall(this, Collections.emptyList(), "eat");
         SKELETON.printReturn("true");
         return true;
     }

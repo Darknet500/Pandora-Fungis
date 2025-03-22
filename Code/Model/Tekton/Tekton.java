@@ -183,7 +183,7 @@ public class Tekton {
     public List<Tekton> getNeighboursByHypa() {
         SKELETON.printCall(this, Collections.emptyList(), "getNeighboursByHypa");
         List<Tekton> neighboursByHypa = new ArrayList<>();
-
+        SKELETON.print=false;
         // végigmegyünk az összes hypa-n
         for (Hypa hypa : connectedHypas) {
             Tekton end1 = hypa.getEnd1();
@@ -199,6 +199,7 @@ public class Tekton {
                 neighboursByHypa.add(end2);
             }
         }
+        SKELETON.print=true;
 
         SKELETON.printReturn("neighboursByHypa: List<Tekton>");
         // vissztér az új listával
@@ -358,7 +359,7 @@ public class Tekton {
     }
 
     public void setBug(Bug bug) {
-        SKELETON.printCall(this, Collections.singletonList(bug), "setBug");
+        SKELETON.printCall(this,Collections.singletonList(bug), "setBug");
         this.bug = bug;
         SKELETON.printReturn("");
     }
