@@ -92,7 +92,7 @@ public class Bug extends Player {
 
     public int getUnderEffectSince(){
         SKELETON.printCall(this, Collections.emptyList(), "getUnderEffectSince");
-        int ret = SKELETON.getNumericInput("under Effect since =", 0, 20);
+        int ret = SKELETON.getNumericInput("under Effect since =\n Kérek egy 0 és 2 közötti egész számot\n", 0, 2);
         SKELETON.printReturn(String.format("%d", ret));
         return ret;
     }

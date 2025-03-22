@@ -37,7 +37,7 @@ public class Slowed extends Normal {
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
         int rethalf = Skeleton.SKELETON.getNumericInput(
-                "moves made in the prev. 2 rounds = ?", 0, 1);
+                "moves made in the prev. 2 rounds = ?\n 0 vagy 1\n", 0, 1);
 
         boolean ret = canReach.contains(to)&& rethalf ==0;
 

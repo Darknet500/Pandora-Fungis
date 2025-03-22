@@ -54,11 +54,13 @@ public class Shroomer extends Player {
         if(!start.hasSpore()){
            if (target.acceptHypa(this)){
                Hypa hypa= new Hypa(start, target, this);
-               SKELETON.objectNameMap.put(this, "hypa");
-               SKELETON.printCall(this, Arrays.asList(start, target, this), "Hypa" );
+               SKELETON.objectNameMap.put(hypa, "hypa");
+               SKELETON.printCall(hypa, Arrays.asList(start, target, this), "Hypa" );
                start.connectHypa(hypa);
                target.connectHypa(hypa);
                SKELETON.printReturn("");
+
+
 
 
 
@@ -82,21 +84,25 @@ public class Shroomer extends Player {
  * @param target
  */
 public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
-    SKELETON.printCall(SKELETON.objectNameMap.get(this), Arrays.asList(start,middle, target), "growHypaFar" );
+    SKELETON.printCall(this, Arrays.asList(start,middle, target), "growHypaFar" );
 
     if(!start.hasSpore())
         if (middle.acceptHypa(this)){
             Hypa hypa1= new Hypa(start, middle, this);
             SKELETON.objectNameMap.put(hypa1, "hypa1");
+            SKELETON.printCall(hypa1, Arrays.asList(start, middle, this), "Hypa" );
             start.connectHypa(hypa1);
             middle.connectHypa(hypa1);
+            SKELETON.printReturn("");
+
             HypaList.add(hypa1);
             tryGrowMushroom(middle);
             if (target.acceptHypa(this)) {
                 Hypa hypa2= new Hypa(middle, target, this);
                 SKELETON.objectNameMap.put(hypa2, "hypa2");
-                start.connectHypa(hypa2);
+                SKELETON.printCall(hypa1, Arrays.asList(middle, target, this), "Hypa" );
                 middle.connectHypa(hypa2);
+                target.connectHypa(hypa2);
                 HypaList.add(hypa2);
                 tryGrowMushroom(target);
             }
@@ -111,7 +117,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * @param target
      */
     public void throwSpore(Mushroom mushroom, Tekton target) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Arrays.asList(mushroom, target), "throwSpore" );
+        SKELETON.printCall(this, Arrays.asList(mushroom, target), "throwSpore" );
 
         Tekton location = mushroom.getLocation();
         List<Tekton> neighbours = location.getNeighbours();
@@ -143,7 +149,7 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      * @param m
      */
     public void mushroomDied(Mushroom m) {
-        SKELETON.printCall(SKELETON.objectNameMap.get(this), Collections.singletonList(m), "mushroomDied" );
+        SKELETON.printCall(this, Collections.singletonList(m), "mushroomDied" );
 
         m.getLocation().setMushroom(null);
         mushrooms.remove(m);
