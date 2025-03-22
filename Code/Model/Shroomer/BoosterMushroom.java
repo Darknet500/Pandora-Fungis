@@ -26,6 +26,9 @@ public class BoosterMushroom extends Mushroom {
         Spore booster = new BoosterSpore(this.shroomer);
         SKELETON.objectNameMap.put(booster, "booster");
         target.storeSpore(booster);
+        if(getSporesThrown()==5){
+            die();
+        }
         SKELETON.printReturn("");
 
     }

@@ -26,6 +26,9 @@ public class BiteBlockerMushroom extends Mushroom {
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
         SKELETON.objectNameMap.put(biteBloskerSpore, "biteBloskerSpore");
         target.storeSpore(biteBloskerSpore);
+        if(getSporesThrown()==5){
+            die();
+        }
         SKELETON.printReturn("");
 
     }

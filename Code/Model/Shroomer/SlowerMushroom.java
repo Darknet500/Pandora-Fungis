@@ -23,10 +23,12 @@ public class SlowerMushroom extends Mushroom {
      */
     public void sporeThrown(Tekton target) {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
-
         SlowerSpore spore = new SlowerSpore(this.shroomer);
         SKELETON.objectNameMap.put(spore, "spore");
         target.storeSpore(spore);
+        if(getSporesThrown()==5){
+            die();
+        }
         SKELETON.printReturn("");
 
     }
