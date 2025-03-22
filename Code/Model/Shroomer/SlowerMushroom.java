@@ -25,6 +25,7 @@ public class SlowerMushroom extends Mushroom {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
 
         SlowerSpore spore = new SlowerSpore(this.shroomer);
+        SKELETON.objectNameMap.put(spore, "spore");
         target.storeSpore(spore);
         SKELETON.printReturn("");
 

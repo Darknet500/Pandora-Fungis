@@ -46,8 +46,10 @@ public class Slowed extends Normal {
     }
 
     public void endOfTurn(Bug b){
+        SKELETON.printCall(this, List.of(b), "endOfTurn");
         if(b.getUnderEffectSince()==2){
             b.setStrategy(new Normal());
         }
+        SKELETON.printReturn("");
     }
 }

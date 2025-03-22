@@ -23,8 +23,9 @@ public class BiteBlockerMushroom extends Mushroom {
      */
     public void sporeThrown(Tekton target) {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
-        BiteBlockerSpore spore = new BiteBlockerSpore(this.shroomer);
-        target.storeSpore(spore);
+        Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
+        SKELETON.objectNameMap.put(biteBloskerSpore, "biteBloskerSpore");
+        target.storeSpore(biteBloskerSpore);
         SKELETON.printReturn("");
 
     }

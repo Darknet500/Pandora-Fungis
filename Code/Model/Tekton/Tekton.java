@@ -19,27 +19,27 @@ public class Tekton {
     /**
      *
      */
-    private Bug bug;
+    protected Bug bug;
 
     /**
      *
      */
-    private Mushroom mushroom;
+    protected Mushroom mushroom;
 
     /**
      *
      */
-    private List<Spore> storedSpores;
+    protected List<Spore> storedSpores;
 
     /**
      *
      */
-    private List<Tekton> neighbours;
+    protected List<Tekton> neighbours;
 
     /**
      *
      */
-    private final List<Hypa> connectedHypas;
+    protected final List<Hypa> connectedHypas;
 
     /**
      * Default constructor
@@ -75,19 +75,28 @@ public class Tekton {
 
         // Szétosztjuk a szomszédokat 50-50%
 
+        List<Tekton> remain = new ArrayList<>();
+        List<Tekton> newNeighbours = new ArrayList<>();
+
         for (Tekton neighbour: neighbours) {
             if (Math.random() < 0.5) { // 50%, h áthelyezzük az újhoz
-                newTekton.addNeighbour(neighbour);
-                removeNeighbour(neighbour);
+                newNeighbours.add(neighbour);
+            } else{
+                remain.add(neighbour);
             }
         }
+
+        this.setNeighbours(remain);
+        newTekton.setNeighbours(newNeighbours);
 
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
 
         // A régi Tekton összes fonala elhal
-        for(Hypa h : connectedHypas){
+        List<Hypa> hypasList = new ArrayList<Hypa>();
+        hypasList.addAll(connectedHypas);
+        for(Hypa h : hypasList){
             h.die();
         }
         SKELETON.printReturn("");

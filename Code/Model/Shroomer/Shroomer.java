@@ -196,7 +196,10 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
             mus.age();
         }
 
-        Iterator<Hypa> iterator = HypaList.iterator();
+        List<Hypa> hypasListCopy = new ArrayList<>();
+        hypasListCopy.addAll(HypaList);
+
+        Iterator<Hypa> iterator = hypasListCopy.iterator();
         while(iterator.hasNext()){
             Hypa hyp = iterator.next();
             if(hyp.getIsDyingSince()==1){

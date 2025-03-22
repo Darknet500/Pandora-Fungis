@@ -2,6 +2,11 @@ package Shroomer;
 
 import Bug.Bug;
 
+import java.util.List;
+import Bug.Strategy;
+import Bug.Boosted;
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -19,7 +24,11 @@ public class BoosterSpore extends Spore {
      * @return
      */
     public int haveEffect(Bug b) {
-        // TODO implement here
-        return 0;
+        SKELETON.printCall(this, List.of(b), "haveEffect");
+        Strategy boosted = new Boosted();
+        SKELETON.objectNameMap.put(boosted, "boosted");
+        b.setStrategy(boosted);
+        SKELETON.printReturn(String.format("%d", 1));
+        return 1;
     }
 }

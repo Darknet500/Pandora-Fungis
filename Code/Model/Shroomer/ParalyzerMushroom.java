@@ -24,7 +24,8 @@ public class ParalyzerMushroom extends Mushroom {
      */
     public void sporeThrown(Tekton target) {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
-        ParalyzerSpore spore = new ParalyzerSpore(this.shroomer);
+        Spore spore = new ParalyzerSpore(this.shroomer);
+        SKELETON.objectNameMap.put(spore, "paralyzerSpore");
         target.storeSpore(spore);
         SKELETON.printReturn("");
 

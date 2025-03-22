@@ -23,8 +23,9 @@ public class BoosterMushroom extends Mushroom {
      */
     public void sporeThrown(Tekton target) {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
-        BoosterSpore spore = new BoosterSpore(this.shroomer);
-        target.storeSpore(spore);
+        Spore booster = new BoosterSpore(this.shroomer);
+        SKELETON.objectNameMap.put(booster, "booster");
+        target.storeSpore(booster);
         SKELETON.printReturn("");
 
     }

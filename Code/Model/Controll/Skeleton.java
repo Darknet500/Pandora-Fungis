@@ -104,9 +104,6 @@ public class Skeleton {
             objectStack.clear();
             objectNameMap.clear();
 
-
-
-
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);
         }
@@ -499,6 +496,8 @@ public class Skeleton {
         Hypa hypa = new Hypa(breaking, tekton, shroomer);
         objectNameMap.put(hypa,"hypa");
         shroomer.addHypa(hypa);
+        breaking.connectHypa(hypa);
+        tekton.connectHypa(hypa);
         BoosterSpore boospore = new BoosterSpore(shroomer);
         objectNameMap.put(boospore, "boospore");
         breaking.storeSpore(boospore);

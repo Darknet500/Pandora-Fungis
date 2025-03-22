@@ -23,7 +23,9 @@ public class Swamp extends Tekton {
     public void checkForDeleteHypa() {
         SKELETON.printCall(this, Collections.emptyList(), "checkForDeleteHypa");
         // Mivel a lista közben változni fog, biztonságosabb, ha először készítünk egy másolatot.
-        Iterator<Hypa> iterator = getHypas().iterator();
+        List<Hypa> hypasList = new ArrayList<>();
+        hypasList.addAll(connectedHypas);
+        Iterator<Hypa> iterator = hypasList.iterator();
 
         // Iterálunk az összes Hypa-n
         while (iterator.hasNext()) {
@@ -32,7 +34,6 @@ public class Swamp extends Tekton {
             // Ellenőrizzük a Hypa korát
             if (hypa.getAge() >= 3) {
                 // Ha a Hypa kora legalább 3, akkor eltávolítjuk
-                //iterator.remove();
                 hypa.die();
             }
         }
