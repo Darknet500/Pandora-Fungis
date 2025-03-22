@@ -20,7 +20,6 @@ public class Skeleton {
 
         objectNameMap = new HashMap<>();
         objectStack = new ArrayList<>();
-        user = new Object();
     }
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
