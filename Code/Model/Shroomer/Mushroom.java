@@ -42,7 +42,9 @@ public abstract class Mushroom {
      *
      */
     public void die() {
-        // TODO implement here
+        SKELETON.printCall(this, Collections.emptyList(), "die");
+        shroomer.mushroomDied(this);
+        SKELETON.printReturn("");
     }
 
     /**

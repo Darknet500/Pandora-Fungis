@@ -27,6 +27,9 @@ public class ParalyzerMushroom extends Mushroom {
         Spore spore = new ParalyzerSpore(this.shroomer);
         SKELETON.objectNameMap.put(spore, "paralyzerSpore");
         target.storeSpore(spore);
+        if(getSporesThrown()==5){
+            die();
+        }
         SKELETON.printReturn("");
 
     }

@@ -60,11 +60,6 @@ public class Shroomer extends Player {
                start.connectHypa(hypa);
                target.connectHypa(hypa);
 
-
-
-
-
-
                HypaList.add(hypa);
                tryGrowMushroom(target);
                traverseHypaNetwork();
@@ -117,7 +112,10 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
      */
     public void throwSpore(Mushroom mushroom, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(mushroom, target), "throwSpore" );
-
+        if(mushroom.getNumberOfSpores()!=1){
+            SKELETON.printReturn("");
+            return;
+        }
         Tekton location = mushroom.getLocation();
         List<Tekton> neighbours = location.getNeighbours();
         int age = mushroom.getAge();
