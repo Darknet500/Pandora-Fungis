@@ -12,11 +12,12 @@ import java.util.List;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A Slowed osztály egy olyan stratégia, amely korlátozza a Bug mozgását,
+ * így csak akkor mozoghat, ha az előző két körben nem mozgott.
  */
 public class Slowed extends Normal {
     /**
-     * Default constructor
+     * Alapértelmezett paraméter nélküli konstruktor
      */
     public Slowed() {}
 
@@ -28,8 +29,12 @@ public class Slowed extends Normal {
     }
 
     /**
-     * @param b 
-     * @param to
+     * Meghatározza, hogy a Bug képes-e mozogni az adott körben.
+     * A felhasználótól megkérdezi, hogy mozgott-e a bogár az előző két körben, ez alapján dönt.
+     *
+     * @param b  A Bug, amely mozogni próbál.
+     * @param to A cél Tekton helyszín.
+     * @return Igaz, ha a mozgás engedélyezett, hamis egyébként.
      */
     @Override
     public boolean move(Bug b, Tekton to) {

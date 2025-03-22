@@ -11,13 +11,16 @@ import java.util.List;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * Hatás alatt nem álló bogár stratégiája.
  */
 public class Normal implements Strategy {
 
     /**
-     * @param b 
-     * @param to
+     * Meghatározza, hogy a Bug át tud-e mozogni egy másik Tektonra.
+     *
+     * @param b  A Bug, amely mozogni próbál.
+     * @param to A cél Tekton helyszín.
+     * @return Igaz, ha a mozgást el lehet végezni, hamis egyébként.
      */
     public boolean move(Bug b, Tekton to) {
         SKELETON.printCall(this, List.of(b, to), "move");

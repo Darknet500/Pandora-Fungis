@@ -9,12 +9,18 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 
+ * A BiteBlocked osztály egy speciális stratégia, amely megakadályozza,
+ * hogy a Bug harapni vagy enni tudjon. Ez az osztály a Normal osztályból származik,
+ * de korlátozza a harapás és evés lehetőségét.
  */
 public class BiteBlocked extends Normal {
+    
     /**
-     * @param b 
-     * @param h
+     * Megakadályozza, hogy a Bug megharapja a megadott Hypa-t.
+     *
+     * @param b A Bug, amely harapni próbál.
+     * @param h A Hypa, amelyet megpróbál megharapni.
+     * @return Mindig hamis, mivel a harapás blokkolva van.
      */
     @Override
     public boolean bite(Bug b, Hypa h) {
@@ -23,6 +29,11 @@ public class BiteBlocked extends Normal {
         return false;
     }
 
+    /**
+     * Megakadályozza, hogy a Bug egyen.
+     *
+     * @return Mindig hamis, mivel az evés blokkolva van.
+     */
     @Override
     public boolean eat() {
         SKELETON.printCall(this, Collections.emptyList(), "eat");

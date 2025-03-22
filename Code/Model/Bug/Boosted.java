@@ -12,7 +12,8 @@ import java.util.Set;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A Boosted osztály egy olyan stratégia, amely lehetővé teszi, hogy a Bug
+ * gyorsabban mozogjon.
  */
 public class Boosted extends Normal {
 
@@ -24,8 +25,12 @@ public class Boosted extends Normal {
     }
 
     /**
-     * @param b 
-     * @param to
+     * Lehetővé teszi, hogy a Bug két Hypa távolságra mozogjon.
+     * Ez azt jelenti, hogy a Bug nemcsak a közvetlen szomszédos helyekre léphet, hanem egy közvetítő Hypa segítségével tovább is haladhat.
+     * A függvény megnézi, hogy a jelenlegi Tekton szomszédjainak szomszédjai között van-e a a cél Tekton.
+     * @param b  A Bug, amely mozogni próbál.
+     * @param to A cél Tekton.
+     * @return Igaz, ha a mozgás lehetséges, hamis egyébként.
      */
     @Override
     public boolean move(Bug b, Tekton to) {
