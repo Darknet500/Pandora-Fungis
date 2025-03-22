@@ -1,18 +1,18 @@
 package Controll;
 
-import Bug.Bug;
-import Tekton.Tekton;
+import Bug.*;
+import Shroomer.*;
+import Tekton.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
     private List<Object> objectStack;
+
+    public static boolean print=false;
 
     public HashMap<Object, String> objectNameMap;
 
@@ -44,11 +44,18 @@ public class Skeleton {
                             "|-------------------------------------------------------|");
 
         for (int i = 0; i < useCases.length; i++) {
-            System.out.println("\t\t" + i + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
+            System.out.println("\t\t" + (i+1) + ":\t" + useCases[i]); /** User inputs with numbers and testcases*/
         }
 
         System.out.println("press q if you want to exit"); //Quite obvious :)
+        while (true) {
+            try {
+                getChoosenTestCase();
 
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /** Gets the user input while it's not correct */
@@ -70,7 +77,7 @@ public class Skeleton {
                 int number = Integer.parseInt(choosenTestCase);
 
                 /** If the number is correct it leaves the loop and calls the excecuter method */
-                if (number >= 1 && number <= 12) {
+                if (number >= 1 && number <= 13) {
                     executeTestCase(number);
                     break;
                 } else {
@@ -90,15 +97,25 @@ public class Skeleton {
         try {
             /** gets the method's name then calls it */
             Method m = this.getClass().getDeclaredMethod(name);
+            objectStack.addFirst(this);
+            objectNameMap.put(this, "Skeleton");
+            objectNameMap.put(null, "null");
             m.invoke(this);
+            objectStack.clear();
+            objectNameMap.clear();
+
         } catch (IllegalArgumentException | ReflectiveOperationException e) {
             System.out.println("Error executing test case: " + name);
         }
     }
 
     public int getNumericInput(String message, int min, int max) {
+        printCall(this, Collections.emptyList(),"getNumericInput");
+
         System.out.println(message);
-        System.out.print("Please enter a number between " + min + " and " + max + ": ");
+
+        //System.out.print("Please enter a number between " + min + " and " + max + ": ");
+
         Scanner scn = new Scanner(System.in);
 
         /**Looping while user gives a correct input */
@@ -110,6 +127,7 @@ public class Skeleton {
 
                 /** If the number is correct it return the user's input as integer */
                 if (number >= min && number <= max) {
+                    printReturn(String.format("%d",number));
                     return number;
                 } else {
                     System.out.println("Invalid number! Please enter a number between " + min + " and " + max + ": ");
@@ -118,6 +136,7 @@ public class Skeleton {
                 System.out.print("Please enter a number between " + min + " and " + max + ": ");
             }
         }
+
     }
 
     public boolean getBoolInput(String message) {
@@ -146,50 +165,377 @@ public class Skeleton {
         }
     }
 
-    public void printCall(Object called, List<Object> parameters, String functionHeader){
-        for(int i = 0; i < objectStack.size(); i++){
-            System.out.print('\t');
-        }
-        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(called)+": "+functionHeader+"(");
-        for(Object o: parameters){
-            if(SKELETON.objectNameMap.containsKey(o)) {
-                System.out.print(SKELETON.objectNameMap.get(o) + ",");
+    public void printCall(Object called, List<Object> parameters, String functionHeader) {
+        if (print) {
+            for (int i = 0; i < objectStack.size(); i++) {
+                System.out.print('\t');
             }
+            System.out.print(SKELETON.objectNameMap.get(objectStack.getLast()) + "->" + SKELETON.objectNameMap.get(called) + ": " + functionHeader + "(");
+            for (Object o : parameters) {
+                if (SKELETON.objectNameMap.containsKey(o)) {
+                    System.out.print(SKELETON.objectNameMap.get(o));
+                } else if(o==null){
+                    System.out.print("null");
+                }
+                System.out.print((o==parameters.getLast()?"":", "));
+            }
+            System.out.print(")\n");
+            objectStack.addLast(called);
+
         }
-        System.out.print(")\n");
-        objectStack.addLast(called);
     }
 
     public void printReturn(String message){
-        for(int i = 0; i < objectStack.size(); i++){
-            System.out.print('\t');
+        if(print) {
+            for (int i = 0; i < objectStack.size() - 1; i++) {
+                System.out.print('\t');
+            }
+            System.out.println(SKELETON.objectNameMap.get(objectStack.getLast()) + "-->" + SKELETON.objectNameMap.get(SKELETON.objectStack.get(SKELETON.objectStack.size() - 2)) + (message==""?"":": " + message));
+            objectStack.removeLast();
         }
-        System.out.print(SKELETON.objectNameMap.get(objectStack.getLast())+"->"+SKELETON.objectNameMap.get(SKELETON.objectNameMap.size()-2)+": "+message);
-        objectStack.removeLast();
     }
 
     public void testCase1(){
         System.out.println("Test case 1");
-        Tekton t = new Tekton();
-        objectNameMap.put(t, "t");
-        Bug buggg = new Bug();
-        objectNameMap.put(buggg, "buggg");
-        System.out.println(objectNameMap.get(t));
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton tekton2 = new Tekton();
+        objectNameMap.put(tekton2, "tekton2");
+        location.setNeighbours(List.of(tekton2));
+        tekton2.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        Normal strategy = new Normal();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa= new Hypa(location, tekton2, shroomer);
+        objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        tekton2.connectHypa(hypa);
+        shroomer.addHypa(hypa);
 
-        //... end of test case
-        objectNameMap.clear();
+        print = true;
+        bug.bite(hypa);
+        print = false;
 
     }
-    public void testCase2(){System.out.println("Test case 2");}
-    public void testCase3(){System.out.println("Test case 3");}
-    public void testCase4(){System.out.println("Test case 4");}
-    public void testCase5(){System.out.println("Test case 5");}
-    public void testCase6(){System.out.println("Test case 6");}
-    public void testCase7(){System.out.println("Test case 7");}
-    public void testCase8(){System.out.println("Test case 8");}
-    public void testCase9(){System.out.println("Test case 9");}
-    public void testCase10(){System.out.println("Test case 10");}
-    public void testCase11(){System.out.println("Test case 11");}
-    public void testCase12(){System.out.println("Test case 12");}
+    public void testCase2(){
+        System.out.println("Test case 2");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton tekton2 = new Tekton();
+        objectNameMap.put(tekton2, "tekton2");
+        location.setNeighbours(List.of(tekton2));
+        tekton2.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        BiteBlocked strategy = new BiteBlocked();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+
+        Hypa hypa= new Hypa(location, tekton2, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        tekton2.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+
+        print = true;
+        bug.bite(hypa);
+        print = false;
+
+
+    }
+    public void testCase3(){
+        System.out.println("Test case 3");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton to = new Tekton();
+        objectNameMap.put(to, "to");
+        location.setNeighbours(List.of(to));
+        to.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        Normal strategy = new Normal();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa= new Hypa(location, to, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        to.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+
+        print = true;
+        bug.move(to);
+        print = false;
+
+
+    }
+    public void testCase4(){
+        System.out.println("Test case 4");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton to = new Tekton();
+        objectNameMap.put(to, "to");
+        location.setNeighbours(List.of(to));
+        to.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        Boosted strategy = new Boosted();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa= new Hypa(location, to, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        to.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+
+        print = true;
+        bug.move(to);
+        print = false;
+
+    }
+    public void testCase5(){
+        System.out.println("Test case 5");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton to = new Tekton();
+        objectNameMap.put(to, "to");
+        location.setNeighbours(List.of(to));
+        to.setNeighbours(List.of(location));
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        Slowed strategy = new Slowed();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa= new Hypa(location, to, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        location.connectHypa(hypa);
+        to.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+
+        print = true;
+        bug.move(to);
+        print = false;
+
+    }
+    public void testCase6(){
+        System.out.println("Test case 6");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Bug bug = new Bug();
+        objectNameMap.put(bug, "bug");
+        bug.setLocation(location);
+        location.setBug(bug);
+        Normal strategy = new Normal();
+        objectNameMap.put(strategy, "strategy");
+        bug.setStrategy(strategy);
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        BoosterSpore boospore = new BoosterSpore(shroomer);
+        objectNameMap.put(boospore, "boospore");
+
+        print = true;
+        bug.eat(boospore);
+        print = false;
+
+    }
+    public void testCase7(){
+        System.out.println("Test case 7");
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Tekton end1 = new Tekton();
+        objectNameMap.put(end1, "end1");
+        Tekton end2 = new Tekton();
+        objectNameMap.put(end2, "end2");
+        end1.setNeighbours(List.of(end2));
+        end2.setNeighbours(List.of(end1));
+        Hypa hypa= new Hypa(end1, end2, shroomer);
+        SKELETON.objectNameMap.put(hypa, "hypa");
+        end1.connectHypa(hypa);
+        end2.connectHypa(hypa);
+        BoosterMushroom mushroom = new BoosterMushroom(shroomer, end1);
+        objectNameMap.put(mushroom, "mushroom");
+        shroomer.addHypa(hypa);
+        print = true;
+        shroomer.endOfRoundAdministration();
+        print = false;
+
+    }
+
+    public void testCase8(){
+        System.out.println("Test case 8");
+        Tekton start = new Tekton();
+        objectNameMap.put(start, "start");
+        Tekton target = new Tekton();
+        objectNameMap.put(target, "target");
+        start.setNeighbours(List.of(target));
+        target.setNeighbours(List.of(start));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        BoosterMushroom mushroom = new BoosterMushroom(shroomer, start);
+        start.setMushroom(mushroom);
+        shroomer.addMushroom(mushroom);
+        objectNameMap.put(shroomer, "shroomer");
+        objectNameMap.put(mushroom, "mushroom");
+
+        print = true;
+        shroomer.growHypa(start, target);
+        print = false;
+    }
+
+    public void testCase9(){
+        System.out.println("Test case 9");
+        Tekton start = new Tekton();
+        objectNameMap.put(start, "start");
+        Tekton middle = new Tekton();
+        objectNameMap.put(middle, "middle");
+        Tekton target = new Tekton();
+        objectNameMap.put(target, "target");
+
+        start.setNeighbours(List.of(middle));
+        middle.setNeighbours(List.of(start, target));
+        target.setNeighbours(List.of(middle));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        BoosterMushroom mushroom = new BoosterMushroom(shroomer, start);
+        objectNameMap.put(mushroom, "mushroom");
+        shroomer.addMushroom(mushroom);
+        start.setMushroom(mushroom);
+        BoosterSpore boospore = new BoosterSpore(shroomer);
+        objectNameMap.put(boospore, "boospore");
+
+        print = true;
+        shroomer.growHypaFar(start,middle, target);
+        print = false;
+
+
+    }
+    public void testCase10(){
+        System.out.println("Test case 10");
+        Tekton location = new Tekton();
+        objectNameMap.put(location, "location");
+        Tekton tekton1 = new Tekton();
+        objectNameMap.put(tekton1, "tekton1");
+        Tekton tekton2 = new Tekton();
+        objectNameMap.put(tekton2, "tekton2");
+
+        location.setNeighbours(List.of(tekton1));
+        tekton1.setNeighbours(List.of(location, tekton2));
+        tekton2.setNeighbours(List.of(tekton1));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        BoosterMushroom mushroom = new BoosterMushroom(shroomer, location);
+        objectNameMap.put(mushroom, "mushroom");
+        shroomer.addMushroom(mushroom);
+        location.setMushroom(mushroom);
+
+        print = true;
+        shroomer.throwSpore(mushroom, tekton1);
+        //shroomer.throwSpore(mushroom, tekton2);
+        print = false;
+
+    }
+    public void testCase11(){
+        System.out.println("Test case 11");
+        Swamp swamp = new Swamp();
+        objectNameMap.put(swamp, "swamp");
+        Tekton tekton = new Tekton();
+        objectNameMap.put(tekton, "tekton");
+        swamp.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(swamp));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa1 = new Hypa(swamp, tekton, shroomer);
+        objectNameMap.put(hypa1,"hypa1");
+        Hypa hypa2 = new Hypa(swamp, tekton, shroomer);
+        objectNameMap.put(hypa2,"hypa2");
+        shroomer.addHypa(hypa1);
+        shroomer.addHypa(hypa2);
+        swamp.connectHypa(hypa1);
+        swamp.connectHypa(hypa2);
+        tekton.connectHypa(hypa1);
+        tekton.connectHypa(hypa2);
+
+        print = true;
+        swamp.checkForDeleteHypa();
+        print = false;
+
+
+    }
+    public void testCase12(){
+        System.out.println("Test case 12");
+        Tekton breaking = new Tekton();
+        objectNameMap.put(breaking, "breaking");
+        Tekton tekton = new Tekton();
+        breaking.addNeighbour(tekton);
+        tekton.addNeighbour(breaking);
+        objectNameMap.put(tekton, "tekton");
+        breaking.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(breaking));
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa = new Hypa(breaking, tekton, shroomer);
+        objectNameMap.put(hypa,"hypa");
+        shroomer.addHypa(hypa);
+        breaking.connectHypa(hypa);
+        tekton.connectHypa(hypa);
+        BoosterSpore boospore = new BoosterSpore(shroomer);
+        objectNameMap.put(boospore, "boospore");
+        breaking.storeSpore(boospore);
+
+        print = true;
+        breaking.breakTekton();
+        print = false;
+    }
+
+    public void testCase13(){
+        System.out.println("Test case 13");
+        Tekton applicable = new Tekton();
+        objectNameMap.put(applicable, "applicable");
+        Tekton tekton = new Tekton();
+        applicable.setNeighbours(List.of(tekton));
+        tekton.setNeighbours(List.of(applicable));
+        objectNameMap.put(tekton, "tekton");
+        Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
+        objectNameMap.put(shroomer, "shroomer");
+        Hypa hypa = new Hypa(applicable, tekton, shroomer);
+        objectNameMap.put(hypa,"hypa");
+        applicable.connectHypa(hypa);
+        tekton.connectHypa(hypa);
+        shroomer.addHypa(hypa);
+        BoosterSpore spore1 = new BoosterSpore(shroomer);
+        BoosterSpore spore2 = new BoosterSpore(shroomer);
+        BoosterSpore spore3 = new BoosterSpore(shroomer);
+        objectNameMap.put(spore1, "spore1");
+        objectNameMap.put(spore2, "spore2");
+        objectNameMap.put(spore3, "spore3");
+
+        applicable.storeSpore(spore1);
+        applicable.storeSpore(spore2);
+        applicable.storeSpore(spore3);
+
+        print = true;
+        shroomer.tryGrowMushroom(applicable);
+        print = false;
+    }
 
 }

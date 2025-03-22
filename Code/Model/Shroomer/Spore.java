@@ -2,6 +2,10 @@ package Shroomer;
 
 import Bug.Bug;
 
+import java.util.Collections;
+
+import static Controll.Skeleton.SKELETON;
+
 /**
  * 
  */
@@ -33,6 +37,8 @@ public abstract class Spore {
     public abstract int haveEffect(Bug b);
 
     public Shroomer getShroomer() {
+        SKELETON.printCall(this, Collections.emptyList(), "getShroomer");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(shroomer)+": Shroomer");
         return shroomer;
     }
 

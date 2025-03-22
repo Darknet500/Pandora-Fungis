@@ -2,6 +2,10 @@ package Shroomer;
 
 import Tekton.Tekton;
 
+import java.util.Collections;
+
+import static Controll.Skeleton.SKELETON;
+
 
 /**
  * 
@@ -19,8 +23,11 @@ public class ParalyzerMushroom extends Mushroom {
      * @param target
      */
     public void sporeThrown(Tekton target) {
-        ParalyzerSpore spore = new ParalyzerSpore(this.shroomer);
+        SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
+        Spore spore = new ParalyzerSpore(this.shroomer);
+        SKELETON.objectNameMap.put(spore, "paralyzerSpore");
         target.storeSpore(spore);
+        SKELETON.printReturn("");
 
     }
 }
