@@ -1,6 +1,7 @@
 package Tekton;
 
 import Bug.Bug;
+import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Mushroom;
 import Shroomer.Shroomer;
@@ -8,38 +9,44 @@ import Shroomer.Spore;
 
 import java.util.*;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
- * 
+ * A Tekton osztály egy egységet reprezentál a pályán, amelynek lehetnek szomszédai,
+ * tárolhat spórákat, illetve kapcsolódhat hozzá egy gomba vagy egy bogár.
+ * A Tektonok egymáshoz kapcsolódhatnak és eltörhetnek.
  */
 public class Tekton {
 
     /**
-     *
+     * Az adott Tektonhoz kapcsolódó bogár.
      */
-    private Bug bug;
+    protected Bug bug;
 
     /**
-     *
+     * Az adott Tektonhoz kapcsolódó gomba.
      */
-    private Mushroom mushroom;
+    protected Mushroom mushroom;
 
     /**
-     *
+     * A Tektonon lévő spórák listája.
      */
-    private List<Spore> storedSpores;
+    protected List<Spore> storedSpores;
 
     /**
-     *
+     * Az adott Tekton szomszédai.
      */
-    private List<Tekton> neighbours;
+    protected List<Tekton> neighbours;
 
     /**
-     *
+     * Az adott Tektonhoz kapcsolódó fonalak.
      */
-    private final List<Hypa> connectedHypas;
+    protected final List<Hypa> connectedHypas;
 
     /**
-     * Default constructor
+     * Alapértelmezett konstruktor, amely inicializálja a Tekton objektumot.
+     * Kezdetben nincs hozzá társítva bogár vagy gomba, és üres a szomszédok,
+     * spórák és fonalak listája.
      */
     public Tekton() {
         this.bug = null;
@@ -49,91 +56,169 @@ public class Tekton {
         this.connectedHypas = new ArrayList<>();
     }
 
+
     /**
-     * 
+     * Ellenőrzi, hogy van-e legalább egy spóra a Tektonon.
+     *
+     * @return true, ha van spóra, különben false.
+     */
+    public boolean hasSpore(){
+        SKELETON.printCall(this, Collections.emptyList(), "hasSpore");
+        if(storedSpores.isEmpty()){
+            SKELETON.printReturn("false");
+            return false;
+        }
+        SKELETON.printReturn("true");
+        return true;
+    }
+
+    /**
+     * A Tekton törése: létrehoz egy új Tekton példányt,
+     * a szomszédokat véletlenszerűen két részre ostja a régi és az új Tekton között. A szétválasztás
+     * után a kapcsolódó fonalak elhalnak.
      */
     public void breakTekton() {
+        SKELETON.printCall(this, Collections.emptyList(), "breakTekton");
         Tekton newTekton = new Tekton();
+        SKELETON.objectNameMap.put(newTekton, "newTekton");
+        SKELETON.printCall(newTekton, Collections.emptyList(), "Tekton");
+        SKELETON.printReturn("");
 
         // Szétosztjuk a szomszédokat 50-50%
-        Iterator<Tekton> iterator = getNeighbours().iterator();
-        while (iterator.hasNext()) {
-            Tekton neighbour = iterator.next();
+
+        List<Tekton> remain = new ArrayList<>();
+        List<Tekton> newNeighbours = new ArrayList<>();
+
+        for (Tekton neighbour: neighbours) {
             if (Math.random() < 0.5) { // 50%, h áthelyezzük az újhoz
-                newTekton.neighbours.add(neighbour);
-                iterator.remove();
+                newNeighbours.add(neighbour);
+            } else{
+                remain.add(neighbour);
             }
         }
 
+        this.setNeighbours(remain);
+        newTekton.setNeighbours(newNeighbours);
+
         // A régi és az új szomszédok lesznek
-        this.neighbours.add(newTekton);
-        newTekton.neighbours.add(this);
+        addNeighbour(newTekton);
+        newTekton.addNeighbour(this);
 
         // A régi Tekton összes fonala elhal
-        this.connectedHypas.clear();
+        List<Hypa> hypasList = new ArrayList<Hypa>();
+        hypasList.addAll(connectedHypas);
+        for(Hypa h : hypasList){
+            h.die();
+        }
+        SKELETON.printReturn("");
     }
 
     /**
-     * 
+     * Eltávolítja a megadott szomszédot a Tekton szomszédlistájából.
+     *
+     * @param neighbour - Az eltávolítandó szomszéd Tekton.
+     */
+    public void removeNeighbour(Tekton neighbour) {
+        SKELETON.printCall(this, Collections.emptyList(), "removeNeighbour");
+        this.neighbours.remove(neighbour);
+        SKELETON.printReturn("");
+    }
+
+    /**
+     * Ellenőrzi, hogy van-e gomba a megadott Tektonon.
+     *
+     * @return true, ha van gomba, különben false.
      */
     public boolean hasMushroom() {
-        return getMushroom() != null;
+        SKELETON.printCall(this, Collections.emptyList(), "hasMushroom");
+        if(mushroom == null){
+            SKELETON.printReturn("false");
+            return false;
+        }else{
+            SKELETON.printReturn("true");
+            return true;
+        }
+
     }
 
     /**
-     * @param s
+     * A spórát elszórás után hozzáadja a Tekton spóralistájához.
+     *
+     * @param s - A tárolandó spóra.
      */
     public void storeSpore(Spore s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "storeSpore");
+
         if (s != null) {
-            getStoredSpores().add(s);
+            storedSpores.add(s);
         }
+        SKELETON.printReturn("");
     }
 
     /**
-     * @param shroomer 
-     * @return
+     * Megvizsgálja, hogy a megadott Shroomer kapcsolhat-e ehhez a Tektonhoz Hypa-t.
+     * @param shroomer - A megadott Shroomer.
+     * @return Igaz, ha a Shroomer kapcsolhat, egyébként hamis.
      */
     public boolean acceptHypa(Shroomer shroomer) {
+        SKELETON.printCall(this, Collections.singletonList(shroomer), "acceptHypa");
         if (shroomer == null) {
+            SKELETON.printReturn("false");
             return false;  // Ha a paraméterül kapott Shroomer null, akkor nem fogadjuk el
+        }
+
+        if(connectedHypas.size()==0) {
+            SKELETON.printReturn("true");
+
+            return true;
         }
 
         // Ha már van egy Hypa ezen a Tekton-on, akkor ellenőrizzük, hogy a paraméterül kapott Shroomer-e
         for (Hypa hypa : getHypas()) {
             if (hypa.getShroomer() != null && hypa.getShroomer().equals(shroomer)) {
+                SKELETON.printReturn("true");
+
                 return true;  // Ha már a paraméterül kapott Shroomer-nek van Hypa-ja, akkor true-t adunk vissza
             }
         }
-
+        SKELETON.printReturn("false");
         return false;
     }
 
     /**
-     * @param s
+     * Eltávolítja a megadott spórát a Tektonról.
+     * @param s - Az eltávolítandó spóra.
      */
     public void removeSpore(Spore s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "removeSpore");
         if (s != null) {
-            getStoredSpores().remove(s);
+            storedSpores.remove(s);
         }
+        SKELETON.printReturn("");
     }
 
     /**
-     * @param b
+     * Hozzáadja a Tektonhoz a megadott bogarat, ha még nincs rajta másik bogár.
+     * @param b - A hozzáadandó bogár.
      */
     public void tryBug(Bug b) {
-        if(getBug() == null) {
-            setBug(b);
+        SKELETON.printCall(this, Collections.singletonList(b), "tryBug");
+        if(bug == null) {
+            bug = b;
         }
+        SKELETON.printReturn("");
     }
 
     /**
-     * @return
+     * Visszaadja a Hypa-kon keresztül elérhető szomszédos Tektonokat.
+     * @return - A Hypa-kon keresztül elérhető Tektonok listája.
      */
     public List<Tekton> getNeighboursByHypa() {
+        SKELETON.printCall(this, Collections.emptyList(), "getNeighboursByHypa");
         List<Tekton> neighboursByHypa = new ArrayList<>();
-
+        SKELETON.print=false;
         // végigmegyünk az összes hypa-n
-        for (Hypa hypa : getHypas()) {
+        for (Hypa hypa : connectedHypas) {
             Tekton end1 = hypa.getEnd1();
             Tekton end2 = hypa.getEnd2();
 
@@ -147,31 +232,40 @@ public class Tekton {
                 neighboursByHypa.add(end2);
             }
         }
+        SKELETON.print=true;
+
+        SKELETON.printReturn("neighboursByHypa: List<Tekton>");
         // vissztér az új listával
         return neighboursByHypa;
     }
 
     /**
-     * @param h
+     * Eltávolítja a megadott Hypa-t a Tektonhoz kapcsolódó Hypa-k közül.
+     * @param h - Az eltávolítandó Hypa.
      */
     public void removeHypa(Hypa h) {
+        SKELETON.printCall(this, Collections.singletonList(h), "removeHypa");
         if (h != null) {
-            getHypas().remove(h);
+            connectedHypas.remove(h);
         }
+        SKELETON.printReturn("");
     }
 
     /**
-     * @param s 
-     * @return
+     * Megvizsgálja, hogy a megadott Shroomer növeszthet-e gombát ezen a Tektonon.
+     * @param s - A kérdéses Shroomer.
+     * @return - Igaz, ha növeszthet (mert teljesül minden feltétel), egyébként hamis.
      */
     public boolean canMushroomGrow(Shroomer s) {
+        SKELETON.printCall(this, Collections.singletonList(s), "canMushroomGrow");
         if (s == null) {
+            SKELETON.printReturn("false");
             return false;  // Ha a Shroomer null, akkor nem tud nőni gomba
         }
 
         // 1. Ellenőrizzük, hogy van-e csatlakozó Hypa-ja a Tekton-hoz
         boolean hasHypa = false;
-        for (Hypa hypa : getHypas()) {
+        for (Hypa hypa : connectedHypas) {
             if (hypa.getShroomer() != null && hypa.getShroomer().equals(s)) {
                 hasHypa = true;
                 break;  // Ha van csatlakozó Hypa, akkor továbblépünk
@@ -179,6 +273,7 @@ public class Tekton {
         }
 
         if (!hasHypa) {
+            SKELETON.printReturn("false");
             return false;  // Ha nincs csatlakozó Hypa, akkor nem nőhet gomba
         }
 
@@ -191,25 +286,38 @@ public class Tekton {
         }
 
         // Ha legalább három spóra van, akkor visszaadjuk, hogy nőhet gomba
-        return sporeCount >= 3;
+        if(sporeCount>=3) {
+            SKELETON.printReturn("true");
+            return true;
+        }else{
+            SKELETON.printReturn("false");
+            return false;
+        }
+
     }
 
     /**
-     * @param h
+     * A megadott Hypa-t hozzákapcsolja a Tektonhoz.
+     * @param h - A hozzáadandó Hypa.
      */
     public void connectHypa(Hypa h) {
-        if (h != null && !getHypas().contains(h)) {
-            getHypas().add(h);
-        }
+        SKELETON.printCall(this, Collections.singletonList(h), "connectHypa");
+        //if (h != null && !getHypas().contains(h)) {
+        //    getHypas().add(h);
+        //}
+        connectedHypas.add(h);
+        SKELETON.printReturn("");
     }
 
     /**
-     * @param shr
+     * Gombát állít be a Tektonra, és eltávolítja a spórákat.
+     * @param shr - A beállítandó gomba.
      */
     public void setMushroomRemoveSpores(Mushroom shr) {
-        if(getMushroom() == null && shr != null) {
+        SKELETON.printCall(this, Collections.singletonList(shr), "setMushroomRemoveSpores");
+        if(mushroom == null && shr != null) {
             //gomba beállítása
-            setMushroom(shr);
+            mushroom = shr;
 
             //shroomer lekérése
             Shroomer shroomer = shr.getShroomer();
@@ -218,7 +326,7 @@ public class Tekton {
                 int removedCount = 0;
 
                 // Ciklus a Tekton storedSpores listáján
-                Iterator<Spore> iterator = getStoredSpores().iterator();
+                Iterator<Spore> iterator = storedSpores.iterator();
                 while (iterator.hasNext() && removedCount < 3) {
                     Spore spore = iterator.next();
 
@@ -230,39 +338,106 @@ public class Tekton {
                 }
             }
         }
+        SKELETON.printReturn("");
     }
 
-    public List<Hypa> getHypas(){return connectedHypas;}
+    /**
+     * Visszaadja a Tektonhoz kapcsolódó Hypa-k listáját.
+     * @return - A Hypa-k listája.
+     */
+    public List<Hypa> getHypas(){
+        SKELETON.printCall(this, Collections.emptyList(), "getHypas");
+        SKELETON.printReturn("connectedHypas: List<Hypa>");
+        return connectedHypas;
+    }
 
+    /**
+     * Visszaadja a Tekton szomszédait.
+     * @return - A szomszédos Tektonok listája.
+     */
     public List<Tekton> getNeighbours() {
+        SKELETON.printCall(this, Collections.emptyList(), "getNeighbours");
+        SKELETON.printReturn("neighbours: List<Tekton>");
         return neighbours;
     }
 
+    /**
+     * Beállítja a Tekton szomszédait a kapott lista alapján.
+     * @param neighbours - A szomszédos Tektonok listája.
+     */
     public void setNeighbours(List<Tekton> neighbours) {
+        SKELETON.printCall(this, Collections.singletonList(neighbours), "setNeighbours");
         this.neighbours = neighbours;
+        SKELETON.printReturn("");
     }
 
+    /**
+     * Hozzáad egy új szomszédos Tekton-t a jelenlegihez.
+     * @param t - A hozzáadandó Tekton.
+     */
+    public void addNeighbour(Tekton t){
+        SKELETON.printCall(this, List.of(t), "addNeighbour");
+        neighbours.add(t);
+        SKELETON.printReturn("");
+    }
+
+    /**
+     * Visszaadja a Tektonon lévő spórák listáját.
+     * @return - A spórák listája.
+     */
     public List<Spore> getStoredSpores() {
+        SKELETON.printCall(this, Collections.emptyList(), "getStoredSpores");
+        SKELETON.printReturn("storedSpores: List<Spore>");
         return storedSpores;
     }
 
+    /**
+     * Beállítja a Tektonon tárolt spórák listáját a kapott lista alapján.
+     * @param storedSpores - Az új spóra lista.
+     */
     public void setStoredSpores(List<Spore> storedSpores) {
+        SKELETON.printCall(this, Collections.singletonList(storedSpores), "setStoredSpores");
         this.storedSpores = storedSpores;
+        SKELETON.printReturn("");
     }
 
+    /**
+     * Visszaadja a Tektonon lévő gombát.
+     * @return - A jelenlegi gomba, ha van.
+     */
     public Mushroom getMushroom() {
+        SKELETON.printCall(this, Collections.emptyList(), "getMushroom");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(mushroom)+": Mushroom");
         return mushroom;
     }
 
+    /**
+     * Beállítja a Tektonon lévő gombát.
+     * @param mushroom - Az új gomba.
+     */
     public void setMushroom(Mushroom mushroom) {
+        SKELETON.printCall(this, Collections.singletonList(mushroom), "setMushroom");
         this.mushroom = mushroom;
+        SKELETON.printReturn("");
     }
 
+    /**
+     * Visszaadja a Tektonon lévő bogarat.
+     * @return - A jelenlegi bogár, ha van.
+     */
     public Bug getBug() {
+        SKELETON.printCall(this, Collections.emptyList(), "getBug");
+        SKELETON.printReturn(SKELETON.objectNameMap.get(bug)+": Bug");
         return bug;
     }
 
+    /**
+     * Beállítja a Tektonon lévő bogarat.
+     * @param bug - Az új bogár.
+     */
     public void setBug(Bug bug) {
+        SKELETON.printCall(this,Collections.singletonList(bug), "setBug");
         this.bug = bug;
+        SKELETON.printReturn("");
     }
 }

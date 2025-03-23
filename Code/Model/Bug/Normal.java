@@ -5,28 +5,35 @@ import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
 
+import java.util.Collections;
 import java.util.List;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
- * 
+ * Hatás alatt nem álló bogár stratégiája.
  */
 public class Normal implements Strategy {
 
     /**
-     * @param b 
-     * @param to
+     * Meghatározza, hogy a Bug át tud-e mozogni egy másik Tektonra.
+     *
+     * @param b  A Bug, amely mozogni próbál.
+     * @param to A cél Tekton helyszín.
+     * @return Igaz, ha a mozgást el lehet végezni, hamis egyébként.
      */
     public boolean move(Bug b, Tekton to) {
+        SKELETON.printCall(this, List.of(b, to), "move");
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
-        return canReach.contains(to);
+        boolean canDo = canReach.contains(to);
+        SKELETON.printReturn(canDo?"true":"false");
+        return canDo;
     }
 
-    /**
-     * @param b 
-     * @param s
-     */
-    public boolean eat(Bug b, Spore s) {
+    public boolean eat() {
+        SKELETON.printCall(this, Collections.emptyList(), "eat");
+        SKELETON.printReturn("true");
         return true;
     }
 
@@ -35,12 +42,17 @@ public class Normal implements Strategy {
      * @param h
      */
     public boolean bite(Bug b, Hypa h) {
+        SKELETON.printCall(this, List.of(b, h), "bite");
         Tekton location = b.getLocation();
         List<Hypa> hypas = location.getHypas();
-        return hypas.contains(h);
+        boolean canDo = hypas.contains(h);
+        SKELETON.printReturn(canDo?"true":"false");
+        return canDo;
     }
 
     public void endOfTurn(Bug b){
-        return;
+        SKELETON.printCall(this, List.of(b), "endOfTurn");
+        SKELETON.printReturn("");
+
     }
 }

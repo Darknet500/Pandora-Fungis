@@ -4,49 +4,57 @@ import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
 import Controll.Skeleton;
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static Controll.Skeleton.SKELETON;
+
 /**
- * 
+ * A Slowed osztály egy olyan stratégia, amely korlátozza a Bug mozgását,
+ * így csak akkor mozoghat, ha az előző két körben nem mozgott.
  */
-public class Slowed implements Strategy {
+public class Slowed extends Normal {
     /**
-     * Default constructor
+     * Alapértelmezett paraméter nélküli konstruktor
      */
     public Slowed() {}
 
-    /**
-     * @param b 
-     * @param s
-     */
-    public boolean eat(Bug b, Spore s) {
+    @Override
+    public boolean eat() {
+        SKELETON.printCall(this, Collections.emptyList(), "eat");
+        SKELETON.printReturn("false");
         return false;
     }
 
     /**
-     * @param b 
-     * @param h
+     * Meghatározza, hogy a Bug képes-e mozogni az adott körben.
+     * A felhasználótól megkérdezi, hogy mozgott-e a bogár az előző két körben, ez alapján dönt.
+     *
+     * @param b  A Bug, amely mozogni próbál.
+     * @param to A cél Tekton helyszín.
+     * @return Igaz, ha a mozgás engedélyezett, hamis egyébként.
      */
-    public boolean bite(Bug b, Hypa h) {
-        Tekton location = b.getLocation();
-        List<Hypa> hypas = location.getHypas();
-        return hypas.contains(h);
-    }
-
-    /**
-     * @param b 
-     * @param to
-     */
+    @Override
     public boolean move(Bug b, Tekton to) {
+        SKELETON.printCall(this, Arrays.asList(b, to), "move");
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
-        return canReach.contains(to)&& Skeleton.SKELETON.getNumericInput(
-                "moves made in the prev. 2 rounds = ?", 0, 1)==0;
+        int rethalf = Skeleton.SKELETON.getNumericInput(
+                "moves made in the prev. 2 rounds = ?\n 0 vagy 1\n", 0, 1);
+
+        boolean ret = canReach.contains(to)&& rethalf ==0;
+
+        SKELETON.printReturn(ret?"true":"false");
+        return ret;
     }
 
     public void endOfTurn(Bug b){
+        SKELETON.printCall(this, List.of(b), "endOfTurn");
         if(b.getUnderEffectSince()==2){
             b.setStrategy(new Normal());
         }
+        SKELETON.printReturn("");
     }
 }
