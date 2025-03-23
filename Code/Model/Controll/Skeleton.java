@@ -82,7 +82,7 @@ public class Skeleton {
 
         /**Looping while user gives a correct input */
         while (true) {
-            System.out.println("Please choose the number (1-12) of the testCase you'd like to use (or 'q' to quit):");
+            System.out.println("Please choose the number (1-13) of the testCase you'd like to use (or 'q' to quit):");
             choosenTestCase = scn.nextLine();
 
             /** Exit if user gives 'q' as input */
@@ -419,6 +419,7 @@ public class Skeleton {
         objectNameMap.put(shroomer, "shroomer");
         BoosterSpore boospore = new BoosterSpore(shroomer);
         objectNameMap.put(boospore, "boospore");
+        location.storeSpore(boospore);
 
         print = true;
         bug.eat(boospore);

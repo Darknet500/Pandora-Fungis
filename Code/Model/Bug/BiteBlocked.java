@@ -47,6 +47,8 @@ public class BiteBlocked extends Normal {
         if(b.getUnderEffectSince()==2){
             Normal normal = new Normal();
             SKELETON.objectNameMap.put(normal, "normal");
+            SKELETON.printCall(normal, Collections.emptyList(), "Normal" );
+            SKELETON.printReturn("");
             b.setStrategy(normal);
         }
         SKELETON.printReturn("");

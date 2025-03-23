@@ -2,6 +2,7 @@ package Shroomer;
 
 import Bug.Bug;
 
+import java.util.Collections;
 import java.util.List;
 import Bug.Strategy;
 import Bug.BiteBlocked;
@@ -32,6 +33,8 @@ public class BiteBlockerSpore extends Spore {
         SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy biteBlocked = new BiteBlocked();
         SKELETON.objectNameMap.put(biteBlocked, "biteBlocked");
+        SKELETON.printCall(biteBlocked, Collections.emptyList(), "BiteBlocked" );
+        SKELETON.printReturn("");
         b.setStrategy(biteBlocked);
         SKELETON.printReturn(String.format("%d", 2));
         return 2;
