@@ -17,6 +17,11 @@ import static Controll.Skeleton.SKELETON;
  */
 public class Boosted extends Normal {
 
+
+    /**
+     * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
+     * @return Mindig false mivel
+     */
     @Override
     public boolean eat(){
         SKELETON.printCall(this, Collections.emptyList(), "eat");
@@ -46,9 +51,15 @@ public class Boosted extends Normal {
         return canDo;
     }
 
+    /**
+     * Végrehajtja a Bug körének lezárását, amely tartalmazhat állapotfrissítéseket
+     *
+     * @param b A Bug, amelynek a köre lezárul.
+     */
     @Override
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
+        /** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra**/
         if(b.getUnderEffectSince()==2){
             Normal normal = new Normal();
             SKELETON.objectNameMap.put(normal, "normal");

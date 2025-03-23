@@ -15,16 +15,16 @@ import static Controll.Skeleton.SKELETON;
  * így nem tud mozogni, harapni vagy enni.
  */
 public class Paralyzed extends Normal {
-    /**
-     * Minden művelet le van tiltva ebben az állapotban.
-     * @return Mindig hamis.
-     */
     
      /**
      * Alapértelmezett paraméter nélküli konstruktor a stratégiára
      */
     public Paralyzed(){}
 
+    /**
+     * Minden művelet le van tiltva ebben az állapotban.
+     * @return Mindig hamis.
+     */
     @Override
     public boolean move(Bug b, Tekton to) {
         SKELETON.printCall(this, List.of(b, to), "move");
@@ -32,6 +32,10 @@ public class Paralyzed extends Normal {
         return false;
     }
 
+    /**
+     * Minden művelet le van tiltva ebben az állapotban.
+     * @return Mindig hamis.
+     */
     @Override
     public boolean eat() {
         SKELETON.printCall(this, Collections.emptyList(), "eat");
@@ -39,6 +43,10 @@ public class Paralyzed extends Normal {
         return false;
     }
 
+    /**
+     * Minden művelet le van tiltva ebben az állapotban.
+     * @return Mindig hamis.
+     */
     @Override
     public boolean bite(Bug b, Hypa h) {
         SKELETON.printCall(this, List.of(b, h), "bite");
@@ -46,9 +54,15 @@ public class Paralyzed extends Normal {
         return false;
     }
 
+    /**
+     * Végrehajtja a Bug körének lezárását, amely tartalmazhat állapotfrissítéseket
+     *
+     * @param b A Bug, amelynek a köre lezárul.
+     */
     @Override
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
+        /** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra **/
         if(b.getUnderEffectSince()==2){
             Normal normal = new Normal();
             SKELETON.objectNameMap.put(normal, "normal");

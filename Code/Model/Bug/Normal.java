@@ -31,6 +31,10 @@ public class Normal implements Strategy {
         return canDo;
     }
 
+    /**
+     * A normal bug mindig ehet spórát
+     * @return Mindig true
+     */
     public boolean eat() {
         SKELETON.printCall(this, Collections.emptyList(), "eat");
         SKELETON.printReturn("true");
@@ -38,8 +42,10 @@ public class Normal implements Strategy {
     }
 
     /**
-     * @param b 
-     * @param h
+     * A bogár elharap egy fonalat
+     * @param b A Bug, amely harapni próbál.
+     * @param h A Hypa, amelyet a Bug meg akar harapni.
+     * @return bool érték arról hogy a bogár elharaphatja e a fonalat
      */
     public boolean bite(Bug b, Hypa h) {
         SKELETON.printCall(this, List.of(b, h), "bite");
@@ -50,6 +56,11 @@ public class Normal implements Strategy {
         return canDo;
     }
 
+    /**
+     * Végrehajtja a Bug körének lezárását, amely tartalmazhat állapotfrissítéseket
+     *
+     * @param b A Bug, amelynek a köre lezárul.
+     */
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
         SKELETON.printReturn("");
