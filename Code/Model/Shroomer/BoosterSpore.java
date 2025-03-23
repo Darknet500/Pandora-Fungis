@@ -8,20 +8,25 @@ import Bug.Boosted;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A BoosterSpore egy speciális spóra, amely hatást gyakorol a Bug mozgására.
  */
 public class BoosterSpore extends Spore {
 
     /**
-     * Default constructor
+     * Alapértelmezett konstruktor.
+     * Létrehoz egy új BoosterSpore példányt a megadott Shroomerhez kapcsolódva.
+     *
+     * @param shroomer - A spórát létrehozó Shroomer.
      */
     public BoosterSpore(Shroomer shroomer) {
         super(shroomer);
     }
 
     /**
-     * @param b 
-     * @return
+     * A spóra hatást gyakorol egy megadott Bug objektumra, és így a mozgása gyorsul.
+     *
+     * @param b - A Bug példány, amelyre a spóra hat.
+     * @return - A hatás típusának sorszáma. (jelen esetben 1)
      */
     public int haveEffect(Bug b) {
         SKELETON.printCall(this, List.of(b), "haveEffect");
