@@ -266,7 +266,7 @@ public class Tekton {
         // 1. Ellenőrizzük, hogy van-e csatlakozó Hypa-ja a Tekton-hoz
         boolean hasHypa = false;
         for (Hypa hypa : connectedHypas) {
-            if (hypa.getShroomer() != null && hypa.getShroomer().equals(s)) {
+            if (hypa.getShroomer().equals(s)) {
                 hasHypa = true;
                 break;  // Ha van csatlakozó Hypa, akkor továbblépünk
             }
@@ -280,7 +280,7 @@ public class Tekton {
         // 2. Ellenőrizzük, hogy van-e legalább három spórája a Tekton-on a Shroomer-nek
         int sporeCount = 0;
         for (Spore spore : this.storedSpores) {
-            if (spore.getShroomer() != null && spore.getShroomer().equals(s)) {
+            if (spore.getShroomer().equals(s)) {
                 sporeCount++;
             }
         }
@@ -331,7 +331,7 @@ public class Tekton {
                     Spore spore = iterator.next();
 
                     // Ha a spóra a Shroomer-hez tartozik, eltávolítjuk
-                    if (spore != null && spore.getShroomer() != null && spore.getShroomer().equals(shroomer)) {
+                    if (spore.getShroomer().equals(shroomer)) {
                         iterator.remove();  // Eltávolítjuk a storedSpores listából
                         removedCount++;
                     }

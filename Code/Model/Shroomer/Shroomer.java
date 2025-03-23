@@ -99,7 +99,7 @@ public class Shroomer extends Player {
             if (middle.acceptHypa(this)){
                 Hypa hypa1= new Hypa(start, middle, this);
                 SKELETON.objectNameMap.put(hypa1, "hypa1");
-                SKELETON.printCall(hypa1, Arrays.asList(start, target, this), "Hypa" );
+                SKELETON.printCall(hypa1, Arrays.asList(start, middle, this), "Hypa" );
                 SKELETON.printReturn("");
                 start.connectHypa(hypa1);
                 middle.connectHypa(hypa1);
@@ -108,7 +108,7 @@ public class Shroomer extends Player {
                 if (target.acceptHypa(this)) {
                     Hypa hypa2= new Hypa(middle, target, this);
                     SKELETON.objectNameMap.put(hypa2, "hypa2");
-                    SKELETON.printCall(hypa2, Arrays.asList(start, target, this), "Hypa" );
+                    SKELETON.printCall(hypa2, Arrays.asList(middle, target, this), "Hypa" );
                     SKELETON.printReturn("");
                     start.connectHypa(hypa2);
                     middle.connectHypa(hypa2);
