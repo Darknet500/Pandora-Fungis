@@ -8,20 +8,25 @@ import Bug.Strategy;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A ParalyzerSpore egy speciális spóra, amely megbénítja a Bug-ot.
  */
 public class ParalyzerSpore extends Spore {
 
     /**
-     * Default constructor
+     * Alapértelmezett konstruktor
+     * Létrehoz egy új ParalyzerSpore példányt egy adott Shroomerhez kapcsolódva.
+     *
+     * @param shroomer - A spórát létrehozó Shroomer.
      */
     public ParalyzerSpore(Shroomer shroomer) {
         super(shroomer);
     }
 
     /**
-     * @param b 
-     * @return
+     * A spóra hatást gyakorol egy Bug objektumra, amelynek hatására a bogár megbénul.
+     *
+     * @param b - A Bug, amelyre a spóra hatással van.
+     * @return - A hatás típusának sorszáma. (jelen esetben 4)
      */
     public int haveEffect(Bug b) {
         SKELETON.printCall(this, List.of(b), "haveEffect");

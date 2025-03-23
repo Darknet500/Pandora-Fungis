@@ -11,30 +11,34 @@ import Tekton.Tekton;
 import static Controll.Skeleton.SKELETON;
 
 /**
- * 
+ * A Shroomer osztály a játékos egyik típusa, amely gombatesteket hozhat létre
+ * és fonalakat (Hypa) növeszthet a pályán.
+ * <p>
+ * A Shroomer felelős a gombatestek és fonalak kezeléséért, valamint a spóraszórásért.
  */
 public class Shroomer extends Player {
 
+    //private Function mushroomctor;
     /**
-     *
-    private Function mushroomctor;
+     * Egy függvény, amely egy új Mushroom példányt hoz létre a megadott helyen.
      */
     private BiFunction<Shroomer, Tekton, Mushroom> mushroomctor;
 
-
     /**
-     *
-     *
+     * A Shroomer által létrehozott gombatestek listája.
      */
     private List<Mushroom> mushrooms;
 
     /**
-     *
+     * A Shroomer által létrehozott fonalak listája.
      */
     private List<Hypa> HypaList;
 
     /**
-     * Default constructor
+     * Alapértelmezett konstruktor.
+     * Létrehoz egy új Shroomer példányt, amely képes gombatesteket növeszteni.
+     *
+     * @param mushroomctor - A függvény, amely létrehozza a gombatesteket.
      */
     public Shroomer(BiFunction<Shroomer, Tekton, Mushroom> mushroomctor) {
 
@@ -45,8 +49,12 @@ public class Shroomer extends Player {
 
 
     /**
-     * @param start
-     * @param target
+     * Egy új fonalat (Hypa) növeszt két adott Tekton között, ha lehetséges.
+     * Ha a cél Tekton elfogadja a hipát, a hipát hozzáadja a listához és
+     * megpróbál gombát növeszteni a cél Tektonon, ha ott teljesül minden feltétel..
+     *
+     * @param start - A hipa kiindulási Tektonja.
+     * @param target - A hipa cél Tektonja.
      */
     public void growHypa(Tekton start, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(start, target), "growHypa" );
@@ -68,47 +76,56 @@ public class Shroomer extends Player {
         SKELETON.printReturn("");
     }
 
+    /**
+     * Hozzáad egy új gombatestet a Shroomer gombalistájához.
+     *
+     * @param mushroom - Az új gombatest.
+     */
     public void addMushroom(Mushroom mushroom){
         mushrooms.add(mushroom);
     }
 
-/**
- * @param start
- * @param middle
- * @param target
- */
-public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
-    SKELETON.printCall(this, Arrays.asList(start,middle, target), "growHypaFar" );
+    /**
+     * Egy távolabbi célponthoz növeszt hipát egy közbülső Tekonon keresztül.
+     *
+     * @param start - A hipa kezdő Tektonja.
+     * @param middle - A köztes Tekton, amelyen keresztül halad a hipa.
+     * @param target - A végső cél Tektonja.
+     */
+    public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
+        SKELETON.printCall(this, Arrays.asList(start,middle, target), "growHypaFar" );
 
-    if(!start.hasSpore())
-        if (middle.acceptHypa(this)){
-            Hypa hypa1= new Hypa(start, middle, this);
-            SKELETON.objectNameMap.put(hypa1, "hypa1");
-            SKELETON.printCall(hypa1, Arrays.asList(start, target, this), "Hypa" );
-            SKELETON.printReturn("");
-            start.connectHypa(hypa1);
-            middle.connectHypa(hypa1);
-            HypaList.add(hypa1);
-            tryGrowMushroom(middle);
-            if (target.acceptHypa(this)) {
-                Hypa hypa2= new Hypa(middle, target, this);
-                SKELETON.objectNameMap.put(hypa2, "hypa2");
-                SKELETON.printCall(hypa2, Arrays.asList(start, target, this), "Hypa" );
+        if(!start.hasSpore())
+            if (middle.acceptHypa(this)){
+                Hypa hypa1= new Hypa(start, middle, this);
+                SKELETON.objectNameMap.put(hypa1, "hypa1");
+                SKELETON.printCall(hypa1, Arrays.asList(start, target, this), "Hypa" );
                 SKELETON.printReturn("");
-                start.connectHypa(hypa2);
-                middle.connectHypa(hypa2);
-                HypaList.add(hypa2);
-                tryGrowMushroom(target);
+                start.connectHypa(hypa1);
+                middle.connectHypa(hypa1);
+                HypaList.add(hypa1);
+                tryGrowMushroom(middle);
+                if (target.acceptHypa(this)) {
+                    Hypa hypa2= new Hypa(middle, target, this);
+                    SKELETON.objectNameMap.put(hypa2, "hypa2");
+                    SKELETON.printCall(hypa2, Arrays.asList(start, target, this), "Hypa" );
+                    SKELETON.printReturn("");
+                    start.connectHypa(hypa2);
+                    middle.connectHypa(hypa2);
+                    HypaList.add(hypa2);
+                    tryGrowMushroom(target);
+                }
+                traverseHypaNetwork();
             }
-            traverseHypaNetwork();
-        }
-    SKELETON.printReturn("");
-}
+        SKELETON.printReturn("");
+    }
 
 
     /**
-     * @param mushroom
-     * @param target
+     * Egy adott gombatestből spórát szór egy Tektonra, ha az elérhető.
+     *
+     * @param mushroom - A spórát szóró gombatest.
+     * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public void throwSpore(Mushroom mushroom, Tekton target) {
         SKELETON.printCall(this, Arrays.asList(mushroom, target), "throwSpore" );
@@ -143,7 +160,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     }
 
     /**
-     * @param m
+     * Kezeli egy gombatest halálát: eltávolítja a listából és frissíti a hipák hálózatát.
+     *
+     * @param m - A meghalt gombatest.
      */
     public void mushroomDied(Mushroom m) {
         SKELETON.printCall(this, Collections.singletonList(m), "mushroomDied" );
@@ -155,7 +174,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     }
 
     /**
+     * Megpróbál egy új gombatestet növeszteni egy adott Tektonon.
      *
+     * @param target - A Tekton, ahol megpróbál növeszteni.
      */
     public void tryGrowMushroom(Tekton target) {
         SKELETON.printCall(this, Collections.singletonList(target), "tryGrowMushroom" );
@@ -170,14 +191,9 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     }
 
     /**
-     * @param mushroomctor
-    public Shroomer(Function mushroomctor) {
-        // TODO implement here
-    }
-     */
-
-    /**
-     * @param h
+     * Eltávolít egy hipát a listából.
+     *
+     * @param h - Az eltávolítandó hipa.
      */
     public void removeHypa(Hypa h) {
         SKELETON.printCall(this, Collections.singletonList(h), "removeHypa" );
@@ -186,7 +202,8 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     }
 
     /**
-     * 
+     * A kör végén lefutó adminisztrációs műveletek.
+     * Növeli a gombák életkorát és eltávolítja az elhalt hipákat.
      */
     public void endOfRoundAdministration() {
         SKELETON.printCall(this, Collections.emptyList(), "endOfRoundAdministration" );
@@ -217,7 +234,12 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
     }
 
     /**
-     * 
+     * Bejárja a Shroomer hipahálózatát, és meghatározza, hogy mely hipák tartoznak még
+     * a hálózatba, valamint melyek kezdenek elhalni.
+     *
+     * Az eljárás a meglévő gombatestekhez kapcsolódó Tektonokat összeszedi, majd
+     * ezekhez hozzáveszi az összes olyan Tektont, amely egy hipán keresztül elérhető.
+     * Ez alapján frissíti a hipák "isDyingSince" állapotát.
      */
     public void traverseHypaNetwork() {
         SKELETON.printCall(this, Collections.emptyList(), "traverseHypaNetowrk" );
@@ -250,6 +272,11 @@ public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
         SKELETON.printReturn("");
     }
 
+    /**
+     * Hozzáad egy új hipát a Shroomer hipalistájához.
+     *
+     * @param h - A hozzáadandó hipa.
+     */
     public void addHypa(Hypa h){
         HypaList.add(h);
     }
