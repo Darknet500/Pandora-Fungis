@@ -2,6 +2,7 @@ package Shroomer;
 
 import Bug.Bug;
 
+import java.util.Collections;
 import java.util.List;
 import Bug.Paralyzed;
 import Bug.Strategy;
@@ -32,6 +33,8 @@ public class ParalyzerSpore extends Spore {
         SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy paralyzed = new Paralyzed();
         SKELETON.objectNameMap.put(paralyzed, "paralyzed");
+        SKELETON.printCall(paralyzed, Collections.emptyList(), "Paralyzed" );
+        SKELETON.printReturn("");
         b.setStrategy(paralyzed);
         SKELETON.printReturn(String.format("%d", 4));
         return 4;

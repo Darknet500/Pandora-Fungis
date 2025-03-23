@@ -3,6 +3,7 @@ package Shroomer;
 import Tekton.Tekton;
 
 import java.util.Collections;
+import java.util.List;
 
 import static Controll.Skeleton.SKELETON;
 
@@ -35,6 +36,8 @@ public class SlowerMushroom extends Mushroom {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
         SlowerSpore spore = new SlowerSpore(this.shroomer);
         SKELETON.objectNameMap.put(spore, "spore");
+        SKELETON.printCall(spore, List.of(shroomer), "SlowerSpore" );
+        SKELETON.printReturn("");
         target.storeSpore(spore);
         if(getSporesThrown()==5){
             die();

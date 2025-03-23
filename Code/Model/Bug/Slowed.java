@@ -53,7 +53,11 @@ public class Slowed extends Normal {
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
         if(b.getUnderEffectSince()==2){
-            b.setStrategy(new Normal());
+            Normal normal = new Normal();
+            SKELETON.objectNameMap.put(normal, "normal");
+            SKELETON.printCall(normal, Collections.emptyList(), "Normal" );
+            SKELETON.printReturn("");
+            b.setStrategy(normal);
         }
         SKELETON.printReturn("");
     }

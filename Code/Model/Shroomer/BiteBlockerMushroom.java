@@ -1,7 +1,7 @@
 package Shroomer;
 
 import Tekton.Tekton;
-
+import java.util.List;
 import java.util.Collections;
 
 import static Controll.Skeleton.SKELETON;
@@ -33,6 +33,8 @@ public class BiteBlockerMushroom extends Mushroom {
         SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
         SKELETON.objectNameMap.put(biteBloskerSpore, "biteBloskerSpore");
+        SKELETON.printCall(biteBloskerSpore, List.of(shroomer), "biteBloskerSpore" );
+        SKELETON.printReturn("");
         target.storeSpore(biteBloskerSpore);
         if(getSporesThrown()==5){
             die();

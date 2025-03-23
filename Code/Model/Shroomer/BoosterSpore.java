@@ -2,6 +2,7 @@ package Shroomer;
 
 import Bug.Bug;
 
+import java.util.Collections;
 import java.util.List;
 import Bug.Strategy;
 import Bug.Boosted;
@@ -32,6 +33,8 @@ public class BoosterSpore extends Spore {
         SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy boosted = new Boosted();
         SKELETON.objectNameMap.put(boosted, "boosted");
+        SKELETON.printCall(boosted, Collections.emptyList(), "Boosted" );
+        SKELETON.printReturn("");
         b.setStrategy(boosted);
         SKELETON.printReturn(String.format("%d", 1));
         return 1;
