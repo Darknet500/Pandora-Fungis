@@ -1,9 +1,14 @@
 package Controll;
 
 /**
- * 
+ * The player class is base of the Bug and Shroomer classes. It takes count of the player's score
  */
 public abstract class Player {
+
+    /**
+     * Player's score
+     */
+    private int score;
 
     /**
      * Default constructor
@@ -11,11 +16,11 @@ public abstract class Player {
     public Player() {
     }
 
-    /**
-     * @param howMuch
+    /** Increases the score of the player
+     * @param howMuch by how many points the score will be increased
      */
     public void increaseScore(int howMuch) {
-        // TODO implement here
+        score += howMuch;
     }
 
 }

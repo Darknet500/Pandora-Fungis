@@ -8,6 +8,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+
+/**
+ * The skeleton class manages the testcases, menus, user inputs and stores the objects that were called with the name of the objects
+ */
 public class Skeleton {
 
     /**
