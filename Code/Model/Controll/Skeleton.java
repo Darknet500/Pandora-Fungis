@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Skeleton {
     public static final Skeleton SKELETON = new Skeleton();
-    private List<Object> objectStack;
+    private LinkedList<Object> objectStack;
 
     public static boolean print=false;
 
@@ -19,7 +19,7 @@ public class Skeleton {
     public Skeleton(){
 
         objectNameMap = new HashMap<>();
-        objectStack = new ArrayList<>();
+        objectStack = new LinkedList<>();
     }
 
     private String[] useCases = {"Bogár harap (nincs rajta spóra hatás)",
@@ -177,7 +177,7 @@ public class Skeleton {
                 } else if(o==null){
                     System.out.print("null");
                 }
-                System.out.print((o==parameters.getLast()?"":", "));
+                System.out.print((o==parameters.get(parameters.size()-1)?"":", "));
             }
             System.out.print(")\n");
             objectStack.addLast(called);
@@ -196,7 +196,7 @@ public class Skeleton {
     }
 
     public void testCase1(){
-        System.out.println("Test case 1");
+        System.out.println("Bogár harap (nincs rajta spóra hatás)");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton tekton2 = new Tekton();
@@ -224,7 +224,7 @@ public class Skeleton {
 
     }
     public void testCase2(){
-        System.out.println("Test case 2");
+        System.out.println("Bogár harapni akar (harapás gátolt)");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton tekton2 = new Tekton();
@@ -254,7 +254,7 @@ public class Skeleton {
 
     }
     public void testCase3(){
-        System.out.println("Test case 3");
+        System.out.println("Bogár mozog (nincs rajta hatás)");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton to = new Tekton();
@@ -283,7 +283,7 @@ public class Skeleton {
 
     }
     public void testCase4(){
-        System.out.println("Test case 4");
+        System.out.println("Bogár mozog (gyorsított)");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton to = new Tekton();
@@ -311,7 +311,7 @@ public class Skeleton {
 
     }
     public void testCase5(){
-        System.out.println("Test case 5");
+        System.out.println("Bogár mozog (lassított)");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton to = new Tekton();
@@ -339,7 +339,7 @@ public class Skeleton {
 
     }
     public void testCase6(){
-        System.out.println("Test case 6");
+        System.out.println("Bogár elfogyaszt egy gyorsító spórát");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Bug bug = new Bug();
@@ -360,7 +360,7 @@ public class Skeleton {
 
     }
     public void testCase7(){
-        System.out.println("Test case 7");
+        System.out.println("Gombász kör végén fonalak korát növeli");
         Shroomer shroomer = new Shroomer((x, y)->new BoosterMushroom(x, y));
         objectNameMap.put(shroomer, "shroomer");
         Tekton end1 = new Tekton();
@@ -383,7 +383,7 @@ public class Skeleton {
     }
 
     public void testCase8(){
-        System.out.println("Test case 8");
+        System.out.println("Gombász olyan tektonról növeszt fonalat, ahol nincs spóra");
         Tekton start = new Tekton();
         objectNameMap.put(start, "start");
         Tekton target = new Tekton();
@@ -403,7 +403,7 @@ public class Skeleton {
     }
 
     public void testCase9(){
-        System.out.println("Test case 9");
+        System.out.println("A gombász olyan tektonról növeszt fonalat, ahol van (nem feltétlenül saját) saját spóra");
         Tekton start = new Tekton();
         objectNameMap.put(start, "start");
         Tekton middle = new Tekton();
@@ -430,7 +430,7 @@ public class Skeleton {
 
     }
     public void testCase10(){
-        System.out.println("Test case 10");
+        System.out.println("A gombász spórát szór az egyik gombával");
         Tekton location = new Tekton();
         objectNameMap.put(location, "location");
         Tekton tekton1 = new Tekton();
@@ -455,7 +455,7 @@ public class Skeleton {
 
     }
     public void testCase11(){
-        System.out.println("Test case 11");
+        System.out.println("Játék kör végén a Swampokon a törlendő fonalak törlése");
         Swamp swamp = new Swamp();
         objectNameMap.put(swamp, "swamp");
         Tekton tekton = new Tekton();
@@ -482,7 +482,7 @@ public class Skeleton {
 
     }
     public void testCase12(){
-        System.out.println("Test case 12");
+        System.out.println("Kör végén egy tekton kettétörik");
         Tekton breaking = new Tekton();
         objectNameMap.put(breaking, "breaking");
         Tekton tekton = new Tekton();
@@ -508,7 +508,7 @@ public class Skeleton {
     }
 
     public void testCase13(){
-        System.out.println("Test case 13");
+        System.out.println("Egy gombatest növesztése megfelelő körülmények után");
         Tekton applicable = new Tekton();
         objectNameMap.put(applicable, "applicable");
         Tekton tekton = new Tekton();
