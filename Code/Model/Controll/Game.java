@@ -116,7 +116,7 @@ public class Game {
             continue;
         } catch (IllegalArgumentException ignored) {}
 
-        String[] parts = line.split("; ");
+        String[] parts = line.split(";");
         switch (section) {
             case TEKTONS -> {
                 Tekton tekton = createTekton(parts[0]);
@@ -200,6 +200,24 @@ public class Game {
                 ((Tekton)objectNames.get(parts[2])).storeSpore(spore);
             }
         }
+
+    }
+
+    private void getActLine(String line){
+        String[] parts = line.split(" ");
+        switch (parts[1]){
+            case "move" -> ((Bugger)objectNames.get(parts[0])).move((Bug)objectNames.get(parts[2]),(Tekton)objectNames.get(parts[3]));
+            case "bite" -> ((Bugger)objectNames.get(parts[0])).bite((Bug)objectNames.get(parts[2]),(Hypa)objectNames.get(parts[3]));
+            case "eat" -> ((Bugger)objectNames.get(parts[0])).eat((Bug)objectNames.get(parts[2]),(Spore)objectNames.get(parts[3]));
+            case "growhypa" -> ((Shroomer)objectNames.get(parts[0])).growHypa((Tekton)objectNames.get(parts[2]),(Tekton)objectNames.get(parts[3]));
+            case "growhypafar" -> ((Shroomer)objectNames.get(parts[0])).growHypaFar((Tekton)objectNames.get(parts[2]),(Tekton)objectNames.get(parts[3]), (Tekton)objectNames.get(parts[4]));
+            case "throwspore" -> ((Shroomer)objectNames.get(parts[0])).throwSpore((Mushroom)objectNames.get(parts[2]),(Tekton)objectNames.get(parts[3]));
+            case "eatbug" -> ((Shroomer)objectNames.get(parts[0])).eatBug((Bug)objectNames.get(parts[2]));
+            case "endturn" ->((Player)objectNames.get(parts[0])).skip();
+        }
+    }
+
+    private void getAssertLine(String line){
 
     }
 
