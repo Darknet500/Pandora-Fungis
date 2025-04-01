@@ -66,7 +66,7 @@ public class Game {
         }else {
             objectCount.put(classNamename,1);
         }
-        return className + objectCount.get(classNamename);
+        return classNamename + objectCount.get(classNamename);
     }
 
 
@@ -117,9 +117,13 @@ public class Game {
     private void getArrangeLine(String line){
         try {
             section = Section.valueOf(line.toUpperCase());
+            return;
         } catch (IllegalArgumentException ignored) {}
 
         String[] parts = line.split(";");
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
         switch (section) {
             case TEKTONS -> {
                 Tekton tekton = createTekton(parts[0]);
@@ -185,15 +189,16 @@ public class Game {
             }
             case BUGS -> {
                 Bug bug = new Bug((Bugger)playerObjectNames.get(parts[1]));
-                bugObjectNames.put("Bug", bug);
+                bugObjectNames.put(generateName("Bug", objectCount), bug);
                 bug.setStrategy(strategyObjectNames.get(parts[0]));
                 bug.setLocation(tektonObjectNames.get(parts[2]));
                 tektonObjectNames.get(parts[2]).setBug(bug);
+                ((Bugger)playerObjectNames.get(parts[1])).addBug(bug);
 
             }
             case HYPAS -> {
                 Hypa hypa = new Hypa(tektonObjectNames.get(parts[0]),tektonObjectNames.get(parts[1]), (Shroomer) playerObjectNames.get(parts[2]));
-                hypaObjectNames.put("Hypa", hypa);
+                hypaObjectNames.put(generateName("Hypa", objectCount), hypa);
                 tektonObjectNames.get(parts[0]).connectHypa(hypa);
                 tektonObjectNames.get(parts[1]).connectHypa(hypa);
             }
