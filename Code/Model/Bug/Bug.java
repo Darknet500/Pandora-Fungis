@@ -1,7 +1,6 @@
 package Bug;
 
 import Controll.Player;
-import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;

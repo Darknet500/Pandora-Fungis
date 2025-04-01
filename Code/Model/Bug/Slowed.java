@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Slowed osztály egy olyan stratégia, amely korlátozza a Bug mozgását,
@@ -27,8 +26,6 @@ public class Slowed extends Normal {
      */
     @Override
     public boolean eat() {
-        SKELETON.printCall(this, Collections.emptyList(), "eat");
-        SKELETON.printReturn("false");
         return false;
     }
 
@@ -42,7 +39,6 @@ public class Slowed extends Normal {
      */
     @Override
     public boolean move(Bug b, Tekton to) {
-        SKELETON.printCall(this, Arrays.asList(b, to), "move");
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
         int rethalf = Skeleton.SKELETON.getNumericInput(
@@ -50,7 +46,6 @@ public class Slowed extends Normal {
 
         boolean ret = canReach.contains(to)&& rethalf ==0;
 
-        SKELETON.printReturn(ret?"true":"false");
         return ret;
     }
 

@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Boosted osztály egy olyan stratégia, amely lehetővé teszi, hogy a Bug
@@ -24,8 +23,6 @@ public class Boosted extends Normal {
      */
     @Override
     public boolean eat(){
-        SKELETON.printCall(this, Collections.emptyList(), "eat");
-        SKELETON.printReturn("false");
         return false;
     }
 
@@ -39,7 +36,6 @@ public class Boosted extends Normal {
      */
     @Override
     public boolean move(Bug b, Tekton to) {
-        SKELETON.printCall(this, List.of(b, to), "move");
         Tekton location = b.getLocation();
         Set<Tekton> canReach = new HashSet<Tekton>();
         canReach.addAll(location.getNeighboursByHypa());
@@ -47,7 +43,6 @@ public class Boosted extends Normal {
             canReach.addAll(t.getNeighboursByHypa());
         }
         boolean canDo = canReach.contains(to);
-        SKELETON.printReturn(canDo?"true":"false");
         return canDo;
     }
 

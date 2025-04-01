@@ -8,7 +8,6 @@ import Tekton.Tekton;
 import java.util.Collections;
 import java.util.List;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Paralyzed osztály olyan stratégia, amely teljesen megbénítja a Bugot,
@@ -27,8 +26,6 @@ public class Paralyzed extends Normal {
      */
     @Override
     public boolean move(Bug b, Tekton to) {
-        SKELETON.printCall(this, List.of(b, to), "move");
-        SKELETON.printReturn("false");
         return false;
     }
 
@@ -38,8 +35,6 @@ public class Paralyzed extends Normal {
      */
     @Override
     public boolean eat() {
-        SKELETON.printCall(this, Collections.emptyList(), "eat");
-        SKELETON.printReturn("false");
         return false;
     }
 

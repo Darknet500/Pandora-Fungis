@@ -3,7 +3,6 @@ package Bug;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
-import static Controll.Skeleton.SKELETON;
 
 import java.util.Collections;
 import java.util.List;
