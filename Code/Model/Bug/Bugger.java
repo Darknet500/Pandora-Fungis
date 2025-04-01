@@ -14,6 +14,10 @@ public class Bugger extends Player {
         bugs = new ArrayList<Bug>();
     }
 
+    public List<Bug> getBugs(){
+        return bugs;
+    }
+
     public void addBug(Bug b){bugs.add(b); }
 
     public void removeBug(Bug b){

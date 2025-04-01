@@ -52,6 +52,14 @@ public class Shroomer extends Player {
         this.hypaDieAfterBite=hypaDieAfterBite;
     }
 
+    public List<Mushroom> getMushrooms() {
+        return mushrooms;
+    }
+
+    public List<Hypa> getHypaList() {
+        return HypaList;
+    }
+
     /**
      *
      * @return az érték, amennyi körig élnek a gombafonalai harapás után

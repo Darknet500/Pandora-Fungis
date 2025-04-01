@@ -72,6 +72,7 @@ public class Tekton {
         return true;
     }
 
+
     /**
      * A Tekton törése: létrehoz egy új Tekton példányt,
      * a szomszédokat véletlenszerűen két részre ostja a régi és az új Tekton között. A szétválasztás
