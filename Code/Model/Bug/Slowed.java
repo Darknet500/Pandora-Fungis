@@ -3,7 +3,6 @@ package Bug;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
-import Controll.Skeleton;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,12 +40,9 @@ public class Slowed extends Normal {
     public boolean move(Bug b, Tekton to) {
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
-        int rethalf = Skeleton.SKELETON.getNumericInput(
-                "moves made in the prev. 2 rounds = ?\n 0 vagy 1\n", 0, 1);
 
-        boolean ret = canReach.contains(to)&& rethalf ==0;
 
-        return ret;
+        return canReach.contains(to) && Math.random()<0.5;
     }
 
     /**
