@@ -25,10 +25,20 @@ public class Bug extends Player {
     private Strategy strategy;
 
     /**
+     * A Bugot "birtokló" Bugger objektum
+     */
+    private Bugger bugger;
+
+    /**
+     * megadja, hogy hány köre vna valamamilyen spóra hatása alatt
+     */
+    private int underEffectSince;
+    /**
      * Alapértelmezett paraméter nélküli konstruktor, amely a Bug objektumot hely nélküli állapotban
      * és egy normál stratégiával inicializálja.
      */
-    public Bug() {
+    public Bug(Bugger bugger) {
+        this.bugger=bugger;
         tekton = null;
         strategy = new Normal();
     }
