@@ -60,13 +60,6 @@ public class Normal implements Strategy {
      * @param b A Bug, amelynek a köre lezárul.
      */
     public void endOfTurn(Bug b){
-        if (b.getUnderEffectSince()==2){
-            Normal normal = new Normal();
-            b.setStrategy(normal);
-        }else
-            b.increaseUnderEffectSince();
-
-
     }
 
 
