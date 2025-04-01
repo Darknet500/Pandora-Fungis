@@ -58,6 +58,10 @@ public class Bug {
         strategy = s;
     }
 
+    public Strategy getStrategy() {
+        return strategy;
+    }
+
      /**
      * A Bug új Tekton helyre mozog.
      * Ha a mozgás sikeres, a Bug interakcióba lép az új Tektonnal,
