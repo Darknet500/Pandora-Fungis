@@ -21,12 +21,10 @@ public class Game {
     private int turncount=0;
     Scanner scanner = new Scanner(System.in);
     Map<String, Bug> bugObjectNames = new HashMap<>();
-    //Map<String, Bugger> buggerObjectNames = new HashMap<>();
     Map<String, Strategy> strategyObjectNames = new HashMap<>();
     Map<String, Mushroom> mushroomObjectNames = new HashMap<>();
     Map<String, Hypa> hypaObjectNames = new HashMap<>();
     Map<String, Spore> sporeObjectNames = new HashMap<>();
-    //Map<String, Shroomer> shroomerObjectNames = new HashMap<>();
     Map<String, Tekton> tektonObjectNames = new HashMap<>();
     Map<String, Integer> objectCount = new HashMap<>();
     Map<String, Player> playerObjectNames = new HashMap<>();
