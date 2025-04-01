@@ -1,7 +1,6 @@
 package Tekton;
 
 import Bug.Bug;
-import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Mushroom;
 import Shroomer.Shroomer;
