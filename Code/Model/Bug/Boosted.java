@@ -56,10 +56,10 @@ public class Boosted extends Normal {
      *
      * @param b A Bug, amelynek a köre lezárul.
      */
-    @Override
+    /*@Override
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
-        /** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra**/
+        *//** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra**//*
         if(b.getUnderEffectSince()==2){
             Normal normal = new Normal();
             SKELETON.objectNameMap.put(normal, "normal");
@@ -68,6 +68,6 @@ public class Boosted extends Normal {
             b.setStrategy(normal);
         }
         SKELETON.printReturn("");
-    }
+    }*/
 
 }

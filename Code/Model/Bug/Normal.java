@@ -8,7 +8,6 @@ import Tekton.Tekton;
 import java.util.Collections;
 import java.util.List;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * Hatás alatt nem álló bogár stratégiája.
@@ -23,11 +22,9 @@ public class Normal implements Strategy {
      * @return Igaz, ha a mozgást el lehet végezni, hamis egyébként.
      */
     public boolean move(Bug b, Tekton to) {
-        SKELETON.printCall(this, List.of(b, to), "move");
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
         boolean canDo = canReach.contains(to);
-        SKELETON.printReturn(canDo?"true":"false");
         return canDo;
     }
 
@@ -36,8 +33,6 @@ public class Normal implements Strategy {
      * @return Mindig true
      */
     public boolean eat() {
-        SKELETON.printCall(this, Collections.emptyList(), "eat");
-        SKELETON.printReturn("true");
         return true;
     }
 
@@ -48,12 +43,15 @@ public class Normal implements Strategy {
      * @return bool érték arról hogy a bogár elharaphatja e a fonalat
      */
     public boolean bite(Bug b, Hypa h) {
-        SKELETON.printCall(this, List.of(b, h), "bite");
+        if (h.getIsDyingSinceBitten()!=-1) return false;
         Tekton location = b.getLocation();
         List<Hypa> hypas = location.getHypas();
         boolean canDo = hypas.contains(h);
-        SKELETON.printReturn(canDo?"true":"false");
         return canDo;
+    }
+
+    public boolean canBeEaten(){
+        return false;
     }
 
     /**
@@ -62,8 +60,14 @@ public class Normal implements Strategy {
      * @param b A Bug, amelynek a köre lezárul.
      */
     public void endOfTurn(Bug b){
-        SKELETON.printCall(this, List.of(b), "endOfTurn");
-        SKELETON.printReturn("");
+        if (b.getUnderEffectSince()==2){
+            Normal normal = new Normal();
+            b.setStrategy(normal);
+        }else
+            b.increaseUnderEffectSince();
+
 
     }
+
+
 }

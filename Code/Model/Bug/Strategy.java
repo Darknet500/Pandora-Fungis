@@ -36,6 +36,9 @@ public interface Strategy {
      */
     boolean move(Bug b, Tekton to);
 
+
+    boolean canBeEaten();
+
     /**
      * Végrehajtja a Bug körének lezárását, amely tartalmazhat állapotfrissítéseket
      *

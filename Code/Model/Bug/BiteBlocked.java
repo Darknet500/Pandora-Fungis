@@ -24,8 +24,6 @@ public class BiteBlocked extends Normal {
      */
     @Override
     public boolean bite(Bug b, Hypa h) {
-        SKELETON.printCall(this, List.of(b, h), "bite");
-        SKELETON.printReturn("false");
         return false;
     }
 
@@ -36,8 +34,6 @@ public class BiteBlocked extends Normal {
      */
     @Override
     public boolean eat() {
-        SKELETON.printCall(this, Collections.emptyList(), "eat");
-        SKELETON.printReturn("false");
         return false;
     }
 
@@ -46,10 +42,10 @@ public class BiteBlocked extends Normal {
      *
      * @param b A Bug, amelynek a köre lezárul.
      */
-    @Override
+    /*@Override
     public void endOfTurn(Bug b){
         SKELETON.printCall(this, List.of(b), "endOfTurn");
-        /** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra**/
+        *//** Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra**//*
         if(b.getUnderEffectSince()==2){
             Normal normal = new Normal();
             SKELETON.objectNameMap.put(normal, "normal");
@@ -58,6 +54,6 @@ public class BiteBlocked extends Normal {
             b.setStrategy(normal);
         }
         SKELETON.printReturn("");
-    }
+    }*/
 
 }

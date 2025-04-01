@@ -5,8 +5,6 @@ import Controll.Skeleton;
 import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
-import static Controll.Skeleton.SKELETON;
-
 import java.util.Collections;
 import java.util.List;
 /**
@@ -43,15 +41,21 @@ public class Bug extends Player {
         strategy = new Normal();
     }
 
+
+
+    public Bugger getBugger() {
+        return bugger;
+    }
+
+
+
     /**
      * Beállítja a Bug stratégiáját.
      *
      * @param s Az új stratégia.
      */
     public void setStrategy(Strategy s) {
-        SKELETON.printCall(this, List.of(s), "setStrategy");
         strategy = s;
-        SKELETON.printReturn("");
     }
 
      /**
@@ -62,14 +66,12 @@ public class Bug extends Player {
      * @param to A cél Tekton példány.
      */
     public void move(Tekton to) {
-        SKELETON.printCall(this, List.of(to), "move");
         if (strategy.move(this, to)) {
             to.tryBug(this);
             tekton.setBug(null);
             setLocation(to);
             strategy.endOfTurn(this);
         }
-        SKELETON.printReturn("");
     }
 
     /**
@@ -80,12 +82,9 @@ public class Bug extends Player {
      * @param h A megharapandó Hypa példány.
      */
     public void bite(Hypa h) {
-        SKELETON.printCall(this, List.of(h), "bite");
         if (strategy.bite(this, h)) {
-            h.die();
-            strategy.endOfTurn(this);
+            h.setIsDyingSinceBitten(0);
         }
-        SKELETON.printReturn("");
     }
 
     /**
@@ -96,16 +95,17 @@ public class Bug extends Player {
      * @param s A megevendő Spore példány.
      */
     public void eat(Spore s) {
-        SKELETON.printCall(this, List.of(s), "eat");
         if (strategy.eat()) {
                 if(tekton.getStoredSpores().contains(s)) {
                     int value = s.haveEffect(this);
                     increaseScore(value);
                     tekton.removeSpore(s);
-                    strategy.endOfTurn(this);
                 }
         }
-        SKELETON.printReturn("");
+    }
+
+    public boolean beEaten(){
+        return strategy.canBeEaten();
     }
 
     /**
@@ -114,8 +114,6 @@ public class Bug extends Player {
      * @return A Bug helyzetét reprezentáló Tekton példány.
      */
     public Tekton getLocation(){
-        SKELETON.printCall(this, Collections.emptyList(), "getLocation");
-        SKELETON.printReturn(SKELETON.objectNameMap.get(tekton));
         return tekton;
     }
 
@@ -125,9 +123,7 @@ public class Bug extends Player {
      * @param t Az új Tekton helyszín.
      */
     public void setLocation(Tekton t){
-        SKELETON.printCall(this, List.of(t), "setLocation");
         tekton = t;
-        SKELETON.printReturn("");
     }
 
     /**
@@ -137,9 +133,15 @@ public class Bug extends Player {
      * @return A körök száma, amióta a Bug hatás alatt áll.
      */
     public int getUnderEffectSince(){
-        SKELETON.printCall(this, Collections.emptyList(), "getUnderEffectSince");
-        int ret = SKELETON.getNumericInput("under Effect since =\n Kérek egy 0 és 2 közötti egész számot\n", 0, 2);
-        SKELETON.printReturn(String.format("%d", ret));
-        return ret;
+        return underEffectSince;
+    }
+
+    public void increaseUnderEffectSince(){
+        underEffectSince++;
+    }
+
+    public void endOfTurn(){
+        strategy.endOfTurn(this);
+
     }
 }

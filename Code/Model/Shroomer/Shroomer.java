@@ -280,7 +280,7 @@ public class Shroomer extends Player {
         List<Hypa> hypasaround = location.getHypas();
         for (Hypa h: hypasaround) {
             if (h.getShroomer()==this){
-                b.getBugger.removeBug(b);
+                b.getBugger().removeBug(b);
                 location.setBug(null);
                 if (!location.hasMushroom()){
                     Mushroom mush = mushroomctor.apply(this, location);
