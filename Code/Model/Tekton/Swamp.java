@@ -3,7 +3,6 @@ package Tekton;
 import java.util.*;
 import Shroomer.Hypa;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Swamp egy speciális Tekton típus, amelyen a fonalak (Hypa) egy idő után felszívódnak.
@@ -27,7 +26,6 @@ public class Swamp extends Tekton {
      * majd ezen a másolaton végigiterálva eltávolítjuk az idősebb Hypa objektumokat az eredeti listából.
      */
     public void checkForDeleteHypa() {
-        SKELETON.printCall(this, Collections.emptyList(), "checkForDeleteHypa");
         // Mivel a lista közben változni fog, biztonságosabb, ha először készítünk egy másolatot.
         List<Hypa> hypasList = new ArrayList<>();
         hypasList.addAll(connectedHypas);
@@ -43,7 +41,6 @@ public class Swamp extends Tekton {
                 hypa.die();
             }
         }
-        SKELETON.printReturn("");
     }
 
 }
