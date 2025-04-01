@@ -87,6 +87,7 @@ public class Bug {
     public boolean bite(Hypa h) {
         if (strategy.bite(this, h)) {
             h.setIsDyingSinceBitten(0);
+            strategy.endOfTurn(this);
             return true;
         }
         return false;
@@ -105,6 +106,7 @@ public class Bug {
                     int value = s.haveEffect(this);
                     bugger.increaseScore(value);
                     tekton.removeSpore(s);
+                    strategy.endOfTurn(this);
                     return true;
                 }
         }

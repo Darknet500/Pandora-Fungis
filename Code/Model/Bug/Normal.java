@@ -60,6 +60,7 @@ public class Normal implements Strategy {
      * @param b A Bug, amelynek a köre lezárul.
      */
     public void endOfTurn(Bug b){
+        b.increaseUnderEffectSince();
     }
 
 
