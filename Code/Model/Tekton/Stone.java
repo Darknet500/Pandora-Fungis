@@ -4,7 +4,6 @@ import Shroomer.Shroomer;
 
 import java.util.Collections;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Stone egy speciális Tekton típus, amelyre nem nőhetnek gombatestek (Mushroom).
@@ -28,8 +27,6 @@ public class Stone extends Tekton {
      */
     @Override
     public boolean canMushroomGrow(Shroomer s) {
-        SKELETON.printCall(this, Collections.singletonList(s), "canMushroomGrow");
-        SKELETON.printReturn("false");
         return false;
     }
 

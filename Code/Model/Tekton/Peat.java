@@ -4,7 +4,6 @@ import Shroomer.Shroomer;
 
 import java.util.Collections;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Peat egy speciális Tekton típus, amelyen több fonal (Hypa) is keresztezheti egymást.
@@ -29,8 +28,6 @@ public class Peat extends Tekton {
      */
     @Override
     public boolean acceptHypa(Shroomer shroomer) {
-        SKELETON.printCall(this, Collections.singletonList(shroomer), "acceptHypa");
-        SKELETON.printReturn("true");
         return true;
     }
 
