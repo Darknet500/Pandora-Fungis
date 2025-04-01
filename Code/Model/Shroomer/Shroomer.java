@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import Controll.Player;
 import Tekton.Tekton;
+import Bug.Bug;
 
 
 /**
@@ -264,6 +265,34 @@ public class Shroomer extends Player {
      */
     public void addHypa(Hypa h){
         HypaList.add(h);
+    }
+
+    /**
+     * egy kiválasztott bogarat tud megenni vele a gombász, ha a bogár
+     * pozíciójához (tekton) csatlakozik egy fonala a gombásznak. Ha meg tuja enni, akkor hívja a bogár
+     * gazdájának removeBug(b) metódusát, ezzel kivetetve azt a klistájából és ha nincs gomba a
+     * tektonon, növeszt oda egy gombatestet.
+     */
+
+    public void eatBug(Bug b){
+        if (!b.beEaten()) return;
+        Tekton location = b.getLocation();
+        List<Hypa> hypasaround = location.getHypas();
+        for (Hypa h: hypasaround) {
+            if (h.getShroomer()==this){
+                b.getBugger.removeBug(b);
+                location.setBug(null);
+                if (!location.hasMushroom()){
+                    Mushroom mush = mushroomctor.apply(this, location);
+                    location.setMushroom(mush);
+                }
+
+
+
+                break;
+            }
+        }
+
     }
 
 
