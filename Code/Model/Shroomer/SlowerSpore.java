@@ -3,8 +3,6 @@ package Shroomer;
 import Bug.Bug;
 import Bug.Strategy;
 import Bug.Slowed;
-import static Controll.Skeleton.SKELETON;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -31,13 +29,8 @@ public class SlowerSpore extends Spore {
      * @return - A hatás típusának sorszáma. (jelen esetben 3)
      */
     public int haveEffect(Bug b) {
-        SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy slowed = new Slowed();
-        SKELETON.objectNameMap.put(slowed, "slowed");
-        SKELETON.printCall(slowed, Collections.emptyList(), "Slowed" );
-        SKELETON.printReturn("");
         b.setStrategy(slowed);
-        SKELETON.printReturn(String.format("%d", 3));
-        return 3;
+        return 3;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

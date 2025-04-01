@@ -3,7 +3,6 @@ package Shroomer;
 import java.util.*;
 import Tekton.Tekton;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Hypa egy kapcsolatot alkot két Tekton között, amelyet egy Shroomer hoz létre és kezel.
@@ -26,6 +25,22 @@ public class Hypa {
     private Shroomer shroomer;
 
     /**
+     * Hány köre él az adott hypa
+     */
+    private int age = 0;
+    /**
+     * Értéke 0 lesz, amikor a hypa nem csatlakozik közvetve, vagy közvetlenül a birtokló gombász gombatestéhez
+     * Ha nem -1 az értéke, akkor körönként nő az értéke eggyel. Ha eléri az 1-et, akkor meghal.
+     */
+    private int isDyingSinceDisconnected = -1;
+
+    /**
+     * Értéke 0 lesz, amikor az adott hypát elharapja egy bogár
+     * Ha nem -1 az értkéke, akkor körönként nő eggyel. Ha eléri a gombásznál eltárolt értéket (shroomer.hypaDieAfterBite) akkor meghal
+     */
+    private int isDyingSinceBitten = -1;
+
+    /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új Hypa kapcsolatot két Tekton között egy adott Shroomer számára.
      *
@@ -45,21 +60,38 @@ public class Hypa {
      *
      * @return -1, ha még része a hálózatnak, 0, ha ebben a körben vált le, 1, ha egy kör óta nincs kapcsolatban.
      */
-    public int getIsDyingSince(){
-        SKELETON.printCall(this, Collections.emptyList(), "getIsDyingSince");
-        int ni = SKELETON.getNumericInput("Hány köre nem része egy testes hálózatnak ez a hypa?\n-1 - még most is része\n0 - ebben a körben vált le\n1 - egy köre nem csatlakozik már", -1,1);
-        SKELETON.printReturn(String.format("%d", ni));
-        return ni;
+    public int getIsDyingSinceDisconnected(){
+        return isDyingSinceDisconnected;
     }
 
     /**
      * Beállítja, hogy hány kör óta nem része a Hypa egy gombatest-hálózatnak.
      *
-     * @param isDyingSince - Az új érték, amely jelzi a leválás óta eltelt köröket.
+     * @param isDyingSinceDisconnected - Az új érték, amely jelzi a leválás óta eltelt köröket.
      */
-    public void setIsDyingSince(int isDyingSince){
-
+    public void setIsDyingSinceDisconnected(int isDyingSinceDisconnected) {
+        this.isDyingSinceDisconnected = isDyingSinceDisconnected;
     }
+
+    /**
+     * Megadja, hogy hány kör óta nem lett elharapha.
+     *
+     * @return -1, ha még nem lett elharpava, 0, ha ebben a körben harapták el.
+     */
+    public int getIsDyingSinceBitten(){
+        return isDyingSinceBitten;
+    }
+
+    /**
+     * Beállítja, hogy hány körrel ezelőtt harapták el.
+     *
+     * @param isDyingSinceBitten - Az új érték, amely jelzi az elharapás óta eltelt köröket.
+     */
+    public void setIsDyingSinceBitten(int isDyingSinceBitten) {
+        this.isDyingSinceBitten = isDyingSinceBitten;
+    }
+
+
 
     /**
      * Megadja, hogy hány kör óta létezik a Hypa.
@@ -67,10 +99,7 @@ public class Hypa {
      * @return - A Hypa életkora (0 és 20 közötti érték).
      */
     public int getAge(){
-        SKELETON.printCall(this, Collections.emptyList(), "getAge");
-        int ni = SKELETON.getNumericInput("Milyen idős a hypa (hány köre él)?\n Kérek egy 0 és 20 közötti egész számot.\n", 0,20);
-        SKELETON.printReturn(String.format("%d", ni));
-        return ni;
+        return this.age;
     }
 
     /**
@@ -79,8 +108,6 @@ public class Hypa {
      * @return - A Hypa egyik végpontját reprezentáló Tekton.
      */
     public Tekton getEnd1() {
-        SKELETON.printCall(this, Collections.emptyList(), "getEnd1");
-        SKELETON.printReturn(SKELETON.objectNameMap.get(end1)+": Tekton");
         return end1;
     }
 
@@ -90,8 +117,6 @@ public class Hypa {
      * @return - A Hypa másik végpontját reprezentáló Tekton.
      */
     public Tekton getEnd2() {
-        SKELETON.printCall(this, Collections.emptyList(), "getEnd2");
-        SKELETON.printReturn(SKELETON.objectNameMap.get(end2)+": Tekton");
         return end2;
     }
 
@@ -101,8 +126,6 @@ public class Hypa {
      * @return - A Hypát létrehozó Shroomer.
      */
     public Shroomer getShroomer() {
-        SKELETON.printCall(this, Collections.emptyList(), "getShroomer");
-        SKELETON.printReturn(SKELETON.objectNameMap.get(shroomer)+": Shroomer");
         return shroomer;
     }
 
@@ -111,20 +134,19 @@ public class Hypa {
      * Megszünteti a Hypa-t, eltávolítja azt a Tektonoktól és a Shroomertől.
      */
     public void die() {
-        SKELETON.printCall(this, Collections.emptyList(), "die");
        end1.removeHypa(this);
        end2.removeHypa(this);
        shroomer.removeHypa(this);
        shroomer.traverseHypaNetwork();
-       SKELETON.printReturn("");
     }
 
     /**
      * Növeli a Hypa életkorát minden körben.
      */
     public void age() {
-        SKELETON.printCall(this, Collections.emptyList(), "age");
-        SKELETON.printReturn("");
+        age++;
+        if (isDyingSinceBitten!=-1) isDyingSinceBitten++;
+        if (isDyingSinceDisconnected!=-1) isDyingSinceDisconnected++;
     }
 
 }

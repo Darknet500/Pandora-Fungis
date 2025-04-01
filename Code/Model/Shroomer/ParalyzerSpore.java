@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import Bug.Paralyzed;
 import Bug.Strategy;
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A ParalyzerSpore egy speciális spóra, amely megbénítja a Bug-ot.
@@ -30,13 +29,8 @@ public class ParalyzerSpore extends Spore {
      * @return - A hatás típusának sorszáma. (jelen esetben 4)
      */
     public int haveEffect(Bug b) {
-        SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy paralyzed = new Paralyzed();
-        SKELETON.objectNameMap.put(paralyzed, "paralyzed");
-        SKELETON.printCall(paralyzed, Collections.emptyList(), "Paralyzed" );
-        SKELETON.printReturn("");
         b.setStrategy(paralyzed);
-        SKELETON.printReturn(String.format("%d", 4));
-        return 4;
+        return 4;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

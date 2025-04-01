@@ -4,7 +4,6 @@ import Tekton.Tekton;
 import java.util.List;
 import java.util.Collections;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A BiteBlockerMushroom egy speciális gombafajta, amely BiteBlocker spórákat tud szórni.
@@ -30,16 +29,10 @@ public class BiteBlockerMushroom extends Mushroom {
      * @param target A Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(Tekton target) {
-        SKELETON.printCall(this, Collections.singletonList(target), "sporeThrown");
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
-        SKELETON.objectNameMap.put(biteBloskerSpore, "biteBloskerSpore");
-        SKELETON.printCall(biteBloskerSpore, List.of(shroomer), "biteBloskerSpore" );
-        SKELETON.printReturn("");
         target.storeSpore(biteBloskerSpore);
         if(getSporesThrown()==5){
             die();
         }
-        SKELETON.printReturn("");
-
     }
 }

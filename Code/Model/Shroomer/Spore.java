@@ -4,7 +4,6 @@ import Bug.Bug;
 
 import java.util.Collections;
 
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A Spore egy absztrakt osztály, amely a különböző spórák alapvető tulajdonságait és működését definiálja.
@@ -42,8 +41,6 @@ public abstract class Spore {
      * @return - A spórát létrehozó Shroomer.
      */
     public Shroomer getShroomer() {
-        SKELETON.printCall(this, Collections.emptyList(), "getShroomer");
-        SKELETON.printReturn(SKELETON.objectNameMap.get(shroomer)+": Shroomer");
         return shroomer;
     }
 

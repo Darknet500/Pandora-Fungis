@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import Bug.Strategy;
 import Bug.Boosted;
-import static Controll.Skeleton.SKELETON;
 
 /**
  * A BoosterSpore egy speciális spóra, amely hatást gyakorol a Bug mozgására.
@@ -30,13 +29,8 @@ public class BoosterSpore extends Spore {
      * @return - A hatás típusának sorszáma. (jelen esetben 1)
      */
     public int haveEffect(Bug b) {
-        SKELETON.printCall(this, List.of(b), "haveEffect");
         Strategy boosted = new Boosted();
-        SKELETON.objectNameMap.put(boosted, "boosted");
-        SKELETON.printCall(boosted, Collections.emptyList(), "Boosted" );
-        SKELETON.printReturn("");
         b.setStrategy(boosted);
-        SKELETON.printReturn(String.format("%d", 1));
-        return 1;
+        return 1;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }
