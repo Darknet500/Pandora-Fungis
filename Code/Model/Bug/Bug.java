@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
  */
-public class Bug extends Player {
+public class Bug {
 
     /**
      * A Bug jelenlegi helyét reprezentáló Tekton példány.
@@ -65,13 +65,16 @@ public class Bug extends Player {
      *
      * @param to A cél Tekton példány.
      */
-    public void move(Tekton to) {
+    public boolean move(Tekton to) {
         if (strategy.move(this, to)) {
-            to.tryBug(this);
-            tekton.setBug(null);
-            setLocation(to);
-            strategy.endOfTurn(this);
+            if(to.tryBug(this)) {
+                tekton.setBug(null);
+                setLocation(to);
+                strategy.endOfTurn(this);
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -81,10 +84,12 @@ public class Bug extends Player {
      *
      * @param h A megharapandó Hypa példány.
      */
-    public void bite(Hypa h) {
+    public boolean bite(Hypa h) {
         if (strategy.bite(this, h)) {
             h.setIsDyingSinceBitten(0);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -94,14 +99,16 @@ public class Bug extends Player {
      *
      * @param s A megevendő Spore példány.
      */
-    public void eat(Spore s) {
+    public boolean eat(Spore s) {
         if (strategy.eat()) {
                 if(tekton.getStoredSpores().contains(s)) {
                     int value = s.haveEffect(this);
-                    increaseScore(value);
+                    bugger.increaseScore(value);
                     tekton.removeSpore(s);
+                    return true;
                 }
         }
+        return false;
     }
 
     public boolean beEaten(){

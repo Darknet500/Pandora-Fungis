@@ -14,24 +14,34 @@ public class Bugger extends Player {
         bugs = new ArrayList<Bug>();
     }
 
-    public void addBug(Bug b){
-        bugs.add(b);
-    }
+    public void addBug(Bug b){bugs.add(b); }
 
     public void removeBug(Bug b){
-        bugs.remove(b);
+
+        if(bugs.contains(b)){
+            bugs.remove(b);
+        }
     }
 
-    public void move(Bug b, Tekton to){
-        b.move(to);
+    public boolean move(Bug b, Tekton to){
+        if(bugs.contains(b)){
+            return b.move(to);
+        }
+        return false;
     }
 
-    public void bite(Bug b, Hypa h){
-        b.bite(h);
+    public boolean bite(Bug b, Hypa h){
+        if(bugs.contains(b)){
+            return b.bite(h);
+        }
+        return false;
     }
 
-    public void eat(Bug b, Spore s){
-        b.eat(s);
+    public boolean eat(Bug b, Spore s){
+        if(bugs.contains(b)){
+            return b.eat(s);
+        }
+        return false;
     }
 
     public void endOfTurn(){

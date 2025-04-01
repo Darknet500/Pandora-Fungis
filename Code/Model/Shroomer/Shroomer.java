@@ -68,7 +68,7 @@ public class Shroomer extends Player {
      * @param start - A hipa kiindulási Tektonja.
      * @param target - A hipa cél Tektonja.
      */
-    public void growHypa(Tekton start, Tekton target) {
+    public boolean growHypa(Tekton start, Tekton target) {
 
         if(!start.hasSpore()){
            if (target.acceptHypa(this)){
@@ -79,8 +79,10 @@ public class Shroomer extends Player {
                HypaList.add(hypa);
                tryGrowMushroom(target);
                traverseHypaNetwork();
+               return true;
            }
         }
+        return false;
     }
 
     /**
@@ -99,24 +101,27 @@ public class Shroomer extends Player {
      * @param middle - A köztes Tekton, amelyen keresztül halad a hipa.
      * @param target - A végső cél Tektonja.
      */
-    public void growHypaFar(Tekton start,Tekton middle, Tekton target) {
+    public boolean growHypaFar(Tekton start,Tekton middle, Tekton target) {
 
-        if(!start.hasSpore())
-            if (middle.acceptHypa(this)){
-                Hypa hypa1= new Hypa(start, middle, this);
+        if (start.hasSpore()){
+            if (middle.acceptHypa(this)) {
+                Hypa hypa1 = new Hypa(start, middle, this);
                 start.connectHypa(hypa1);
                 middle.connectHypa(hypa1);
                 HypaList.add(hypa1);
                 tryGrowMushroom(middle);
                 if (target.acceptHypa(this)) {
-                    Hypa hypa2= new Hypa(middle, target, this);
+                    Hypa hypa2 = new Hypa(middle, target, this);
                     start.connectHypa(hypa2);
                     middle.connectHypa(hypa2);
                     HypaList.add(hypa2);
                     tryGrowMushroom(target);
                 }
                 traverseHypaNetwork();
+                return true;
             }
+        }
+        return false;
     }
 
 
@@ -126,16 +131,16 @@ public class Shroomer extends Player {
      * @param mushroom - A spórát szóró gombatest.
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
-    public void throwSpore(Mushroom mushroom, Tekton target) {
+    public boolean throwSpore(Mushroom mushroom, Tekton target) {
         if(mushroom.getNumberOfSpores()!=1){
-            return;
+            return false;
         }
         Tekton location = mushroom.getLocation();
         List<Tekton> neighbours = location.getNeighbours();
         int age = mushroom.getAge();
         if(age<=4) {
             if (!neighbours.contains(target)){
-                return; //talán egy exception
+                return false;
             }
 
         } else {
@@ -145,12 +150,13 @@ public class Shroomer extends Player {
                 canReach.addAll(t.getNeighbours());
             }
             if (!canReach.contains(target)){
-                return; //talán egy exception
+                return false;
             }
         }
 
         mushroom.sporeThrown(target);
         tryGrowMushroom(target);
+        return true;
     }
 
     /**
@@ -274,8 +280,8 @@ public class Shroomer extends Player {
      * tektonon, növeszt oda egy gombatestet.
      */
 
-    public void eatBug(Bug b){
-        if (!b.beEaten()) return;
+    public boolean eatBug(Bug b){
+        if (!b.beEaten()) return false;
         Tekton location = b.getLocation();
         List<Hypa> hypasaround = location.getHypas();
         for (Hypa h: hypasaround) {
@@ -286,12 +292,10 @@ public class Shroomer extends Player {
                     Mushroom mush = mushroomctor.apply(this, location);
                     location.setMushroom(mush);
                 }
-
-
-
-                break;
+                return true;
             }
         }
+        return false;
 
     }
 

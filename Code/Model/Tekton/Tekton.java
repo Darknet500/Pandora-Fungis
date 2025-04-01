@@ -201,12 +201,13 @@ public class Tekton {
      * Hozzáadja a Tektonhoz a megadott bogarat, ha még nincs rajta másik bogár.
      * @param b - A hozzáadandó bogár.
      */
-    public void tryBug(Bug b) {
+    public boolean tryBug(Bug b) {
         SKELETON.printCall(this, Collections.singletonList(b), "tryBug");
         if(bug == null) {
             bug = b;
+            return true;
         }
-        SKELETON.printReturn("");
+        return false;
     }
 
     /**
