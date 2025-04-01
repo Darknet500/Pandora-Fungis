@@ -296,7 +296,7 @@ public class Game {
             case "hypas" -> {
                 List<Hypa> hypas;
                 if (playerObjectNames.containsKey(parts[0]))
-                    hypas = ((Shroomer)playerObjectNames.get(parts[0])).getHypas();
+                    hypas = ((Shroomer)playerObjectNames.get(parts[0])).getHypaList();
                 else if (tektonObjectNames.containsKey(parts[0]))
                     hypas = tektonObjectNames.get(parts[0]).getHypas();
 
