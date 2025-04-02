@@ -17,6 +17,10 @@ public class Swamp extends Tekton {
     public Swamp() {
         super();
     }
+    
+    public void endOfRound() {
+        checkForDeleteHypa();
+    }
 
     /**
      * Ellenőrzi, hogy vannak-e olyan Hypa objektumok, amelyeknek fel kell szívódniuk (koruk elérte a 3-at),
