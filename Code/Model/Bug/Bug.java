@@ -109,6 +109,7 @@ public class Bug {
                     int value = s.haveEffect(this);
                     bugger.increaseScore(value);
                     tekton.removeSpore(s);
+                    underEffectSince=0;
                     strategy.endOfTurn(this);
                     return true;
                 }

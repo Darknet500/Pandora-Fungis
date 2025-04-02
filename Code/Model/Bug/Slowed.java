@@ -14,10 +14,14 @@ import java.util.List;
  * így csak akkor mozoghat, ha az előző két körben nem mozgott.
  */
 public class Slowed extends Normal {
+    private int movesMade;
+
     /**
      * Alapértelmezett paraméter nélküli konstruktor
      */
-    public Slowed() {}
+    public Slowed() {
+        movesMade = 0;
+    }
 
     /**
      * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
@@ -38,11 +42,15 @@ public class Slowed extends Normal {
      */
     @Override
     public boolean move(Bug b, Tekton to) {
+        if(movesMade>0) return false;
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
+        if(canReach.contains(to)){
+            movesMade++;
+            return true;
+        }
 
-
-        return canReach.contains(to) && Math.random()<0.5;
+        return false;
     }
 
     /**
