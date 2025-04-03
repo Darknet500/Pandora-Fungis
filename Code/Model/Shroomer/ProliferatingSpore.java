@@ -3,10 +3,7 @@ package Shroomer;
 import Bug.Bug;
 import Bug.Bugger;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import Bug.Strategy;
 import Bug.BiteBlocked;
@@ -36,13 +33,24 @@ public class ProliferatingSpore extends Spore {
     public int haveEffect(Bug b) {
         Bugger bugger = b.getBugger();
         Bug newbug = new Bug(bugger);
-        bugger.addBug(newbug);
 
-        Set<Tekton> closestTektons = new HashSet<Tekton>();
+        Queue<Tekton> closestTektons = new ArrayDeque<>();
         closestTektons.addAll(b.getLocation().getNeighbours());
-        for (Tekton tekton: closestTektons) {
-            if (tekton.tryBug(newbug))
+        while (!closestTektons.isEmpty()) {
+            Tekton tekton = closestTektons.poll();
+            if (tekton.tryBug(newbug)) {
+                bugger.addBug(newbug);
+                tekton.setBug(newbug);
+                newbug.setLocation(tekton);
                 break;
+            } else{
+                List<Tekton> currentNeighbours = tekton.getNeighbours();
+                for(Tekton neighbour: currentNeighbours) {
+                    if(!closestTektons.contains(neighbour)) {
+                        closestTektons.add(neighbour);
+                    }
+                }
+            }
         }
 
         return 0; //ennek a spóratípusnak a tápanyagtartalma (pontok)
