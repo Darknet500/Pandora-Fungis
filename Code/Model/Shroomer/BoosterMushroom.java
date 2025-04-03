@@ -31,6 +31,8 @@ public class BoosterMushroom extends Mushroom {
     public void sporeThrown(Tekton target) {
         Spore booster = new BoosterSpore(this.shroomer);
         target.storeSpore(booster);
+        sporesThrown++;
+        numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
         }

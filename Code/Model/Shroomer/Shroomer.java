@@ -77,8 +77,27 @@ public class Shroomer extends Player {
      * @param target - A hipa cél Tektonja.
      */
     public boolean growHypa(Tekton start, Tekton target) {
+        boolean validStart = false;
+        for(Mushroom mushroom : mushrooms) {
+            if(mushroom.getLocation()==start){
+                validStart=true;
+            }
+        }
 
-        if(!start.hasSpore()){
+        for(Hypa h : HypaList) {
+            if(h.getEnd1()==start && h.getEnd2()!=target || h.getEnd2()==start && h.getEnd1()!=target){
+                validStart=true;
+            } else if(h.getEnd1()==start && h.getEnd2()==target || h.getEnd2()==start && h.getEnd1()==target){
+                validStart=false;
+                break;
+            }
+        }
+
+        if(!target.getNeighbours().contains(start) || start==target){
+            validStart=false;
+        }
+
+        if(validStart){
            if (target.acceptHypa(this)){
                Hypa hypa= new Hypa(start, target, this);
                start.connectHypa(hypa);
@@ -110,26 +129,16 @@ public class Shroomer extends Player {
      * @param target - A végső cél Tektonja.
      */
     public boolean growHypaFar(Tekton start,Tekton middle, Tekton target) {
-
-        if (start.hasSpore()){
-            if (middle.acceptHypa(this)) {
-                Hypa hypa1 = new Hypa(start, middle, this);
-                start.connectHypa(hypa1);
-                middle.connectHypa(hypa1);
-                HypaList.add(hypa1);
-                tryGrowMushroom(middle);
-                if (target.acceptHypa(this)) {
-                    Hypa hypa2 = new Hypa(middle, target, this);
-                    start.connectHypa(hypa2);
-                    middle.connectHypa(hypa2);
-                    HypaList.add(hypa2);
-                    tryGrowMushroom(target);
+        if(start.hasSpore()){
+            if(growHypa(start,middle)){
+                if(target!=null){
+                    growHypa(middle,target);
                 }
-                traverseHypaNetwork();
                 return true;
             }
         }
         return false;
+
     }
 
 
@@ -140,6 +149,10 @@ public class Shroomer extends Player {
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public boolean throwSpore(Mushroom mushroom, Tekton target) {
+        if(!mushrooms.contains(mushroom)){
+            return false;
+        }
+
         if(mushroom.getNumberOfSpores()!=1){
             return false;
         }
@@ -154,7 +167,7 @@ public class Shroomer extends Player {
         } else {
             Set<Tekton> canReach = new HashSet<Tekton>();
             canReach.addAll(neighbours);
-            for(Tekton t : canReach){
+            for(Tekton t : neighbours){
                 canReach.addAll(t.getNeighbours());
             }
             if (!canReach.contains(target)){
@@ -188,6 +201,7 @@ public class Shroomer extends Player {
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
+            mushrooms.add(mush);
             target.setMushroomRemoveSpores(mush);
             traverseHypaNetwork();
         }
@@ -209,6 +223,9 @@ public class Shroomer extends Player {
     public void endOfRoundAdministration() {
         for(Mushroom mus: mushrooms){
             mus.age();
+            if(mus.getNumberOfSpores()!=1){
+                mus.increaseNumberofSpores();
+            }
         }
 
         List<Hypa> hypasListCopy = new ArrayList<>();
@@ -245,17 +262,25 @@ public class Shroomer extends Player {
      */
     public void traverseHypaNetwork() {
         Set<Tekton> inNetworkTektons = new HashSet<Tekton>();
+        Queue<Tekton> queue = new ArrayDeque<>();
+
         for(Mushroom mus: mushrooms){
-            inNetworkTektons.add(mus.getLocation());
+            Tekton loc = mus.getLocation();
+            if(inNetworkTektons.add(loc)){
+                queue.add(loc);
+            }
         }
-        for(Tekton tekton: inNetworkTektons){
-            List<Hypa> hypas = tekton.getHypas();
-            Iterator<Hypa> iterator = hypas.iterator();
-            while (iterator.hasNext()) {
-                Hypa hypa = iterator.next();
-                if(hypa.getShroomer()==this){
-                    inNetworkTektons.add(hypa.getEnd1());
-                    inNetworkTektons.add(hypa.getEnd2());
+
+        while(!queue.isEmpty()){
+            Tekton tekton = queue.poll();
+            for (Hypa hypa : tekton.getHypas()) {
+                if (hypa.getShroomer() == this) {
+                    if (inNetworkTektons.add(hypa.getEnd1())) {
+                        queue.add(hypa.getEnd1());
+                    }
+                    if (inNetworkTektons.add(hypa.getEnd2())) {
+                        queue.add(hypa.getEnd2());
+                    }
                 }
             }
         }
@@ -298,7 +323,9 @@ public class Shroomer extends Player {
                 location.setBug(null);
                 if (!location.hasMushroom()){
                     Mushroom mush = mushroomctor.apply(this, location);
+                    mushrooms.add(mush);
                     location.setMushroom(mush);
+                    traverseHypaNetwork();
                 }
                 return true;
             }

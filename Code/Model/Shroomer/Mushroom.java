@@ -31,12 +31,12 @@ public abstract class Mushroom {
     /**
      *
      */
-    protected int numberOfSpores;
+    protected int numberOfSpores = 1;
 
     /**
      *
      */
-    protected int sporesThrown;
+    protected int sporesThrown = 0;
 
     /**
      * Létrehoz egy új gombatestet a megadott Shroomer-rel és Tekton pozícióval.
@@ -104,6 +104,8 @@ public abstract class Mushroom {
     public int getNumberOfSpores(){
         return numberOfSpores;
     }
+
+    public void increaseNumberofSpores() {numberOfSpores++;}
 
     /**
      * Visszaadja, hogy a gombatest eddig hány spórát szórt el.

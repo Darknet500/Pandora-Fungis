@@ -34,6 +34,8 @@ public class SlowerMushroom extends Mushroom {
     public void sporeThrown(Tekton target) {
         SlowerSpore spore = new SlowerSpore(this.shroomer);
         target.storeSpore(spore);
+        sporesThrown++;
+        numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
         }

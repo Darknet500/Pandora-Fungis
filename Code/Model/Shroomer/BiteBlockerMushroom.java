@@ -31,6 +31,8 @@ public class BiteBlockerMushroom extends Mushroom {
     public void sporeThrown(Tekton target) {
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
         target.storeSpore(biteBloskerSpore);
+        sporesThrown++;
+        numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
         }

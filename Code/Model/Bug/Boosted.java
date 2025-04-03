@@ -4,10 +4,7 @@ import Shroomer.Hypa;
 import Shroomer.Spore;
 import Tekton.Tekton;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -39,9 +36,13 @@ public class Boosted extends Normal {
         Tekton location = b.getLocation();
         Set<Tekton> canReach = new HashSet<Tekton>();
         canReach.addAll(location.getNeighboursByHypa());
-        for(Tekton t : canReach){
-            canReach.addAll(t.getNeighboursByHypa());
+        Queue<Tekton> queue = new ArrayDeque<>();
+        queue.addAll(canReach);
+        while (!queue.isEmpty()) {
+            Tekton current = queue.poll();
+            canReach.addAll(current.getNeighboursByHypa());
         }
+
         boolean canDo = canReach.contains(to);
         return canDo;
     }

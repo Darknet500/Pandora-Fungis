@@ -33,6 +33,8 @@ public class ParalyzerMushroom extends Mushroom {
     public void sporeThrown(Tekton target) {
         Spore spore = new ParalyzerSpore(this.shroomer);
         target.storeSpore(spore);
+        sporesThrown++;
+        numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
         }
