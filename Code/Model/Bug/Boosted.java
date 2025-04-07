@@ -19,7 +19,7 @@ public class Boosted extends Normal {
      * @return Mindig false mivel
      */
     @Override
-    public boolean eat(){
+    public boolean eat(Bug b, Spore s){
         return false;
     }
 
@@ -44,7 +44,12 @@ public class Boosted extends Normal {
         }
 
         boolean canDo = canReach.contains(to);
-        return canDo;
+        if(canDo && to.tryBug(b)){
+            b.getLocation().setBug(null);
+            b.setLocation(to);
+            return true;
+        }
+        return false;
     }
 
     /**

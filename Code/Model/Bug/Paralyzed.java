@@ -33,7 +33,7 @@ public class Paralyzed extends Normal {
      * @return Mindig hamis.
      */
     @Override
-    public boolean eat() {
+    public boolean eat(Bug b, Spore s) {
         return false;
     }
 
@@ -47,7 +47,9 @@ public class Paralyzed extends Normal {
     }
 
     @Override
-    public boolean canBeEaten(){
+    public boolean eatenByHypa(Bug b, Hypa h){
+        b.getBugger().removeBug(b);
+        b.getLocation().setBug(null);
         return true;
     }
 

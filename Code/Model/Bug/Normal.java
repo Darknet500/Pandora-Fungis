@@ -25,15 +25,27 @@ public class Normal implements Strategy {
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
         boolean canDo = canReach.contains(to);
-        return canDo;
+        if(canDo && to.tryBug(b)){
+            b.getLocation().setBug(null);
+            b.setLocation(to);
+            return true;
+        }
+        return false;
     }
 
     /**
      * A normal bug mindig ehet spórát
      * @return Mindig true
      */
-    public boolean eat() {
-        return true;
+    public boolean eat(Bug b, Spore s) {
+        if(b.getLocation().getStoredSpores().contains(s)) {
+            int value = s.haveEffect(b);
+            b.getBugger().increaseScore(value);
+            b.getLocation().removeSpore(s);
+            b.resetUnderEffectSince();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -44,13 +56,17 @@ public class Normal implements Strategy {
      */
     public boolean bite(Bug b, Hypa h) {
         if (h.getIsDyingSinceBitten()!=-1) return false;
+
         Tekton location = b.getLocation();
         List<Hypa> hypas = location.getHypas();
-        boolean canDo = hypas.contains(h);
-        return canDo;
+        if(hypas.contains(h)){
+            h.setIsDyingSinceBitten(0);
+            return true;
+        }
+        return false;
     }
 
-    public boolean canBeEaten(){
+    public boolean eatenByHypa(Bug b, Hypa h){
         return false;
     }
 

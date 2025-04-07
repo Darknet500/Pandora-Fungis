@@ -314,20 +314,20 @@ public class Shroomer extends Player {
      */
 
     public boolean eatBug(Bug b){
-        if (!b.beEaten()) return false;
         Tekton location = b.getLocation();
         List<Hypa> hypasaround = location.getHypas();
+
         for (Hypa h: hypasaround) {
             if (h.getShroomer()==this){
-                b.getBugger().removeBug(b);
-                location.setBug(null);
-                if (!location.hasMushroom()){
-                    Mushroom mush = mushroomctor.apply(this, location);
-                    mushrooms.add(mush);
-                    location.setMushroom(mush);
-                    traverseHypaNetwork();
+                if (b.beEaten(h)) {
+                    if (!location.hasMushroom()){
+                        Mushroom mush = mushroomctor.apply(this, location);
+                        mushrooms.add(mush);
+                        location.setMushroom(mush);
+                        traverseHypaNetwork();
+                    }
+                    return true;
                 }
-                return true;
             }
         }
         return false;

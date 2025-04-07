@@ -28,7 +28,7 @@ public class Slowed extends Normal {
      * @return Mindig false mivel
      */
     @Override
-    public boolean eat() {
+    public boolean eat(Bug b, Spore s) {
         return false;
     }
 
@@ -45,11 +45,13 @@ public class Slowed extends Normal {
         if(movesMade>0) return false;
         Tekton location = b.getLocation();
         List<Tekton> canReach = location.getNeighboursByHypa();
-        if(canReach.contains(to)){
+        boolean canDo = canReach.contains(to);
+        if(canDo && to.tryBug(b)){
             movesMade++;
+            b.getLocation().setBug(null);
+            b.setLocation(to);
             return true;
         }
-
         return false;
     }
 

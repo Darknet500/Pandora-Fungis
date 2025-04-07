@@ -48,6 +48,9 @@ public class Bugger extends Player {
         return false;
     }
 
+    /**
+     * game felelossege hogy hivja korok vegen
+     */
     public void endOfTurn(){
         for (Bug b : bugs){
             b.endOfTurn();

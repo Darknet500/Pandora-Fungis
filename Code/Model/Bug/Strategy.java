@@ -16,7 +16,7 @@ public interface Strategy {
      * Csak akkor tud enni, ha nincs effekt hatása alatt, azaz Normal.
      * @return Igaz, ha a Bug ehet, hamis egyébként.
      */
-    boolean eat();
+    boolean eat(Bug b, Spore s);
 
     /**
      * Meghatározza, hogy a Bug meg tudja-e harapni a megadott Hypa példányt.
@@ -37,7 +37,7 @@ public interface Strategy {
     boolean move(Bug b, Tekton to);
 
 
-    boolean canBeEaten();
+    boolean eatenByHypa(Bug b, Hypa h);
 
     /**
      * Végrehajtja a Bug körének lezárását, amely tartalmazhat állapotfrissítéseket

@@ -69,15 +69,7 @@ public class Bug {
      * @param to A cél Tekton példány.
      */
     public boolean move(Tekton to) {
-        if (strategy.move(this, to)) {
-            if(to.tryBug(this)) {
-                tekton.setBug(null);
-                setLocation(to);
-                strategy.endOfTurn(this);
-                return true;
-            }
-        }
-        return false;
+        return strategy.move(this, to);
     }
 
     /**
@@ -88,12 +80,7 @@ public class Bug {
      * @param h A megharapandó Hypa példány.
      */
     public boolean bite(Hypa h) {
-        if (strategy.bite(this, h)) {
-            h.setIsDyingSinceBitten(0);
-            strategy.endOfTurn(this);
-            return true;
-        }
-        return false;
+        return strategy.bite(this, h);
     }
 
     /**
@@ -104,21 +91,11 @@ public class Bug {
      * @param s A megevendő Spore példány.
      */
     public boolean eat(Spore s) {
-        if (strategy.eat()) {
-                if(tekton.getStoredSpores().contains(s)) {
-                    int value = s.haveEffect(this);
-                    bugger.increaseScore(value);
-                    tekton.removeSpore(s);
-                    underEffectSince=0;
-                    strategy.endOfTurn(this);
-                    return true;
-                }
-        }
-        return false;
+        return strategy.eat(this, s);
     }
 
-    public boolean beEaten(){
-        return strategy.canBeEaten();
+    public boolean beEaten(Hypa h){
+        return strategy.eatenByHypa(this, h);
     }
 
     /**
@@ -156,5 +133,9 @@ public class Bug {
     public void endOfTurn(){
         strategy.endOfTurn(this);
 
+    }
+
+    public void resetUnderEffectSince(){
+        underEffectSince=0;
     }
 }

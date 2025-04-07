@@ -32,7 +32,7 @@ public class BiteBlocked extends Normal {
      * @return Mindig hamis, mivel az evés blokkolva van.
      */
     @Override
-    public boolean eat() {
+    public boolean eat(Bug b, Spore s) {
         return false;
     }
 
