@@ -7,7 +7,8 @@ import java.util.Iterator;
 public class Soil extends Tekton {
     public Soil() {super();}
 
-    public void endOfTurn(){
+    @Override
+    public void endOfRound() {
 
         for (Hypa hypa: connectedHypas){
             hypa.setIsDyingSinceDisconnected(-1);
