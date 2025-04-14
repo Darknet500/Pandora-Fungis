@@ -1,0 +1,6 @@
+package Controller;
+
+enum ArrangeSection {
+    TEKTONS, NEIGHBOURS, SHROOMERS, MUSHROOMS,
+    BUGGERS, STRATEGIES, BUGS, HYPAS, SPORES
+}

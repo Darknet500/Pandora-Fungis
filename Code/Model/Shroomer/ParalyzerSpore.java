@@ -1,11 +1,11 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
+import Model.Bug.*;
 
 import java.util.Collections;
 import java.util.List;
-import Bug.Paralyzed;
-import Bug.Strategy;
+import Model.Bug.Paralyzed;
+import Model.Bug.Strategy;
 
 /**
  * A ParalyzerSpore egy speciális spóra, amely megbénítja a Bug-ot.

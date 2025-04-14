@@ -1,6 +1,6 @@
-package Tekton;
+package Model.Tekton;
 
-import Shroomer.Shroomer;
+import Model.Shroomer.Shroomer;
 
 import java.util.Collections;
 

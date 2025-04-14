@@ -1,9 +1,7 @@
-package Bug;
+package Model.Bug;
 
-import Controll.Player;
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
+import Model.Tekton.*;
+import Model.Shroomer.*;
 import java.util.Collections;
 import java.util.List;
 /**

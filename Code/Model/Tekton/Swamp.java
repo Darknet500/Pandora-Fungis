@@ -1,7 +1,7 @@
-package Tekton;
+package Model.Tekton;
 
 import java.util.*;
-import Shroomer.Hypa;
+import Model.Shroomer.Hypa;
 
 
 /**

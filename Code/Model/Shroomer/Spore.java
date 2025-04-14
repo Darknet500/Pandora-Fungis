@@ -1,6 +1,6 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
+import Model.Bug.*;
 
 import java.util.Collections;
 

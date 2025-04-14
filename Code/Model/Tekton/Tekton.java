@@ -1,10 +1,10 @@
-package Tekton;
+package Model.Tekton;
 
-import Bug.Bug;
-import Shroomer.Hypa;
-import Shroomer.Mushroom;
-import Shroomer.Shroomer;
-import Shroomer.Spore;
+import Model.Bug.Bug;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Mushroom;
+import Model.Shroomer.Shroomer;
+import Model.Shroomer.Spore;
 
 import java.util.*;
 
@@ -54,7 +54,17 @@ public class Tekton {
         this.connectedHypas = new ArrayList<>();
     }
 
-
+    /**
+     * Ezt utólag írtam hozzá.
+     * ellenőrzi, hogy a megadott tekton szomszédja ennek a tektonnak
+     * @param t2 a másik tekton
+     * @return true ha szomszédok, false ha nem
+     */
+    public boolean isNeighbour(Tekton t2) {
+        if(t2==null) return false;
+        if(this==t2) return false;
+        return this.neighbours.contains(t2);
+    }
     /**
      * Ellenőrzi, hogy van-e legalább egy spóra a Tektonon.
      *

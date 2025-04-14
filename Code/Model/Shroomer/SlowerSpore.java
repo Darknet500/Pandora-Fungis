@@ -1,8 +1,8 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
-import Bug.Strategy;
-import Bug.Slowed;
+
+import Model.Bug.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

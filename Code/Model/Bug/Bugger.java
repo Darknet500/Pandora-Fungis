@@ -1,10 +1,10 @@
-package Bug;
+package Model.Bug;
 
-import Controll.Player;
+import Model.Bridge.Player;
 import java.util.*;
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Spore;
+import Model.Tekton.Tekton;
 
 public class Bugger extends Player {
 

@@ -1,6 +1,6 @@
-package Tekton;
+package Model.Tekton;
 
-import Shroomer.Hypa;
+import Model.Shroomer.Hypa;
 
 import java.util.Iterator;
 

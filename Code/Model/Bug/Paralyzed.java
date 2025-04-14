@@ -1,8 +1,8 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Spore;
+import Model.Tekton.Tekton;
 
 import java.util.Collections;
 import java.util.List;

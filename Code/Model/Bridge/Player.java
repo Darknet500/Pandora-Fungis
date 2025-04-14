@@ -1,4 +1,4 @@
-package Controll;
+package Model.Bridge;
 
 /**
  * The player class is base of the Bug and Shroomer classes. It takes count of the player's score

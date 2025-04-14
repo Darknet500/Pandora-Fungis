@@ -1,11 +1,11 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
+import Model.Bug.Bug;
 
 import java.util.Collections;
 import java.util.List;
-import Bug.Strategy;
-import Bug.Boosted;
+import Model.Bug.Strategy;
+import Model.Bug.Boosted;
 
 /**
  * A BoosterSpore egy speciális spóra, amely hatást gyakorol a Bug mozgására.

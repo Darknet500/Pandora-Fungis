@@ -1,12 +1,12 @@
-package Shroomer;
+package Model.Shroomer;
 
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import Controll.Player;
-import Tekton.Tekton;
-import Bug.Bug;
+import Model.Bridge.Player;
+import Model.Tekton.Tekton;
+import Model.Bug.Bug;
 
 
 /**

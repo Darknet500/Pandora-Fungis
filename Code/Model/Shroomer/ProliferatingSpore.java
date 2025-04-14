@@ -1,13 +1,9 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
-import Bug.Bugger;
+import Model.Bug.*;
 
 import java.util.*;
-
-import Bug.Strategy;
-import Bug.BiteBlocked;
-import Tekton.Tekton;
+import Model.Tekton.Tekton;
 
 /**
  * A BiteBlockerSpore egy speciális spóra, amely megakadályozza a Bug harapását.

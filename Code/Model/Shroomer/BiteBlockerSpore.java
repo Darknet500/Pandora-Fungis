@@ -1,11 +1,11 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
+import Model.Bug.Bug;
 
 import java.util.Collections;
 import java.util.List;
-import Bug.Strategy;
-import Bug.BiteBlocked;
+import Model.Bug.Strategy;
+import Model.Bug.BiteBlocked;
 
 /**
  * A BiteBlockerSpore egy speciális spóra, amely megakadályozza a Bug harapását.

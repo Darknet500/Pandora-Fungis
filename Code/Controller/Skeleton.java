@@ -621,7 +621,7 @@ public class Skeleton {
 
     */
 /**
-     * At the end of game turn deletable hypas destruction same as in the sequence diagramm
+     * At the end of gameBoard turn deletable hypas destruction same as in the sequence diagramm
      *//*
 
     public void testCase11(){
@@ -654,7 +654,7 @@ public class Skeleton {
 
     */
 /**
-     * At the end of game turn a tekton breaks in two same as in the sequence diagramm
+     * At the end of gameBoard turn a tekton breaks in two same as in the sequence diagramm
      *//*
 
     public void testCase12(){

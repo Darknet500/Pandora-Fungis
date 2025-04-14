@@ -1,8 +1,8 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Spore;
+import Model.Tekton.Tekton;
 
 /**
  * A Strategy interfész meghatározza a Bug viselkedését különböző állapotban.
