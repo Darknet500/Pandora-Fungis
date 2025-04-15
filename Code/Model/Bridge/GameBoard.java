@@ -62,8 +62,8 @@ public class GameBoard {
         return allTektons.get(idx);
     }
 
-    public String getObjectNameByReference(Object ref){
-        return objectNameMap.get(ref);
+    public Object getReferenceByObjectName(String name){
+        return nameObjectMap.get(name);
     }
 
 
