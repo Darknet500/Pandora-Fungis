@@ -1,11 +1,8 @@
 package Model.Bug;
 
-import Model.Shroomer.Hypa;
+import Model.Bridge.GameBoard;
 import Model.Shroomer.Spore;
 import Model.Tekton.Tekton;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -14,14 +11,29 @@ import java.util.List;
  * így csak akkor mozoghat, ha az előző két körben nem mozgott.
  */
 public class Slowed extends Normal {
-    private int movesMade;
+    private int movesMade = 0;
+
+    /**
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: slowed[slowedID aktuális értéke]
+     */
+    private static int slowedID = 0;
+
+    /**
+     * objektum neve, egyedi az egész modellben
+     */
+    private String name;
 
     /**
      * Alapértelmezett paraméter nélküli konstruktor
      */
     public Slowed() {
-        movesMade = 0;
+        slowedID++;
+        name = "slowed " + slowedID;
+        GameBoard.nameObjectMap.put(name, this);
     }
+
+    public String getName(){return name;}
 
     /**
      * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
@@ -63,6 +75,7 @@ public class Slowed extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

@@ -2,9 +2,6 @@ package Model.Shroomer;
 
 import Model.Tekton.*;
 
-import java.util.Collections;
-
-
 /**
  * A Mushroom osztály egy absztrakt osztály, amely a gombatesteket reprezentálja a játékban.
  * Minden Mushroom egy adott Tektonon található és egy Shroomer-hez tartozik.
@@ -49,7 +46,7 @@ public abstract class Mushroom {
         location = pos;
     }
 
-
+    public abstract String getName();
 
     /**
      * Lekérdezi a gombatest aktuális helyzetét a pályán.

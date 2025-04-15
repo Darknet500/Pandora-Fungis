@@ -1,5 +1,6 @@
 package Model.Shroomer;
 
+import Model.Bridge.GameBoard;
 import Model.Bug.*;
 
 import java.util.*;
@@ -10,6 +11,10 @@ import Model.Tekton.Tekton;
  */
 public class ProliferatingSpore extends Spore {
 
+    private static int proliferatingSporeID = 0;
+
+    private String name;
+
     /**
      * Alapértelmezett konstruktor
      * Létrehoz egy új BiteBlockerSpore példányt egy adott Shroomerhez kapcsolódva.
@@ -18,7 +23,13 @@ public class ProliferatingSpore extends Spore {
      */
     public ProliferatingSpore(Shroomer shroomer) {
         super(shroomer);
+        proliferatingSporeID++;
+        name = "proliferatingspore" + proliferatingSporeID;
+        GameBoard.nameObjectMap.put(name, this);
     }
+
+    @Override
+    public String getName(){return name;}
 
     /**
      * A spóra hatást gyakorol egy Bug objektumra, amelynek hatására a harapási képessége blokkolódik.

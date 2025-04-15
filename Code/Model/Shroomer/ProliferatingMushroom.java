@@ -1,5 +1,6 @@
 package Model.Shroomer;
 
+import Model.Bridge.GameBoard;
 import Model.Tekton.Tekton;
 
 import java.util.Collections;
@@ -13,6 +14,10 @@ import java.util.List;
  */
 public class ProliferatingMushroom extends Mushroom {
 
+    private static int proliferatingMmushroomID =0;
+
+    private String name;
+
     /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új ProliferatingMushroom példányt a megadott Shroomerhez és Tektonra.
@@ -22,7 +27,13 @@ public class ProliferatingMushroom extends Mushroom {
      */
     public ProliferatingMushroom(Shroomer shroomer, Tekton location) {
         super(shroomer, location);
+        proliferatingMmushroomID++;
+        name = "proliferatingmushroom" + proliferatingMmushroomID;
+        GameBoard.nameObjectMap.put(name, this);
     }
+
+    @Override
+    public String getName(){return name;}
 
     /**
      * Egy ProliferatingSpore-t dob ki egy adott Tektonra.

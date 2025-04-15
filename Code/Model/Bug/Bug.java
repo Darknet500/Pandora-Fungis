@@ -1,9 +1,9 @@
 package Model.Bug;
 
+import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 import Model.Shroomer.*;
-import java.util.Collections;
-import java.util.List;
+
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
  */
@@ -28,17 +28,33 @@ public class Bug {
      * megadja, hogy hány köre vna valamamilyen spóra hatása alatt
      */
     private int underEffectSince;
+
     /**
-     * Alapértelmezett paraméter nélküli konstruktor, amely a Bug objektumot hely nélküli állapotban
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: bug[bugID aktuális értéke]
+     */
+    private static int bugID = 0;
+
+    /**
+     * objektum neve, egyedi az egész modellben
+     */
+    private String name;
+
+    /**
+     * konstruktor, amely a Bug objektumot hely nélküli állapotban
      * és egy normál stratégiával inicializálja.
+     * Elnevezi magát, és beleteszi magát a gameBoard nameObjectMap-jébe
      */
     public Bug(Bugger bugger) {
         this.bugger=bugger;
         tekton = null;
         strategy = new Normal();
+        bugID++;
+        name = "bug"+bugID;
+        GameBoard.nameObjectMap.put(name, this);
     }
 
-
+    public String getName() {return name;}
 
     public Bugger getBugger() {
         return bugger;
@@ -52,6 +68,9 @@ public class Bug {
      * @param s Az új stratégia.
      */
     public void setStrategy(Strategy s) {
+        if(strategy!=null){
+            GameBoard.nameObjectMap.remove(strategy.getName());
+        }
         strategy = s;
     }
 

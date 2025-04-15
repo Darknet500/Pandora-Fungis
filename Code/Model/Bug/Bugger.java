@@ -1,5 +1,6 @@
 package Model.Bug;
 
+import Model.Bridge.GameBoard;
 import Model.Bridge.Player;
 import java.util.*;
 import Model.Shroomer.Hypa;
@@ -8,11 +9,24 @@ import Model.Tekton.Tekton;
 
 public class Bugger extends Player {
 
+    /**
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: bugger[buggerID aktuális értéke]
+     */
+    private static int buggerID = 0;
+
+    private String name;
+
     private List<Bug> bugs;
 
     public Bugger(){
+        buggerID++;
+        name = "bugger"+buggerID;
+        GameBoard.nameObjectMap.put(name, this);
         bugs = new ArrayList<Bug>();
     }
+
+    public String getName(){return name;}
 
     public List<Bug> getBugs(){
         return bugs;
@@ -24,6 +38,7 @@ public class Bugger extends Player {
 
         if(bugs.contains(b)){
             bugs.remove(b);
+            GameBoard.nameObjectMap.remove(b.getName());
         }
     }
 

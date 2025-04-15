@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import Model.Bridge.GameBoard;
 import Model.Bridge.Player;
 import Model.Tekton.Tekton;
 import Model.Bug.Bug;
@@ -17,7 +18,10 @@ import Model.Bug.Bug;
  */
 public class Shroomer extends Player {
 
-    //private Function mushroomctor;
+    private static int shroomerID = 0;
+
+    private String name;
+
     /**
      * Egy függvény, amely egy új Mushroom példányt hoz létre a megadott helyen.
      */
@@ -45,11 +49,13 @@ public class Shroomer extends Player {
      * @param mushroomctor - A függvény, amely létrehozza a gombatesteket.
      */
     public Shroomer(BiFunction<Shroomer, Tekton, Mushroom> mushroomctor, int hypaDieAfterBite) {
-
         mushrooms = new ArrayList<Mushroom>();
         HypaList = new ArrayList<Hypa>();
         this.mushroomctor = mushroomctor;
         this.hypaDieAfterBite=hypaDieAfterBite;
+        shroomerID++;
+        name = "shroomer" + shroomerID;
+        GameBoard.nameObjectMap.put(name, this);
     }
 
     public List<Mushroom> getMushrooms() {
@@ -186,7 +192,7 @@ public class Shroomer extends Player {
      * @param m - A meghalt gombatest.
      */
     public void mushroomDied(Mushroom m) {
-
+        GameBoard.nameObjectMap.remove(m.getName());
         m.getLocation().setMushroom(null);
         mushrooms.remove(m);
         traverseHypaNetwork();
@@ -213,6 +219,7 @@ public class Shroomer extends Player {
      * @param h - Az eltávolítandó hipa.
      */
     public void removeHypa(Hypa h) {
+        GameBoard.nameObjectMap.remove(h.getName());
         HypaList.remove(h);
     }
 
@@ -242,7 +249,7 @@ public class Shroomer extends Player {
                 end1.removeHypa(hyp);
                 Tekton end2 = hyp.getEnd2();
                 end2.removeHypa(hyp);
-                removeHypa(hyp);
+                this.removeHypa(hyp);
             }
             if(hyp.getIsDyingSinceBitten()==hypaDieAfterBite){
                 hyp.die();

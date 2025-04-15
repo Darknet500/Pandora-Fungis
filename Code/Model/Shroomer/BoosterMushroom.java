@@ -1,5 +1,6 @@
 package Model.Shroomer;
 
+import Model.Bridge.GameBoard;
 import Model.Tekton.Tekton;
 import java.util.List;
 import java.util.Collections;
@@ -12,6 +13,17 @@ import java.util.Collections;
 public class BoosterMushroom extends Mushroom {
 
     /**
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: boostermushroom[boosterMushroomID aktuális értéke]
+     */
+    private static int boosterMushroomID = 0;
+
+    /**
+     * objektum neve, egyedi az egész modellben
+     */
+    private String name;
+
+    /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új BoosterMushroom példányt a megadott Shroomerhez, és a megadott Tektonra.
      *
@@ -20,7 +32,13 @@ public class BoosterMushroom extends Mushroom {
      */
     public BoosterMushroom(Shroomer shroomer, Tekton location) {
         super(shroomer, location);
+        boosterMushroomID++;
+        name = "boostermushroom" + boosterMushroomID;
+        GameBoard.nameObjectMap.put(name, this);
     }
+
+    @Override
+    public String getName(){return name;}
 
     /**
      * Elszór egy Booster spórát a megadott Tektonra.

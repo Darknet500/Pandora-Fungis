@@ -1,5 +1,6 @@
 package Model.Shroomer;
 
+import Model.Bridge.GameBoard;
 import Model.Bug.Bug;
 
 import java.util.Collections;
@@ -13,14 +14,32 @@ import Model.Bug.BiteBlocked;
 public class BiteBlockerSpore extends Spore {
 
     /**
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: biteblockerspore[biteBlockerSporeID aktuális értéke]
+     */
+    private static int biteBlockerSporeID = 0;
+
+    /**
+     * objektum neve, egyedi az egész modellben
+     */
+    private String name;
+
+    /**
      * Alapértelmezett konstruktor
      * Létrehoz egy új BiteBlockerSpore példányt egy adott Shroomerhez kapcsolódva.
+     * elnevezi magát és beleteszi a gameBoard nameObjectMap-jébe
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
     public BiteBlockerSpore(Shroomer shroomer) {
         super(shroomer);
+        biteBlockerSporeID++;
+        name = "biteblockerspore"+biteBlockerSporeID;
+        GameBoard.nameObjectMap.put(name, this);
     }
+
+    @Override
+    public String getName(){return name;}
 
     /**
      * A spóra hatást gyakorol egy Bug objektumra, amelynek hatására a harapási képessége blokkolódik.

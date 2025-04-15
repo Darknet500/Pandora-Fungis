@@ -44,4 +44,6 @@ public abstract class Spore {
         return shroomer;
     }
 
+    public abstract String getName();
+
 }

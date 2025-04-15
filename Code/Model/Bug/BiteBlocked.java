@@ -1,10 +1,6 @@
 package Model.Bug;
-
-
 import Model.Shroomer.*;
-
-import java.util.Collections;
-import java.util.List;
+import Model.Bridge.GameBoard;
 
 /**
  * A BiteBlocked osztály egy speciális stratégia, amely megakadályozza,
@@ -12,7 +8,31 @@ import java.util.List;
  * de korlátozza a harapás és evés lehetőségét.
  */
 public class BiteBlocked extends Normal {
-    
+
+    /**
+     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
+     *  objektum elnevezése: biteblocked[biteBlockedID aktuális értéke]
+     */
+    private static int biteBlockedID = 0;
+
+    /**
+     * objektum neve, egyedi az egész modellben
+     */
+    private String name;
+
+    /**
+     * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
+     */
+    public BiteBlocked() {
+        biteBlockedID++;
+        name = "biteblocked" + biteBlockedID;
+        GameBoard.nameObjectMap.put(name, this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
     /**
      * Megakadályozza, hogy a Bug megharapja a megadott Hypa-t.
      *
@@ -44,6 +64,7 @@ public class BiteBlocked extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

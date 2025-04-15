@@ -1,5 +1,6 @@
 package Model.Tekton;
 
+import Model.Bridge.GameBoard;
 import Model.Shroomer.Shroomer;
 
 import java.util.Collections;
@@ -11,11 +12,17 @@ import java.util.Collections;
  */
 public class Peat extends Tekton {
 
+    private static int peatID = 0;
+    private String name;
+
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
      */
     public Peat() {
         super();
+        peatID++;
+        name = "peat"+peatID;
+        GameBoard.nameObjectMap.put(name, this);
     }
 
     /**

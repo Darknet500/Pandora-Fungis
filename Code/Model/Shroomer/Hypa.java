@@ -1,6 +1,8 @@
 package Model.Shroomer;
 
 import java.util.*;
+
+import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 
 
@@ -9,6 +11,11 @@ import Model.Tekton.*;
  * A Hypa az idő múlásával elöregedhet, és ha nem része egy gombatest-hálózatnak, elhalhat.
  */
 public class Hypa {
+
+    private static int hypaID = 0;
+
+    private String name;
+
     /**
      * A Hypa egyik végpontja.
      */
@@ -49,11 +56,16 @@ public class Hypa {
      * @param shroomer - A Shroomer, aki létrehozza a Hypa-t.
      */
     public Hypa(Tekton end1, Tekton end2, Shroomer shroomer) {
+        hypaID++;
+        name = "hypa"+hypaID;
+        GameBoard.nameObjectMap.put(name, this);
         this.end1 = end1;
         this.end2 = end2;
         this.shroomer = shroomer;
 
     }
+
+    public String getName(){return name;}
 
     /**
      * Megadja, hogy hány kör óta nem része a Hypa egy gombatest-hálózatnak.
@@ -138,6 +150,7 @@ public class Hypa {
        end2.removeHypa(this);
        shroomer.removeHypa(this);
        shroomer.traverseHypaNetwork();
+       GameBoard.nameObjectMap.remove(name);
     }
 
     /**

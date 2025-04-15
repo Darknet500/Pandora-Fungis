@@ -10,7 +10,7 @@ public class GameBoard {
     private List<Tekton> allTektons;
     private HashMap<Integer, Shroomer> shroomers;
     private HashMap<Integer, Bugger> buggers;
-    static HashMap<String, Object> nameObjectMap;
+    public static HashMap<String, Object> nameObjectMap;
 
     public GameBoard(){
         allTektons = new ArrayList<>();
