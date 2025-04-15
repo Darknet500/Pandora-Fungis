@@ -10,13 +10,13 @@ public class GameBoard {
     private List<Tekton> allTektons;
     private HashMap<Integer, Shroomer> shroomers;
     private HashMap<Integer, Bugger> buggers;
-    private HashMap<Object, String> objectNameMap;
+    static HashMap<String, Object> nameObjectMap;
 
     public GameBoard(){
         allTektons = new ArrayList<>();
         shroomers = new HashMap<>();
         buggers = new HashMap<>();
-        objectNameMap = new HashMap<>();
+        nameObjectMap = new HashMap<>();
     }
 
     public void addShroomer(Shroomer shroomer){
