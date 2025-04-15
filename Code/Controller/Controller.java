@@ -10,6 +10,7 @@ public abstract class Controller {
     GameBoard gameBoard;
     View view;
     ArrangeSection arrangeSection;
+    State state;
 
 
     public Controller() {
