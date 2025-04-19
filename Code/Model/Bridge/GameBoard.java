@@ -29,8 +29,18 @@ public class GameBoard {
     private static int boosterMushroomID = 0;
     private static int boosterSporeID = 0;
     private static int hypaID = 0;
-
-
+    private static int paralyzerMushroomID = 0;
+    private static int paralyzerSporeID = 0;
+    private static int proliferatingMmushroomID =0;
+    private static int proliferatingSporeID = 0;
+    private static int shroomerID = 0;
+    private static int slowerMushroomID = 0;
+    private static int slowerSporeID = 0;
+    private static int peatID = 0;
+    private static int soilID = 0;
+    private static int stoneID = 0;
+    private static int swampID = 0;
+    private static int tektonID = 0;
 
     public GameBoard(){
         allTektons = new ArrayList<>();
@@ -85,27 +95,35 @@ public class GameBoard {
     public Object getReferenceByObjectName(String name){
         return nameObjectMap.get(name);
     }
+    public String getObjectNameByReference(Object ref){return objectNameMap.get(ref);}
 
     static public void addReferenceToMaps(String type, Object refe ){
         String name = null;
         switch (type){
-            case "biteblocked" -> {
-                biteBlockedID++;
-                name = type + biteBlockedID;
-            }
-            case "boosted" -> {
-                boostedID++;
-                name = type + boostedID;
-
-            }
-            case "bug" -> {
-                bugID++;
-                name = type + bugID;
-            }
-            case "bugger" -> {
-                buggerID++;
-                name = type + buggerID;
-            }
+            case "biteblocked" -> name = type + biteBlockedID++;
+            case "boosted" -> name = type + boostedID++;
+            case "bug" -> name = type + bugID++;
+            case "bugger" -> name = type + buggerID++;
+            case "normal" -> name = type + normalID++;
+            case "paralyzed" -> name = type + paralyzedID++;
+            case "slowed" -> name = type + slowedID++;
+            case "biteblockermushroom" -> name = type + biteBlockerMushroomID++;
+            case "biteblockerspore" -> name = type + biteBlockerSporeID++;
+            case "boostermushroom" -> name = type + boosterMushroomID++;
+            case "boosterspore" -> name = type + boosterSporeID++;
+            case "hypa" -> name = type + hypaID++;
+            case "paralyzermushroom" -> name = type + paralyzerMushroomID++;
+            case "paralyzerspore" -> name = type + paralyzerSporeID++;
+            case "proliferatingmushroom" -> name = type + proliferatingMmushroomID++;
+            case "proliferatingspore" -> name = type + proliferatingSporeID++;
+            case "shroomer" -> name = type + shroomerID++;
+            case "slower" -> name = type + slowerMushroomID++;
+            case "slowerspore" -> name = type + slowerSporeID++;
+            case "peat" -> name = type + peatID++;
+            case "soil" -> name = type + soilID++;
+            case "stone" -> name = type + stoneID++;
+            case "swamp" -> name = type + swampID++;
+            case "tekton" -> name = type + tektonID++;
         }
         if(name!=null){
             objectNameMap.put(refe, name);
@@ -114,7 +132,6 @@ public class GameBoard {
     }
 
     static public void removeReferenceFromMaps(Object refe){
-
         if (objectNameMap.containsKey(refe)) {
             nameObjectMap.remove(objectNameMap.get(refe));
             objectNameMap.remove(refe);
@@ -135,7 +152,23 @@ public class GameBoard {
         normalID = 0;
         paralyzedID = 0;
         slowedID = 0;
-
+        biteBlockerMushroomID = 0;
+        biteBlockerSporeID = 0;
+        boosterMushroomID = 0;
+        boosterSporeID = 0;
+        hypaID = 0;
+        paralyzerMushroomID = 0;
+        paralyzerSporeID = 0;
+        proliferatingMmushroomID = 0;
+        proliferatingSporeID = 0;
+        shroomerID = 0;
+        slowerMushroomID = 0;
+        slowerSporeID = 0;
+        peatID = 0;
+        soilID = 0;
+        stoneID = 0;
+        swampID = 0;
+        tektonID = 0;
     }
 
 

@@ -16,11 +16,6 @@ import java.util.*;
  * A Tektonok egymáshoz kapcsolódhatnak és eltörhetnek.
  */
 public class Tekton {
-
-    private static int tektonID = 0;
-
-    private String name;
-
     /**
      * Az adott Tektonhoz kapcsolódó bogár.
      */
@@ -57,12 +52,8 @@ public class Tekton {
         this.storedSpores = new ArrayList<>();
         this.neighbours = new ArrayList<>();
         this.connectedHypas = new ArrayList<>();
-        tektonID++;
-        name = "tekton" + tektonID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("tekton", this);
     }
-
-    public String getName() {return name;}
 
     /**
      * Ezt utólag írtam hozzá.
@@ -88,9 +79,9 @@ public class Tekton {
     }
 
 
-    public void endOfRound() {
+    public void endOfRound() {}
 
-    }
+
     /**
      * A Tekton törése: létrehoz egy új Tekton példányt,
      * a szomszédokat véletlenszerűen két részre ostja a régi és az új Tekton között. A szétválasztás
@@ -320,7 +311,7 @@ public class Tekton {
                     if (spore.getShroomer().equals(shroomer)) {
                         iterator.remove();  // Eltávolítjuk a storedSpores listából
                         removedCount++;
-                        GameBoard.nameObjectMap.remove(spore.getName());
+                        GameBoard.removeReferenceFromMaps(spore);
                     }
                 }
             }

@@ -12,21 +12,13 @@ import java.util.Collections;
  */
 public class Stone extends Tekton {
 
-    private static int stoneID = 0;
-    private String name;
-
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
      */
     public Stone() {
         super();
-        stoneID++;
-        name = "stone" + stoneID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("stone", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     /**
      * Megvizsgálja, hogy nőhet-e gombatest (Mushroom) ezen a Stone típusú Tektonon.

@@ -12,17 +12,12 @@ import java.util.Collections;
  */
 public class Peat extends Tekton {
 
-    private static int peatID = 0;
-    private String name;
-
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
      */
     public Peat() {
         super();
-        peatID++;
-        name = "peat"+peatID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("peat", this);
     }
 
     /**

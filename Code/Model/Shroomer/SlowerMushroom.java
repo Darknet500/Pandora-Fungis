@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class SlowerMushroom extends Mushroom {
 
-    private static int slowerMushroomID = 0;
-
-    private String name;
-
     /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új SlowerMushroom példányt.
@@ -28,13 +24,8 @@ public class SlowerMushroom extends Mushroom {
      */
     public SlowerMushroom(Shroomer shroomer, Tekton location) {
         super(shroomer, location);
-        slowerMushroomID++;
-        name = "slowermushroom"+slowerMushroomID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("slowermushroom", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     /**
      * Egy SlowerSpore-t dob ki egy adott Tektonra.

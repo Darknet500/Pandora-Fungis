@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class SlowerSpore extends Spore {
 
-    private static int slowerSporeID = 0;
-
-    private String name;
-
     /**
      * Alapértelmezett konstruktor
      * Létrehoz egy új SlowerSpore példányt egy adott Shroomerhez kapcsolódva.
@@ -25,13 +21,8 @@ public class SlowerSpore extends Spore {
      */
     public SlowerSpore(Shroomer shroomer) {
         super(shroomer);
-        slowerSporeID++;
-        name = "slowerspore" + slowerSporeID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("slowerspore", this);
     }
-
-    @Override
-    public String getName() {return name;}
 
     /**
      * A spóra hatást gyakorol egy Bug objektumra, amelynek hatására a bogár mozgása lassul.

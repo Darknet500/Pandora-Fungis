@@ -13,23 +13,14 @@ import Model.Shroomer.Shroomer;
  */
 public class Swamp extends Tekton {
 
-    private static int swampID = 0;
-
-    private String name;
-
     /**
      * Alapértelmezett konstruktor, amely létrehoz egy Swamp példányt.
      * Meghívja a szülőosztály (Tekton) konstruktorát.
      */
     public Swamp() {
         super();
-        swampID++;
-        name = "swamp" + swampID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("swamp", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     @Override
     public void endOfRound() {

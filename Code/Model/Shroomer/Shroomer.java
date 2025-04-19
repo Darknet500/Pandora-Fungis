@@ -17,11 +17,6 @@ import Model.Bug.Bug;
  * A Shroomer felelős a gombatestek és fonalak kezeléséért, valamint a spóraszórásért.
  */
 public class Shroomer extends Player {
-
-    private static int shroomerID = 0;
-
-    private String name;
-
     /**
      * Egy függvény, amely egy új Mushroom példányt hoz létre a megadott helyen.
      */
@@ -53,9 +48,7 @@ public class Shroomer extends Player {
         HypaList = new ArrayList<Hypa>();
         this.mushroomctor = mushroomctor;
         this.hypaDieAfterBite=hypaDieAfterBite;
-        shroomerID++;
-        name = "shroomer" + shroomerID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("shroomer", this);
     }
 
     public List<Mushroom> getMushrooms() {
@@ -192,7 +185,7 @@ public class Shroomer extends Player {
      * @param m - A meghalt gombatest.
      */
     public void mushroomDied(Mushroom m) {
-        GameBoard.nameObjectMap.remove(m.getName());
+        GameBoard.removeReferenceFromMaps(m);
         m.getLocation().setMushroom(null);
         mushrooms.remove(m);
         traverseHypaNetwork();
@@ -219,7 +212,7 @@ public class Shroomer extends Player {
      * @param h - Az eltávolítandó hipa.
      */
     public void removeHypa(Hypa h) {
-        GameBoard.nameObjectMap.remove(h.getName());
+        GameBoard.removeReferenceFromMaps(h);
         HypaList.remove(h);
     }
 

@@ -10,11 +10,6 @@ import Model.Tekton.Tekton;
  * A BiteBlockerSpore egy speciális spóra, amely megakadályozza a Bug harapását.
  */
 public class ProliferatingSpore extends Spore {
-
-    private static int proliferatingSporeID = 0;
-
-    private String name;
-
     /**
      * Alapértelmezett konstruktor
      * Létrehoz egy új BiteBlockerSpore példányt egy adott Shroomerhez kapcsolódva.
@@ -23,13 +18,8 @@ public class ProliferatingSpore extends Spore {
      */
     public ProliferatingSpore(Shroomer shroomer) {
         super(shroomer);
-        proliferatingSporeID++;
-        name = "proliferatingspore" + proliferatingSporeID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("proliferatingspore", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     /**
      * A spóra hatást gyakorol egy Bug objektumra, amelynek hatására a harapási képessége blokkolódik.

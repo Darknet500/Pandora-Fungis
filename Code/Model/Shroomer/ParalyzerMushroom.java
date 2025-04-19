@@ -10,17 +10,6 @@ import Model.Tekton.*;
 public class ParalyzerMushroom extends Mushroom {
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: paralyzermushroom[paralyzerMushroomID aktuális értéke]
-     */
-    private static int paralyzerMushroomID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új ParalyzerMushroom példányt a megadott Shroomerhez és Tektonra.
      *
@@ -29,13 +18,8 @@ public class ParalyzerMushroom extends Mushroom {
      */
     public ParalyzerMushroom(Shroomer shroomer, Tekton location) {
         super(shroomer, location);
-        paralyzerMushroomID++;
-        name = "paralyzermushroom" + paralyzerMushroomID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("paralyzermushroom", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     /**
      * Egy ParalyzerSpore-t dob ki egy adott Tektonra.
