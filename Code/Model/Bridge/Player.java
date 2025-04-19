@@ -23,6 +23,4 @@ public abstract class Player {
         score += howMuch;
     }
 
-    public boolean skip(){return true;}
-
 }

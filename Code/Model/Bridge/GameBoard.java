@@ -171,7 +171,7 @@ public class GameBoard {
         tektonID = 0;
     }
 
-
+    public int getNumberOfPlayers(){return shroomers.size() + buggers.size();}
 
 }
 
