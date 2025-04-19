@@ -8,7 +8,7 @@ import Model.Tekton.*;
 import java.util.Random;
 
 
-public abstract class Controller {
+public class Controller {
     int actualPlayer=1;
     GameBoard gameBoard;
     View view;
@@ -79,7 +79,9 @@ public abstract class Controller {
     public boolean move(Bug bug, Tekton to){
         if (gameBoard.getBugger().containsKey(actualPlayer)){
             if (gameBoard.getBugger().get(actualPlayer).move(bug,to)){
+
                 actualPlayer++;
+
                 return true;
             }
         }

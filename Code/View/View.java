@@ -30,7 +30,7 @@ public class View {
 
     public void run(){
         ///ha minden tesztfájlt le kell hogy futtasson
-        if(gameMode.equals("autotestall")){
+        if(gameMode.equals(GameMode.autotestall)){
             File testsDir = new File("./test");
             if (!testsDir.exists()||!testsDir.isDirectory()) return;
             File[] testCases = testsDir.listFiles(File::isDirectory);
@@ -55,7 +55,7 @@ public class View {
             }
         }
         ///ha egy adott tesztesetet vizsgálunk, csak azon az adott mappán megyünk végig
-        else if(gameMode.equals("autotestone")) {
+        else if(gameMode == GameMode.autotestone) {
             File tc = new File("./test/" + testCase);
             try {
                 File arrangefile = new File(tc + "arrange.txt");
@@ -251,13 +251,6 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
-        if (gameMode.equals(GameMode.game)){
-            controller.run();
-            return;
-        }
-
-
-
         try {
             while (source.hasNextLine()) {
                 String line = source.readLine();
@@ -352,11 +345,14 @@ public class View {
                     }
 
                     case "break" -> {
-                        if(parts.length<2){
-                            System.out.println("not enough parameters");
-                            break;
+                        if (gameMode!=GameMode.game) {
+                            if (parts.length < 2) {
+                                System.out.println("not enough parameters");
+                                break;
+                            }
+                            controller.breaktekton((Tekton) gameBoard.getReferenceByObjectName(parts[1]));
                         }
-                        controller.breaktekton((Tekton)gameBoard.getReferenceByObjectName(parts[1]));
+                        System.out.println("action failed");
                     }
                     default -> System.out.println("action failed");
                 }
@@ -381,7 +377,7 @@ public class View {
             while (source.hasNextLine()) {
                 String line = source.readLine();
 
-                if(line.toLowerCase().equals("act")) break;
+                if(line.equalsIgnoreCase("act")) break;
             }
         } finally {
             source.close();
