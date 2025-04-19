@@ -16,6 +16,7 @@ public class View {
     private ArrangeSection arrangeSection;
     private String testCase;
     private GameMode gameMode;
+    private boolean endOfGame = true;
     public View(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;
         this.testCase = testCase;
@@ -27,10 +28,14 @@ public class View {
         controller.connectObjects(this, gameBoard);
     }
 
+    public void setEndOfGame(){
+        this.endOfGame = true;
+    }
+
 
     public void run(){
         ///ha minden tesztfájlt le kell hogy futtasson
-        if(gameMode.equals("autotestall")){
+        if(gameMode.equals(GameMode.autotestall)){
             File testsDir = new File("./test");
             if (!testsDir.exists()||!testsDir.isDirectory()) return;
             File[] testCases = testsDir.listFiles(File::isDirectory);
@@ -55,7 +60,7 @@ public class View {
             }
         }
         ///ha egy adott tesztesetet vizsgálunk, csak azon az adott mappán megyünk végig
-        else if(gameMode.equals("autotestone")) {
+        else if(gameMode == GameMode.autotestone) {
             File tc = new File("./test/" + testCase);
             try {
                 File arrangefile = new File(tc + "arrange.txt");
@@ -86,6 +91,59 @@ public class View {
     public void arrangeMethod(File tc, InputSource source) throws IOException {
         ///éles módban nincs arrange nyelvű pálya, hanem a controller csinálja meg a kiindulópálya generálását
         if (gameMode.equals(GameMode.game)) {
+            for (int i=0;i<8;i++){
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Adjon hozzá egy új gombászt (shroomer paranccsal), \n Egy új bogarászt (bugger paranccsal)\n vagy indítsa el a játékot (start paranccsal)");
+                String input = scanner.nextLine().trim();;
+                while (true){
+                    if (input.equalsIgnoreCase("shroomer")||input.equalsIgnoreCase("bugger")||input.equalsIgnoreCase("start"))
+                        break;
+                    System.out.println("nem valid parancs");
+                    input = scanner.nextLine().trim();
+                }
+
+                switch (input){
+                    case "shroomer" -> {
+                        System.out.println("Válasszon gombász fajtát(booster/ slower/ paralyzer/ biteblocker/ prolferating)");
+                        String shroomertype = scanner.nextLine().trim();;
+                        while (true){
+                            if (input.equalsIgnoreCase("booster")||input.equalsIgnoreCase("slower")||input.equalsIgnoreCase("paralyzer")||input.equalsIgnoreCase("biteblocker")||input.equalsIgnoreCase("proliferating"))
+                                break;
+                            System.out.println("nem valid gombásztípus");
+                            input = scanner.nextLine().trim();
+                        }
+                        BiFunction<Shroomer, Tekton, Mushroom> mushroomctor=(x, y)->new BoosterMushroom(x, y);
+                        int hypaDieAfter=5;
+                        switch (shroomertype) {
+                            case "booster" -> {
+                                mushroomctor = (x, y)->new BoosterMushroom(x, y);
+                                hypaDieAfter=4;
+                            }
+                            case "slower" -> {
+                                mushroomctor = (x, y)->new SlowerMushroom(x, y);
+                                hypaDieAfter=3;
+                            }
+                            case "paralyzer" -> {
+                                mushroomctor = (x, y)->new ParalyzerMushroom(x, y);
+                                hypaDieAfter=2;
+                            }
+                            case "biteblocker" -> {
+                                mushroomctor = (x, y)->new BiteBlockerMushroom(x, y);
+                                hypaDieAfter=3;
+                            }
+                            case "proliferating" -> {
+                                mushroomctor = (x, y)->new ProliferatingMushroom(x, y);
+                                hypaDieAfter=5;
+                            }
+                        }
+                        gameBoard.addShroomer(new Shroomer(mushroomctor,hypaDieAfter));
+
+                    }
+                    case "bugger" -> gameBoard.addBugger(new Bugger());
+                    case "start" -> i=8;
+                }
+            }
+
             controller.initMap();
             return;
         }
@@ -251,13 +309,6 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
-        if (gameMode.equals(GameMode.game)){
-            controller.run();
-            return;
-        }
-
-
-
         try {
             while (source.hasNextLine()) {
                 String line = source.readLine();
@@ -352,11 +403,14 @@ public class View {
                     }
 
                     case "break" -> {
-                        if(parts.length<2){
-                            System.out.println("not enough parameters");
-                            break;
+                        if (gameMode!=GameMode.game) {
+                            if (parts.length < 2) {
+                                System.out.println("not enough parameters");
+                                break;
+                            }
+                            controller.breaktekton((Tekton) gameBoard.getReferenceByObjectName(parts[1]));
                         }
-                        controller.breaktekton((Tekton)gameBoard.getReferenceByObjectName(parts[1]));
+                        System.out.println("action failed");
                     }
                     default -> System.out.println("action failed");
                 }
@@ -381,12 +435,18 @@ public class View {
             while (source.hasNextLine()) {
                 String line = source.readLine();
 
-                if(line.toLowerCase().equals("act")) break;
+                if(line.equalsIgnoreCase("act")) break;
             }
         } finally {
             source.close();
         }
 
     }
+
+    public void displayMessage(String message){
+        System.out.println(message);
+    }
+
+
 
 }
