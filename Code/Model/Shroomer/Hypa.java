@@ -52,16 +52,12 @@ public class Hypa {
      * @param shroomer - A Shroomer, aki létrehozza a Hypa-t.
      */
     public Hypa(Tekton end1, Tekton end2, Shroomer shroomer) {
-        hypaID++;
-        name = "hypa"+hypaID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("hypa", this);
         this.end1 = end1;
         this.end2 = end2;
         this.shroomer = shroomer;
 
     }
-
-    public String getName(){return name;}
 
     /**
      * Megadja, hogy hány kör óta nem része a Hypa egy gombatest-hálózatnak.
@@ -146,7 +142,7 @@ public class Hypa {
        end2.removeHypa(this);
        shroomer.removeHypa(this);
        shroomer.traverseHypaNetwork();
-       GameBoard.nameObjectMap.remove(name);
+       GameBoard.removeReferenceFromMaps(this);
     }
 
     /**
