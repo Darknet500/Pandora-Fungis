@@ -12,26 +12,11 @@ import Model.Tekton.Tekton;
 public class Paralyzed extends Normal {
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: paralyzed[paralyzedID aktuális értéke]
-     */
-    private static int paralyzedID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
      */
     public Paralyzed(){
-        paralyzedID++;
-        name = "paralyzed" + paralyzedID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("paralyzed", this);
     }
-
-    public String getName(){return name;}
 
     /**
      * Minden művelet le van tiltva ebben az állapotban.
@@ -76,7 +61,7 @@ public class Paralyzed extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
-            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

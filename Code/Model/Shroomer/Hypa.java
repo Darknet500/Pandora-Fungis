@@ -12,10 +12,6 @@ import Model.Tekton.*;
  */
 public class Hypa {
 
-    private static int hypaID = 0;
-
-    private String name;
-
     /**
      * A Hypa egyik végpontja.
      */

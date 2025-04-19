@@ -13,26 +13,11 @@ import java.util.List;
 public class Normal implements Strategy {
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: normal[normalID aktuális értéke]
-     */
-    private static int normalID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
      */
     public Normal() {
-        normalID++;
-        name = "normal" + normalID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("normal", this);
     }
-
-    public String getName(){return name;}
 
     /**
      * Meghatározza, hogy a Bug át tud-e mozogni egy másik Tektonra.
@@ -62,7 +47,7 @@ public class Normal implements Strategy {
             int value = s.haveEffect(b);
             b.getBugger().increaseScore(value);
             b.getLocation().removeSpore(s);
-            GameBoard.nameObjectMap.remove(s.getName());
+            GameBoard.removeReferenceFromMaps(s);
             b.resetUnderEffectSince();
             return true;
         }

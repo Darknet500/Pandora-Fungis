@@ -46,8 +46,6 @@ public abstract class Mushroom {
         location = pos;
     }
 
-    public abstract String getName();
-
     /**
      * Lekérdezi a gombatest aktuális helyzetét a pályán.
      *

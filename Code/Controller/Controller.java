@@ -2,8 +2,6 @@ package Controller;
 import Model.Bridge.*;
 import View.*;
 
-import java.io.File;
-
 
 public abstract class Controller {
     int actualPlayer;

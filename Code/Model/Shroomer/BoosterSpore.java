@@ -14,17 +14,6 @@ import Model.Bug.Boosted;
 public class BoosterSpore extends Spore {
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: boosterspore[boosterSporeID aktuális értéke]
-     */
-    private static int boosterSporeID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új BoosterSpore példányt a megadott Shroomerhez kapcsolódva.
      *
@@ -32,13 +21,8 @@ public class BoosterSpore extends Spore {
      */
     public BoosterSpore(Shroomer shroomer) {
         super(shroomer);
-        boosterSporeID++;
-        name = "boosterspore" + boosterSporeID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("boosterspore", this);
     }
-
-    @Override
-    public String getName() {return name;}
 
     /**
      * A spóra hatást gyakorol egy megadott Bug objektumra, és így a mozgása gyorsul.

@@ -46,6 +46,4 @@ public interface Strategy {
      */
     void endOfTurn(Bug b);
 
-    String getName();
-
 }

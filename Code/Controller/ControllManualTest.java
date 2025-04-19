@@ -1,14 +1,8 @@
 package Controller;
 
-import Model.Bridge.GameBoard;
-import Model.Bug.Bugger;
-import Model.Shroomer.Shroomer;
 import Model.Tekton.*;
-import View.View;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ControllManualTest extends Controller {
 

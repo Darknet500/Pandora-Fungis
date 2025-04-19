@@ -1,4 +1,4 @@
-package Controller;
+package View;
 
 enum ArrangeSection {
     TEKTONS, NEIGHBOURS, SHROOMERS, MUSHROOMS,

@@ -9,28 +9,12 @@ import Model.Bridge.GameBoard;
  */
 public class BiteBlocked extends Normal {
 
-    /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: biteblocked[biteBlockedID aktuális értéke]
-     */
-    private static int biteBlockedID = 0;
 
     /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
-     * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
+     * konstruktorban beleteszi a gameBoard nameObjectMap-jébe magát
      */
     public BiteBlocked() {
-        biteBlockedID++;
-        name = "biteblocked" + biteBlockedID;
-        GameBoard.nameObjectMap.put(name, this);
-    }
-
-    public String getName() {
-        return name;
+        GameBoard.addReferenceToMaps("biteblocked", this);
     }
 
     /**
@@ -64,7 +48,7 @@ public class BiteBlocked extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
-            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

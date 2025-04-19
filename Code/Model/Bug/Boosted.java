@@ -11,28 +11,12 @@ import java.util.*;
  * gyorsabban mozogjon.
  */
 public class Boosted extends Normal {
-
-    /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: boosted[boostedID aktuális értéke]
-     */
-    private static int boostedID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
     /**
      * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
      */
     public Boosted() {
-        boostedID++;
-        name = "boosted" + boostedID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("boosted", this);
     }
-
-    public String getName() {return name;}
 
     /**
      * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
@@ -81,7 +65,7 @@ public class Boosted extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
-            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

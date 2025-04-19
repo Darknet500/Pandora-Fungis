@@ -30,17 +30,6 @@ public class Bug {
     private int underEffectSince;
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: bug[bugID aktuális értéke]
-     */
-    private static int bugID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * konstruktor, amely a Bug objektumot hely nélküli állapotban
      * és egy normál stratégiával inicializálja.
      * Elnevezi magát, és beleteszi magát a gameBoard nameObjectMap-jébe
@@ -49,12 +38,9 @@ public class Bug {
         this.bugger=bugger;
         tekton = null;
         strategy = new Normal();
-        bugID++;
-        name = "bug"+bugID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("bug", this);
     }
 
-    public String getName() {return name;}
 
     public Bugger getBugger() {
         return bugger;
@@ -69,7 +55,7 @@ public class Bug {
      */
     public void setStrategy(Strategy s) {
         if(strategy!=null){
-            GameBoard.nameObjectMap.remove(strategy.getName());
+            GameBoard.removeReferenceFromMaps(strategy);
         }
         strategy = s;
     }

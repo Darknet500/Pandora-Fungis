@@ -13,17 +13,6 @@ import java.util.Collections;
 public class BiteBlockerMushroom extends Mushroom {
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: biteblockermushroom[biteBlockerMushroomID aktuális értéke]
-     */
-    private static int biteBlockerMushroomID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új BiteBlockerMushroom példányt egy adott Shroomer és Tekton helyszín alapján.
      * elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
@@ -33,13 +22,8 @@ public class BiteBlockerMushroom extends Mushroom {
      */
     public BiteBlockerMushroom(Shroomer shroomer, Tekton location) {
         super(shroomer, location);
-        biteBlockerMushroomID++;
-        name = "biteblockermushroom"+biteBlockerMushroomID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("biteblockermushroom", this);
     }
-
-    @Override
-    public String getName(){return name;}
 
     /**
      * Egy új BiteBlockerSpore spórát szór a megadott Tektonra.

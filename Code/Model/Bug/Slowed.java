@@ -14,26 +14,11 @@ public class Slowed extends Normal {
     private int movesMade = 0;
 
     /**
-     * statikus számláló, minden konstruktorhíváskor növeljük, ez biztosítja a név egyediséget.
-     *  objektum elnevezése: slowed[slowedID aktuális értéke]
-     */
-    private static int slowedID = 0;
-
-    /**
-     * objektum neve, egyedi az egész modellben
-     */
-    private String name;
-
-    /**
      * Alapértelmezett paraméter nélküli konstruktor
      */
     public Slowed() {
-        slowedID++;
-        name = "slowed " + slowedID;
-        GameBoard.nameObjectMap.put(name, this);
+        GameBoard.addReferenceToMaps("slowed", this);
     }
-
-    public String getName(){return name;}
 
     /**
      * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
@@ -75,7 +60,7 @@ public class Slowed extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
-            GameBoard.nameObjectMap.remove(b.getStrategy().getName());
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else
