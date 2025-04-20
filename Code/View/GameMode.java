@@ -1,5 +1,5 @@
 package View;
 
-enum GameMode {
+public enum GameMode {
     autotestall, autotestone, manualtest, game
 }

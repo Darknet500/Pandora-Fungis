@@ -162,10 +162,10 @@ public class Controller {
             round++;
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
             endOfRound();
-            view.displayMessage("Round: "+round+", The next player is: "+ actualPlayer);
+            view.displayMessage("SUCESS: Round: "+round+", The next player is: "+ actualPlayer);
         } else{
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
-            view.displayMessage("Round: "+round+", The next player is: "+ actualPlayer);
+            view.displayMessage("SUCCESS: Round: "+round+", The next player is: "+ actualPlayer);
         }
     }
 }

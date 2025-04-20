@@ -16,7 +16,8 @@ public class View {
     private ArrangeSection arrangeSection;
     private String testCase;
     private GameMode gameMode;
-    private boolean endOfGame = true;
+    private boolean endOfGame = false;
+
     public View(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;
         this.testCase = testCase;
@@ -35,7 +36,7 @@ public class View {
 
     public void run(){
         ///ha minden tesztfájlt le kell hogy futtasson
-        if(gameMode.equals(GameMode.autotestall)){
+        if(gameMode == GameMode.autotestall){
             File testsDir = new File("./test");
             if (!testsDir.exists()||!testsDir.isDirectory()) return;
             File[] testCases = testsDir.listFiles(File::isDirectory);
@@ -43,6 +44,7 @@ public class View {
             ///inputsource az fájlból, végig megy az összes test eset mappán, és egymás után meghívja az arrange, act, assert metódust
             for (File tc: testCases) {
                 try {
+                    gameBoard.clear();
                     File arrangefile = new File(tc + "arrange.txt");
                     InputSource arrangesource = new FileInputSource(arrangefile);
                     arrangeMethod(arrangefile, arrangesource);
@@ -63,6 +65,7 @@ public class View {
         else if(gameMode == GameMode.autotestone) {
             File tc = new File("./test/" + testCase);
             try {
+                gameBoard.clear();
                 File arrangefile = new File(tc + "arrange.txt");
                 InputSource arrangesource = new FileInputSource(arrangefile);
                 arrangeMethod(arrangefile, arrangesource);
@@ -77,6 +80,7 @@ public class View {
         }else  {
             ///InputSource konzolról, nullt adunk át fájl helyett, mert nincs szükségfájlra, a gameMode alapján fognak másképp viselkedni a metódusok
             try {
+                gameBoard.clear();
                 InputSource arrangesource = new ConsoleInputSource();
                 arrangeMethod(null, arrangesource);
                 InputSource actsource = new ConsoleInputSource();
@@ -180,9 +184,6 @@ public class View {
                                 gameBoard.addTekton(new Swamp());
                             }
                         }
-                        //kérdés hogy ab objectNameMap.hez hogyab adjuk hozzá
-
-
                     }
                     case NEIGHBOURS -> {
                         Tekton first = (Tekton) gameBoard.getReferenceByObjectName(parts[0]);
@@ -310,7 +311,7 @@ public class View {
 
     public void actMethod(File tc, InputSource source) throws IOException {
         try {
-            while (source.hasNextLine()) {
+            while (source.hasNextLine() && !endOfGame) {
                 String line = source.readLine();
                 ///valódi act parancsok beolvasása értelmezése
                 String[] parts = line.split(";");
