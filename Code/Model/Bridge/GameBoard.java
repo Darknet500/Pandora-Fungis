@@ -47,6 +47,7 @@ public class GameBoard {
         shroomers = new HashMap<>();
         buggers = new HashMap<>();
         nameObjectMap = new HashMap<>();
+        objectNameMap = new HashMap<>();
     }
 
     public void addShroomer(Shroomer shroomer){

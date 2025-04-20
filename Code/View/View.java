@@ -37,22 +37,24 @@ public class View {
     public void run(){
         ///ha minden tesztfájlt le kell hogy futtasson
         if(gameMode == GameMode.autotestall){
-            File testsDir = new File("./test");
+            File testsDir = new File(System.getProperty("user.dir"),"test");
             if (!testsDir.exists()||!testsDir.isDirectory()) return;
             File[] testCases = testsDir.listFiles(File::isDirectory);
             if(testCases == null||testCases.length==0) return;
             ///inputsource az fájlból, végig megy az összes test eset mappán, és egymás után meghívja az arrange, act, assert metódust
             for (File tc: testCases) {
                 try {
+                    System.out.println("clearing game board..");
                     gameBoard.clear();
-                    File arrangefile = new File(tc + "arrange.txt");
+                    System.out.println(tc.getName());
+                    File arrangefile = new File(tc , "arrange.txt");
                     InputSource arrangesource = new FileInputSource(arrangefile);
                     arrangeMethod(arrangefile, arrangesource);
 
-                    File actfile = new File(tc + "act.txt");
+                    File actfile = new File(tc , "act.txt");
                     InputSource actsource = new FileInputSource(actfile);
                     actMethod(actfile, actsource);
-                    File assertfile = new File(tc + "assert.txt");
+                    File assertfile = new File(tc , "assert.txt");
                     InputSource assertsource = new FileInputSource(assertfile);
                     assertMethod(assertfile, assertsource);
 
@@ -66,14 +68,14 @@ public class View {
             File tc = new File("./test/" + testCase);
             try {
                 gameBoard.clear();
-                File arrangefile = new File(tc + "arrange.txt");
+                File arrangefile = new File(tc , "arrange.txt");
                 InputSource arrangesource = new FileInputSource(arrangefile);
                 arrangeMethod(arrangefile, arrangesource);
 
-                File actfile = new File(tc + "act.txt");
+                File actfile = new File(tc , "act.txt");
                 InputSource actsource = new FileInputSource(actfile);
                 actMethod(actfile, actsource);
-                File assertfile = new File(tc + "assert.txt");
+                File assertfile = new File(tc , "assert.txt");
                 InputSource assertsource = new FileInputSource(assertfile);
                 assertMethod(assertfile, assertsource);
             } catch (Exception _) {}
@@ -165,11 +167,10 @@ public class View {
                     parts[i] = parts[i].trim();
                 }
                 switch (arrangeSection) {
-                    case TEKTONS -> {
+                    case ArrangeSection.TEKTONS -> {
                         switch (parts[0]) {
                             case "Tekton" -> {
                                 gameBoard.addTekton(new Tekton());
-
                             }
                             case "Peat" -> {
                                 gameBoard.addTekton(new Peat());
@@ -185,7 +186,7 @@ public class View {
                             }
                         }
                     }
-                    case NEIGHBOURS -> {
+                    case ArrangeSection.NEIGHBOURS -> {
                         Tekton first = (Tekton) gameBoard.getReferenceByObjectName(parts[0]);
                         for (int i = 1; i < parts.length; i++) {
                             Tekton neighbour = (Tekton) gameBoard.getReferenceByObjectName(parts[i]);
@@ -194,7 +195,7 @@ public class View {
                         }
 
                     }
-                    case SHROOMERS -> {
+                    case ArrangeSection.SHROOMERS -> {
                         BiFunction<Shroomer, Tekton, Mushroom> mushroomctor;
                         int hypaDieAfter;
                         switch (parts[0].toLowerCase()) {
@@ -229,7 +230,7 @@ public class View {
                         gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter));
 
                     }
-                    case MUSHROOMS -> {
+                    case ArrangeSection.MUSHROOMS -> {
                         switch (parts[0].toLowerCase()) {
                             case "boostermushroom" -> {
                                 new BoosterMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
@@ -251,10 +252,10 @@ public class View {
                         }
 
                     }
-                    case BUGGERS -> {
+                    case ArrangeSection.BUGGERS -> {
                         gameBoard.addBugger(new Bugger());
                     }
-                    case STRATEGIES -> {
+                    case ArrangeSection.STRATEGIES -> {
                         switch (parts[0].toLowerCase()) {
                             case "normal" -> new Normal();
 
@@ -268,19 +269,19 @@ public class View {
 
                         }
                     }
-                    case BUGS -> {
+                    case ArrangeSection.BUGS -> {
                         Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]));
                         bug.setStrategy((Strategy) gameBoard.getReferenceByObjectName(parts[0]));
                         bug.setLocation((Tekton) gameBoard.getReferenceByObjectName(parts[2]));
                         ((Bugger) gameBoard.getReferenceByObjectName(parts[1])).addBug(bug);
                     }
-                    case HYPAS -> {
+                    case ArrangeSection.HYPAS -> {
                         Hypa hypa = new Hypa((Tekton) gameBoard.getReferenceByObjectName(parts[0]),
                                 (Tekton) gameBoard.getReferenceByObjectName(parts[1]), (Shroomer) gameBoard.getReferenceByObjectName(parts[2]));
                         ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).connectHypa(hypa);
                         ((Tekton) gameBoard.getReferenceByObjectName(parts[1])).connectHypa(hypa);
                     }
-                    case SPORES -> {
+                    case ArrangeSection.SPORES -> {
                         Spore spore;
                         Shroomer shroomer = (Shroomer) gameBoard.getReferenceByObjectName(parts[1]);
                         switch (parts[0].toLowerCase()) {
@@ -296,17 +297,12 @@ public class View {
 
                     }
                 }
-
-
                 /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
                 if(line.equalsIgnoreCase("act")) break;
             }
         } finally {
             source.close();
         }
-
-
-
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
