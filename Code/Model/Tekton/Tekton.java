@@ -87,16 +87,17 @@ public class Tekton {
      * a szomszédokat véletlenszerűen két részre ostja a régi és az új Tekton között. A szétválasztás
      * után a kapcsolódó fonalak elhalnak.
      */
-    public void breakTekton() {
+    public void breakTekton(long seed) {
         Tekton newTekton = new Tekton();
 
         // Szétosztjuk a szomszédokat 50-50%
+        Random rnd = new Random(seed);
 
         List<Tekton> remain = new ArrayList<>();
         List<Tekton> newNeighbours = new ArrayList<>();
 
         for (Tekton neighbour: neighbours) {
-            if (Math.random() < 0.5) { // 50%, h áthelyezzük az újhoz
+            if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
             } else{
                 remain.add(neighbour);
@@ -242,6 +243,8 @@ public class Tekton {
      * @return - Igaz, ha növeszthet (mert teljesül minden feltétel), egyébként hamis.
      */
     public boolean canMushroomGrow(Shroomer s) {
+        if (hasMushroom())
+            return false;
         if (s == null) {
             return false;  // Ha a Shroomer null, akkor nem tud nőni gomba
         }

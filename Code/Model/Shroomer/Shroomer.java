@@ -237,15 +237,17 @@ public class Shroomer extends Player {
             if (hyp.getIsDyingSinceDisconnected()!=1&&hyp.getIsDyingSinceBitten()!=hypaDieAfterBite)
                 hyp.age();
 
-            if(hyp.getIsDyingSinceDisconnected()==1){
-                Tekton end1 = hyp.getEnd1();
-                end1.removeHypa(hyp);
-                Tekton end2 = hyp.getEnd2();
-                end2.removeHypa(hyp);
-                this.removeHypa(hyp);
-            }
-            if(hyp.getIsDyingSinceBitten()==hypaDieAfterBite){
-                hyp.die();
+            else {
+                if (hyp.getIsDyingSinceDisconnected() == 1) {
+                    Tekton end1 = hyp.getEnd1();
+                    end1.removeHypa(hyp);
+                    Tekton end2 = hyp.getEnd2();
+                    end2.removeHypa(hyp);
+                    this.removeHypa(hyp);
+                }
+                if (hyp.getIsDyingSinceBitten() == hypaDieAfterBite) {
+                    hyp.die();
+                }
             }
         }
 

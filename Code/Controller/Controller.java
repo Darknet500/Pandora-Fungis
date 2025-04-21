@@ -13,10 +13,20 @@ public class Controller {
     private int round;
     private GameBoard gameBoard;
     private View view;
+    private long seed;
 
     public void connectObjects(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
+    }
+
+    public void setSeed(long seed) {
+        this.seed = seed;
+    }
+
+    public void resetActualPlayerandRound() {
+        actualPlayer = 0;
+        round = 0;
     }
 
     public void initMap(){
@@ -60,6 +70,10 @@ public class Controller {
     private void endOfRound(){
         gameBoard.getTektons().forEach(Tekton::endOfRound);
         gameBoard.getShroomer().values().forEach(Shroomer::endOfRoundAdministration);
+        ///random vagy enm random tekton törése
+        Random rand = new Random(seed);
+        gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
+
     }
 
     public boolean move(Bug bug, Tekton to){
@@ -138,7 +152,7 @@ public class Controller {
     }
 
     public void breaktekton(Tekton tekton){
-        tekton.breakTekton();
+        tekton.breakTekton(seed);
     }
 
 
@@ -150,7 +164,7 @@ public class Controller {
             //last player in the round just made a successful action and it is the last round of the game
             view.setEndOfGame();
             endOfRound();
-        } else if(actualPlayer == gameBoard.getNumberOfPlayers() && round != 20){
+        } else if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round != 20){
             //last player in the round just made a successful action
             round++;
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
