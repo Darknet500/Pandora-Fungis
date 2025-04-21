@@ -69,7 +69,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -80,7 +79,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -91,7 +89,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -102,7 +99,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -113,7 +109,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -124,7 +119,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 
@@ -135,7 +129,6 @@ public class Controller {
                 return true;
             }
         }
-        view.displayMessage("ERROR: You cannot execute this step.");
         return false;
     }
 

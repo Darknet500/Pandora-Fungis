@@ -17,30 +17,30 @@ public class GameBoard {
     /**
      * ID számlálók minden modell osztályhoz
      */
-    private static int biteBlockedID = 0;
-    private static int boostedID = 0;
-    private static int bugID = 0;
-    private static int buggerID = 0;
-    private static int normalID = 0;
-    private static int paralyzedID = 0;
-    private static int slowedID = 0;
-    private static int biteBlockerMushroomID = 0;
-    private static int biteBlockerSporeID = 0;
-    private static int boosterMushroomID = 0;
-    private static int boosterSporeID = 0;
-    private static int hypaID = 0;
-    private static int paralyzerMushroomID = 0;
-    private static int paralyzerSporeID = 0;
-    private static int proliferatingMmushroomID =0;
-    private static int proliferatingSporeID = 0;
-    private static int shroomerID = 0;
-    private static int slowerMushroomID = 0;
-    private static int slowerSporeID = 0;
-    private static int peatID = 0;
-    private static int soilID = 0;
-    private static int stoneID = 0;
-    private static int swampID = 0;
-    private static int tektonID = 0;
+    private static int biteBlockedID = 1;
+    private static int boostedID = 1;
+    private static int bugID = 1;
+    private static int buggerID = 1;
+    private static int normalID = 1;
+    private static int paralyzedID = 1;
+    private static int slowedID = 1;
+    private static int biteBlockerMushroomID = 1;
+    private static int biteBlockerSporeID = 1;
+    private static int boosterMushroomID = 1;
+    private static int boosterSporeID = 1;
+    private static int hypaID = 1;
+    private static int paralyzerMushroomID = 1;
+    private static int paralyzerSporeID = 1;
+    private static int proliferatingMmushroomID =1;
+    private static int proliferatingSporeID = 1;
+    private static int shroomerID = 1;
+    private static int slowerMushroomID = 1;
+    private static int slowerSporeID = 1;
+    private static int peatID = 1;
+    private static int soilID = 1;
+    private static int stoneID = 1;
+    private static int swampID = 1;
+    private static int tektonID = 1;
 
     public GameBoard(){
         allTektons = new ArrayList<>();
@@ -140,36 +140,37 @@ public class GameBoard {
     }
 
     public void clear(){
+        System.out.println("clearing game board..");
         shroomers.clear();
         buggers.clear();
         allTektons.clear();
         nameObjectMap.clear();
         objectNameMap.clear();
 
-        biteBlockedID = 0;
-        boostedID = 0;
-        bugID = 0;
-        buggerID = 0;
-        normalID = 0;
-        paralyzedID = 0;
-        slowedID = 0;
-        biteBlockerMushroomID = 0;
-        biteBlockerSporeID = 0;
-        boosterMushroomID = 0;
-        boosterSporeID = 0;
-        hypaID = 0;
-        paralyzerMushroomID = 0;
-        paralyzerSporeID = 0;
-        proliferatingMmushroomID = 0;
-        proliferatingSporeID = 0;
-        shroomerID = 0;
-        slowerMushroomID = 0;
-        slowerSporeID = 0;
-        peatID = 0;
-        soilID = 0;
-        stoneID = 0;
-        swampID = 0;
-        tektonID = 0;
+        biteBlockedID = 1;
+        boostedID = 1;
+        bugID = 1;
+        buggerID = 1;
+        normalID = 1;
+        paralyzedID = 1;
+        slowedID = 1;
+        biteBlockerMushroomID = 1;
+        biteBlockerSporeID = 1;
+        boosterMushroomID = 1;
+        boosterSporeID = 1;
+        hypaID = 1;
+        paralyzerMushroomID = 1;
+        paralyzerSporeID = 1;
+        proliferatingMmushroomID = 1;
+        proliferatingSporeID = 1;
+        shroomerID = 1;
+        slowerMushroomID = 1;
+        slowerSporeID = 1;
+        peatID = 1;
+        soilID = 1;
+        stoneID = 1;
+        swampID = 1;
+        tektonID = 1;
     }
 
     public int getNumberOfPlayers(){return shroomers.size() + buggers.size();}

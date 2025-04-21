@@ -8,7 +8,8 @@ import Controller.Controller;
 public class Main {
     public static void main(String[] args) {
 
-        //kiprobalaskent autotestall
+        // kiprobalaskent autotestall, mukodik autotestone-ban is
+        // manual es gema meg nincs kiprobalva
         args = new String[3];
         args[0] = "-testmode";
         args[1] = "-f";
