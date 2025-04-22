@@ -283,6 +283,7 @@ public class View {
                         Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]));
                         bug.setStrategy((Strategy) gameBoard.getReferenceByObjectName(parts[0]));
                         bug.setLocation((Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                        ((Tekton) gameBoard.getReferenceByObjectName(parts[2])).setBug(bug);
                         ((Bugger) gameBoard.getReferenceByObjectName(parts[1])).addBug(bug);
                     }
                     case ArrangeSection.HYPAS -> {
@@ -450,8 +451,15 @@ public class View {
                             }
                             if (areListsIdentical(bugs, assertbugs))
                                 assertSuccess(line);
-                            else
+                            else {
                                 assertFail(line);
+                                System.out.print("The actual value(s): ");
+                                for (int i = 0; i < bugs.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + ";");
+                                }
+                                System.out.println();
+
+                            }
                         }
                         else
                             assertError(line);
@@ -527,8 +535,14 @@ public class View {
                             }
                             if (areListsIdentical(mushrooms, assertmushrooms))
                                 assertSuccess(line);
-                            else
+                            else {
                                 assertFail(line);
+                                System.out.print("The actual value(s): ");
+                                for (int i = 0; i < mushrooms.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + ";");
+                                }
+                                System.out.println();
+                            }
                         }
                         else
                             assertError(line);
@@ -781,8 +795,10 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             if(((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getBug()==gameBoard.getReferenceByObjectName(parts[2]))
                                 assertSuccess(line);
-                            else
+                            else {
                                 assertFail(line);
+                                System.out.println("The actual value: " + gameBoard.getObjectNameByReference(((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getBug()));
+                            }
                         }
                         else
                             assertError(line);

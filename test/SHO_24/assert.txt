@@ -1,0 +1,2 @@
+shroomer1;mushrooms;boostermushroom1
+tekton4;bug;bug4
