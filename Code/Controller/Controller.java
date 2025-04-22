@@ -71,8 +71,10 @@ public class Controller {
         gameBoard.getTektons().forEach(Tekton::endOfRound);
         gameBoard.getShroomer().values().forEach(Shroomer::endOfRoundAdministration);
         ///random vagy enm random tekton törése
-        Random rand = new Random(seed);
-        gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
+        if(seed!=12345L) {
+            Random rand = new Random(seed);
+            gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
+        }
 
     }
 

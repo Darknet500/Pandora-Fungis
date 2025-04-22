@@ -1,0 +1,4 @@
+tekton2;spores;null
+shroomer1;mushrooms;boostermushroom1;boostermushroom2
+boostermushroom2;mushroomlocation;tekton2
+boostermushroom1;mushroomlocation;tekton1

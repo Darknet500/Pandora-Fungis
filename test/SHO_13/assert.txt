@@ -1,0 +1,2 @@
+boosterspore3;sporeshroomer;shroomer1
+tekton5;spores;boosterspore3

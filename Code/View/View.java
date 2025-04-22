@@ -294,7 +294,7 @@ public class View {
                     }
                     case ArrangeSection.SPORES -> {
                         Spore spore;
-                        Shroomer shroomer = (Shroomer) gameBoard.getReferenceByObjectName(parts[1]);
+                        Shroomer shroomer = ((Shroomer) gameBoard.getReferenceByObjectName(parts[1]));
                         switch (parts[0].toLowerCase()) {
                             case "boosterspore" -> spore = new BoosterSpore(shroomer);
                             case "slowerspore" -> spore = new SlowerSpore(shroomer);
@@ -439,6 +439,11 @@ public class View {
                         if (gameBoard.getBugger().containsValue((Bugger)gameBoard.getReferenceByObjectName(parts[0]))) {
                             List<Bug> bugs;
                             bugs = ((Bugger) gameBoard.getReferenceByObjectName(parts[0])).getBugs();
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(bugs.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
                             List<Bug> assertbugs = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 assertbugs.add((Bug)gameBoard.getReferenceByObjectName(parts[i]));
@@ -511,6 +516,11 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Mushroom> mushrooms;
                             mushrooms = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getMushrooms();
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(mushrooms.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
                             List<Mushroom> assertmushrooms = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 assertmushrooms.add((Mushroom) gameBoard.getReferenceByObjectName(parts[i]));
@@ -528,6 +538,11 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Hypa> hypas;
                             hypas = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getHypaList();
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
                             List<Hypa> asserthypas = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
@@ -552,6 +567,11 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Hypa> hypas;
                             hypas = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
                             List<Hypa> asserthypas = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
@@ -701,6 +721,11 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Tekton> neighbours;
                             neighbours = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(neighbours.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
                             List<Tekton> assertneighbour = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 assertneighbour.add((Tekton) gameBoard.getReferenceByObjectName(parts[i]));
@@ -725,6 +750,12 @@ public class View {
                             List<Spore> spores;
                             spores = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
 
+                            ///ha a megadott paraméter null, akkor az üres lista esetén success
+                            if(spores.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                                assertSuccess(line);
+                                break;
+                            }
+
                             List<Spore> assertspores = new ArrayList<>();
                             for (int i = 2; i < parts.length; i++) {
                                 assertspores.add((Spore) gameBoard.getReferenceByObjectName(parts[i]));
@@ -733,8 +764,14 @@ public class View {
 
                             if (areListsIdentical(spores, assertspores))
                                 assertSuccess(line);
-                            else
+                            else {
                                 assertFail(line);
+                                System.out.print("The actual value(s): ");
+                                for (int i = 0; i < spores.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + ";");
+                                }
+                                System.out.println();
+                            }
                         }
                         else
                             assertError(line);
