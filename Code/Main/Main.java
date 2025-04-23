@@ -13,7 +13,7 @@ public class Main {
         args = new String[3];
         args[0] = "-testmode";
         args[1] = "-f";
-        args[2] = "-BUG_27";
+        args[2] = "-a";
 
         GameBoard gameBoard = new GameBoard();
         GameMode gm = GameMode.game;
