@@ -1,0 +1,6 @@
+bug1;strategy;normal1
+bug1;buglocation;tekton1
+bug4;buglocation;tekton4
+tekton1;bug;bug1
+tekton4;bug;bug4
+tekton1;spores;boosterspore1;slowerspore1;paralyzerspore1;biteblockerspore1
