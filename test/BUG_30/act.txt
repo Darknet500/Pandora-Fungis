@@ -1,2 +1,6 @@
 skip;
-eat;bug1;proliferatingspore1
+bite;bug3;hypa4
+skip;
+skip;
+skip;
+skip;

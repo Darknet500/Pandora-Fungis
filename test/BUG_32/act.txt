@@ -1,2 +1,2 @@
 skip;
-eat;bug2;proliferatingspore2
+eat;bug3;boosterspore1

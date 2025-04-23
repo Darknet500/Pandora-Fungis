@@ -1,2 +1,2 @@
-bug2;strategy;boosted1
-tekton2;spores;boosterspore2;slowerspore2;paralyzerspore2;biteblockerspore2;proliferatingspore2
+tekton2;tektonhypas;hypa1;hypa2;hypa3
+shroomer1;shroomerhypas;hypa1;hypa2;hypa3;hypa4

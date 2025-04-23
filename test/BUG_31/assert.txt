@@ -1,6 +1,2 @@
-bug3;strategy;normal2
+tekton5;bug;null
 bug3;buglocation;tekton3
-bug4;buglocation;tekton4
-tekton3;bug;bug3
-tekton4;bug;bug4
-tekton3;spores;null

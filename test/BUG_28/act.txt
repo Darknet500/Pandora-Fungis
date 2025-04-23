@@ -1,2 +1,6 @@
 skip;
-eat;bug2;biteblockerspore2
+bite;bug1;hypa2
+skip;
+skip;
+skip;
+skip;
