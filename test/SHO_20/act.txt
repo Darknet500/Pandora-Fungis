@@ -1,2 +1,0 @@
-skip;
-eat;bug1;proliferatingspore2
