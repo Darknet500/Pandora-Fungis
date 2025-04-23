@@ -1,0 +1,4 @@
+skip;
+move;bug4;tekton6
+skip;
+move;bug4;tekton7
