@@ -19,7 +19,7 @@ public class Main {
         args[1] = "-manual";
 
         //game mód, ez sem jó egyenlőre
-        args = new String[0];
+        //args = new String[0];
 
         GameBoard gameBoard = new GameBoard();
         GameMode gm = GameMode.game;

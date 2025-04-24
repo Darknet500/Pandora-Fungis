@@ -193,11 +193,12 @@ public class Shroomer extends Player {
 
 
     /**
-     * Gombászok első gombatestének lerakásához szükséges
+     * ÚJ!!! Gombászok első gombatestének lerakásához szükséges
      */
     public void growFirstMushroom(Tekton target){
         Mushroom mush = mushroomctor.apply(this, target);
         mushrooms.add(mush);
+        target.setMushroom(mush);
     }
 
 

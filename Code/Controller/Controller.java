@@ -5,6 +5,9 @@ import Model.Bug.*;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -32,11 +35,14 @@ public class Controller {
     public void initMap(){
         Random rand = new Random();
         double r;
+        List<Integer> normalTektonsNumber = new ArrayList<>();
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
             Tekton tekton;
             if (r < 0.48) {
                 tekton = new Tekton();
+                normalTektonsNumber.add(k-1);
+
             } else if (r < 0.61) {
                 tekton = new Peat();
             } else if (r < 0.74) {
@@ -69,11 +75,13 @@ public class Controller {
             while(true){
                 int ir = rand.nextInt(25);
 
-                if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null) {
+                if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null&&normalTektonsNumber.contains(ir)) {
                     if(gameBoard.getShroomer().containsKey(i)){
-
+                        gameBoard.getShroomer().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
                     }else{
-
+                        Bug bug = new Bug(gameBoard.getBugger().get(i));
+                        gameBoard.getBugger().get(i).addBug(bug);
+                        bug.setLocation(gameBoard.getTektons().get(ir));
                     }
 
                     break;

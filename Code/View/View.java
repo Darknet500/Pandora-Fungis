@@ -17,6 +17,7 @@ public class View {
     private String testCase;
     private GameMode gameMode;
     private boolean endOfGame = false;
+    private boolean esc = false;
 
     public View(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;
@@ -93,11 +94,15 @@ public class View {
                 controller.resetActualPlayerandRound();
                 InputSource arrangesource = new ConsoleInputSource();
                 arrangeMethod(null, arrangesource);
-                InputSource actsource = new ConsoleInputSource();
-
-                actMethod(null, actsource);
-                InputSource assertsource = new ConsoleInputSource();
-                assertMethod(null, assertsource);
+                InputSource actsource;
+                InputSource assertsource;
+                while(!esc) {
+                    actsource = new ConsoleInputSource();
+                    actMethod(null, actsource);
+                    //if(esc) break;
+                    assertsource = new ConsoleInputSource();
+                    assertMethod(null, assertsource);
+                }
             }catch (Exception _) {}
         }
 
@@ -318,6 +323,79 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
+        ///éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
+        if(gameMode==GameMode.game){
+            List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomer().keySet());
+            Collections.sort(shroomerSortedKeys);
+            List<Integer> buggerSortedKeys = new ArrayList<>(gameBoard.getBugger().keySet());
+            Collections.sort(buggerSortedKeys);
+
+
+            System.out.println("TEKTONS -> NEIGHBOURS");
+            for(int i=0;i<gameBoard.getTektons().size();i++){
+                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
+                List<Tekton> neighbours = gameBoard.getTektons().get(i).getNeighbours();
+                for (int j = 0; j < neighbours.size(); j++) {
+                    System.out.print(gameBoard.getObjectNameByReference(neighbours.get(j)) + (j != neighbours.size() - 1 ? ";" : ""));
+                }
+                System.out.println();
+            }
+            System.out.println("SHROOMERS -> MUSHROOMS (LOCATION) ");
+            for(int i=0;i<gameBoard.getShroomer().size();i++){
+                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomer().get(shroomerSortedKeys.get(i)))+" -> ");
+                List<Mushroom> mushrooms = gameBoard.getShroomer().get(shroomerSortedKeys.get(i)).getMushrooms();
+                for (int j = 0; j < mushrooms.size(); j++) {
+                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(j))
+                            + "(" + gameBoard.getObjectNameByReference(mushrooms.get(j).getLocation()) +")"
+                            + (j != mushrooms.size() - 1 ? ";" : ""));
+                }
+                System.out.println();
+            }
+            System.out.println("BUGGERS -> BUGS (LOCATION-STRATEGY) ");
+            for(int i=0;i<gameBoard.getBugger().size();i++){
+                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getBugger().get(buggerSortedKeys.get(i)))+" -> ");
+                List<Bug> bugs = gameBoard.getBugger().get(buggerSortedKeys.get(i)).getBugs();
+                for (int j = 0; j < bugs.size(); j++) {
+                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(j))
+                            + "(" + gameBoard.getObjectNameByReference(bugs.get(j).getLocation()) +"-"
+                            + gameBoard.getObjectNameByReference(bugs.get(j).getStrategy()) +")"
+                            + (j != bugs.size() - 1 ? ";" : ""));
+                }
+                System.out.println();
+            }
+            System.out.println("SHROOMERS -> HYPA (END-END) ");
+            for(int i=0;i<gameBoard.getShroomer().size();i++){
+                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomer().get(shroomerSortedKeys.get(i)))+" -> ");
+                List<Hypa> hypas = gameBoard.getShroomer().get(shroomerSortedKeys.get(i)).getHypaList();
+                for (int j = 0; j < hypas.size(); j++) {
+                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(j))
+                            + "(" + gameBoard.getObjectNameByReference(hypas.get(j).getEnd1()) +"-"
+                            + gameBoard.getObjectNameByReference(hypas.get(j).getEnd2()) +")"
+                            + (j != hypas.size() - 1 ? ";" : ""));
+                }
+                System.out.println();
+            }
+            System.out.println("TEKTONS -> SPORES (SHROOMER)");
+            for(int i=0;i<gameBoard.getTektons().size();i++){
+                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
+                List<Spore> spores = gameBoard.getTektons().get(i).getStoredSpores();
+                for (int j = 0; j < spores.size(); j++) {
+                    System.out.print(gameBoard.getObjectNameByReference(spores.get(j))
+                            + "(" + gameBoard.getObjectNameByReference(spores.get(j).getShroomer()) +")"
+                            + (j != spores.size() - 1 ? ";" : ""));
+                }
+                System.out.println();
+            }
+
+
+
+
+        }
+
+
+
+
+
         System.out.println("ACT");
         try {
             while (source.hasNextLine() && !endOfGame) {
@@ -331,6 +409,7 @@ public class View {
                     parts[i] = parts[i].trim();
                 }
                 switch (parts[0].toLowerCase()){
+                    case "esc" -> esc = true;
                     case "move" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
@@ -408,7 +487,7 @@ public class View {
                         }
                         System.out.println("action failed");
                     }
-                    default -> System.out.println("action failed");
+                    default -> System.out.println("action failed because of invalid command or assert command");
                 }
 
 
@@ -435,449 +514,516 @@ public class View {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-                switch (parts[1].toLowerCase()){
-                    case "bugs" -> {
-                        if (gameBoard.getBugger().containsValue((Bugger)gameBoard.getReferenceByObjectName(parts[0]))) {
-                            List<Bug> bugs;
-                            bugs = ((Bugger) gameBoard.getReferenceByObjectName(parts[0])).getBugs();
+                if (parts.length > 1) {
+                    switch (parts[1].toLowerCase()) {
+                        case "bugs" -> {
+                            if (gameBoard.getBugger().containsValue((Bugger) gameBoard.getReferenceByObjectName(parts[0]))) {
+                                List<Bug> bugs;
+                                bugs = ((Bugger) gameBoard.getReferenceByObjectName(parts[0])).getBugs();
 
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < bugs.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + (i!=bugs.size()-1?";":""));
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < bugs.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + (i != bugs.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
                                 }
-                                System.out.println();
-                                break;
-                            }
 
 
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(bugs.isEmpty()&&parts[2].equalsIgnoreCase("null")){
-                                assertSuccess(line);
-                                break;
-                            }
-                            List<Bug> assertbugs = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                assertbugs.add((Bug)gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-                            if (areListsIdentical(bugs, assertbugs))
-                                assertSuccess(line);
-                            else {
-                                assertFail(line);
-                                System.out.print("The actual value(s): ");
-                                for (int i = 0; i < bugs.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + ";");
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (bugs.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
                                 }
-                                System.out.println();
-
-                            }
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "mushroomlocation" ->{
-                        Tekton location;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            location = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
-
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                System.out.println(gameBoard.getObjectNameByReference(location));
-                                break;
-                            }
-
-                        }else {
-                            assertError(line);
-                            break;
-                        }
-                        if(location==gameBoard.getReferenceByObjectName(parts[2]))
-                            assertSuccess(line);
-                        else
-                            assertFail(line);
-                    }
-
-                    case "buglocation" ->{
-                        Tekton location;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null)
-                            location = ((Bug)gameBoard.getReferenceByObjectName(parts[0])).getLocation();
-                        else {
-                            assertError(line);
-                            break;
-                        }
-                        if(location==gameBoard.getReferenceByObjectName(parts[2]))
-                            assertSuccess(line);
-                        else
-                            assertFail(line);
-                    }
-
-                    case "strategy" -> {
-                        Strategy strategy;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            strategy = ((Bug)gameBoard.getReferenceByObjectName(parts[0])).getStrategy();
-                            if (strategy == ((Strategy)gameBoard.getReferenceByObjectName(parts[2])))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-
-                    }
-
-                    case "undereffectsince" -> {
-                        int underEffectSince;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            underEffectSince = ((Bug)gameBoard.getReferenceByObjectName(parts[0])).getUnderEffectSince();
-                            if (underEffectSince == Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "mushrooms" ->{
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            List<Mushroom> mushrooms;
-                            mushrooms = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getMushrooms();
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < mushrooms.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + (i!=mushrooms.size()-1?";":""));
+                                List<Bug> assertbugs = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    assertbugs.add((Bug) gameBoard.getReferenceByObjectName(parts[i]));
                                 }
-                                System.out.println();
-                                break;
-                            }
+                                if (areListsIdentical(bugs, assertbugs))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+                                    System.out.print("The actual value(s): ");
+                                    for (int i = 0; i < bugs.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + ";");
+                                    }
+                                    System.out.println();
 
-
-
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(mushrooms.isEmpty()&&parts[2].equalsIgnoreCase("null")){
-                                assertSuccess(line);
-                                break;
-                            }
-                            List<Mushroom> assertmushrooms = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                assertmushrooms.add((Mushroom) gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-                            if (areListsIdentical(mushrooms, assertmushrooms))
-                                assertSuccess(line);
-                            else {
-                                assertFail(line);
-                                System.out.print("The actual value(s): ");
-                                for (int i = 0; i < mushrooms.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + ";");
                                 }
-                                System.out.println();
-                            }
+                            } else
+                                assertError(line);
                         }
-                        else
-                            assertError(line);
-                    }
 
-                    case "shroomerhypas" -> {
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            List<Hypa> hypas;
-                            hypas = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getHypaList();
+                        case "mushroomlocation" -> {
+                            Tekton location;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                location = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
 
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < hypas.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i!=hypas.size()-1?";":""));
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(location));
+                                    break;
                                 }
-                                System.out.println();
+
+                            } else {
+                                assertError(line);
                                 break;
                             }
-
-
-
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
+                            if (location == gameBoard.getReferenceByObjectName(parts[2]))
                                 assertSuccess(line);
-                                break;
-                            }
-                            List<Hypa> asserthypas = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-                            if (areListsIdentical(hypas, asserthypas))
-                                assertSuccess(line);
-                            else {
+                            else
                                 assertFail(line);
+                        }
 
-                                System.out.print("The actual value(s): ");
-                                for (int i =0;i<hypas.size();i++){
-                                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(i))+";");
+                        case "buglocation" -> {
+                            Tekton location;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                location = ((Bug) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(location));
+                                    break;
                                 }
-                                System.out.println();
+                            } else {
+                                assertError(line);
+                                break;
                             }
+                            if (location == gameBoard.getReferenceByObjectName(parts[2]))
+                                assertSuccess(line);
+                            else
+                                assertFail(line);
                         }
-                        else
-                            assertError(line);
-                    }
 
-                    case "tektonhypas" -> {
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            List<Hypa> hypas;
-                            hypas = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < hypas.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i!=hypas.size()-1?";":""));
+                        case "strategy" -> {
+                            Strategy strategy;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                strategy = ((Bug) gameBoard.getReferenceByObjectName(parts[0])).getStrategy();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(strategy));
+                                    break;
                                 }
-                                System.out.println();
-                                break;
-                            }
 
+                                if (strategy == ((Strategy) gameBoard.getReferenceByObjectName(parts[2])))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
 
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
-                                assertSuccess(line);
-                                break;
-                            }
-                            List<Hypa> asserthypas = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-                            if (areListsIdentical(hypas, asserthypas))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
                         }
-                        else
-                            assertError(line);
-                    }
 
-                    case "mushroomage" -> {
-                        int age;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            age = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getAge();
-                            if (age == Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }else
-                            assertError(line);
-                    }
-
-                    case "hypaage" -> {
-                        int age;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            age = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getAge();
-                            if (age == Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }else
-                            assertError(line);
-                    }
-
-
-                    case "numberofspores" ->{
-                        int numberOfSpores;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            numberOfSpores = ((Mushroom)gameBoard.getReferenceByObjectName(parts[0])).getNumberOfSpores();
-                            if (numberOfSpores == Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "sporesthrown" ->{
-                        int sporesThrown;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            sporesThrown = ((Mushroom)gameBoard.getReferenceByObjectName(parts[0])).getSporesThrown();
-                            if (sporesThrown == Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-                    case "mushroomshroomer" ->{
-                        Shroomer shroomer;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            shroomer = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
-                            if(shroomer==gameBoard.getReferenceByObjectName(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "sporeshroomer" ->{
-                        Shroomer shroomer;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            shroomer = ((Spore) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
-                            if(shroomer==gameBoard.getReferenceByObjectName(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "hypashroomer" ->{
-                        Shroomer shroomer;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            shroomer = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
-                            if(shroomer==gameBoard.getReferenceByObjectName(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else {
-                            assertError(line);
-                        }
-                    }
-
-                    case "ends" ->{
-                        Tekton end1;
-                        Tekton end2;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-
-
-                            end1 = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getEnd1();
-                            end2 = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getEnd2();
-                            if (end1 == gameBoard.getReferenceByObjectName(parts[2])&&end2 == gameBoard.getReferenceByObjectName(parts[3])
-                            ||end1 == gameBoard.getReferenceByObjectName(parts[3])&&end2 == gameBoard.getReferenceByObjectName(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "isdyingsincedisconnected" -> {
-                        int isDyingSinceDisconnected;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            isDyingSinceDisconnected = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getIsDyingSinceDisconnected();
-
-                            if(isDyingSinceDisconnected==Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }else
-                            assertError(line);
-                    }
-
-                    case "isdyingsincebitten" ->{
-                        int isDyingSinceBitten;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            isDyingSinceBitten = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getIsDyingSinceBitten();
-                            if(isDyingSinceBitten==Integer.parseInt(parts[2]))
-                                assertSuccess(line);
-                            else
-                                assertFail(line);
-                        }
-                        else
-                            assertError(line);
-                    }
-
-                    case "neighbours" ->{
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            List<Tekton> neighbours;
-                            neighbours = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
-
-
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < neighbours.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(neighbours.get(i)) + (i!=neighbours.size()-1?";":""));
+                        case "undereffectsince" -> {
+                            int underEffectSince;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                underEffectSince = ((Bug) gameBoard.getReferenceByObjectName(parts[0])).getUnderEffectSince();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(underEffectSince);
+                                    break;
                                 }
-                                System.out.println();
-                                break;
-                            }
+                                if (underEffectSince == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
 
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(neighbours.isEmpty()&&parts[2].equalsIgnoreCase("null")){
-                                assertSuccess(line);
-                                break;
-                            }
-                            List<Tekton> assertneighbour = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                assertneighbour.add((Tekton) gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-                            if (areListsIdentical(neighbours, assertneighbour))
-                                assertSuccess(line);
-                            else {
-                                assertFail(line);
-                                System.out.print("The actual value(s): ");
-                                for (int i =0;i<neighbours.size();i++){
-                                    System.out.print(gameBoard.getObjectNameByReference(neighbours.get(i))+";");
+                        case "mushrooms" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                List<Mushroom> mushrooms;
+                                mushrooms = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getMushrooms();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < mushrooms.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + (i != mushrooms.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
                                 }
-                                System.out.println();
+
+
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (mushrooms.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
+                                }
+                                List<Mushroom> assertmushrooms = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    assertmushrooms.add((Mushroom) gameBoard.getReferenceByObjectName(parts[i]));
+                                }
+                                if (areListsIdentical(mushrooms, assertmushrooms))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+                                    System.out.print("The actual value(s): ");
+                                    for (int i = 0; i < mushrooms.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + ";");
+                                    }
+                                    System.out.println();
+                                }
+                            } else
+                                assertError(line);
+                        }
+
+                        case "shroomerhypas" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                List<Hypa> hypas;
+                                hypas = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getHypaList();
+
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < hypas.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i != hypas.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+
+
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (hypas.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
+                                }
+                                List<Hypa> asserthypas = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
+                                }
+                                if (areListsIdentical(hypas, asserthypas))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+
+                                    System.out.print("The actual value(s): ");
+                                    for (int i = 0; i < hypas.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + ";");
+                                    }
+                                    System.out.println();
+                                }
+                            } else
+                                assertError(line);
+                        }
+
+                        case "tektonhypas" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                List<Hypa> hypas;
+                                hypas = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < hypas.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i != hypas.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+
+
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (hypas.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
+                                }
+                                List<Hypa> asserthypas = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    asserthypas.add((Hypa) gameBoard.getReferenceByObjectName(parts[i]));
+                                }
+                                if (areListsIdentical(hypas, asserthypas))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+                        case "mushroomage" -> {
+                            int age;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                age = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getAge();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(age);
+                                    break;
+                                }
+                                if (age == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+                        case "hypaage" -> {
+                            int age;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                age = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getAge();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(age);
+                                    break;
+                                }
+                                if (age == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+
+                        case "numberofspores" -> {
+                            int numberOfSpores;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                numberOfSpores = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getNumberOfSpores();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(numberOfSpores);
+                                    break;
+                                }
+                                if (numberOfSpores == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+                        case "sporesthrown" -> {
+                            int sporesThrown;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                sporesThrown = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getSporesThrown();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(sporesThrown);
+                                    break;
+                                }
+                                if (sporesThrown == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+                        case "mushroomshroomer" -> {
+                            Shroomer shroomer;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                shroomer = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(shroomer));
+                                    break;
+                                }
+                                if (shroomer == gameBoard.getReferenceByObjectName(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+                        case "sporeshroomer" -> {
+                            Shroomer shroomer;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                shroomer = ((Spore) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(shroomer));
+                                    break;
+                                }
+                                if (shroomer == gameBoard.getReferenceByObjectName(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
+
+                        case "hypashroomer" -> {
+                            Shroomer shroomer;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                shroomer = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getShroomer();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(shroomer));
+                                    break;
+                                }
+                                if (shroomer == gameBoard.getReferenceByObjectName(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else {
+                                assertError(line);
                             }
                         }
-                        else
-                            assertError(line);
-                    }
 
-                    case "spores" ->{
-                        if(gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            List<Spore> spores;
-                            spores = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
+                        case "ends" -> {
+                            Tekton end1;
+                            Tekton end2;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
 
-                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
-                            if (parts.length==2){
-                                for (int i = 0; i < spores.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + (i!=spores.size()-1?";":""));
+
+                                end1 = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getEnd1();
+                                end2 = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getEnd2();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(end1) + "; " + gameBoard.getObjectNameByReference(end2));
+                                    break;
                                 }
-                                System.out.println();
-                                break;
-                            }
+                                if (end1 == gameBoard.getReferenceByObjectName(parts[2]) && end2 == gameBoard.getReferenceByObjectName(parts[3])
+                                        || end1 == gameBoard.getReferenceByObjectName(parts[3]) && end2 == gameBoard.getReferenceByObjectName(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
+                        }
 
-                            ///ha a megadott paraméter null, akkor az üres lista esetén success
-                            if(spores.isEmpty()&&parts[2].equalsIgnoreCase("null")){
-                                assertSuccess(line);
-                                break;
-                            }
-
-                            List<Spore> assertspores = new ArrayList<>();
-                            for (int i = 2; i < parts.length; i++) {
-                                assertspores.add((Spore) gameBoard.getReferenceByObjectName(parts[i]));
-                            }
-
-
-                            if (areListsIdentical(spores, assertspores))
-                                assertSuccess(line);
-                            else {
-                                assertFail(line);
-                                System.out.print("The actual value(s): ");
-                                for (int i = 0; i < spores.size(); i++) {
-                                    System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + ";");
+                        case "isdyingsincedisconnected" -> {
+                            int isDyingSinceDisconnected;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                isDyingSinceDisconnected = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getIsDyingSinceDisconnected();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(isDyingSinceDisconnected);
+                                    break;
                                 }
-                                System.out.println();
-                            }
+                                if (isDyingSinceDisconnected == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
                         }
-                        else
-                            assertError(line);
-                    }
 
-                    case "bug" ->{
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
-                            if(((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getBug()==gameBoard.getReferenceByObjectName(parts[2]))
-                                assertSuccess(line);
-                            else {
-                                assertFail(line);
-                                System.out.println("The actual value: " + gameBoard.getObjectNameByReference(((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getBug()));
-                            }
+                        case "isdyingsincebitten" -> {
+                            int isDyingSinceBitten;
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                isDyingSinceBitten = ((Hypa) gameBoard.getReferenceByObjectName(parts[0])).getIsDyingSinceBitten();
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(isDyingSinceBitten);
+                                    break;
+                                }
+                                if (isDyingSinceBitten == Integer.parseInt(parts[2]))
+                                    assertSuccess(line);
+                                else
+                                    assertFail(line);
+                            } else
+                                assertError(line);
                         }
-                        else
-                            assertError(line);
+
+                        case "neighbours" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                List<Tekton> neighbours;
+                                neighbours = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
+
+
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < neighbours.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(neighbours.get(i)) + (i != neighbours.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (neighbours.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
+                                }
+                                List<Tekton> assertneighbour = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    assertneighbour.add((Tekton) gameBoard.getReferenceByObjectName(parts[i]));
+                                }
+                                if (areListsIdentical(neighbours, assertneighbour))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+                                    System.out.print("The actual value(s): ");
+                                    for (int i = 0; i < neighbours.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(neighbours.get(i)) + ";");
+                                    }
+                                    System.out.println();
+                                }
+                            } else
+                                assertError(line);
+                        }
+
+                        case "spores" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                List<Spore> spores;
+                                spores = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
+
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    for (int i = 0; i < spores.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + (i != spores.size() - 1 ? ";" : ""));
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+
+                                ///ha a megadott paraméter null, akkor az üres lista esetén success
+                                if (spores.isEmpty() && parts[2].equalsIgnoreCase("null")) {
+                                    assertSuccess(line);
+                                    break;
+                                }
+
+                                List<Spore> assertspores = new ArrayList<>();
+                                for (int i = 2; i < parts.length; i++) {
+                                    assertspores.add((Spore) gameBoard.getReferenceByObjectName(parts[i]));
+                                }
+
+
+                                if (areListsIdentical(spores, assertspores))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+                                    System.out.print("The actual value(s): ");
+                                    for (int i = 0; i < spores.size(); i++) {
+                                        System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + ";");
+                                    }
+                                    System.out.println();
+                                }
+                            } else
+                                assertError(line);
+                        }
+
+                        case "bug" -> {
+                            if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
+                                ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                                if (parts.length == 2) {
+                                    System.out.println(gameBoard.getObjectNameByReference(((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
+                                    break;
+                                }
+
+
+                                if (((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug() == gameBoard.getReferenceByObjectName(parts[2]))
+                                    assertSuccess(line);
+                                else {
+                                    assertFail(line);
+                                    System.out.println("The actual value: " + gameBoard.getObjectNameByReference(((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
+                                }
+                            } else
+                                assertError(line);
+                        }
+                        default -> {
+                            System.out.println("not a valid command");
+                        }
                     }
                 }
-                if(line.equalsIgnoreCase("act")) break;
+                else if (line.equalsIgnoreCase("act")) {
+                    ConsoleInputSource actsource = new ConsoleInputSource();
+                    actMethod(tc, actsource);
+                }else if(line.equalsIgnoreCase("esc")){
+                    esc=true;
+                    break;
+                }else{
+                    System.out.println("not enough parameters");
+                }
             }
         } finally {
             source.close();
