@@ -94,15 +94,13 @@ public class View {
                 controller.resetActualPlayerandRound();
                 InputSource arrangesource = new ConsoleInputSource();
                 arrangeMethod(null, arrangesource);
-                InputSource actsource;
-                InputSource assertsource;
-                while(!esc) {
-                    actsource = new ConsoleInputSource();
+
+                InputSource actsource = new ConsoleInputSource();
                     actMethod(null, actsource);
-                    //if(esc) break;
-                    assertsource = new ConsoleInputSource();
-                    assertMethod(null, assertsource);
-                }
+
+                //InputSource assertsource = new ConsoleInputSource();
+                //    assertMethod(null, assertsource);
+
             }catch (Exception _) {}
         }
 
@@ -299,6 +297,12 @@ public class View {
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[2])).addHypa(hypa);
                     }
                     case ArrangeSection.SPORES -> {
+
+                        /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
+                        if(parts[0].equalsIgnoreCase("act")){
+                            return;
+                        }
+
                         Spore spore;
                         Shroomer shroomer = ((Shroomer) gameBoard.getReferenceByObjectName(parts[1]));
                         switch (parts[0].toLowerCase()) {
@@ -314,8 +318,7 @@ public class View {
 
                     }
                 }
-                /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
-                if(line.equalsIgnoreCase("act")) break;
+
             }
         } finally {
             source.close();
@@ -323,7 +326,7 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
-        ///éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
+        /*///éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
         if(gameMode==GameMode.game){
             List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomer().keySet());
             Collections.sort(shroomerSortedKeys);
@@ -393,7 +396,7 @@ public class View {
         }
 
 
-
+*/
 
 
         System.out.println("ACT");
@@ -500,6 +503,7 @@ public class View {
                 }
             }
         } finally {
+            System.out.println("act vége");
             source.close();
         }
 
