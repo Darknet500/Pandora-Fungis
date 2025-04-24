@@ -191,6 +191,16 @@ public class Shroomer extends Player {
         traverseHypaNetwork();
     }
 
+
+    /**
+     * Gombászok első gombatestének lerakásához szükséges
+     */
+    public void growFirstMushroom(Tekton target){
+        Mushroom mush = mushroomctor.apply(this, target);
+        mushrooms.add(mush);
+    }
+
+
     /**
      * Megpróbál egy új gombatestet növeszteni egy adott Tektonon.
      *

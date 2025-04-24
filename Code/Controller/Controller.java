@@ -31,8 +31,9 @@ public class Controller {
 
     public void initMap(){
         Random rand = new Random();
+        double r;
         for (int k = 1; k <= 25; k++) {
-            double r = rand.nextDouble();
+            r = rand.nextDouble();
             Tekton tekton;
             if (r < 0.48) {
                 tekton = new Tekton();
@@ -46,7 +47,8 @@ public class Controller {
                 tekton = new Soil();
             }
             gameBoard.addTekton(tekton);
-
+        }
+        for (int k = 1; k <= 25; k++) {
             for (int i = 0; i < 25; i++) {
                 for (int j = 0; j < 25; j++) {
                     if (i != j) {
@@ -58,6 +60,23 @@ public class Controller {
 
                         }
                     }
+                }
+            }
+        }
+
+        //játékosok kezdő objektumainak elhelyezése
+        for (int i = 0; i < gameBoard.getNumberOfPlayers(); i++) {
+            while(true){
+                int ir = rand.nextInt(25);
+
+                if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null) {
+                    if(gameBoard.getShroomer().containsKey(i)){
+
+                    }else{
+
+                    }
+
+                    break;
                 }
             }
         }

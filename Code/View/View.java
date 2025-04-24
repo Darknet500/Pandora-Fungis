@@ -94,6 +94,7 @@ public class View {
                 InputSource arrangesource = new ConsoleInputSource();
                 arrangeMethod(null, arrangesource);
                 InputSource actsource = new ConsoleInputSource();
+
                 actMethod(null, actsource);
                 InputSource assertsource = new ConsoleInputSource();
                 assertMethod(null, assertsource);
@@ -122,10 +123,10 @@ public class View {
                         System.out.println("Válasszon gombász fajtát(booster/ slower/ paralyzer/ biteblocker/ prolferating)");
                         String shroomertype = scanner.nextLine().trim();;
                         while (true){
-                            if (input.equalsIgnoreCase("booster")||input.equalsIgnoreCase("slower")||input.equalsIgnoreCase("paralyzer")||input.equalsIgnoreCase("biteblocker")||input.equalsIgnoreCase("proliferating"))
+                            if (shroomertype.equalsIgnoreCase("booster")||shroomertype.equalsIgnoreCase("slower")||shroomertype.equalsIgnoreCase("paralyzer")||shroomertype.equalsIgnoreCase("biteblocker")||shroomertype.equalsIgnoreCase("proliferating"))
                                 break;
                             System.out.println("nem valid gombásztípus");
-                            input = scanner.nextLine().trim();
+                            shroomertype = scanner.nextLine().trim();
                         }
                         BiFunction<Shroomer, Tekton, Mushroom> mushroomctor=(x, y)->new BoosterMushroom(x, y);
                         int hypaDieAfter=5;
@@ -158,7 +159,6 @@ public class View {
                     case "start" -> i=8;
                 }
             }
-
             controller.initMap();
             return;
         }
@@ -440,6 +440,17 @@ public class View {
                         if (gameBoard.getBugger().containsValue((Bugger)gameBoard.getReferenceByObjectName(parts[0]))) {
                             List<Bug> bugs;
                             bugs = ((Bugger) gameBoard.getReferenceByObjectName(parts[0])).getBugs();
+
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < bugs.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(i)) + (i!=bugs.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
+
+
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(bugs.isEmpty()&&parts[2].equalsIgnoreCase("null")){
                                 assertSuccess(line);
@@ -467,9 +478,16 @@ public class View {
 
                     case "mushroomlocation" ->{
                         Tekton location;
-                        if (gameBoard.getReferenceByObjectName(parts[0])!=null)
-                            location = ((Mushroom)gameBoard.getReferenceByObjectName(parts[0])).getLocation();
-                        else {
+                        if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
+                            location = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
+
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                System.out.println(gameBoard.getObjectNameByReference(location));
+                                break;
+                            }
+
+                        }else {
                             assertError(line);
                             break;
                         }
@@ -524,6 +542,17 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Mushroom> mushrooms;
                             mushrooms = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getMushrooms();
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < mushrooms.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(i)) + (i!=mushrooms.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
+
+
+
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(mushrooms.isEmpty()&&parts[2].equalsIgnoreCase("null")){
                                 assertSuccess(line);
@@ -552,6 +581,18 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Hypa> hypas;
                             hypas = ((Shroomer) gameBoard.getReferenceByObjectName(parts[0])).getHypaList();
+
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < hypas.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i!=hypas.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
+
+
+
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
                                 assertSuccess(line);
@@ -581,6 +622,16 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Hypa> hypas;
                             hypas = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < hypas.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(i)) + (i!=hypas.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
+
+
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(hypas.isEmpty()&&parts[2].equalsIgnoreCase("null")){
                                 assertSuccess(line);
@@ -693,6 +744,8 @@ public class View {
                         Tekton end1;
                         Tekton end2;
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
+
+
                             end1 = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getEnd1();
                             end2 = ((Hypa)gameBoard.getReferenceByObjectName(parts[0])).getEnd2();
                             if (end1 == gameBoard.getReferenceByObjectName(parts[2])&&end2 == gameBoard.getReferenceByObjectName(parts[3])
@@ -735,6 +788,17 @@ public class View {
                         if (gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Tekton> neighbours;
                             neighbours = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
+
+
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < neighbours.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(neighbours.get(i)) + (i!=neighbours.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
+
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(neighbours.isEmpty()&&parts[2].equalsIgnoreCase("null")){
                                 assertSuccess(line);
@@ -763,6 +827,15 @@ public class View {
                         if(gameBoard.getReferenceByObjectName(parts[0])!=null) {
                             List<Spore> spores;
                             spores = ((Tekton)gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
+
+                            ///paraméter nélkül nem összehasonlít, hanme lekérdez
+                            if (parts.length==2){
+                                for (int i = 0; i < spores.size(); i++) {
+                                    System.out.print(gameBoard.getObjectNameByReference(spores.get(i)) + (i!=spores.size()-1?";":""));
+                                }
+                                System.out.println();
+                                break;
+                            }
 
                             ///ha a megadott paraméter null, akkor az üres lista esetén success
                             if(spores.isEmpty()&&parts[2].equalsIgnoreCase("null")){
