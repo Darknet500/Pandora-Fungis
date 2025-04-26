@@ -326,7 +326,7 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
-        /*///éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
+        //éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
         if(gameMode==GameMode.game){
             List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomer().keySet());
             Collections.sort(shroomerSortedKeys);
@@ -396,7 +396,7 @@ public class View {
         }
 
 
-*/
+
 
 
         System.out.println("ACT");
