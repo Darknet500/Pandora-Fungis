@@ -23,4 +23,8 @@ public abstract class Player {
         score += howMuch;
     }
 
+    public int getScore() {
+        return score;
+    }
+
 }
