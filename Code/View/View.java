@@ -92,14 +92,10 @@ public class View {
             try {
                 gameBoard.clear();
                 controller.resetActualPlayerandRound();
-                InputSource arrangesource = new ConsoleInputSource();
-                arrangeMethod(null, arrangesource);
-
-                InputSource actsource = new ConsoleInputSource();
-                    actMethod(null, actsource);
-
-                //InputSource assertsource = new ConsoleInputSource();
-                //    assertMethod(null, assertsource);
+                InputSource cis = new ConsoleInputSource();
+                arrangeMethod(null, cis);
+                actMethod(null, cis);
+                assertMethod(null, cis);
 
             }catch (Exception _) {}
         }
@@ -168,6 +164,13 @@ public class View {
         try {
             while (source.hasNextLine()) {
                 String line = source.readLine();
+
+                /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
+                if(gameMode == GameMode.manualtest && line.equalsIgnoreCase("act")){
+                    source.close();
+                    return;
+                }
+
                 /// a valódi arrange fájl veolvasás logikája
                 try {
                     arrangeSection = ArrangeSection.valueOf(line.trim().toUpperCase());
@@ -178,6 +181,7 @@ public class View {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
+
                 switch (arrangeSection) {
                     case ArrangeSection.TEKTONS -> {
                         switch (parts[0]) {
@@ -297,12 +301,6 @@ public class View {
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[2])).addHypa(hypa);
                     }
                     case ArrangeSection.SPORES -> {
-
-                        /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
-                        if(parts[0].equalsIgnoreCase("act")){
-                            return;
-                        }
-
                         Spore spore;
                         Shroomer shroomer = ((Shroomer) gameBoard.getReferenceByObjectName(parts[1]));
                         switch (parts[0].toLowerCase()) {
@@ -312,13 +310,10 @@ public class View {
                             case "biteblockerspore" -> spore = new BiteBlockerSpore(shroomer);
                             case "proliferatingspore" -> spore = new ProliferatingSpore(shroomer);
                             default -> spore = null;
-
                         }
                         ((Tekton) gameBoard.getReferenceByObjectName(parts[2])).storeSpore(spore);
-
                     }
                 }
-
             }
         } finally {
             source.close();
@@ -389,20 +384,19 @@ public class View {
                 }
                 System.out.println();
             }
-
-
-
-
         }
-
-
-
-
 
         System.out.println("ACT");
         try {
             while (source.hasNextLine() && !endOfGame) {
                 String line = source.readLine();
+
+                ///csak manual módban lesz ilyen, hogy standar inputon bejön egy assert parancs
+                if(gameMode == GameMode.manualtest && line.equalsIgnoreCase("assert")){
+                    source.close();
+                    return;
+                }
+
                 /**
                  * valódi act parancsok beolvasása értelmezése
                  * a sikeres akciókról a controller visszajelez, csak a sikertelenek kiírását hagytam itt
@@ -412,7 +406,6 @@ public class View {
                     parts[i] = parts[i].trim();
                 }
                 switch (parts[0].toLowerCase()){
-                    case "esc" -> esc = true;
                     case "move" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
@@ -492,18 +485,8 @@ public class View {
                     }
                     default -> System.out.println("action failed because of invalid command or assert command");
                 }
-
-
-
-                ///csak manual módban lesz ilyen, hogy standar inputon bejön egy assert parancs, ilyenkor act parancson belül
-                /// hívja le az assert metódust, ily módon utána ACT parancs hatására visszatér ide és folytathatja az act parancsokkal
-                if(line.equalsIgnoreCase("assert")){
-                    ConsoleInputSource assertsource = new ConsoleInputSource();
-                    assertMethod(tc, assertsource);
-                }
             }
         } finally {
-            System.out.println("act vége");
             source.close();
         }
 
@@ -1018,13 +1001,9 @@ public class View {
                             System.out.println("not a valid command");
                         }
                     }
-                }
-                else if (line.equalsIgnoreCase("act")) {
-                    ConsoleInputSource actsource = new ConsoleInputSource();
-                    actMethod(tc, actsource);
-                }else if(line.equalsIgnoreCase("esc")){
-                    esc=true;
-                    break;
+                } else if(line.equalsIgnoreCase("esc")){
+                    source.close();
+                    return;
                 }else{
                     System.out.println("not enough parameters");
                 }
@@ -1056,6 +1035,12 @@ public class View {
         System.out.println(assertLine+": ERROR");
     }
 
-
+    private boolean checkIfObjectExists(String oName){
+        if(gameBoard.getReferenceByObjectName(oName) == null){
+            System.out.println("The object "+oName + " doesn't exist");
+            return false;
+        }
+        return true;
+    }
 
 }

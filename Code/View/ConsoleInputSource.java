@@ -16,7 +16,5 @@ public class ConsoleInputSource implements InputSource {
         return scanner.hasNextLine();
     }
 
-    public void close(){
-        scanner.close();
-    }
+    public void close(){}
 }
