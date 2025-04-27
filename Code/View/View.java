@@ -28,7 +28,7 @@ public class View {
         this.controller = controller;
         controller.connectObjects(this, gameBoard);
         switch (gameMode) {
-            case GameMode.game ->  controller.setSeed(System.currentTimeMillis());
+            case game ->  controller.setSeed(System.currentTimeMillis());
             default -> controller.setSeed(12345L);
         }
 
