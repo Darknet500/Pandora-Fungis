@@ -182,7 +182,7 @@ public class View {
                 }
 
                 switch (arrangeSection) {
-                    case ArrangeSection.TEKTONS -> {
+                    case TEKTONS -> {
                         switch (parts[0]) {
                             case "Tekton" -> {
                                 gameBoard.addTekton(new Tekton());
@@ -201,7 +201,7 @@ public class View {
                             }
                         }
                     }
-                    case ArrangeSection.NEIGHBOURS -> {
+                    case NEIGHBOURS -> {
                         TektonBase first = (TektonBase) gameBoard.getReferenceByObjectName(parts[0]);
                         for (int i = 1; i < parts.length; i++) {
                             TektonBase neighbour = (TektonBase) gameBoard.getReferenceByObjectName(parts[i]);
@@ -210,7 +210,7 @@ public class View {
                         }
 
                     }
-                    case ArrangeSection.SHROOMERS -> {
+                    case SHROOMERS -> {
                         BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor;
                         int hypaDieAfter;
                         switch (parts[0].toLowerCase()) {
@@ -245,7 +245,7 @@ public class View {
                         gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter));
 
                     }
-                    case ArrangeSection.MUSHROOMS -> {
+                    case MUSHROOMS -> {
                         Mushroom mushroom=null;
                         switch (parts[0].toLowerCase()) {
                             case "boostermushroom" -> {
@@ -268,10 +268,10 @@ public class View {
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[1])).addMushroom(mushroom);
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
                     }
-                    case ArrangeSection.BUGGERS -> {
+                    case BUGGERS -> {
                         gameBoard.addBugger(new Bugger());
                     }
-                    case ArrangeSection.STRATEGIES -> {
+                    case STRATEGIES -> {
                         switch (parts[0].toLowerCase()) {
                             case "normal" -> new Normal();
 
@@ -285,21 +285,21 @@ public class View {
 
                         }
                     }
-                    case ArrangeSection.BUGS -> {
+                    case BUGS -> {
                         Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]));
                         bug.setStrategy((Strategy) gameBoard.getReferenceByObjectName(parts[0]));
                         bug.setLocation((TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setBug(bug);
                         ((Bugger) gameBoard.getReferenceByObjectName(parts[1])).addBug(bug);
                     }
-                    case ArrangeSection.HYPAS -> {
+                    case HYPAS -> {
                         Hypa hypa = new Hypa((TektonBase) gameBoard.getReferenceByObjectName(parts[0]),
                                 (TektonBase) gameBoard.getReferenceByObjectName(parts[1]), (Shroomer) gameBoard.getReferenceByObjectName(parts[2]));
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).connectHypa(hypa);
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[1])).connectHypa(hypa);
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[2])).addHypa(hypa);
                     }
-                    case ArrangeSection.SPORES -> {
+                    case SPORES -> {
                         Spore spore;
                         Shroomer shroomer = ((Shroomer) gameBoard.getReferenceByObjectName(parts[1]));
                         switch (parts[0].toLowerCase()) {
