@@ -63,7 +63,7 @@ public class View {
                     InputSource assertsource = new FileInputSource(assertfile);
                     assertMethod(assertfile, assertsource);
 
-                } catch (Exception _) {
+                } catch (Exception ignored) {
 
                 }
             }
@@ -85,7 +85,7 @@ public class View {
                 File assertfile = new File(tc , "assert.txt");
                 InputSource assertsource = new FileInputSource(assertfile);
                 assertMethod(assertfile, assertsource);
-            } catch (Exception _) {}
+            } catch (Exception ignored) {}
         }else  {
             ///InputSource konzolról, nullt adunk át fájl helyett, mert nincs szükségfájlra, a gameMode alapján fognak másképp viselkedni a metódusok
             try {
@@ -96,7 +96,7 @@ public class View {
                 actMethod(null, cis);
                 assertMethod(null, cis);
 
-            }catch (Exception _) {}
+            }catch (Exception ignored) {}
         }
 
     }
