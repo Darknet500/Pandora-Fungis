@@ -60,8 +60,9 @@ public class Controller {
                     if (i != j) {
                         if(!gameBoard.getTekton(i).isNeighbour(gameBoard.getTekton(j))) {
                             r = rand.nextDouble();
-                            if(r < 0.035) {
+                            if(r < 0.007) {
                                 gameBoard.getTekton(i).addNeighbour(gameBoard.getTekton(j));
+                                gameBoard.getTekton(j).addNeighbour(gameBoard.getTekton(i));
                             }
 
                         }
@@ -76,11 +77,11 @@ public class Controller {
                 int ir = rand.nextInt(25);
 
                 if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null&&normalTektonsNumber.contains(ir)) {
-                    if(gameBoard.getShroomer().containsKey(i)){
-                        gameBoard.getShroomer().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
+                    if(gameBoard.getShroomers().containsKey(i)){
+                        gameBoard.getShroomers().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
                     }else{
-                        Bug bug = new Bug(gameBoard.getBugger().get(i));
-                        gameBoard.getBugger().get(i).addBug(bug);
+                        Bug bug = new Bug(gameBoard.getBuggers().get(i));
+                        gameBoard.getBuggers().get(i).addBug(bug);
                         bug.setLocation(gameBoard.getTektons().get(ir));
                     }
 
@@ -96,7 +97,7 @@ public class Controller {
 
     private void endOfRound(){
         gameBoard.getTektons().forEach(TektonBase::endOfRound);
-        gameBoard.getShroomer().values().forEach(Shroomer::endOfRoundAdministration);
+        gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
         ///random vagy enm random tekton törése
         if(seed!=12345L) {
             Random rand = new Random(seed);
@@ -106,8 +107,8 @@ public class Controller {
     }
 
     public boolean move(Bug bug, TektonBase to){
-        if (gameBoard.getBugger().containsKey(actualPlayer)){
-            if (gameBoard.getBugger().get(actualPlayer).move(bug,to)){
+        if (gameBoard.getBuggers().containsKey(actualPlayer)){
+            if (gameBoard.getBuggers().get(actualPlayer).move(bug,to)){
                 success();
                 return true;
             }
@@ -116,8 +117,8 @@ public class Controller {
     }
 
     public boolean bite(Bug bug, Hypa hypa){
-        if (gameBoard.getBugger().containsKey(actualPlayer)) {
-            if(gameBoard.getBugger().get(actualPlayer).bite(bug,hypa)){
+        if (gameBoard.getBuggers().containsKey(actualPlayer)) {
+            if(gameBoard.getBuggers().get(actualPlayer).bite(bug,hypa)){
                 success();
                 return true;
             }
@@ -126,8 +127,8 @@ public class Controller {
     }
 
     public boolean eat(Bug bug, Spore spore){
-        if (gameBoard.getBugger().containsKey(actualPlayer)) {
-            if(gameBoard.getBugger().get(actualPlayer).eat(bug,spore)){
+        if (gameBoard.getBuggers().containsKey(actualPlayer)) {
+            if(gameBoard.getBuggers().get(actualPlayer).eat(bug,spore)){
                 success();
                 return true;
             }
@@ -136,8 +137,8 @@ public class Controller {
     }
 
     public boolean growhypa(TektonBase start, TektonBase target){
-        if (gameBoard.getShroomer().containsKey(actualPlayer)) {
-            if(gameBoard.getShroomer().get(actualPlayer).growHypa(start,target)){
+        if (gameBoard.getShroomers().containsKey(actualPlayer)) {
+            if(gameBoard.getShroomers().get(actualPlayer).growHypa(start,target)){
                 success();
                 return true;
             }
@@ -146,8 +147,8 @@ public class Controller {
     }
 
     public boolean growhypafar(TektonBase start,TektonBase middle,  TektonBase target){
-        if (gameBoard.getShroomer().containsKey(actualPlayer)) {
-            if(gameBoard.getShroomer().get(actualPlayer).growHypaFar(start,middle,target)){
+        if (gameBoard.getShroomers().containsKey(actualPlayer)) {
+            if(gameBoard.getShroomers().get(actualPlayer).growHypaFar(start,middle,target)){
                 success();
                 return true;
             }
@@ -156,8 +157,8 @@ public class Controller {
     }
 
     public boolean throwspore(Mushroom mushroom, TektonBase target){
-        if (gameBoard.getShroomer().containsKey(actualPlayer)) {
-            if(gameBoard.getShroomer().get(actualPlayer).throwSpore(mushroom,target)){
+        if (gameBoard.getShroomers().containsKey(actualPlayer)) {
+            if(gameBoard.getShroomers().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
                 return true;
             }
@@ -166,8 +167,8 @@ public class Controller {
     }
 
     public boolean eatbug(Bug bug){
-        if (gameBoard.getShroomer().containsKey(actualPlayer)) {
-            if(gameBoard.getShroomer().get(actualPlayer).eatBug(bug)){
+        if (gameBoard.getShroomers().containsKey(actualPlayer)) {
+            if(gameBoard.getShroomers().get(actualPlayer).eatBug(bug)){
                 success();
                 return true;
             }
@@ -189,7 +190,7 @@ public class Controller {
      * metódus, amit sikeres játékos akciók után kell hívni. Lépteti a kört és az aktuális játékost.
      */
     private void success(){
-        if(actualPlayer == gameBoard.getNumberOfPlayers() && round == 20){
+        if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round == 20){
             //last player in the round just made a successful action and it is the last round of the game
             view.setEndOfGame();
             endOfRound();

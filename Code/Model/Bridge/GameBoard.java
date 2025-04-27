@@ -66,11 +66,11 @@ public class GameBoard {
         buggers.put(lastplayer, bugger);
     }
 
-    public HashMap<Integer, Shroomer> getShroomer(){
+    public HashMap<Integer, Shroomer> getShroomers(){
         return shroomers;
     }
 
-    public HashMap<Integer, Bugger> getBugger(){
+    public HashMap<Integer, Bugger> getBuggers(){
         return buggers;
     }
 
