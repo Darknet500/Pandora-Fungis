@@ -5,7 +5,7 @@ import Model.Bridge.Player;
 import java.util.*;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Spore;
-import Model.Tekton.Tekton;
+import Model.Tekton.TektonBase;
 
 public class Bugger extends Player {
 
@@ -30,7 +30,7 @@ public class Bugger extends Player {
         }
     }
 
-    public boolean move(Bug b, Tekton to){
+    public boolean move(Bug b, TektonBase to){
         if(bugs.contains(b)){
             return b.move(to);
         }

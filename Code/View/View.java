@@ -127,7 +127,7 @@ public class View {
                             System.out.println("nem valid gombásztípus");
                             shroomertype = scanner.nextLine().trim();
                         }
-                        BiFunction<Shroomer, Tekton, Mushroom> mushroomctor=(x, y)->new BoosterMushroom(x, y);
+                        BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor=(x, y)->new BoosterMushroom(x, y);
                         int hypaDieAfter=5;
                         switch (shroomertype) {
                             case "booster" -> {
@@ -203,16 +203,16 @@ public class View {
                         }
                     }
                     case ArrangeSection.NEIGHBOURS -> {
-                        Tekton first = (Tekton) gameBoard.getReferenceByObjectName(parts[0]);
+                        TektonBase first = (TektonBase) gameBoard.getReferenceByObjectName(parts[0]);
                         for (int i = 1; i < parts.length; i++) {
-                            Tekton neighbour = (Tekton) gameBoard.getReferenceByObjectName(parts[i]);
+                            TektonBase neighbour = (TektonBase) gameBoard.getReferenceByObjectName(parts[i]);
                             first.addNeighbour(neighbour);
                             neighbour.addNeighbour(first);
                         }
 
                     }
                     case ArrangeSection.SHROOMERS -> {
-                        BiFunction<Shroomer, Tekton, Mushroom> mushroomctor;
+                        BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor;
                         int hypaDieAfter;
                         switch (parts[0].toLowerCase()) {
                             case "booster" -> {
@@ -250,24 +250,24 @@ public class View {
                         Mushroom mushroom=null;
                         switch (parts[0].toLowerCase()) {
                             case "boostermushroom" -> {
-                                mushroom = new BoosterMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                                mushroom = new BoosterMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                             }
                             case "slowermushroom" -> {
-                                mushroom = new SlowerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                                mushroom = new SlowerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                             }
                             case "paralyzermushroom" -> {
-                                mushroom = new ParalyzerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                                mushroom = new ParalyzerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                             }
                             case "biteblockermushroom" -> {
-                                mushroom = new BiteBlockerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                                mushroom = new BiteBlockerMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                             }
                             case "proliferatingmushroom" -> {
-                                mushroom = new ProliferatingMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (Tekton) gameBoard.getReferenceByObjectName(parts[2]));
+                                mushroom = new ProliferatingMushroom((Shroomer) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                             }
 
                         }
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[1])).addMushroom(mushroom);
-                        ((Tekton) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
+                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
                     }
                     case ArrangeSection.BUGGERS -> {
                         gameBoard.addBugger(new Bugger());
@@ -289,15 +289,15 @@ public class View {
                     case ArrangeSection.BUGS -> {
                         Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]));
                         bug.setStrategy((Strategy) gameBoard.getReferenceByObjectName(parts[0]));
-                        bug.setLocation((Tekton) gameBoard.getReferenceByObjectName(parts[2]));
-                        ((Tekton) gameBoard.getReferenceByObjectName(parts[2])).setBug(bug);
+                        bug.setLocation((TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
+                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setBug(bug);
                         ((Bugger) gameBoard.getReferenceByObjectName(parts[1])).addBug(bug);
                     }
                     case ArrangeSection.HYPAS -> {
-                        Hypa hypa = new Hypa((Tekton) gameBoard.getReferenceByObjectName(parts[0]),
-                                (Tekton) gameBoard.getReferenceByObjectName(parts[1]), (Shroomer) gameBoard.getReferenceByObjectName(parts[2]));
-                        ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).connectHypa(hypa);
-                        ((Tekton) gameBoard.getReferenceByObjectName(parts[1])).connectHypa(hypa);
+                        Hypa hypa = new Hypa((TektonBase) gameBoard.getReferenceByObjectName(parts[0]),
+                                (TektonBase) gameBoard.getReferenceByObjectName(parts[1]), (Shroomer) gameBoard.getReferenceByObjectName(parts[2]));
+                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).connectHypa(hypa);
+                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[1])).connectHypa(hypa);
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[2])).addHypa(hypa);
                     }
                     case ArrangeSection.SPORES -> {
@@ -311,7 +311,7 @@ public class View {
                             case "proliferatingspore" -> spore = new ProliferatingSpore(shroomer);
                             default -> spore = null;
                         }
-                        ((Tekton) gameBoard.getReferenceByObjectName(parts[2])).storeSpore(spore);
+                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).storeSpore(spore);
                     }
                 }
             }
@@ -332,7 +332,7 @@ public class View {
             System.out.println("TEKTONS -> NEIGHBOURS");
             for(int i=0;i<gameBoard.getTektons().size();i++){
                 System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
-                List<Tekton> neighbours = gameBoard.getTektons().get(i).getNeighbours();
+                List<TektonBase> neighbours = gameBoard.getTektons().get(i).getNeighbours();
                 for (int j = 0; j < neighbours.size(); j++) {
                     System.out.print(gameBoard.getObjectNameByReference(neighbours.get(j)) + (j != neighbours.size() - 1 ? ";" : ""));
                 }
@@ -412,7 +412,7 @@ public class View {
                             break;
                         }
                         if(!controller.move((Bug)gameBoard.getReferenceByObjectName(parts[1]),
-                                (Tekton)gameBoard.getReferenceByObjectName(parts[2])))
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
                             System.out.println("action failed");
                     }
                     case "bite" -> {
@@ -438,8 +438,8 @@ public class View {
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.growhypa((Tekton)gameBoard.getReferenceByObjectName(parts[1]),
-                                (Tekton)gameBoard.getReferenceByObjectName(parts[2])))
+                        if(!controller.growhypa((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
                             System.out.println("action failed");
                     }
                     case "growhypafar" -> {
@@ -447,9 +447,9 @@ public class View {
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if (!controller.growhypafar((Tekton)gameBoard.getReferenceByObjectName(parts[1]),
-                                (Tekton)gameBoard.getReferenceByObjectName(parts[2]),
-                                (Tekton)gameBoard.getReferenceByObjectName(parts[3])))
+                        if (!controller.growhypafar((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2]),
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[3])))
                             System.out.println("action failed");
                     }
                     case "throwspore" -> {
@@ -457,7 +457,7 @@ public class View {
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.throwspore((Mushroom)gameBoard.getReferenceByObjectName(parts[1]), (Tekton)gameBoard.getReferenceByObjectName(parts[2])))
+                        if(!controller.throwspore((Mushroom)gameBoard.getReferenceByObjectName(parts[1]), (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
                             System.out.println("action failed");
                     }
                     case "eatbug" -> {
@@ -478,7 +478,7 @@ public class View {
                                 System.out.println("not enough parameters");
                                 break;
                             }
-                            controller.breaktekton((Tekton) gameBoard.getReferenceByObjectName(parts[1]));
+                            controller.breaktekton((TektonBase) gameBoard.getReferenceByObjectName(parts[1]));
                             break;
                         }
                         System.out.println("action failed");
@@ -543,7 +543,7 @@ public class View {
                         }
 
                         case "mushroomlocation" -> {
-                            Tekton location;
+                            TektonBase location;
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
                                 location = ((Mushroom) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
 
@@ -564,7 +564,7 @@ public class View {
                         }
 
                         case "buglocation" -> {
-                            Tekton location;
+                            TektonBase location;
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
                                 location = ((Bug) gameBoard.getReferenceByObjectName(parts[0])).getLocation();
                                 ///paraméter nélkül nem összehasonlít, hanme lekérdez
@@ -697,7 +697,7 @@ public class View {
                         case "tektonhypas" -> {
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
                                 List<Hypa> hypas;
-                                hypas = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
+                                hypas = ((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getHypas();
                                 ///paraméter nélkül nem összehasonlít, hanme lekérdez
                                 if (parts.length == 2) {
                                     for (int i = 0; i < hypas.size(); i++) {
@@ -846,8 +846,8 @@ public class View {
                         }
 
                         case "ends" -> {
-                            Tekton end1;
-                            Tekton end2;
+                            TektonBase end1;
+                            TektonBase end2;
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
 
 
@@ -903,8 +903,8 @@ public class View {
 
                         case "neighbours" -> {
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
-                                List<Tekton> neighbours;
-                                neighbours = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
+                                List<TektonBase> neighbours;
+                                neighbours = ((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getNeighbours();
 
 
                                 ///paraméter nélkül nem összehasonlít, hanme lekérdez
@@ -921,9 +921,9 @@ public class View {
                                     assertSuccess(line);
                                     break;
                                 }
-                                List<Tekton> assertneighbour = new ArrayList<>();
+                                List<TektonBase> assertneighbour = new ArrayList<>();
                                 for (int i = 2; i < parts.length; i++) {
-                                    assertneighbour.add((Tekton) gameBoard.getReferenceByObjectName(parts[i]));
+                                    assertneighbour.add((TektonBase) gameBoard.getReferenceByObjectName(parts[i]));
                                 }
                                 if (areListsIdentical(neighbours, assertneighbour))
                                     assertSuccess(line);
@@ -942,7 +942,7 @@ public class View {
                         case "spores" -> {
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
                                 List<Spore> spores;
-                                spores = ((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
+                                spores = ((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getStoredSpores();
 
                                 ///paraméter nélkül nem összehasonlít, hanme lekérdez
                                 if (parts.length == 2) {
@@ -983,16 +983,16 @@ public class View {
                             if (gameBoard.getReferenceByObjectName(parts[0]) != null) {
                                 ///paraméter nélkül nem összehasonlít, hanme lekérdez
                                 if (parts.length == 2) {
-                                    System.out.println(gameBoard.getObjectNameByReference(((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
+                                    System.out.println(gameBoard.getObjectNameByReference(((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
                                     break;
                                 }
 
 
-                                if (((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug() == gameBoard.getReferenceByObjectName(parts[2]))
+                                if (((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getBug() == gameBoard.getReferenceByObjectName(parts[2]))
                                     assertSuccess(line);
                                 else {
                                     assertFail(line);
-                                    System.out.println("The actual value: " + gameBoard.getObjectNameByReference(((Tekton) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
+                                    System.out.println("The actual value: " + gameBoard.getObjectNameByReference(((TektonBase) gameBoard.getReferenceByObjectName(parts[0])).getBug()));
                                 }
                             } else
                                 assertError(line);

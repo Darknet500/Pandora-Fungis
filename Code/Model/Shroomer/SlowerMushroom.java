@@ -22,7 +22,7 @@ public class SlowerMushroom extends Mushroom {
      * @param shroomer - A Shroomer objektum, amely a gombát birtokolja.
      * @param location - A Tekton objektum, amely meghatározza a gomba helyét.
      */
-    public SlowerMushroom(Shroomer shroomer, Tekton location) {
+    public SlowerMushroom(Shroomer shroomer, TektonBase location) {
         super(shroomer, location);
         GameBoard.addReferenceToMaps("slowermushroom", this);
     }
@@ -33,7 +33,7 @@ public class SlowerMushroom extends Mushroom {
      *
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
-    public void sporeThrown(Tekton target) {
+    public void sporeThrown(TektonBase target) {
         SlowerSpore spore = new SlowerSpore(this.shroomer);
         target.storeSpore(spore);
         sporesThrown++;

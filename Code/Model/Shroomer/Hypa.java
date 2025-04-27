@@ -15,12 +15,12 @@ public class Hypa {
     /**
      * A Hypa egyik végpontja.
      */
-    private Tekton end1;
+    private TektonBase end1;
 
     /**
      * A Hypa másik végpontja.
      */
-    private Tekton end2;
+    private TektonBase end2;
 
     /**
      * A Shroomer, aki létrehozta és kezeli ezt a Hypa-t.
@@ -51,7 +51,7 @@ public class Hypa {
      * @param end2 - A Hypa másik végpontja.
      * @param shroomer - A Shroomer, aki létrehozza a Hypa-t.
      */
-    public Hypa(Tekton end1, Tekton end2, Shroomer shroomer) {
+    public Hypa(TektonBase end1, TektonBase end2, Shroomer shroomer) {
         GameBoard.addReferenceToMaps("hypa", this);
         this.end1 = end1;
         this.end2 = end2;
@@ -111,7 +111,7 @@ public class Hypa {
      *
      * @return - A Hypa egyik végpontját reprezentáló Tekton.
      */
-    public Tekton getEnd1() {
+    public TektonBase getEnd1() {
         return end1;
     }
 
@@ -120,7 +120,7 @@ public class Hypa {
      *
      * @return - A Hypa másik végpontját reprezentáló Tekton.
      */
-    public Tekton getEnd2() {
+    public TektonBase getEnd2() {
         return end2;
     }
 

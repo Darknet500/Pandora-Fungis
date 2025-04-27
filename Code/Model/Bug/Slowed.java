@@ -2,7 +2,7 @@ package Model.Bug;
 
 import Model.Bridge.GameBoard;
 import Model.Shroomer.Spore;
-import Model.Tekton.Tekton;
+import Model.Tekton.TektonBase;
 import java.util.List;
 
 
@@ -38,10 +38,10 @@ public class Slowed extends Normal {
      * @return Igaz, ha a mozgás engedélyezett, hamis egyébként.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
+    public boolean move(Bug b, TektonBase to) {
         if(movesMade>0) return false;
-        Tekton location = b.getLocation();
-        List<Tekton> canReach = location.getNeighboursByHypa();
+        TektonBase location = b.getLocation();
+        List<TektonBase> canReach = location.getNeighboursByHypa();
         boolean canDo = canReach.contains(to);
         if(canDo && to.tryBug(b)){
             movesMade++;

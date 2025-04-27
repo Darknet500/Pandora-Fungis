@@ -38,7 +38,7 @@ public class Controller {
         List<Integer> normalTektonsNumber = new ArrayList<>();
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
-            Tekton tekton;
+            TektonBase tekton;
             if (r < 0.48) {
                 tekton = new Tekton();
                 normalTektonsNumber.add(k-1);
@@ -95,7 +95,7 @@ public class Controller {
     }
 
     private void endOfRound(){
-        gameBoard.getTektons().forEach(Tekton::endOfRound);
+        gameBoard.getTektons().forEach(TektonBase::endOfRound);
         gameBoard.getShroomer().values().forEach(Shroomer::endOfRoundAdministration);
         ///random vagy enm random tekton törése
         if(seed!=12345L) {
@@ -105,7 +105,7 @@ public class Controller {
 
     }
 
-    public boolean move(Bug bug, Tekton to){
+    public boolean move(Bug bug, TektonBase to){
         if (gameBoard.getBugger().containsKey(actualPlayer)){
             if (gameBoard.getBugger().get(actualPlayer).move(bug,to)){
                 success();
@@ -135,7 +135,7 @@ public class Controller {
         return false;
     }
 
-    public boolean growhypa(Tekton start, Tekton target){
+    public boolean growhypa(TektonBase start, TektonBase target){
         if (gameBoard.getShroomer().containsKey(actualPlayer)) {
             if(gameBoard.getShroomer().get(actualPlayer).growHypa(start,target)){
                 success();
@@ -145,7 +145,7 @@ public class Controller {
         return false;
     }
 
-    public boolean growhypafar(Tekton start,Tekton middle,  Tekton target){
+    public boolean growhypafar(TektonBase start,TektonBase middle,  TektonBase target){
         if (gameBoard.getShroomer().containsKey(actualPlayer)) {
             if(gameBoard.getShroomer().get(actualPlayer).growHypaFar(start,middle,target)){
                 success();
@@ -155,7 +155,7 @@ public class Controller {
         return false;
     }
 
-    public boolean throwspore(Mushroom mushroom, Tekton target){
+    public boolean throwspore(Mushroom mushroom, TektonBase target){
         if (gameBoard.getShroomer().containsKey(actualPlayer)) {
             if(gameBoard.getShroomer().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
@@ -180,7 +180,7 @@ public class Controller {
         return true;
     }
 
-    public void breaktekton(Tekton tekton){
+    public void breaktekton(TektonBase tekton){
         tekton.breakTekton(seed);
     }
 

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 
 public class GameBoard {
-    private List<Tekton> allTektons;
+    private List<TektonBase> allTektons;
     private HashMap<Integer, Shroomer> shroomers;
     private HashMap<Integer, Bugger> buggers;
     private static HashMap<String, Object> nameObjectMap;
@@ -74,11 +74,11 @@ public class GameBoard {
         return buggers;
     }
 
-    public void addTekton(Tekton tekton){
+    public void addTekton(TektonBase tekton){
         allTektons.add(tekton);
     }
 
-    public List<Tekton> getTektons(){
+    public List<TektonBase> getTektons(){
         return allTektons;
     }
 
@@ -89,7 +89,7 @@ public class GameBoard {
      * @param idx a lekért tekton indexe
      * @return A tekton a idx-edik helyen a listában
      */
-    public Tekton getTekton(int idx){
+    public TektonBase getTekton(int idx){
         return allTektons.get(idx);
     }
 

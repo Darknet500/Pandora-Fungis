@@ -1,7 +1,7 @@
 package Model.Shroomer;
 
 import Model.Bridge.GameBoard;
-import Model.Tekton.Tekton;
+import Model.Tekton.TektonBase;
 import java.util.List;
 import java.util.Collections;
 
@@ -19,7 +19,7 @@ public class BoosterMushroom extends Mushroom {
      * @param shroomer - A gombát létrehozó Shroomer.
      * @param location - A Tekton, ahol a gomba található.
      */
-    public BoosterMushroom(Shroomer shroomer, Tekton location) {
+    public BoosterMushroom(Shroomer shroomer, TektonBase location) {
         super(shroomer, location);
         GameBoard.addReferenceToMaps("boostermushroom", this);
     }
@@ -30,7 +30,7 @@ public class BoosterMushroom extends Mushroom {
      *
      * @param target - A cél Tekton, amelyre a spórát elszórja.
      */
-    public void sporeThrown(Tekton target) {
+    public void sporeThrown(TektonBase target) {
         Spore booster = new BoosterSpore(this.shroomer);
         target.storeSpore(booster);
         sporesThrown++;

@@ -36,14 +36,14 @@ public class Boosted extends Normal {
      * @return Igaz, ha a mozgás lehetséges, hamis egyébként.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
-        Tekton location = b.getLocation();
-        Set<Tekton> canReach = new HashSet<Tekton>();
+    public boolean move(Bug b, TektonBase to) {
+        TektonBase location = b.getLocation();
+        Set<TektonBase> canReach = new HashSet<TektonBase>();
         canReach.addAll(location.getNeighboursByHypa());
-        Queue<Tekton> queue = new ArrayDeque<>();
+        Queue<TektonBase> queue = new ArrayDeque<>();
         queue.addAll(canReach);
         while (!queue.isEmpty()) {
-            Tekton current = queue.poll();
+            TektonBase current = queue.poll();
             canReach.addAll(current.getNeighboursByHypa());
         }
 

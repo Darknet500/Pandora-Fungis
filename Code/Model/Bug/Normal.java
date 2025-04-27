@@ -26,9 +26,9 @@ public class Normal implements Strategy {
      * @param to A cél Tekton helyszín.
      * @return Igaz, ha a mozgást el lehet végezni, hamis egyébként.
      */
-    public boolean move(Bug b, Tekton to) {
-        Tekton location = b.getLocation();
-        List<Tekton> canReach = location.getNeighboursByHypa();
+    public boolean move(Bug b, TektonBase to) {
+        TektonBase location = b.getLocation();
+        List<TektonBase> canReach = location.getNeighboursByHypa();
         boolean canDo = canReach.contains(to);
         if(canDo && to.tryBug(b)){
             b.getLocation().setBug(null);
@@ -63,7 +63,7 @@ public class Normal implements Strategy {
     public boolean bite(Bug b, Hypa h) {
         if (h.getIsDyingSinceBitten()!=-1) return false;
 
-        Tekton location = b.getLocation();
+        TektonBase location = b.getLocation();
         List<Hypa> hypas = location.getHypas();
         if(hypas.contains(h)){
             h.setIsDyingSinceBitten(0);

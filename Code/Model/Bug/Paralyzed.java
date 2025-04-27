@@ -3,7 +3,7 @@ package Model.Bug;
 import Model.Bridge.GameBoard;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Spore;
-import Model.Tekton.Tekton;
+import Model.Tekton.TektonBase;
 
 /**
  * A Paralyzed osztály olyan stratégia, amely teljesen megbénítja a Bugot,
@@ -23,7 +23,7 @@ public class Paralyzed extends Normal {
      * @return Mindig hamis.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
+    public boolean move(Bug b, TektonBase to) {
         return false;
     }
 
