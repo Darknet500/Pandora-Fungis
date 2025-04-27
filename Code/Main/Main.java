@@ -10,6 +10,13 @@ public class Main {
         GameBoard gameBoard = new GameBoard();
         GameMode gm = null;
         String tc = null;
+/*
+        args = new String[3];
+        args[0] = "-testmode";
+        args[1] = "-f";
+        args[2] = "-a";
+*/
+
         if(args.length ==3){
             if(args[0].equals("-testmode")){
                 if(args[1].equals("-f")){
