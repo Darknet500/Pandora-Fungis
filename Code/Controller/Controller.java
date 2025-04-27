@@ -59,8 +59,9 @@ public class Controller {
                     if (i != j) {
                         if(!gameBoard.getTekton(i).isNeighbour(gameBoard.getTekton(j))) {
                             r = rand.nextDouble();
-                            if(r < 0.035) {
+                            if(r < 0.007) {
                                 gameBoard.getTekton(i).addNeighbour(gameBoard.getTekton(j));
+                                gameBoard.getTekton(j).addNeighbour(gameBoard.getTekton(i));
                             }
 
                         }
@@ -188,7 +189,7 @@ public class Controller {
      * metódus, amit sikeres játékos akciók után kell hívni. Lépteti a kört és az aktuális játékost.
      */
     private void success(){
-        if(actualPlayer == gameBoard.getNumberOfPlayers() && round == 20){
+        if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round == 20){
             //last player in the round just made a successful action and it is the last round of the game
             view.setEndOfGame();
             endOfRound();
