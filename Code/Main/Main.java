@@ -10,12 +10,6 @@ public class Main {
         GameBoard gameBoard = new GameBoard();
         GameMode gm = null;
         String tc = null;
-/*
-        args = new String[3];
-        args[0] = "-testmode";
-        args[1] = "-f";
-        args[2] = "-a";
-*/
 
         if(args.length ==3){
             if(args[0].equals("-testmode")){
@@ -38,6 +32,12 @@ public class Main {
             System.out.println("Invalid arguments.");
             System.exit(1);
         }
+
+        if(gm==null){
+            System.out.println("Invalid arguments.");
+            System.exit(1);
+        }
+
         System.out.println("running in.. "+ gm);
         View view = new View(gm, tc);
         Controller controller = new Controller();
