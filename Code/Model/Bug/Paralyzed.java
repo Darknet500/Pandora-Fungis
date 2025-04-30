@@ -1,30 +1,29 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
-
-import java.util.Collections;
-import java.util.List;
-
+import Model.Bridge.GameBoard;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Spore;
+import Model.Tekton.TektonBase;
 
 /**
  * A Paralyzed osztály olyan stratégia, amely teljesen megbénítja a Bugot,
  * így nem tud mozogni, harapni vagy enni.
  */
 public class Paralyzed extends Normal {
-    
-     /**
-     * Alapértelmezett paraméter nélküli konstruktor a stratégiára
+
+    /**
+     * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
      */
-    public Paralyzed(){}
+    public Paralyzed(){
+        GameBoard.addReferenceToMaps("paralyzed", this);
+    }
 
     /**
      * Minden művelet le van tiltva ebben az állapotban.
      * @return Mindig hamis.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
+    public boolean move(Bug b, TektonBase to) {
         return false;
     }
 
@@ -62,6 +61,7 @@ public class Paralyzed extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

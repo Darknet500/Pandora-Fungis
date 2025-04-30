@@ -1,19 +1,15 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
-import Bug.Bugger;
+import Model.Bridge.GameBoard;
+import Model.Bug.*;
 
 import java.util.*;
-
-import Bug.Strategy;
-import Bug.BiteBlocked;
-import Tekton.Tekton;
+import Model.Tekton.TektonBase;
 
 /**
  * A BiteBlockerSpore egy speciális spóra, amely megakadályozza a Bug harapását.
  */
 public class ProliferatingSpore extends Spore {
-
     /**
      * Alapértelmezett konstruktor
      * Létrehoz egy új BiteBlockerSpore példányt egy adott Shroomerhez kapcsolódva.
@@ -22,6 +18,7 @@ public class ProliferatingSpore extends Spore {
      */
     public ProliferatingSpore(Shroomer shroomer) {
         super(shroomer);
+        GameBoard.addReferenceToMaps("proliferatingspore", this);
     }
 
     /**
@@ -34,18 +31,18 @@ public class ProliferatingSpore extends Spore {
         Bugger bugger = b.getBugger();
         Bug newbug = new Bug(bugger);
 
-        Queue<Tekton> closestTektons = new ArrayDeque<>();
+        Queue<TektonBase> closestTektons = new ArrayDeque<>();
         closestTektons.addAll(b.getLocation().getNeighbours());
         while (!closestTektons.isEmpty()) {
-            Tekton tekton = closestTektons.poll();
+            TektonBase tekton = closestTektons.poll();
             if (tekton.tryBug(newbug)) {
                 bugger.addBug(newbug);
                 tekton.setBug(newbug);
                 newbug.setLocation(tekton);
                 break;
             } else{
-                List<Tekton> currentNeighbours = tekton.getNeighbours();
-                for(Tekton neighbour: currentNeighbours) {
+                List<TektonBase> currentNeighbours = tekton.getNeighbours();
+                for(TektonBase neighbour: currentNeighbours) {
                     if(!closestTektons.contains(neighbour)) {
                         closestTektons.add(neighbour);
                     }

@@ -1,11 +1,9 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
-
-import java.util.Collections;
-import java.util.List;
-import Bug.Paralyzed;
-import Bug.Strategy;
+import Model.Bridge.GameBoard;
+import Model.Bug.*;
+import Model.Bug.Paralyzed;
+import Model.Bug.Strategy;
 
 /**
  * A ParalyzerSpore egy speciális spóra, amely megbénítja a Bug-ot.
@@ -20,6 +18,7 @@ public class ParalyzerSpore extends Spore {
      */
     public ParalyzerSpore(Shroomer shroomer) {
         super(shroomer);
+        GameBoard.addReferenceToMaps("paralyzerspore", this);
     }
 
     /**

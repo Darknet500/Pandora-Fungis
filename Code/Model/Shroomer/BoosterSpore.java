@@ -1,11 +1,12 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
+import Model.Bridge.GameBoard;
+import Model.Bug.Bug;
 
 import java.util.Collections;
 import java.util.List;
-import Bug.Strategy;
-import Bug.Boosted;
+import Model.Bug.Strategy;
+import Model.Bug.Boosted;
 
 /**
  * A BoosterSpore egy speciális spóra, amely hatást gyakorol a Bug mozgására.
@@ -20,6 +21,7 @@ public class BoosterSpore extends Spore {
      */
     public BoosterSpore(Shroomer shroomer) {
         super(shroomer);
+        GameBoard.addReferenceToMaps("boosterspore", this);
     }
 
     /**

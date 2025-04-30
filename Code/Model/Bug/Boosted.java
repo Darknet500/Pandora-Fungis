@@ -1,9 +1,8 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
-
+import Model.Bridge.GameBoard;
+import Model.Shroomer.*;
+import Model.Tekton.*;
 import java.util.*;
 
 
@@ -12,7 +11,12 @@ import java.util.*;
  * gyorsabban mozogjon.
  */
 public class Boosted extends Normal {
-
+    /**
+     * konstruktorban elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
+     */
+    public Boosted() {
+        GameBoard.addReferenceToMaps("boosted", this);
+    }
 
     /**
      * ha más Spóra hatása alatt áll a rovar nem ehet másik spórat
@@ -32,14 +36,14 @@ public class Boosted extends Normal {
      * @return Igaz, ha a mozgás lehetséges, hamis egyébként.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
-        Tekton location = b.getLocation();
-        Set<Tekton> canReach = new HashSet<Tekton>();
+    public boolean move(Bug b, TektonBase to) {
+        TektonBase location = b.getLocation();
+        Set<TektonBase> canReach = new HashSet<TektonBase>();
         canReach.addAll(location.getNeighboursByHypa());
-        Queue<Tekton> queue = new ArrayDeque<>();
+        Queue<TektonBase> queue = new ArrayDeque<>();
         queue.addAll(canReach);
         while (!queue.isEmpty()) {
-            Tekton current = queue.poll();
+            TektonBase current = queue.poll();
             canReach.addAll(current.getNeighboursByHypa());
         }
 
@@ -61,6 +65,7 @@ public class Boosted extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

@@ -1,11 +1,6 @@
-package Bug;
-
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
-
-import java.util.Collections;
-import java.util.List;
+package Model.Bug;
+import Model.Shroomer.*;
+import Model.Bridge.GameBoard;
 
 /**
  * A BiteBlocked osztály egy speciális stratégia, amely megakadályozza,
@@ -13,7 +8,15 @@ import java.util.List;
  * de korlátozza a harapás és evés lehetőségét.
  */
 public class BiteBlocked extends Normal {
-    
+
+
+    /**
+     * konstruktorban beleteszi a gameBoard nameObjectMap-jébe magát
+     */
+    public BiteBlocked() {
+        GameBoard.addReferenceToMaps("biteblocked", this);
+    }
+
     /**
      * Megakadályozza, hogy a Bug megharapja a megadott Hypa-t.
      *
@@ -45,6 +48,7 @@ public class BiteBlocked extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

@@ -1,0 +1,2 @@
+shroomer1;mushrooms;boostermushroom1
+boostermushroom3;mushroomlocation;peat1

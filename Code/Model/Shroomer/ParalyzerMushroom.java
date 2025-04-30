@@ -1,11 +1,7 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Tekton.Tekton;
-
-import java.util.Collections;
-import java.util.List;
-
-
+import Model.Bridge.GameBoard;
+import Model.Tekton.*;
 
 /**
  * A ParalyzerMushroom egy speciális gomba, amely Paralyzer spórát tud szórni.
@@ -20,8 +16,9 @@ public class ParalyzerMushroom extends Mushroom {
      * @param shroomer - A gombát létrehozó Shroomer.
      * @param location - A Tekton, ahol a gomba található.
      */
-    public ParalyzerMushroom(Shroomer shroomer, Tekton location) {
+    public ParalyzerMushroom(Shroomer shroomer, TektonBase location) {
         super(shroomer, location);
+        GameBoard.addReferenceToMaps("paralyzermushroom", this);
     }
 
     /**
@@ -30,7 +27,7 @@ public class ParalyzerMushroom extends Mushroom {
      *
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
-    public void sporeThrown(Tekton target) {
+    public void sporeThrown(TektonBase target) {
         Spore spore = new ParalyzerSpore(this.shroomer);
         target.storeSpore(spore);
         sporesThrown++;

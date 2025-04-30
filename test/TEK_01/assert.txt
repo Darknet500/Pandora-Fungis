@@ -1,0 +1,4 @@
+tekton6;neighbours;tekton2;tekton9;swamp1
+tekton9;neighbours;tekton1;tekton6
+shroomer1;shroomerhypas;hypa3;hypa4
+tekton6;spores;boosterspore10

@@ -1,6 +1,7 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Tekton.Tekton;
+import Model.Bridge.GameBoard;
+import Model.Tekton.TektonBase;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.List;
  * Egy adott Shroomerhez kapcsolódik és egy Tektonon található.
  */
 public class ProliferatingMushroom extends Mushroom {
-
     /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új ProliferatingMushroom példányt a megadott Shroomerhez és Tektonra.
@@ -20,8 +20,9 @@ public class ProliferatingMushroom extends Mushroom {
      * @param shroomer - A gombát létrehozó Shroomer.
      * @param location - A Tekton, ahol a gomba található.
      */
-    public ProliferatingMushroom(Shroomer shroomer, Tekton location) {
+    public ProliferatingMushroom(Shroomer shroomer, TektonBase location) {
         super(shroomer, location);
+        GameBoard.addReferenceToMaps("proliferatingmushroom", this);
     }
 
     /**
@@ -30,7 +31,7 @@ public class ProliferatingMushroom extends Mushroom {
      *
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
-    public void sporeThrown(Tekton target) {
+    public void sporeThrown(TektonBase target) {
         Spore spore = new ProliferatingSpore(this.shroomer);
         target.storeSpore(spore);
         sporesThrown++;

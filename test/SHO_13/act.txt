@@ -1,0 +1,6 @@
+skip;
+skip;
+skip;
+skip;
+skip;
+throwspore;boostermushroom1;tekton5

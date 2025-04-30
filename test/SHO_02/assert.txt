@@ -1,0 +1,4 @@
+hypa7;ends;tekton6;tekton2
+hypa8;ends;tekton2;tekton7
+shroomer1;shroomerhypas;hypa1;hypa2;hypa3;hypa4;hypa7;hypa8
+tekton2;tektonhypas;hypa3;hypa4;hypa7;hypa8

@@ -1,9 +1,6 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Tekton.Tekton;
-
-import java.util.Collections;
-
+import Model.Tekton.*;
 
 /**
  * A Mushroom osztály egy absztrakt osztály, amely a gombatesteket reprezentálja a játékban.
@@ -15,7 +12,7 @@ public abstract class Mushroom {
     /**
      * A gombatest aktuális pozíciója.
      */
-    protected Tekton location;
+    protected TektonBase location;
 
     /**
      * A Shroomer, amely ezt a gombatestet létrehozta.
@@ -44,19 +41,17 @@ public abstract class Mushroom {
      * @param s - A gombatestet létrehozó Shroomer.
      * @param pos - A Tekton, amelyen a gombatest található.
      */
-    public Mushroom(Shroomer s, Tekton pos) {
+    public Mushroom(Shroomer s, TektonBase pos) {
         shroomer = s;
         location = pos;
     }
-
-
 
     /**
      * Lekérdezi a gombatest aktuális helyzetét a pályán.
      *
      * @return - A Tekton objektum, amin a gombatest van.
      */
-    public Tekton getLocation() {
+    public TektonBase getLocation() {
         return location;
     }
 
@@ -122,6 +117,6 @@ public abstract class Mushroom {
      *
      * @param to - A Tekton, amelyre a spóra kerül.
      */
-    public abstract void sporeThrown(Tekton to);
+    public abstract void sporeThrown(TektonBase to);
 
 }

@@ -1,0 +1,3 @@
+bug4;buglocation;tekton6
+tekton6;bug;bug4
+tekton8;bug;null

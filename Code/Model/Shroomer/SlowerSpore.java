@@ -1,8 +1,9 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Bug.Bug;
-import Bug.Strategy;
-import Bug.Slowed;
+
+import Model.Bridge.GameBoard;
+import Model.Bug.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,7 @@ public class SlowerSpore extends Spore {
      */
     public SlowerSpore(Shroomer shroomer) {
         super(shroomer);
+        GameBoard.addReferenceToMaps("slowerspore", this);
     }
 
     /**

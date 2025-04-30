@@ -1,6 +1,7 @@
-package Shroomer;
+package Model.Shroomer;
 
-import Tekton.Tekton;
+import Model.Bridge.GameBoard;
+import Model.Tekton.TektonBase;
 import java.util.List;
 import java.util.Collections;
 
@@ -14,12 +15,14 @@ public class BiteBlockerMushroom extends Mushroom {
     /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új BiteBlockerMushroom példányt egy adott Shroomer és Tekton helyszín alapján.
+     * elnevezi magát, és beleteszi a gameBoard nameObjectMap-jébe
      *
      * @param shroomer - A gombát létrehozó Shroomer.
      * @param location - A Tekton, ahol a gomba elhelyezkedik.
      */
-    public BiteBlockerMushroom(Shroomer shroomer, Tekton location) {
+    public BiteBlockerMushroom(Shroomer shroomer, TektonBase location) {
         super(shroomer, location);
+        GameBoard.addReferenceToMaps("biteblockermushroom", this);
     }
 
     /**
@@ -28,7 +31,7 @@ public class BiteBlockerMushroom extends Mushroom {
      *
      * @param target A Tekton, amelyre a spóra kerül.
      */
-    public void sporeThrown(Tekton target) {
+    public void sporeThrown(TektonBase target) {
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
         target.storeSpore(biteBloskerSpore);
         sporesThrown++;

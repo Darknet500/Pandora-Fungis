@@ -1,0 +1,2 @@
+tekton3;spores;boosterspore1
+bug3;strategy;paralyzed1

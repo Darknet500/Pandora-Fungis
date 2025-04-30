@@ -1,11 +1,8 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
-
-import java.util.Arrays;
-import java.util.Collections;
+import Model.Bridge.GameBoard;
+import Model.Shroomer.Spore;
+import Model.Tekton.TektonBase;
 import java.util.List;
 
 
@@ -14,13 +11,13 @@ import java.util.List;
  * így csak akkor mozoghat, ha az előző két körben nem mozgott.
  */
 public class Slowed extends Normal {
-    private int movesMade;
+    private int movesMade = 0;
 
     /**
      * Alapértelmezett paraméter nélküli konstruktor
      */
     public Slowed() {
-        movesMade = 0;
+        GameBoard.addReferenceToMaps("slowed", this);
     }
 
     /**
@@ -41,10 +38,10 @@ public class Slowed extends Normal {
      * @return Igaz, ha a mozgás engedélyezett, hamis egyébként.
      */
     @Override
-    public boolean move(Bug b, Tekton to) {
+    public boolean move(Bug b, TektonBase to) {
         if(movesMade>0) return false;
-        Tekton location = b.getLocation();
-        List<Tekton> canReach = location.getNeighboursByHypa();
+        TektonBase location = b.getLocation();
+        List<TektonBase> canReach = location.getNeighboursByHypa();
         boolean canDo = canReach.contains(to);
         if(canDo && to.tryBug(b)){
             movesMade++;
@@ -63,6 +60,7 @@ public class Slowed extends Normal {
     public void endOfTurn(Bug b){
         /* Ha 2 kör óta effect alatt áll átállítja a bug strategy-jét normálra */
         if(b.getUnderEffectSince()==2){
+            GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
         }else

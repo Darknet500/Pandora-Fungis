@@ -1,0 +1,2 @@
+bug1;strategy;slowed1
+tekton1;spores;boosterspore1;paralyzerspore1;biteblockerspore1;proliferatingspore1

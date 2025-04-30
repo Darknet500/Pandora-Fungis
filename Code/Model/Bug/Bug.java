@@ -1,11 +1,9 @@
-package Bug;
+package Model.Bug;
 
-import Controll.Player;
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
-import java.util.Collections;
-import java.util.List;
+import Model.Bridge.GameBoard;
+import Model.Tekton.*;
+import Model.Shroomer.*;
+
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
  */
@@ -14,7 +12,7 @@ public class Bug {
     /**
      * A Bug jelenlegi helyét reprezentáló Tekton példány.
      */
-    private Tekton tekton;
+    private TektonBase tekton;
 
     /**
      * A Bug által használt stratégia a mozgáshoz, harapáshoz és evéshez. Ez jelenti azt, hogy milyen hatás alatt áll.
@@ -30,16 +28,18 @@ public class Bug {
      * megadja, hogy hány köre vna valamamilyen spóra hatása alatt
      */
     private int underEffectSince;
+
     /**
-     * Alapértelmezett paraméter nélküli konstruktor, amely a Bug objektumot hely nélküli állapotban
+     * konstruktor, amely a Bug objektumot hely nélküli állapotban
      * és egy normál stratégiával inicializálja.
+     * Elnevezi magát, és beleteszi magát a gameBoard nameObjectMap-jébe
      */
     public Bug(Bugger bugger) {
         this.bugger=bugger;
         tekton = null;
         strategy = new Normal();
+        GameBoard.addReferenceToMaps("bug", this);
     }
-
 
 
     public Bugger getBugger() {
@@ -54,6 +54,9 @@ public class Bug {
      * @param s Az új stratégia.
      */
     public void setStrategy(Strategy s) {
+        if(strategy!=null){
+            GameBoard.removeReferenceFromMaps(strategy);
+        }
         strategy = s;
     }
 
@@ -68,7 +71,7 @@ public class Bug {
      *
      * @param to A cél Tekton példány.
      */
-    public boolean move(Tekton to) {
+    public boolean move(TektonBase to) {
         return strategy.move(this, to);
     }
 
@@ -103,7 +106,7 @@ public class Bug {
      *
      * @return A Bug helyzetét reprezentáló Tekton példány.
      */
-    public Tekton getLocation(){
+    public TektonBase getLocation(){
         return tekton;
     }
 
@@ -112,7 +115,7 @@ public class Bug {
      *
      * @param t Az új Tekton helyszín.
      */
-    public void setLocation(Tekton t){
+    public void setLocation(TektonBase t){
         tekton = t;
     }
 

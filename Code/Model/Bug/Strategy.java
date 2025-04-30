@@ -1,8 +1,8 @@
-package Bug;
+package Model.Bug;
 
-import Shroomer.Hypa;
-import Shroomer.Spore;
-import Tekton.Tekton;
+import Model.Shroomer.Hypa;
+import Model.Shroomer.Spore;
+import Model.Tekton.TektonBase;
 
 /**
  * A Strategy interfész meghatározza a Bug viselkedését különböző állapotban.
@@ -34,7 +34,7 @@ public interface Strategy {
      * @param to A cél Tekton helyszín.
      * @return Igaz, ha a mozgást el lehet végezni, hamis egyébként.
      */
-    boolean move(Bug b, Tekton to);
+    boolean move(Bug b, TektonBase to);
 
 
     boolean eatenByHypa(Bug b, Hypa h);

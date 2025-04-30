@@ -1,0 +1,6 @@
+package View;
+
+enum ArrangeSection {
+    TEKTONS, NEIGHBOURS, SHROOMERS, MUSHROOMS,
+    BUGGERS, STRATEGIES, BUGS, HYPAS, SPORES
+}

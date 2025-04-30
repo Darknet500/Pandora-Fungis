@@ -1,12 +1,13 @@
-package Shroomer;
+package Model.Shroomer;
 
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import Controll.Player;
-import Tekton.Tekton;
-import Bug.Bug;
+import Model.Bridge.GameBoard;
+import Model.Bridge.Player;
+import Model.Tekton.TektonBase;
+import Model.Bug.Bug;
 
 
 /**
@@ -16,12 +17,10 @@ import Bug.Bug;
  * A Shroomer felelős a gombatestek és fonalak kezeléséért, valamint a spóraszórásért.
  */
 public class Shroomer extends Player {
-
-    //private Function mushroomctor;
     /**
      * Egy függvény, amely egy új Mushroom példányt hoz létre a megadott helyen.
      */
-    private BiFunction<Shroomer, Tekton, Mushroom> mushroomctor;
+    private BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor;
 
     /**
      * A Shroomer által létrehozott gombatestek listája.
@@ -44,12 +43,12 @@ public class Shroomer extends Player {
      *
      * @param mushroomctor - A függvény, amely létrehozza a gombatesteket.
      */
-    public Shroomer(BiFunction<Shroomer, Tekton, Mushroom> mushroomctor, int hypaDieAfterBite) {
-
+    public Shroomer(BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor, int hypaDieAfterBite) {
         mushrooms = new ArrayList<Mushroom>();
         HypaList = new ArrayList<Hypa>();
         this.mushroomctor = mushroomctor;
         this.hypaDieAfterBite=hypaDieAfterBite;
+        GameBoard.addReferenceToMaps("shroomer", this);
     }
 
     public List<Mushroom> getMushrooms() {
@@ -76,7 +75,7 @@ public class Shroomer extends Player {
      * @param start - A hipa kiindulási Tektonja.
      * @param target - A hipa cél Tektonja.
      */
-    public boolean growHypa(Tekton start, Tekton target) {
+    public boolean growHypa(TektonBase start, TektonBase target) {
         boolean validStart = false;
         for(Mushroom mushroom : mushrooms) {
             if(mushroom.getLocation()==start){
@@ -128,7 +127,7 @@ public class Shroomer extends Player {
      * @param middle - A köztes Tekton, amelyen keresztül halad a hipa.
      * @param target - A végső cél Tektonja.
      */
-    public boolean growHypaFar(Tekton start,Tekton middle, Tekton target) {
+    public boolean growHypaFar(TektonBase start,TektonBase middle, TektonBase target) {
         if(start.hasSpore()){
             if(growHypa(start,middle)){
                 if(target!=null){
@@ -148,7 +147,7 @@ public class Shroomer extends Player {
      * @param mushroom - A spórát szóró gombatest.
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
-    public boolean throwSpore(Mushroom mushroom, Tekton target) {
+    public boolean throwSpore(Mushroom mushroom, TektonBase target) {
         if(!mushrooms.contains(mushroom)){
             return false;
         }
@@ -156,8 +155,8 @@ public class Shroomer extends Player {
         if(mushroom.getNumberOfSpores()!=1){
             return false;
         }
-        Tekton location = mushroom.getLocation();
-        List<Tekton> neighbours = location.getNeighbours();
+        TektonBase location = mushroom.getLocation();
+        List<TektonBase> neighbours = location.getNeighbours();
         int age = mushroom.getAge();
         if(age<=4) {
             if (!neighbours.contains(target)){
@@ -165,9 +164,9 @@ public class Shroomer extends Player {
             }
 
         } else {
-            Set<Tekton> canReach = new HashSet<Tekton>();
+            Set<TektonBase> canReach = new HashSet<TektonBase>();
             canReach.addAll(neighbours);
-            for(Tekton t : neighbours){
+            for(TektonBase t : neighbours){
                 canReach.addAll(t.getNeighbours());
             }
             if (!canReach.contains(target)){
@@ -186,18 +185,29 @@ public class Shroomer extends Player {
      * @param m - A meghalt gombatest.
      */
     public void mushroomDied(Mushroom m) {
-
+        GameBoard.removeReferenceFromMaps(m);
         m.getLocation().setMushroom(null);
         mushrooms.remove(m);
         traverseHypaNetwork();
     }
+
+
+    /**
+     * ÚJ!!! Gombászok első gombatestének lerakásához szükséges
+     */
+    public void growFirstMushroom(TektonBase target){
+        Mushroom mush = mushroomctor.apply(this, target);
+        mushrooms.add(mush);
+        target.setMushroom(mush);
+    }
+
 
     /**
      * Megpróbál egy új gombatestet növeszteni egy adott Tektonon.
      *
      * @param target - A Tekton, ahol megpróbál növeszteni.
      */
-    public void tryGrowMushroom(Tekton target) {
+    public void tryGrowMushroom(TektonBase target) {
 
         if (target.canMushroomGrow(this)) {
             Mushroom mush = mushroomctor.apply(this, target);
@@ -213,6 +223,7 @@ public class Shroomer extends Player {
      * @param h - Az eltávolítandó hipa.
      */
     public void removeHypa(Hypa h) {
+        GameBoard.removeReferenceFromMaps(h);
         HypaList.remove(h);
     }
 
@@ -237,15 +248,17 @@ public class Shroomer extends Player {
             if (hyp.getIsDyingSinceDisconnected()!=1&&hyp.getIsDyingSinceBitten()!=hypaDieAfterBite)
                 hyp.age();
 
-            if(hyp.getIsDyingSinceDisconnected()==1){
-                Tekton end1 = hyp.getEnd1();
-                end1.removeHypa(hyp);
-                Tekton end2 = hyp.getEnd2();
-                end2.removeHypa(hyp);
-                removeHypa(hyp);
-            }
-            if(hyp.getIsDyingSinceBitten()==hypaDieAfterBite){
-                hyp.die();
+            else {
+                if (hyp.getIsDyingSinceDisconnected() == 1) {
+                    TektonBase end1 = hyp.getEnd1();
+                    end1.removeHypa(hyp);
+                    TektonBase end2 = hyp.getEnd2();
+                    end2.removeHypa(hyp);
+                    this.removeHypa(hyp);
+                }
+                if (hyp.getIsDyingSinceBitten() == hypaDieAfterBite) {
+                    hyp.die();
+                }
             }
         }
 
@@ -261,18 +274,18 @@ public class Shroomer extends Player {
      * Ez alapján frissíti a hipák "isDyingSince" állapotát.
      */
     public void traverseHypaNetwork() {
-        Set<Tekton> inNetworkTektons = new HashSet<Tekton>();
-        Queue<Tekton> queue = new ArrayDeque<>();
+        Set<TektonBase> inNetworkTektons = new HashSet<TektonBase>();
+        Queue<TektonBase> queue = new ArrayDeque<>();
 
         for(Mushroom mus: mushrooms){
-            Tekton loc = mus.getLocation();
+            TektonBase loc = mus.getLocation();
             if(inNetworkTektons.add(loc)){
                 queue.add(loc);
             }
         }
 
         while(!queue.isEmpty()){
-            Tekton tekton = queue.poll();
+            TektonBase tekton = queue.poll();
             for (Hypa hypa : tekton.getHypas()) {
                 if (hypa.getShroomer() == this) {
                     if (inNetworkTektons.add(hypa.getEnd1())) {
@@ -314,7 +327,7 @@ public class Shroomer extends Player {
      */
 
     public boolean eatBug(Bug b){
-        Tekton location = b.getLocation();
+        TektonBase location = b.getLocation();
         List<Hypa> hypasaround = location.getHypas();
 
         for (Hypa h: hypasaround) {
