@@ -10,6 +10,8 @@ import Model.Bug.*;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 
+import javax.swing.*;
+
 public class View {
     private GameBoard gameBoard;
     private Controller controller;
@@ -17,6 +19,7 @@ public class View {
     private String testCase;
     private GameMode gameMode;
     private boolean endOfGame = false;
+
 
     public View(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;

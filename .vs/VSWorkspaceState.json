@@ -1,4 +1,10 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Code",
+    "\\Code\\.idea",
+    "\\Code\\Controller"
+  ],
+  "SelectedNode": "\\Code\\Controller\\Controller.java",
   "PreviewInSolutionExplorer": false
 }
