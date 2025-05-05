@@ -26,8 +26,5 @@ public abstract class Hitbox {
 
     public abstract boolean isHit(double x, double y);
 
-    //observer resz
-    // public abstract void updatePosition();
-    //public abstract void updateState();
 }
 

@@ -30,10 +30,7 @@ public class View {
         this.gameBoard = gameBoard;
         this.controller = controller;
         controller.connectObjects(this, gameBoard);
-        switch (gameMode) {
-            case game ->  controller.setSeed(System.currentTimeMillis());
-            default -> controller.setSeed(12345L);
-        }
+        controller.setSeed(12345L);
 
     }
 
@@ -101,78 +98,13 @@ public class View {
 
             }catch (Exception ignored) {}
         }
-
     }
 
     public void arrangeMethod(File tc, InputSource source) throws IOException {
         System.out.println("ARRANGE");
-        ///éles módban nincs arrange nyelvű pálya, hanem a controller csinálja meg a kiindulópálya generálását
-        if (gameMode.equals(GameMode.game)) {
-            for (int i=0;i<8;i++){
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Adjon hozzá egy új gombászt (shroomer paranccsal), \n Egy új bogarászt (bugger paranccsal)\n vagy indítsa el a játékot (start paranccsal). Még "+(8-i)+" játékost adhat hozzá.");
-                String input = scanner.nextLine().trim();;
-                while (true){
-                    if (input.equalsIgnoreCase("shroomer")||input.equalsIgnoreCase("bugger")||input.equalsIgnoreCase("start"))
-                        break;
-                    System.out.println("nem valid parancs");
-                    input = scanner.nextLine().trim();
-                }
-
-                switch (input){
-                    case "shroomer" -> {
-                        System.out.println("Válasszon gombász fajtát(booster/ slower/ paralyzer/ biteblocker/ prolferating)");
-                        String shroomertype = scanner.nextLine().trim();;
-                        while (true){
-                            if (shroomertype.equalsIgnoreCase("booster")||shroomertype.equalsIgnoreCase("slower")||shroomertype.equalsIgnoreCase("paralyzer")||shroomertype.equalsIgnoreCase("biteblocker")||shroomertype.equalsIgnoreCase("proliferating"))
-                                break;
-                            System.out.println("nem valid gombásztípus");
-                            shroomertype = scanner.nextLine().trim();
-                        }
-                        BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor=(x, y)->new BoosterMushroom(x, y);
-                        int hypaDieAfter=5;
-                        switch (shroomertype) {
-                            case "booster" -> {
-                                mushroomctor = (x, y)->new BoosterMushroom(x, y);
-                                hypaDieAfter=4;
-                            }
-                            case "slower" -> {
-                                mushroomctor = (x, y)->new SlowerMushroom(x, y);
-                                hypaDieAfter=3;
-                            }
-                            case "paralyzer" -> {
-                                mushroomctor = (x, y)->new ParalyzerMushroom(x, y);
-                                hypaDieAfter=2;
-                            }
-                            case "biteblocker" -> {
-                                mushroomctor = (x, y)->new BiteBlockerMushroom(x, y);
-                                hypaDieAfter=3;
-                            }
-                            case "proliferating" -> {
-                                mushroomctor = (x, y)->new ProliferatingMushroom(x, y);
-                                hypaDieAfter=5;
-                            }
-                        }
-                        gameBoard.addShroomer(new Shroomer(mushroomctor,hypaDieAfter));
-
-                    }
-                    case "bugger" -> gameBoard.addBugger(new Bugger());
-                    case "start" -> i=8;
-                }
-            }
-            controller.initMap();
-            return;
-        }
         try {
             while (source.hasNextLine()) {
                 String line = source.readLine();
-
-                /// csak manual módban, act paranccsal lehet lezárni az arrange fázist (persze Cntr+Z enter mellett)
-                if(gameMode == GameMode.manualtest && line.equalsIgnoreCase("act")){
-                    source.close();
-                    return;
-                }
-
                 /// a valódi arrange fájl veolvasás logikája
                 try {
                     arrangeSection = ArrangeSection.valueOf(line.trim().toUpperCase());
@@ -323,88 +255,10 @@ public class View {
     }
 
     public void actMethod(File tc, InputSource source) throws IOException {
-
-//éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
-        if(gameMode==GameMode.game){
-            List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomers().keySet());
-            Collections.sort(shroomerSortedKeys);
-            List<Integer> buggerSortedKeys = new ArrayList<>(gameBoard.getBuggers().keySet());
-            Collections.sort(buggerSortedKeys);
-
-
-            System.out.println("TEKTONS -> NEIGHBOURS");
-            for(int i=0;i<gameBoard.getTektons().size();i++){
-                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
-                List<TektonBase> neighbours = gameBoard.getTektons().get(i).getNeighbours();
-                for (int j = 0; j < neighbours.size(); j++) {
-                    System.out.print(gameBoard.getObjectNameByReference(neighbours.get(j)) + (j != neighbours.size() - 1 ? ";" : ""));
-                }
-                System.out.println();
-            }
-            System.out.println("SHROOMERS -> MUSHROOMS (LOCATION) ");
-            for(int i = 0; i<gameBoard.getShroomers().size(); i++){
-                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(i)))+" -> ");
-                List<Mushroom> mushrooms = gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getMushrooms();
-                for (int j = 0; j < mushrooms.size(); j++) {
-                    System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(j))
-                            + "(" + gameBoard.getObjectNameByReference(mushrooms.get(j).getLocation()) +")"
-                            + (j != mushrooms.size() - 1 ? ";" : ""));
-                }
-                System.out.println();
-            }
-            System.out.println("BUGGERS -> BUGS (LOCATION-STRATEGY) ");
-            for(int i = 0; i<gameBoard.getBuggers().size(); i++){
-                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getBuggers().get(buggerSortedKeys.get(i)))+" -> ");
-                List<Bug> bugs = gameBoard.getBuggers().get(buggerSortedKeys.get(i)).getBugs();
-                for (int j = 0; j < bugs.size(); j++) {
-                    System.out.print(gameBoard.getObjectNameByReference(bugs.get(j))
-                            + "(" + gameBoard.getObjectNameByReference(bugs.get(j).getLocation()) +"-"
-                            + gameBoard.getObjectNameByReference(bugs.get(j).getStrategy()) +")"
-                            + (j != bugs.size() - 1 ? ";" : ""));
-                }
-                System.out.println();
-            }
-            System.out.println("SHROOMERS -> HYPA (END-END) ");
-            for(int i = 0; i<gameBoard.getShroomers().size(); i++){
-                System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(i)))+" -> ");
-                List<Hypa> hypas = gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getHypaList();
-                for (int j = 0; j < hypas.size(); j++) {
-                    System.out.print(gameBoard.getObjectNameByReference(hypas.get(j))
-                            + "(" + gameBoard.getObjectNameByReference(hypas.get(j).getEnd1()) +"-"
-                            + gameBoard.getObjectNameByReference(hypas.get(j).getEnd2()) +")"
-                            + (j != hypas.size() - 1 ? ";" : ""));
-                }
-                System.out.println();
-            }
-            System.out.println("TEKTONS -> SPORES (SHROOMER)");
-            for(int i=0;i<gameBoard.getTektons().size();i++){
-                List<Spore> spores = gameBoard.getTektons().get(i).getStoredSpores();
-                if(!spores.isEmpty()) {
-                    System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
-                    for (int j = 0; j < spores.size(); j++) {
-                        System.out.print(gameBoard.getObjectNameByReference(spores.get(j))
-                                + "(" + gameBoard.getObjectNameByReference(spores.get(j).getShroomer()) +")"
-                                + (j != spores.size() - 1 ? ";" : ""));
-                    }
-                System.out.println();
-                }
-            }
-        }
-
         System.out.println("ACT");
         try {
             while (source.hasNextLine() && !endOfGame) {
-
-
-
                 String line = source.readLine();
-
-                ///csak manual módban lesz ilyen, hogy standar inputon bejön egy assert parancs
-                if(gameMode == GameMode.manualtest && line.equalsIgnoreCase("assert")){
-                    source.close();
-                    return;
-                }
-
                 /**
                  * valódi act parancsok beolvasása értelmezése
                  * a sikeres akciókról a controller visszajelez, csak a sikertelenek kiírását hagytam itt
@@ -479,18 +333,6 @@ public class View {
                     case "skip" -> {
                         controller.endturn();
                     }
-
-                    case "break" -> {
-                        if (gameMode!=GameMode.game) {
-                            if (parts.length < 2) {
-                                System.out.println("not enough parameters");
-                                break;
-                            }
-                            controller.breaktekton((TektonBase) gameBoard.getReferenceByObjectName(parts[1]));
-                            break;
-                        }
-                        System.out.println("action failed");
-                    }
                     default -> System.out.println("action failed because of invalid command or assert command");
                 }
 
@@ -507,87 +349,11 @@ public class View {
                 if(endOfGame){
                     endOfGameTable();
                     return;
-
                 }
-
-
-                //éles módban a pálya "kirajzolása" arrange nyelvhez hasonlóan
-                if(gameMode==GameMode.game){
-                    List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomers().keySet());
-                    Collections.sort(shroomerSortedKeys);
-                    List<Integer> buggerSortedKeys = new ArrayList<>(gameBoard.getBuggers().keySet());
-                    Collections.sort(buggerSortedKeys);
-
-
-                    System.out.println("TEKTONS -> NEIGHBOURS");
-                    for(int i=0;i<gameBoard.getTektons().size();i++){
-                        System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
-                        List<TektonBase> neighbours = gameBoard.getTektons().get(i).getNeighbours();
-                        for (int j = 0; j < neighbours.size(); j++) {
-                            System.out.print(gameBoard.getObjectNameByReference(neighbours.get(j)) + (j != neighbours.size() - 1 ? ";" : ""));
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("SHROOMERS -> MUSHROOMS (LOCATION) ");
-                    for(int i = 0; i<gameBoard.getShroomers().size(); i++){
-                        System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(i)))+" -> ");
-                        List<Mushroom> mushrooms = gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getMushrooms();
-                        for (int j = 0; j < mushrooms.size(); j++) {
-                            System.out.print(gameBoard.getObjectNameByReference(mushrooms.get(j))
-                                    + "(" + gameBoard.getObjectNameByReference(mushrooms.get(j).getLocation()) +")"
-                                    + (j != mushrooms.size() - 1 ? ";" : ""));
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("BUGGERS -> BUGS (LOCATION-STRATEGY) ");
-                    for(int i = 0; i<gameBoard.getBuggers().size(); i++){
-                        System.out.print(gameBoard.getObjectNameByReference(gameBoard.getBuggers().get(buggerSortedKeys.get(i)))+" -> ");
-                        List<Bug> bugs = gameBoard.getBuggers().get(buggerSortedKeys.get(i)).getBugs();
-                        for (int j = 0; j < bugs.size(); j++) {
-                            System.out.print(gameBoard.getObjectNameByReference(bugs.get(j))
-                                    + "(" + gameBoard.getObjectNameByReference(bugs.get(j).getLocation()) +"-"
-                                    + gameBoard.getObjectNameByReference(bugs.get(j).getStrategy()) +")"
-                                    + (j != bugs.size() - 1 ? ";" : ""));
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("SHROOMERS -> HYPA (END-END) ");
-                    for(int i = 0; i<gameBoard.getShroomers().size(); i++){
-                        System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(i)))+" -> ");
-                        List<Hypa> hypas = gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getHypaList();
-                        for (int j = 0; j < hypas.size(); j++) {
-                            System.out.print(gameBoard.getObjectNameByReference(hypas.get(j))
-                                    + "(" + gameBoard.getObjectNameByReference(hypas.get(j).getEnd1()) +"-"
-                                    + gameBoard.getObjectNameByReference(hypas.get(j).getEnd2()) +")"
-                                    + (j != hypas.size() - 1 ? ";" : ""));
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("TEKTONS -> SPORES (SHROOMER)");
-                    for(int i=0;i<gameBoard.getTektons().size();i++){
-                        List<Spore> spores = gameBoard.getTektons().get(i).getStoredSpores();
-                        if(!spores.isEmpty()) {
-                            System.out.print(gameBoard.getObjectNameByReference(gameBoard.getTektons().get(i))+" -> ");
-                            for (int j = 0; j < spores.size(); j++) {
-                                System.out.print(gameBoard.getObjectNameByReference(spores.get(j))
-                                        + "(" + gameBoard.getObjectNameByReference(spores.get(j).getShroomer()) +")"
-                                        + (j != spores.size() - 1 ? ";" : ""));
-                            }
-                        System.out.println();
-                        }
-                    }
-
-
-
-
-                }
-
-
             }
         } finally {
             source.close();
         }
-
     }
 
     public void assertMethod(File tc, InputSource source) throws IOException {
