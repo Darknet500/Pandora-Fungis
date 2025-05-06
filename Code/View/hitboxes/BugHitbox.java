@@ -20,8 +20,6 @@ public class BugHitbox extends Hitbox{
     public BugHitbox(Bug bug, Point centerPoint, String bugTexture) {
         this.bug = bug;
         this.centerPoint = centerPoint;
-
-
     }
 
 
@@ -31,10 +29,18 @@ public class BugHitbox extends Hitbox{
      * @return The logical value if it was hit or not
      */
     public boolean isHit(Point point){
+        if(point.x>=centerPoint.x-8&&point.x<=centerPoint.x+8&&point.y>=centerPoint.y-8&&point.y<=centerPoint.y+8)
+            return true;
         return false;
     }
 
     public void onStrategyChanged(){
 
     }
+
+    public void onPositionChanged(){
+
+    }
+
+
 }

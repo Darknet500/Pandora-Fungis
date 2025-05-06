@@ -47,6 +47,7 @@ public class Slowed extends Normal {
             movesMade++;
             b.getLocation().setBug(null);
             b.setLocation(to);
+            b.getHitbox().onPositionChanged();
             return true;
         }
         return false;

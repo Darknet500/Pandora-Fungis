@@ -102,7 +102,7 @@ public class GraphicView extends JFrame implements IView{
         buttonPanel.add(label);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 100)));
         try{
-            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\TEKTONS\\Tekton.png"));
+            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\LOGOBIG.png"));
             JLabel imgLabel = new JLabel(new ImageIcon(titleLogo));
             imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             buttonPanel.add(imgLabel);
@@ -137,6 +137,9 @@ public class GraphicView extends JFrame implements IView{
         JPanel gameSettingsMenuPanel = new JPanel(new BorderLayout());
         gameSettingsMenuPanel.setBackground(Color.BLACK);
 
+        /**
+         * felirat, logo egymas alatt
+         */
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(Color.BLACK);
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -146,11 +149,25 @@ public class GraphicView extends JFrame implements IView{
         label.setForeground(Color.WHITE);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         titlePanel.add(label);
-        //titlePanel-re a logo ide
+        try{
+            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\LOGOBIG.png"));
+            JLabel imgLabel = new JLabel(new ImageIcon(titleLogo));
+            imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            titlePanel.add(imgLabel);
+            titlePanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        } catch(IOException e){
+            System.out.println("ERROR: cannot load image");
+        }
         gameSettingsMenuPanel.add(titlePanel, BorderLayout.NORTH);
 
+        /**
+         * container panel a jatekosok hozzaadasanak, egy sor, ket oszlop
+         */
         JPanel addPlayersPanel = new JPanel(new GridLayout(1, 2));
 
+        /**
+         * bal oldali oszlop shroomereknek
+         */
         JPanel shroomersPanel = new JPanel();
         shroomersPanel.setLayout(new BoxLayout(shroomersPanel, BoxLayout.Y_AXIS));
         shroomersPanel.setBackground(Color.BLACK);
@@ -161,8 +178,17 @@ public class GraphicView extends JFrame implements IView{
         shroomersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         shroomersPanel.add(shroomersLabel);
         shroomersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        /**
+         * jatekhoz adott shroomerek listazasa JList-tel
+         */
         DefaultListModel<Map.Entry<String, String>> shroomerModel = new DefaultListModel<>();
         JList<Map.Entry<String, String>> shroomerList = new JList<>(shroomerModel);
+
+        /**
+         * cellRenderer osszerak egy 1 soros, 2 oszlopos Grid layoutos panelt,
+         * bal oldalon a jatekosnev, jobb oldalon a gombatipus
+         */
         shroomerList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
             JPanel listItem = new JPanel(new GridLayout(1, 2, 10, 0));
             JLabel name = new JLabel(val.getKey());
@@ -190,9 +216,16 @@ public class GraphicView extends JFrame implements IView{
         shroomersPanel.add(shroomerList);
         shroomersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
+        /**
+         * ket oszlopos, egy soros Grid layoutos panel gombasz hozzaadasahoz, bal oldalon megadhato a nev,
+         * jobb oldalon gombbal kivalaszthato a kepesseg a maradek elerhetoek kozul.
+         */
         JPanel addShroomerGridpanel = new JPanel(new GridLayout(1, 2));
         addShroomerGridpanel.setMaximumSize(new Dimension(600, 60));
         List<String> availableTypes = new ArrayList<>();
+        /**
+         * elejen az osszes tipus elerheto
+         */
         availableTypes.addAll(List.of("booster", "biteblocker", "slower", "paralyzer", "proliferating"));
         addShroomerGridpanel.setBackground(Color.BLACK);
         JTextField nameTf = new JTextField();
@@ -200,8 +233,16 @@ public class GraphicView extends JFrame implements IView{
         nameTf.setForeground(Color.WHITE);
         nameTf.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         addShroomerGridpanel.add(nameTf);
+
+        /**
+         * tipus kivalaszto gomb, felirat jelzi a kivalasztott tipust, kattintasra kovetkezo elerhetot valasztja ki
+         */
         JButton typeSelectorButton = new PandoraButton(availableTypes.get(0));
         addShroomerGridpanel.add(typeSelectorButton);
+
+        /**
+         * kattintasra noveljuk a kivalasztott indexet 1-gíel mod az elerheto tipusok szama
+         */
         typeSelectorButton.addActionListener(e -> {
             int idx = availableTypes.indexOf(typeSelectorButton.getText())+1;
             typeSelectorButton.setText(availableTypes.get(idx%(availableTypes.size())));
@@ -210,6 +251,9 @@ public class GraphicView extends JFrame implements IView{
         shroomersPanel.add(addShroomerGridpanel);
         shroomersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
+        /**
+         * hozzaado gomb, a gameBoard-ba hiv a megszokott modon
+         */
         JButton addShroomerButton = new PandoraButton("+");
         addShroomerButton.addActionListener(e -> {
             BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor = null;
@@ -259,7 +303,9 @@ public class GraphicView extends JFrame implements IView{
         shroomersPanel.add(addShroomerButton);
         shroomersPanel.add(Box.createVerticalGlue());
 
-
+        /**
+         * ugyanez buggerekre, jobb oldali Grid panel
+         */
         JPanel buggersPanel = new JPanel();
         buggersPanel.setLayout(new BoxLayout(buggersPanel, BoxLayout.Y_AXIS));
         buggersPanel.setBackground(Color.BLACK);
@@ -270,6 +316,10 @@ public class GraphicView extends JFrame implements IView{
         buggersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         buggersPanel.add(buggersLabel);
         buggersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        /**
+         * a jatekhoz adott Buggerek listazasa, bal oldalon nev, jobb oldalon szin sample JLabel
+         */
         DefaultListModel<Map.Entry<String, Color>> buggerModel = new DefaultListModel<>();
         JList<Map.Entry<String, Color>> buggerList = new JList<>(buggerModel);
         buggerList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
@@ -299,7 +349,7 @@ public class GraphicView extends JFrame implements IView{
         buggersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel addBuggerGridpanel = new JPanel(new GridLayout(1, 2));
-        addBuggerGridpanel.setMaximumSize(new Dimension(600, 60));
+        addBuggerGridpanel.setPreferredSize(new Dimension(600, 60));
         List<Color> availableColors = new ArrayList<>();
         availableColors.addAll(List.of(Color.RED, Color.BLUE, Color.MAGENTA, Color.GREEN));
         addShroomerGridpanel.setBackground(Color.BLACK);
@@ -321,15 +371,16 @@ public class GraphicView extends JFrame implements IView{
 
         JButton addBuggerButton = new PandoraButton("+");
         addBuggerButton.addActionListener(e -> {
+            if(gameBoard.getBuggers().size() == 4){
+                addBuggerButton.setEnabled(false);
+            }
             Bugger newBugger = new Bugger();
             gameBoard.addBugger(newBugger, buggerNameTf.getText());
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
             colorSelectorButton.setBackground(availableColors.get(0));
-            if(gameBoard.getBuggers().size() == 4){
-                addBuggerButton.setEnabled(false);
-            }
+                System.out.println(availableColors.size());
         });
         addBuggerButton.setMaximumSize(new Dimension(300,60));
         addBuggerButton.setAlignmentX(Component.CENTER_ALIGNMENT);

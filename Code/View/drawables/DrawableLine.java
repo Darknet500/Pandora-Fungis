@@ -90,9 +90,5 @@ public class DrawableLine implements Drawable {
     public Point getEnd2() {
         return End2;
     }
-
-    interface PositionListener {
-        void onPositionChanged(Point newPosition);
-        void onSizeChanged(int newSize);
-    }
+    
 }

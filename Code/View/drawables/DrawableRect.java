@@ -5,12 +5,9 @@ import View.Coordinate;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 
 public class DrawableRect implements Drawable {
 
-    private transient List<PositionListener> positionListeners = new CopyOnWriteArrayList<>();
     /**
      * The rectangle which will be drawed
      */
@@ -82,16 +79,6 @@ public class DrawableRect implements Drawable {
         return Position;
     }
 
-    /*public void setPosition(Point newPosition) {
-        this.Position = newPosition;
-        notifyPositionChanged(newPosition);
-    }*/
-
-    /*private void notifyPositionChanged(Point newPosition) {
-        for (PositionListener listener : listeners) {
-            listener.onPositionChanged(newPosition);
-        }
-    }*/
 
     /**
      * Gets the width of the rectangle
@@ -99,11 +86,6 @@ public class DrawableRect implements Drawable {
      */
     public int getWidth() {
         return Width;
-    }
-
-    interface PositionListener {
-        void onPositionChanged(Point newPosition);
-        void onSizeChanged(int newSize);
     }
 }
 

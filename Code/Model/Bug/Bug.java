@@ -4,6 +4,7 @@ import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 import Model.Shroomer.*;
 import View.hitboxes.BugHitbox;
+import View.hitboxes.Hitbox;
 
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
@@ -69,6 +70,10 @@ public class Bug {
 
     public Strategy getStrategy() {
         return strategy;
+    }
+
+    public BugHitbox getHitbox() {
+        return hitbox;
     }
 
      /**

@@ -51,6 +51,7 @@ public class Boosted extends Normal {
         if(canDo && to.tryBug(b)){
             b.getLocation().setBug(null);
             b.setLocation(to);
+            b.getHitbox().onPositionChanged();
             return true;
         }
         return false;

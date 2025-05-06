@@ -106,8 +106,4 @@ public class DrawableTexture implements Drawable {
     public int getWidth() {
         return Width;
     }
-    interface PositionListener {
-        void onPositionChanged(Point newPosition);
-        void onSizeChanged(int newSize);
-    }
 }
