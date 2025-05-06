@@ -15,10 +15,10 @@ public class Controller {
     private int actualPlayer = 0;
     private int round;
     private GameBoard gameBoard;
-    private View view;
+    private IView view;
     private long seed;
 
-    public void connectObjects(View view, GameBoard gameBoard) {
+    public void connectObjects(IView view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
     }

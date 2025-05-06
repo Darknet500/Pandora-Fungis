@@ -27,12 +27,32 @@ public class DrawableLine implements Drawable {
      * Color of the Line
      */
     private Color Color;
-
+    /**
+     * Constructor of the drawableRect object
+     * @param x1 The first x position of the Line
+     * @param y1 The first y position of the Line
+     * @param x2 The second x position of the Line
+     * @param y2 The second y position of the Line
+     * @param color Color of the Line
+     */
     public DrawableLine(int x1, int y1, int x2, int y2, Color color) {
         this.End1 = new Point(x1, y1);
         this.End2 = new Point(x2, y2);
         this.Color = color;
         this.line = new Line2D.Double(x1, y1, x2, y2);
+
+    }
+    /**
+     * Constructor of the drawableRect object
+     * @param End1 The first position of the Line
+     * @param End2 The Second position of the Line
+     * @param color Color of the Line
+     */
+    public DrawableLine(Point End1, Point End2, Color color) {
+        this.End1 = End1;
+        this.End2 = End2;
+        this.Color = color;
+        this.line = new Line2D.Double(End1, End2);
 
     }
 

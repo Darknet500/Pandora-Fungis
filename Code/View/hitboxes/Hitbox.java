@@ -2,29 +2,30 @@ package View.hitboxes;
 
 import View.Coordinate;
 import View.drawables.Drawable;
+import java.awt.*;
 
 public abstract class Hitbox {
-    protected Drawable drawable;
-    protected Coordinate position;
 
+    /**
+     * The graphical Drawable object of the Hitbox
+     */
+    protected Drawable drawable;
+
+    /**
+     *  Returns the drawable object of the Hitbox
+     * @return Drawable object
+     */
     public Drawable getDrawable() {
         return drawable;
     }
 
-    public Coordinate getPosition() {
-        return position;
-    }
 
-    public void updatePosition(Coordinate newPosition) {
-        this.position = newPosition;
-        if (drawable != null) {
-            updateDrawablePosition();
-        }
-    }
-
-    protected abstract void updateDrawablePosition();
-
-    public abstract boolean isHit(double x, double y);
+    /**
+     * Checks if the object was clicked
+     * @param point Point of the cursor
+     * @return The logical value if it was hit or not
+     */
+    public abstract boolean isHit(Point point);
 
 }
 

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileInputSource implements InputSource {
+public class FileInputSource {
     private BufferedReader reader;
     public FileInputSource(File file)throws IOException {
         reader = new BufferedReader(new FileReader(file));

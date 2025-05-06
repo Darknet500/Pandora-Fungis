@@ -3,6 +3,8 @@ package Model.Bridge;
 import Model.Tekton.*;
 import Model.Shroomer.*;
 import Model.Bug.*;
+import View.hitboxes.Hitbox;
+
 import java.util.*;
 import java.util.HashMap;
 
@@ -13,7 +15,9 @@ public class GameBoard {
     private HashMap<Integer, Bugger> buggers;
     private static HashMap<String, Object> nameObjectMap;
     private static HashMap<Object, String> objectNameMap;
-
+    private static HashMap<Player, String> playerDisplayNameMap;
+    private static HashMap<Object, Hitbox> objectHitboxMap;
+    private static HashMap<Hitbox, Object> hitbocObjectMap;
 
     /**
      * ID számlálók minden modell osztályhoz
@@ -49,22 +53,42 @@ public class GameBoard {
         buggers = new HashMap<>();
         nameObjectMap = new HashMap<>();
         objectNameMap = new HashMap<>();
+        playerDisplayNameMap = new HashMap<>();
+        objectHitboxMap = new HashMap<>();
+        hitbocObjectMap = new HashMap<>();
     }
 
-    public void addShroomer(Shroomer shroomer){
+    public void addShroomer(Shroomer shroomer, String name){
+        if (name.isEmpty()) name = "anonymous";
         int lastplayer = 0;
         while (shroomers.containsKey(lastplayer)||buggers.containsKey(lastplayer)){
             lastplayer++;
         }
         shroomers.put(lastplayer, shroomer);
+        playerDisplayNameMap.put(shroomer, name);
     }
 
-    public void addBugger(Bugger bugger){
+    public void addBugger(Bugger bugger, String name){
+        if (name.isEmpty()) name = "anonymous";
         int lastplayer = 0;
         while (shroomers.containsKey(lastplayer)||buggers.containsKey(lastplayer)){
             lastplayer++;
         }
         buggers.put(lastplayer, bugger);
+        playerDisplayNameMap.put(bugger, name);
+    }
+
+    public String getPlayerName(Player player){
+        return playerDisplayNameMap.get(player);
+        /*Player player;
+        if (shroomers.containsKey(playerID)){
+            player = shroomers.get(playerID);
+            return playerDisplayNameMap.get(player);
+        }else if (buggers.containsKey(playerID)){
+            player = buggers.get(playerID);
+            return playerDisplayNameMap.get(player);
+        }
+        return null;*/
     }
 
     public HashMap<Integer, Shroomer> getShroomers(){
@@ -104,7 +128,10 @@ public class GameBoard {
         switch (type){
             case "biteblocked" -> name = type + biteBlockedID++;
             case "boosted" -> name = type + boostedID++;
-            case "bug" -> name = type + bugID++;
+            case "bug" -> {
+                name = type + bugID++;
+                //BugHitbox
+            }
             case "bugger" -> name = type + buggerID++;
             case "normal" -> name = type + normalID++;
             case "paralyzed" -> name = type + paralyzedID++;
@@ -119,7 +146,7 @@ public class GameBoard {
             case "proliferatingmushroom" -> name = type + proliferatingMmushroomID++;
             case "proliferatingspore" -> name = type + proliferatingSporeID++;
             case "shroomer" -> name = type + shroomerID++;
-            case "slower" -> name = type + slowerMushroomID++;
+            case "slowermushroom" -> name = type + slowerMushroomID++;
             case "slowerspore" -> name = type + slowerSporeID++;
             case "peat" -> name = type + peatID++;
             case "soil" -> name = type + soilID++;
@@ -130,6 +157,17 @@ public class GameBoard {
         if(name!=null){
             objectNameMap.put(refe, name);
             nameObjectMap.put(name, refe);
+
+            if (type.equalsIgnoreCase("bug")||
+                    type.equalsIgnoreCase("biteblockermushroom")||
+                    type.equalsIgnoreCase("boostermushroom")||
+                    type.equalsIgnoreCase("hypa")||
+                    type.equalsIgnoreCase("paralyzermushroom")||
+                    type.equalsIgnoreCase("proliferatingmushroom")){
+
+            }
+
+
         }
     }
 

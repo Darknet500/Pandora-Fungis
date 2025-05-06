@@ -10,9 +10,7 @@ import Model.Bug.*;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 
-import javax.swing.*;
-
-public class View {
+public class ConsoleView implements IView{
     private GameBoard gameBoard;
     private Controller controller;
     private ArrangeSection arrangeSection;
@@ -21,11 +19,12 @@ public class View {
     private boolean endOfGame = false;
 
 
-    public View(GameMode gameMode, String testCase) {
+    public ConsoleView(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;
         this.testCase = testCase;
     }
 
+    @Override
     public void connectObjects(GameBoard gameBoard, Controller controller) {
         this.gameBoard = gameBoard;
         this.controller = controller;
@@ -34,6 +33,7 @@ public class View {
 
     }
 
+    @Override
     public void setEndOfGame(){
         this.endOfGame = true;
     }
@@ -53,14 +53,14 @@ public class View {
                     gameBoard.clear();
                     controller.resetActualPlayerandRound();
                     File arrangefile = new File(tc , "arrange.txt");
-                    InputSource arrangesource = new FileInputSource(arrangefile);
+                    FileInputSource arrangesource = new FileInputSource(arrangefile);
                     arrangeMethod(arrangefile, arrangesource);
 
                     File actfile = new File(tc , "act.txt");
-                    InputSource actsource = new FileInputSource(actfile);
+                    FileInputSource actsource = new FileInputSource(actfile);
                     actMethod(actfile, actsource);
                     File assertfile = new File(tc , "assert.txt");
-                    InputSource assertsource = new FileInputSource(assertfile);
+                    FileInputSource assertsource = new FileInputSource(assertfile);
                     assertMethod(assertfile, assertsource);
 
                 } catch (Exception ignored) {
@@ -71,36 +71,31 @@ public class View {
         ///ha egy adott tesztesetet vizsgálunk, csak azon az adott mappán megyünk végig
         else if(gameMode == GameMode.autotestone) {
             File tc = new File("./test/" + testCase);
+            if(!tc.exists()){
+                System.out.println("file not found");
+                System.exit(0);
+            }
             System.out.println("\ntc: "+tc.getName());
             try {
                 gameBoard.clear();
                 controller.resetActualPlayerandRound();
                 File arrangefile = new File(tc , "arrange.txt");
-                InputSource arrangesource = new FileInputSource(arrangefile);
+                FileInputSource arrangesource = new FileInputSource(arrangefile);
                 arrangeMethod(arrangefile, arrangesource);
 
                 File actfile = new File(tc , "act.txt");
-                InputSource actsource = new FileInputSource(actfile);
+                FileInputSource actsource = new FileInputSource(actfile);
                 actMethod(actfile, actsource);
                 File assertfile = new File(tc , "assert.txt");
-                InputSource assertsource = new FileInputSource(assertfile);
+                FileInputSource assertsource = new FileInputSource(assertfile);
                 assertMethod(assertfile, assertsource);
-            } catch (Exception ignored) {}
-        }else  {
-            ///InputSource konzolról, nullt adunk át fájl helyett, mert nincs szükségfájlra, a gameMode alapján fognak másképp viselkedni a metódusok
-            try {
-                gameBoard.clear();
-                controller.resetActualPlayerandRound();
-                InputSource cis = new ConsoleInputSource();
-                arrangeMethod(null, cis);
-                actMethod(null, cis);
-                assertMethod(null, cis);
+            } catch (Exception ignored) {
 
-            }catch (Exception ignored) {}
+            }
         }
     }
 
-    public void arrangeMethod(File tc, InputSource source) throws IOException {
+    public void arrangeMethod(File tc, FileInputSource source) throws IOException {
         System.out.println("ARRANGE");
         try {
             while (source.hasNextLine()) {
@@ -177,7 +172,7 @@ public class View {
                         }
 
 
-                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter));
+                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "");
 
                     }
                     case MUSHROOMS -> {
@@ -204,7 +199,7 @@ public class View {
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
                     }
                     case BUGGERS -> {
-                        gameBoard.addBugger(new Bugger());
+                        gameBoard.addBugger(new Bugger(), "");
                     }
                     case STRATEGIES -> {
                         switch (parts[0].toLowerCase()) {
@@ -254,7 +249,7 @@ public class View {
         }
     }
 
-    public void actMethod(File tc, InputSource source) throws IOException {
+    public void actMethod(File tc, FileInputSource source) throws IOException {
         System.out.println("ACT");
         try {
             while (source.hasNextLine() && !endOfGame) {
@@ -335,15 +330,7 @@ public class View {
                     }
                     default -> System.out.println("action failed because of invalid command or assert command");
                 }
-
-
-
-                ///csak manual módban lesz ilyen, hogy standar inputon bejön egy assert parancs, ilyenkor act parancson belül
-                /// hívja le az assert metódust, ily módon utána ACT parancs hatására visszatér ide és folytathatja az act parancsokkal
-                if(line.equalsIgnoreCase("assert")){
-                    ConsoleInputSource assertsource = new ConsoleInputSource();
-                    assertMethod(tc, assertsource);
-                }else if(line.equalsIgnoreCase("esc")){
+                if(line.equalsIgnoreCase("esc")){
                     return;
                 }
                 if(endOfGame){
@@ -356,7 +343,7 @@ public class View {
         }
     }
 
-    public void assertMethod(File tc, InputSource source) throws IOException {
+    public void assertMethod(File tc, FileInputSource source) throws IOException {
         System.out.println("ASSERT");
         try {
             while (source.hasNextLine()) {
@@ -877,6 +864,7 @@ public class View {
         }
     }
 
+    @Override
     public void displayMessage(String message){
         System.out.println(message);
     }
@@ -908,13 +896,10 @@ public class View {
     }
     private void endOfGameTable(){
         System.out.println("Score board");
-
-
         List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomers().keySet());
         Collections.sort(shroomerSortedKeys);
         List<Integer> buggerSortedKeys = new ArrayList<>(gameBoard.getBuggers().keySet());
         Collections.sort(buggerSortedKeys);
-
         List<Integer> shroomerScores = new ArrayList<>();
         List<Integer> buggerScores = new ArrayList<>();
 
@@ -959,7 +944,6 @@ public class View {
                 System.out.println(gameBoard.getObjectNameByReference(gameBoard.getBuggers().get(buggerSortedKeys.get(i)))+
                         " - " + gameBoard.getBuggers().get(buggerSortedKeys.get(i)).getScore()+ " points");
             }
-
         }
         for (int i=0;i< gameBoard.getShroomers().size();i++){
             if(maxScoreShroomerIds.contains(i)) {
@@ -967,9 +951,5 @@ public class View {
                         " - " + gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getScore() + " points");
             }
         }
-
     }
-
-
-
 }
