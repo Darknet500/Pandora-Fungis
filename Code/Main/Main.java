@@ -22,13 +22,7 @@ public class Main {
                     }
                 }
             }
-        } else if(args.length==2){
-            if(args[1].equals("-manual")){
-                gm = GameMode.manualtest;
-            }
-        }else if(args.length ==0){
-            gm = GameMode.game;
-        } else{
+        }else{
             System.out.println("Invalid arguments.");
             System.exit(1);
         }

@@ -1,6 +1,8 @@
 package Model.Tekton;
 
 import Model.Bridge.GameBoard;
+import Model.Observer.EventType;
+import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 
@@ -14,7 +16,7 @@ import java.util.Random;
  * A Stone egy speciális Tekton típus, amelyre nem nőhetnek gombatestek (Mushroom).
  * Ez azt jelenti, hogy a canMushroomGrow metódus mindig hamis értéket ad vissza.
  */
-public class Stone extends TektonBase {
+public class Stone extends TektonBase implements Observable {
 
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
@@ -72,6 +74,7 @@ public class Stone extends TektonBase {
     @Override
     public void breakTekton(long seed) {
         Stone newTekton = new Stone();
+        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -82,6 +85,7 @@ public class Stone extends TektonBase {
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
+                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -89,7 +93,7 @@ public class Stone extends TektonBase {
 
         this.setNeighbours(remain);
         newTekton.setNeighbours(newNeighbours);
-
+        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
@@ -99,6 +103,7 @@ public class Stone extends TektonBase {
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
+            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 

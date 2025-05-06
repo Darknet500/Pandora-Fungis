@@ -2,13 +2,21 @@ package View.drawables;
 
 import View.Coordinate;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public interface Drawable {
-        void draw(BufferedImage target);
 
-        Coordinate getP1();
+    /**
+     * Draws the drawable object to the target window
+     * @param target The target window where the object is drawed
+     */
+    void draw(BufferedImage target);
 
-        Coordinate getP2();
+    /**
+     * Gets Position of the Drawable object
+     * @return
+     */
+    Point getPosition();
 
-    }
+}

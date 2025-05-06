@@ -7,31 +7,69 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
 public class DrawableLine implements Drawable {
-    private Line2D.Double line;
-    private Coordinate p1;
-    private Coordinate p2;
 
-    public DrawableLine(Coordinate end1, Coordinate end2) {
-        this.p1 = end1;
-        this.p2 = end2;
-        this.line = new Line2D.Double(end1.getX(), end1.getY(), end2.getX(), end2.getY()
-        );
+    /**
+     * The Line which will be drawed
+     */
+    private Line2D.Double line;
+
+    /**
+     * First end of the Line
+     */
+    private Point End1;
+
+    /**
+     * Second end of the Line
+     */
+    private Point End2;
+
+    /**
+     * Color of the Line
+     */
+    private Color Color;
+
+    public DrawableLine(int x1, int y1, int x2, int y2, Color color) {
+        this.End1 = new Point(x1, y1);
+        this.End2 = new Point(x2, y2);
+        this.Color = color;
+        this.line = new Line2D.Double(x1, y1, x2, y2);
+
     }
 
     @Override
     public void draw(BufferedImage target) {
         Graphics2D g2d = target.createGraphics();
+        g2d.setColor(Color);
+        g2d.setStroke(new BasicStroke(3));
         g2d.draw(line);
         g2d.dispose();
     }
 
+    /**
+     * Gets the middle position of the Line
+     * Its kinda useless but we use Middle POinTs
+     * @return Middle Position of the Line
+     */
     @Override
-    public Coordinate getP1() {
-        return null;
+    public Point getPosition() {
+        return new Point((End1.x + End2.x)/2, (End1.y + End2.y)/2);
     }
 
-    @Override
-    public Coordinate getP2() {
-        return null;
+    /**
+     * Gets the first end point of the line
+     * @return first end point of line
+     */
+    public Point getEnd1() {
+        return End1;
     }
+
+    /**
+     * Gets the second end point of the line
+     * @return second end point of line
+     */
+    public Point getEnd2() {
+        return End2;
+    }
+
+
 }

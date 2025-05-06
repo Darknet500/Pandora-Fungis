@@ -9,19 +9,64 @@ import java.io.File;
 import java.io.IOException;
 
 public class DrawableTexture implements Drawable {
-    private Coordinate topLeft;
-    private Coordinate bottomRight;
+
+    /**
+     * Position of the textures middle point
+     */
+    private Point Position;
+    /**
+     * Textures image file
+     */
     private BufferedImage image;
 
-    public DrawableTexture(Coordinate topLeft, Coordinate bottomRight, BufferedImage image) {
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+    /**
+     * WIDTH and HEIGHT of the texture (Because every texture is a square image)
+     */
+    private int Width;
+
+    /**
+     * Constructor of the drawableTexture object
+     * @param x The x position of the textures middle point
+     * @param y The y position of the textures middle point
+     * @param image Textures image file
+     */
+    public DrawableTexture(int x, int y, BufferedImage image) {
+        this.Position = new Point(x, y);
         this.image = image;
+        this.Width = image.getWidth();
+    }
+    /**
+     * Constructor of the drawableTexture object
+     * @param pos Middle position of the texture
+     * @param image Textures image file
+     */
+    public DrawableTexture(Point pos, BufferedImage image) {
+        this.Position = pos;
+        this.image = image;
+        this.Width = image.getWidth();
     }
 
-    public DrawableTexture(Coordinate topLeft, Coordinate bottomRight, File imageFile) {
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+    /**
+     * Constructor of the drawableTexture object
+     * @param x The x position of the textures middle point
+     * @param y The y position of the textures middle point
+     * @param imageFile Textures image file
+     */
+    public DrawableTexture(int x, int y, File imageFile) {
+        this.Position = new Point(x, y);
+        try {
+            this.image = ImageIO.read(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Constructor of the drawableTexture object
+     * @param pos Middle position of the texture
+     * @param imageFile Textures image file
+     */
+    public DrawableTexture(Point pos, File imageFile) {
+        this.Position = pos;
         try {
             this.image = ImageIO.read(imageFile);
         } catch (IOException e) {
@@ -29,18 +74,37 @@ public class DrawableTexture implements Drawable {
         }
     }
 
+    /**
+     * Draws the texture to a window
+     * @param target The target window where to draw
+     */
     @Override
     public void draw(BufferedImage target) {
         Graphics2D g2d = target.createGraphics();
-        g2d.drawImage(image, (int)topLeft.getX(), (int)topLeft.getY(), (int)(bottomRight.getX() - topLeft.getX()), (int)(bottomRight.getY() - topLeft.getY()),
-                null);
+
+        /** Getting the left top corners coordinates to draw **/
+        int drawX = Position.x - image.getWidth() / 2;
+        int drawY = Position.y - image.getHeight() / 2;
+
+        g2d.drawImage(image, drawX, drawY, null);
         g2d.dispose();
     }
 
-    @Override public Coordinate getP1() {
-        return topLeft; }
+    /**
+     * Gets the middle position of the texture
+     * @return Position of the texture
+     */
+    @Override
+    public Point getPosition() {
+        return Position;
+    }
 
-    @Override public Coordinate getP2() {
-        return bottomRight; }
+    /**
+     * Gets the width of the texture
+     * @return width of the texture
+     */
+    public int getWidth() {
+        return Width;
+    }
 
 }

@@ -7,6 +7,9 @@ import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
 
+import Model.Observer.Observable;
+import Model.Observer.EventType;
+
 import java.util.*;
 
 
@@ -15,8 +18,7 @@ import java.util.*;
  * tárolhat spórákat, illetve kapcsolódhat hozzá egy gomba vagy egy bogár.
  * A Tektonok egymáshoz kapcsolódhatnak és eltörhetnek.
  */
-public class Tekton  extends TektonBase{
-
+public class Tekton  extends TektonBase implements Observable {
 
     /**
      * Alapértelmezett konstruktor, amely inicializálja a Tekton objektumot.
@@ -40,6 +42,7 @@ public class Tekton  extends TektonBase{
     @Override
     public void breakTekton(long seed) {
         Tekton newTekton = new Tekton();
+        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -50,6 +53,7 @@ public class Tekton  extends TektonBase{
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
+                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -61,12 +65,14 @@ public class Tekton  extends TektonBase{
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
+        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
 
         // A régi Tekton összes fonala elhal
         List<Hypa> hypasList = new ArrayList<Hypa>();
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
+            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 
