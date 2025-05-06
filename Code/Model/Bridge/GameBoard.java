@@ -14,6 +14,7 @@ public class GameBoard {
     private static HashMap<String, Object> nameObjectMap;
     private static HashMap<Object, String> objectNameMap;
 
+
     /**
      * ID számlálók minden modell osztályhoz
      */

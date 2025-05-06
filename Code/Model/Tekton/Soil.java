@@ -1,6 +1,8 @@
 package Model.Tekton;
 
 import Model.Bridge.GameBoard;
+import Model.Observer.EventType;
+import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
@@ -10,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Soil extends TektonBase {
+public class Soil extends TektonBase implements Observable {
 
     public Soil() {
         super();
@@ -102,6 +104,7 @@ public class Soil extends TektonBase {
     @Override
     public void breakTekton(long seed) {
         Soil newTekton = new Soil();
+        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -112,6 +115,7 @@ public class Soil extends TektonBase {
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
+                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -119,7 +123,7 @@ public class Soil extends TektonBase {
 
         this.setNeighbours(remain);
         newTekton.setNeighbours(newNeighbours);
-
+        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
@@ -129,6 +133,7 @@ public class Soil extends TektonBase {
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
+            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 }
