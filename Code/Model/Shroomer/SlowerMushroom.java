@@ -34,6 +34,8 @@ public class SlowerMushroom extends Mushroom {
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(TektonBase target) {
+        hitbox.onSporeThrown();
+        hitbox.onSporeThrowableChanged();
         SlowerSpore spore = new SlowerSpore(this.shroomer);
         target.storeSpore(spore);
         sporesThrown++;

@@ -6,12 +6,17 @@ import Model.Shroomer.*;
 import Model.Tekton.*;
 import Model.Bug.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.awt.image.BufferedImage;
 
 public class GraphicView extends JFrame implements IView{
     private GameBoard gameBoard;
@@ -96,7 +101,16 @@ public class GraphicView extends JFrame implements IView{
         buttonPanel.add(Box.createVerticalGlue());
         buttonPanel.add(label);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 100)));
-        //ide jon a logo
+        try{
+            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\TEKTONS\\Tekton.png"));
+            JLabel imgLabel = new JLabel(new ImageIcon(titleLogo));
+            imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            buttonPanel.add(imgLabel);
+            buttonPanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        } catch(IOException e){
+            System.out.println("ERROR: cannot load image");
+        }
+
         buttonPanel.add(startBtn);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 100)));
         buttonPanel.add(exitStartMenuBtn);
@@ -150,9 +164,17 @@ public class GraphicView extends JFrame implements IView{
         DefaultListModel<Map.Entry<String, String>> shroomerModel = new DefaultListModel<>();
         JList<Map.Entry<String, String>> shroomerList = new JList<>(shroomerModel);
         shroomerList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
-            JLabel listItem = new JLabel(val.getKey() + "    " + val.getValue());
-            listItem.setForeground(Color.WHITE);
-            listItem.setBackground(Color.BLACK);
+            JPanel listItem = new JPanel(new GridLayout(1, 2, 10, 0));
+            JLabel name = new JLabel(val.getKey());
+            name.setForeground(Color.WHITE);
+            name.setBackground(Color.BLACK);
+            name.setOpaque(true);
+            listItem.add(name);
+            JLabel type = new JLabel(val.getValue());
+            type.setForeground(Color.WHITE);
+            type.setBackground(Color.BLACK);
+            type.setOpaque(true);
+            listItem.add(type);
             listItem.setOpaque(true);
             return listItem;
         });
@@ -251,7 +273,7 @@ public class GraphicView extends JFrame implements IView{
         DefaultListModel<Map.Entry<String, Color>> buggerModel = new DefaultListModel<>();
         JList<Map.Entry<String, Color>> buggerList = new JList<>(buggerModel);
         buggerList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
-            JPanel listItem = new JPanel(new GridLayout(1, 2));
+            JPanel listItem = new JPanel(new GridLayout(1, 2, 10, 0));
             JLabel name = new JLabel(val.getKey());
             name.setForeground(Color.WHITE);
             name.setBackground(Color.BLACK);
@@ -259,7 +281,9 @@ public class GraphicView extends JFrame implements IView{
             listItem.add(name);
             JLabel colorSample = new JLabel("");
             colorSample.setBackground(val.getValue());
+            colorSample.setOpaque(true);
             listItem.add(colorSample);
+            listItem.setOpaque(true);
             return listItem;
         });
         buggerList.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -296,7 +320,7 @@ public class GraphicView extends JFrame implements IView{
         buggersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JButton addBuggerButton = new PandoraButton("+");
-        addShroomerButton.addActionListener(e -> {
+        addBuggerButton.addActionListener(e -> {
             Bugger newBugger = new Bugger();
             gameBoard.addBugger(newBugger, buggerNameTf.getText());
             String name = gameBoard.getPlayerName(newBugger);

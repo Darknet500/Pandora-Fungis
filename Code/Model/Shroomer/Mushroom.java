@@ -1,6 +1,7 @@
 package Model.Shroomer;
 
 import Model.Tekton.*;
+import View.hitboxes.MushroomHitbox;
 
 /**
  * A Mushroom osztály egy absztrakt osztály, amely a gombatesteket reprezentálja a játékban.
@@ -8,6 +9,11 @@ import Model.Tekton.*;
  * A gombatestek megöregedhetnek, elhalhatnak és spórákat szórhatnak, valamint fonalakat (Hypa) növeszthetnek.
  */
 public abstract class Mushroom {
+
+    /**
+     * eltárolja a hozzá kapcsolódó hitbox-ot, hogy tudja azt értesíteni az őt ért változásokról
+     */
+    protected MushroomHitbox hitbox;
 
     /**
      * A gombatest aktuális pozíciója.
@@ -68,6 +74,8 @@ public abstract class Mushroom {
      */
     public void age() {
         age++;
+        if(age==5)
+            hitbox.onBecameOld();
     }
 
     /**
@@ -100,7 +108,11 @@ public abstract class Mushroom {
         return numberOfSpores;
     }
 
-    public void increaseNumberofSpores() {numberOfSpores++;}
+    public void increaseNumberofSpores() {
+        numberOfSpores++;
+        if(numberOfSpores==1)
+            hitbox.onSporeThrowableChanged();
+    }
 
     /**
      * Visszaadja, hogy a gombatest eddig hány spórát szórt el.
@@ -118,5 +130,9 @@ public abstract class Mushroom {
      * @param to - A Tekton, amelyre a spóra kerül.
      */
     public abstract void sporeThrown(TektonBase to);
+
+    public void addObserver(MushroomHitbox hitbox){
+        this.hitbox = hitbox;
+    }
 
 }

@@ -3,7 +3,9 @@ package Model.Bridge;
 import Model.Tekton.*;
 import Model.Shroomer.*;
 import Model.Bug.*;
+import View.hitboxes.BugHitbox;
 import View.hitboxes.Hitbox;
+import View.hitboxes.TektonHitbox;
 
 import java.util.*;
 import java.util.HashMap;
@@ -16,8 +18,10 @@ public class GameBoard {
     private static HashMap<String, Object> nameObjectMap;
     private static HashMap<Object, String> objectNameMap;
     private static HashMap<Player, String> playerDisplayNameMap;
+
+    private static HashMap<Player, String> playersTypeMap;
     private static HashMap<Object, Hitbox> objectHitboxMap;
-    private static HashMap<Hitbox, Object> hitbocObjectMap;
+    private static HashMap<Hitbox, Object> hitboxObjectMap;
 
     /**
      * ID számlálók minden modell osztályhoz
@@ -55,7 +59,8 @@ public class GameBoard {
         objectNameMap = new HashMap<>();
         playerDisplayNameMap = new HashMap<>();
         objectHitboxMap = new HashMap<>();
-        hitbocObjectMap = new HashMap<>();
+        hitboxObjectMap = new HashMap<>();
+        playersTypeMap = new HashMap<>();
     }
 
     public void addShroomer(Shroomer shroomer, String name){
@@ -130,20 +135,38 @@ public class GameBoard {
             case "boosted" -> name = type + boostedID++;
             case "bug" -> {
                 name = type + bugID++;
-                //BugHitbox
+                TektonBase location = ((Bug)refe).getLocation();
+                TektonHitbox locationhitbox = (TektonHitbox) objectHitboxMap.get(location);
+                new BugHitbox((Bug)refe, locationhitbox.getDrawable().getPosition(), playersTypeMap.get(((Bug)refe).getBugger()));
             }
             case "bugger" -> name = type + buggerID++;
             case "normal" -> name = type + normalID++;
             case "paralyzed" -> name = type + paralyzedID++;
             case "slowed" -> name = type + slowedID++;
-            case "biteblockermushroom" -> name = type + biteBlockerMushroomID++;
-            case "biteblockerspore" -> name = type + biteBlockerSporeID++;
-            case "boostermushroom" -> name = type + boosterMushroomID++;
-            case "boosterspore" -> name = type + boosterSporeID++;
-            case "hypa" -> name = type + hypaID++;
-            case "paralyzermushroom" -> name = type + paralyzerMushroomID++;
-            case "paralyzerspore" -> name = type + paralyzerSporeID++;
-            case "proliferatingmushroom" -> name = type + proliferatingMmushroomID++;
+            case "biteblockermushroom" -> {
+                name = type + biteBlockerMushroomID++;
+            }
+            case "biteblockerspore" ->{
+                name = type + biteBlockerSporeID++;
+            }
+            case "boostermushroom" -> {
+                name = type + boosterMushroomID++;
+            }
+            case "boosterspore" -> {
+                name = type + boosterSporeID++;
+            }
+            case "hypa" -> {
+                name = type + hypaID++;
+            }
+            case "paralyzermushroom" -> {
+                name = type + paralyzerMushroomID++;
+            }
+            case "paralyzerspore" -> {
+                name = type + paralyzerSporeID++;
+            }
+            case "proliferatingmushroom" -> {
+                name = type + proliferatingMmushroomID++;
+            }
             case "proliferatingspore" -> name = type + proliferatingSporeID++;
             case "shroomer" -> name = type + shroomerID++;
             case "slowermushroom" -> name = type + slowerMushroomID++;
@@ -157,7 +180,7 @@ public class GameBoard {
         if(name!=null){
             objectNameMap.put(refe, name);
             nameObjectMap.put(name, refe);
-
+/*
             if (type.equalsIgnoreCase("bug")||
                     type.equalsIgnoreCase("biteblockermushroom")||
                     type.equalsIgnoreCase("boostermushroom")||
@@ -166,7 +189,7 @@ public class GameBoard {
                     type.equalsIgnoreCase("proliferatingmushroom")){
 
             }
-
+*/
 
         }
     }

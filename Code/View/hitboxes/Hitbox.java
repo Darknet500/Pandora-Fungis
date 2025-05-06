@@ -27,5 +27,7 @@ public abstract class Hitbox {
      */
     public abstract boolean isHit(Point point);
 
+
+
 }
 

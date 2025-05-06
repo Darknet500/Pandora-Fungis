@@ -19,4 +19,11 @@ public interface Drawable {
      */
     Point getPosition();
 
+   /* void addPositionListener(PositionListener listener);
+    void removePositionListener(PositionListener listener);
+
+    interface PositionListener {
+        void onPositionChanged(Drawable source, Point newPosition);
+        void onSizeChanged(Drawable source, int newSize);
+    } */
 }

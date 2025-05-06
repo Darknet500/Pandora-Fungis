@@ -1,12 +1,15 @@
 package View.hitboxes;
 
 import Model.Bridge.GameBoard;
+import Model.Bug.BiteBlocked;
 import Model.Bug.Bug;
 import View.Coordinate;
 import View.drawables.Drawable;
 import View.drawables.DrawableTexture;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 
@@ -14,10 +17,11 @@ public class BugHitbox extends Hitbox{
     Bug bug;
     Point centerPoint;
 
-    public BugHitbox(Bug bug, Point centerPoint) {
+    public BugHitbox(Bug bug, Point centerPoint, String bugTexture) {
         this.bug = bug;
         this.centerPoint = centerPoint;
-        this.drawable = new DrawableTexture(centerPoint, File.createTempFile());
+
+
     }
 
 
@@ -28,5 +32,9 @@ public class BugHitbox extends Hitbox{
      */
     public boolean isHit(Point point){
         return false;
+    }
+
+    public void onStrategyChanged(){
+
     }
 }

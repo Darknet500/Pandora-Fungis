@@ -3,11 +3,17 @@ package Model.Bug;
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 import Model.Shroomer.*;
+import View.hitboxes.BugHitbox;
 
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
  */
 public class Bug {
+
+    /**
+     * eltárolja a hozzá kapcsolódó hitbox-ot, hogy tudja azt értesíteni az őt ért változásokról
+     */
+    private BugHitbox hitbox;
 
     /**
      * A Bug jelenlegi helyét reprezentáló Tekton példány.
@@ -58,6 +64,7 @@ public class Bug {
             GameBoard.removeReferenceFromMaps(strategy);
         }
         strategy = s;
+        hitbox.onStrategyChanged();
     }
 
     public Strategy getStrategy() {
