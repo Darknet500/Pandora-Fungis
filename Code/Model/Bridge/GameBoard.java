@@ -208,6 +208,7 @@ public class GameBoard {
         allTektons.clear();
         nameObjectMap.clear();
         objectNameMap.clear();
+        playerDisplayNameMap.clear();
 
         biteBlockedID = 1;
         boostedID = 1;
