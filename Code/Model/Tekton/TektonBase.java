@@ -6,18 +6,15 @@ import Model.Shroomer.Hypa;
 import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
-import Model.Observer.Observer;
-import Model.Observer.Observable;
 import Model.Observer.EventType;
+import View.hitboxes.Hitbox;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class TektonBase implements Observable {
-
-    private final List<Observer> observers = new CopyOnWriteArrayList<>();
+public abstract class TektonBase {
 
     /**
      * Az adott Tektonhoz kapcsolódó bogár.
@@ -52,10 +49,6 @@ public abstract class TektonBase implements Observable {
         this.connectedHypas = new ArrayList<>();
     }
 
-    @Override
-    public List<Observer> getObservers() {
-        return observers;
-    }
 
     /**
      * Ezt utólag írtam hozzá.
@@ -94,9 +87,7 @@ public abstract class TektonBase implements Observable {
      * @param neighbour - Az eltávolítandó szomszéd Tekton.
      */
     public void removeNeighbour(TektonBase neighbour) {
-        if (neighbours.remove(neighbour)) {
-            notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
-        }
+        neighbours.remove(neighbour);
     }
 
     /**
@@ -119,10 +110,8 @@ public abstract class TektonBase implements Observable {
      * @param s - A tárolandó spóra.
      */
     public void storeSpore(Spore s) {
-
         if (s != null) {
             storedSpores.add(s);
-            notifyObservers(EventType.SPORE_ADDED, s);
         }
     }
 
@@ -133,7 +122,6 @@ public abstract class TektonBase implements Observable {
     public void removeSpore(Spore s) {
         if (s != null && storedSpores.remove(s)) {
             storedSpores.remove(s);
-            notifyObservers(EventType.SPORE_REMOVED, s);
         }
     }
 
@@ -144,7 +132,6 @@ public abstract class TektonBase implements Observable {
     public boolean tryBug(Bug b) {
         if(bug == null) {
             bug = b;
-            notifyObservers(EventType.BUG_ADDED, b);
             return true;
         }
         return false;
@@ -182,7 +169,6 @@ public abstract class TektonBase implements Observable {
      */
     public void removeHypa(Hypa h) {
         if (h != null && connectedHypas.remove(h)) {
-            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 
@@ -193,7 +179,6 @@ public abstract class TektonBase implements Observable {
     public void connectHypa(Hypa h) {
         if (h != null && !connectedHypas.contains(h)) {
             connectedHypas.add(h);
-            notifyObservers(EventType.HYPA_ADDED, h);
         }
     }
 
@@ -208,9 +193,7 @@ public abstract class TektonBase implements Observable {
             this.mushroom = shr;
 
             if (oldMushroom != null) {
-                notifyObservers(EventType.MUSHROOM_REMOVED, oldMushroom);
             }
-            notifyObservers(EventType.MUSHROOM_ADDED, shr);
 
             //shroomer lekérése
             Shroomer shroomer = shr.getShroomer();
@@ -255,18 +238,6 @@ public abstract class TektonBase implements Observable {
      * @param neighbours - A szomszédos Tektonok listája.
      */
     public void setNeighbours(List<TektonBase> neighbours) {
-        // Régi szomszédok eltávolítása
-        for (TektonBase oldNeighbour : this.neighbours) {
-            if (!neighbours.contains(oldNeighbour)) {
-                notifyObservers(EventType.NEIGHBOUR_REMOVED, oldNeighbour);
-            }
-        }
-        // Új szomszédok hozzáadása
-        for (TektonBase newNeighbour : neighbours) {
-            if (!this.neighbours.contains(newNeighbour)) {
-                notifyObservers(EventType.NEIGHBOUR_ADDED, newNeighbour);
-            }
-        }
         this.neighbours = neighbours;
     }
 
@@ -277,7 +248,6 @@ public abstract class TektonBase implements Observable {
     public void addNeighbour(TektonBase t){
         if (t != null && !neighbours.contains(t)) {
             neighbours.add(t);
-            notifyObservers(EventType.NEIGHBOUR_ADDED, t);
         }
     }
 
@@ -294,18 +264,6 @@ public abstract class TektonBase implements Observable {
      * @param storedSpores - Az új spóra lista.
      */
     public void setStoredSpores(List<Spore> storedSpores) {
-        // Régi spórák eltávolítása
-        for (Spore oldSpore : this.storedSpores) {
-            if (!storedSpores.contains(oldSpore)) {
-                notifyObservers(EventType.SPORE_REMOVED, oldSpore);
-            }
-        }
-        // Új spórák hozzáadása
-        for (Spore newSpore : storedSpores) {
-            if (!this.storedSpores.contains(newSpore)) {
-                notifyObservers(EventType.SPORE_ADDED, newSpore);
-            }
-        }
         this.storedSpores = storedSpores;
     }
 
@@ -322,14 +280,7 @@ public abstract class TektonBase implements Observable {
      * @param mushroom - Az új gomba.
      */
     public void setMushroom(Mushroom mushroom) {
-        Mushroom oldMushroom = this.mushroom;
         this.mushroom = mushroom;
-        if (oldMushroom != null) {
-            notifyObservers(EventType.MUSHROOM_REMOVED, oldMushroom);
-        }
-        if (mushroom != null) {
-            notifyObservers(EventType.MUSHROOM_ADDED, mushroom);
-        }
     }
 
     /**
@@ -347,11 +298,6 @@ public abstract class TektonBase implements Observable {
     public void setBug(Bug bug) {
         Bug oldBug = this.bug;
         this.bug = bug;
-        if (oldBug != null) {
-            notifyObservers(EventType.BUG_REMOVED, oldBug);
-        }
-        if (bug != null) {
-            notifyObservers(EventType.BUG_ADDED, bug);
-        }
     }
+
 }

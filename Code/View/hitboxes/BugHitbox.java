@@ -1,16 +1,13 @@
 package View.hitboxes;
 
-import Model.Bridge.GameBoard;
-import Model.Bug.BiteBlocked;
 import Model.Bug.Bug;
-import View.Coordinate;
-import View.drawables.Drawable;
 import View.drawables.DrawableTexture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class BugHitbox extends Hitbox{
@@ -20,6 +17,17 @@ public class BugHitbox extends Hitbox{
     public BugHitbox(Bug bug, Point centerPoint, String bugTexture) {
         this.bug = bug;
         this.centerPoint = centerPoint;
+        bug.addObserver(this);
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Assets/BUGS/"+ image.getColorModel().toString() +"Normal.png"))); // itt nem tudom hogy kellene lekérdezni a színét :D
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        drawable=new DrawableTexture(centerPoint, image);
     }
 
 
@@ -34,13 +42,32 @@ public class BugHitbox extends Hitbox{
         return false;
     }
 
-    public void onStrategyChanged(){
+    public void onStrategyChanged() {
+        String strategyName = bug.getStrategy().toString();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
+                    "/Assets/BUGS/" + image.getColorModel().toString() + strategyName + ".png"
+            )));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        drawable = new DrawableTexture(centerPoint, image);
     }
 
-    public void onPositionChanged(){
-
+    public void onPositionChanged() {
+        String strategyName = bug.getStrategy().toString();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
+                    "/Assets/BUGS/" + image.getColorModel().toString() + strategyName + ".png"
+            )));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (drawable != null) {
+           // drawable = new DrawableTexture(bug.getLocation()., image); // Hogy lehet lekérdezni egy tekton pozícióját? Tektonnak nincs referenciája a hitboxára
+        }
     }
-
-
 }

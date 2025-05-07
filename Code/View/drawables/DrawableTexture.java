@@ -106,4 +106,8 @@ public class DrawableTexture implements Drawable {
     public int getWidth() {
         return Width;
     }
+
+    public BufferedImage getImage() {
+        return this.image;
+    }
 }

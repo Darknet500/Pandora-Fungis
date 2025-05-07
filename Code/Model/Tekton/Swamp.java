@@ -14,7 +14,7 @@ import Model.Shroomer.Spore;
  * A Swamp egy speciális Tekton típus, amelyen a fonalak (Hypa) egy idő után felszívódnak.
  * Ez azt jelenti, hogy a Hypa objektumok idővel eltűnnek erről a Tektonról.
  */
-public class Swamp extends TektonBase implements Observable {
+public class Swamp extends TektonBase {
 
     /**
      * Alapértelmezett konstruktor, amely létrehoz egy Swamp példányt.
@@ -132,7 +132,6 @@ public class Swamp extends TektonBase implements Observable {
     @Override
     public void breakTekton(long seed) {
         Swamp newTekton = new Swamp();
-        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -143,7 +142,6 @@ public class Swamp extends TektonBase implements Observable {
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
-                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -155,13 +153,11 @@ public class Swamp extends TektonBase implements Observable {
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
-        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
         // A régi Tekton összes fonala elhal
         List<Hypa> hypasList = new ArrayList<Hypa>();
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
-            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 

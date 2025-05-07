@@ -16,7 +16,7 @@ import java.util.Random;
  * A Stone egy speciális Tekton típus, amelyre nem nőhetnek gombatestek (Mushroom).
  * Ez azt jelenti, hogy a canMushroomGrow metódus mindig hamis értéket ad vissza.
  */
-public class Stone extends TektonBase implements Observable {
+public class Stone extends TektonBase {
 
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
@@ -74,7 +74,6 @@ public class Stone extends TektonBase implements Observable {
     @Override
     public void breakTekton(long seed) {
         Stone newTekton = new Stone();
-        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -85,7 +84,6 @@ public class Stone extends TektonBase implements Observable {
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
-                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -93,7 +91,6 @@ public class Stone extends TektonBase implements Observable {
 
         this.setNeighbours(remain);
         newTekton.setNeighbours(newNeighbours);
-        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
@@ -103,7 +100,6 @@ public class Stone extends TektonBase implements Observable {
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
-            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 
