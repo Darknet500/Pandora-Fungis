@@ -1,8 +1,6 @@
 package View;
 
 import Model.Bridge.GameBoard;
-import Model.Tekton.TektonBase;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -35,15 +33,8 @@ public class DrawingSurface extends JPanel {
         if(bg!=null){
             g2d.drawImage(bg, 0, 0, canvas.getWidth(), canvas.getHeight(),null);
         }
-        for(TektonBase t: gameBoard.getTektons()){
-            //get tekton hitboxes, draw their drawables,
-            //get bugs on the tektons, get their hitboxes, get the drawables from the hitbox, draw them
-            //get mushrooms ...
-            //get spores ...
-            //get Hypas ...
-        }
+        //  TODO: draw everyting
         g2d.dispose();
         g.drawImage(canvas, 0, 0, null);
-
     }
 }

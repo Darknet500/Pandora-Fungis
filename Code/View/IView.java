@@ -8,4 +8,10 @@ public interface IView {
     void displayMessage(String message);
     void setEndOfGame();
     void run();
+
+    /**
+     * kontroller ertesiti a view-t, grafikusban letiltjuk a hatasara a masik jatekosfajta akcio kivalaszto gombjait
+     */
+    void shroomerNext(String playerName);
+    void buggerNext(String playerName);
 }

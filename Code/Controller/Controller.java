@@ -191,17 +191,46 @@ public class Controller {
      */
     private void success(){
         if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round == 20){
-            //last player in the round just made a successful action and it is the last round of the game
+            /**
+             * a korben utolso jatekos sikeres akciot hajtott vegre es ez volt az utolso kor
+             */
             view.setEndOfGame();
             endOfRound();
         } else if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round != 20){
-            //last player in the round just made a successful action
+            /**
+             * a korben utolso jatekos sikeres akciot hajtott vegre
+             */
             round++;
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
+            /**
+             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
+             */
+            Player next;
+            if(gameBoard.getShroomers().containsKey(actualPlayer)){
+                next = gameBoard.getShroomers().get(actualPlayer);
+                view.shroomerNext(gameBoard.getPlayerName(next));
+            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
+                next = gameBoard.getBuggers().get(actualPlayer);
+                view.buggerNext(gameBoard.getPlayerName(next));
+            }
             endOfRound();
             view.displayMessage("SUCESS: Round: "+round+", The next player is: "+ actualPlayer);
         } else{
+            /**
+             * a jatekos sikeres akciot hajtott vegre, kovetkezo jatekos jon
+             */
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
+            /**
+             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
+             */
+            Player next;
+            if(gameBoard.getShroomers().containsKey(actualPlayer)){
+                next = gameBoard.getShroomers().get(actualPlayer);
+                view.shroomerNext(gameBoard.getPlayerName(next));
+            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
+                next = gameBoard.getBuggers().get(actualPlayer);
+                view.buggerNext(gameBoard.getPlayerName(next));
+            }
             view.displayMessage("SUCCESS: Round: "+round+", The next player is: "+ actualPlayer);
         }
     }

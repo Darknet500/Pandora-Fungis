@@ -9,6 +9,8 @@ import Model.Bug.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +24,18 @@ public class GraphicView extends JFrame implements IView{
     private Controller controller;
 
     private Dimension screensize;
+    private JButton moveBtn;
+    private JButton eatBtn;
+    private JButton biteBtn;
+    private JButton throwSporeBtn;
+    private JButton growHypaBtn;
+    private JButton growHypaFarBtn;
+    private JButton eatBugBtn;
+    private JButton skipBtn;
+    private JLabel nextPlayerName;
 
     private SelectedAction selectedAction;
-    private Tekton[] selectedTekton;
+    private TektonBase[] selectedTektons;
     private Bug selectedBug;
     private Spore selectedSpore;
     private Hypa selectedHypa;
@@ -41,11 +52,59 @@ public class GraphicView extends JFrame implements IView{
         gameBoard = null;
         controller = null;
         selectedAction = null;
-        selectedTekton = new Tekton[3];
-        selectedBug = null;
-        selectedSpore = null;
-        selectedHypa = null;
-        selectedMushroom = null;
+        clearSelection();
+
+        moveBtn = new PandoraButton("MOVE");
+        moveBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.MOVE;
+        });
+
+        eatBtn = new PandoraButton("EAT");
+        eatBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.EAT;
+        });
+
+        biteBtn = new PandoraButton("BITE");
+        biteBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.BITE;
+        });
+
+        throwSporeBtn = new PandoraButton("THROWSPORE");
+        throwSporeBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.THROWSPORE;
+        });
+
+        growHypaBtn = new PandoraButton("GROWHYPA");
+        growHypaBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.BITE;
+        });
+
+        growHypaFarBtn = new PandoraButton("GROWHYPAFAR");
+        growHypaFarBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.GROWHYPAFAR;
+        });
+
+        eatBugBtn = new PandoraButton("EATBUG");
+        eatBugBtn.addActionListener(e -> {
+            clearSelection();
+            selectedAction=SelectedAction.EATBUG;
+
+        });
+
+        skipBtn = new PandoraButton("SKIP");
+        skipBtn.addActionListener(e -> {
+            controller.endturn();
+        });
+
+        nextPlayerName = new JLabel();
+        nextPlayerName.setFont(new Font("Arial", Font.PLAIN, 20));
+        nextPlayerName.setForeground(Color.WHITE);
     }
 
     @Override
@@ -471,14 +530,268 @@ public class GraphicView extends JFrame implements IView{
     private JPanel gameBoardPanel(CardLayout layout, JPanel cards){
         JPanel gameBoardPanel = new JPanel(new BorderLayout());
         gameBoardPanel.setSize(this.getSize());
-        DrawingSurface drawingsurface = new DrawingSurface(screensize.width,screensize.height-30, gameBoard);
+        /**
+         * palya kirajzolo felulete
+         * kattintasokra mouseListener figyel, kivalasztott akcio kontextusaban gyujti a parametereket,
+         * ha megvan minden, hivja a controllert
+         */
+        DrawingSurface drawingsurface = new DrawingSurface(screensize.width,screensize.height-50, gameBoard);
+        drawingsurface.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(selectedAction==null){
+                    System.out.println("ERROR: no action was selected");
+                    return;
+                }
+                switch(selectedAction){
+                    case MOVE: {
+                        if(selectedBug==null){
+                            selectBug(e);
+                        } else {
+                            selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                if(controller.move(selectedBug, selectedTektons[0])) {
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                    case EAT: {
+                        if(selectedBug==null){
+                            selectBug(e);
+                        } else {
+                            selectSpore(e);
+                            if(selectedSpore!=null){
+                                if(controller.eat(selectedBug, selectedSpore)) {
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                    case BITE: {
+                        if(selectedBug==null){
+                            selectBug(e);
+                        } else {
+                            selectHypa(e);
+                            if(selectedHypa!=null){
+                                if(controller.bite(selectedBug, selectedHypa)){
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                    case THROWSPORE: {
+                        if(selectedMushroom==null){
+                            selectMushroom(e);
+                        } else {
+                            selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                if(controller.throwspore(selectedMushroom, selectedTektons[0])){
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                    case GROWHYPA: {
+                        if(selectedTektons[0]==null){
+                            selectTekton(e);
+                        } else if (selectedTektons[1]==null){
+                            selectTekton(e);
+                            if(selectedTektons[1]!=null){
+                                if(controller.growhypa(selectedTektons[0], selectedTektons[1])){
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                    case GROWHYPAFAR: {
+                        if(selectedTektons[0]==null){
+                            selectTekton(e);
+                        } else if (selectedTektons[1]==null){
+                            selectTekton(e);
+                        } else if(selectedTektons[2]==null){
+                            selectTekton(e);
+                            if(selectedTektons[2]!=null){
+                                if(controller.growhypa(selectedTektons[0], selectedTektons[1])){
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                    }
+                    case EATBUG: {
+                        if(selectedBug==null){
+                            selectBug(e);
+                            if(selectedBug!=null){
+                                if(controller.eatbug(selectedBug)){
+                                    drawingsurface.repaint();
+                                }
+                                clearSelection();
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        });
+
         gameBoardPanel.add(drawingsurface, BorderLayout.NORTH);
+
+        /**
+         * kontroll panel a gomboknak, gombok a konstruktorban peldanyositva
+         */
+        JPanel outerControlPanel = new JPanel(new BorderLayout());
+        JPanel innerControlPanel = new JPanel();
+        innerControlPanel.setLayout(new BoxLayout(innerControlPanel,BoxLayout.X_AXIS));
+        innerControlPanel.setBackground(Color.BLACK);
+
+        innerControlPanel.add(moveBtn);
+        moveBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(eatBtn);
+        eatBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(biteBtn);
+        biteBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(throwSporeBtn);
+        throwSporeBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(growHypaBtn);
+        growHypaBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(growHypaFarBtn);
+        growHypaFarBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(eatBugBtn);
+        eatBugBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        innerControlPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        innerControlPanel.add(skipBtn);
+        skipBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        innerControlPanel.add(Box.createHorizontalGlue());
+
+        innerControlPanel.add(nextPlayerName);
+        nextPlayerName.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        outerControlPanel.setPreferredSize(new Dimension(gameBoardPanel.getWidth(), 50));
+        outerControlPanel.add(innerControlPanel, BorderLayout.CENTER);
+        gameBoardPanel.add(outerControlPanel, BorderLayout.SOUTH);
+
         return gameBoardPanel;
+    }
+
+    private void clearSelection(){
+        selectedAction = null;
+        selectedTektons = new Tekton[3];
+        for(int i = 0; i < 3; i++){
+            selectedTektons[i] = null;
+        }
+        selectedBug = null;
+        selectedSpore = null;
+        selectedHypa = null;
+        selectedMushroom = null;
+    }
+
+    private void selectTekton(MouseEvent e){
+        for(TektonBase t: gameBoard.getTektons()){
+            if(false/* && gameBoard.getHitbox(t).isHit(e)*/){
+                for(int i = 0; i<3; i++){
+                    if(selectedTektons[i] == null){
+                        selectedTektons[i] = t;
+                        break;
+                    }
+                }
+                return;
+            }
+        }
+    }
+
+    private void selectBug(MouseEvent e){
+        for(TektonBase t: gameBoard.getTektons()){
+            Bug b = t.getBug();
+            if(b!=null /* && gameBoard.getHitbox(b).isHit(e)*/){
+                selectedBug=b;
+                return;
+            }
+        }
+    }
+
+    private void selectHypa(MouseEvent e){
+        for(TektonBase t: gameBoard.getTektons()){
+            for(Hypa h: t.getHypas()){
+                if(false/* && gameBoard.getHitbox(h).isHit(e)*/){
+                    selectedHypa=h;
+                    return;
+                }
+            }
+        }
+    }
+
+    private void selectSpore(MouseEvent e){
+        for(TektonBase t: gameBoard.getTektons()){
+            for(Spore s: t.getStoredSpores()){
+                if(false/* && gameBoard.getHitbox(s).isHit(e)*/){
+                    selectedSpore=s;
+                    return;
+                }
+            }
+        }
+    }
+
+    private void selectMushroom(MouseEvent e){
+        for(TektonBase t: gameBoard.getTektons()){
+            Mushroom m = t.getMushroom();
+            if(m!=null /* && gameBoard.getHitbox(m).isHit(e)*/){
+                selectedMushroom=m;
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void shroomerNext(String playerName){
+        moveBtn.setEnabled(false);
+        eatBtn.setEnabled(false);
+        biteBtn.setEnabled(false);
+        throwSporeBtn.setEnabled(true);
+        growHypaBtn.setEnabled(true);
+        growHypaFarBtn.setEnabled(true);
+        eatBugBtn.setEnabled(true);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+    }
+
+    @Override
+    public void buggerNext(String playerName){
+        moveBtn.setEnabled(true);
+        eatBtn.setEnabled(true);
+        biteBtn.setEnabled(true);
+        throwSporeBtn.setEnabled(false);
+        growHypaBtn.setEnabled(false);
+        growHypaFarBtn.setEnabled(false);
+        eatBugBtn.setEnabled(false);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
     }
 
     @Override
     public void displayMessage(String message){}
     @Override
     public void setEndOfGame(){}
-
 }

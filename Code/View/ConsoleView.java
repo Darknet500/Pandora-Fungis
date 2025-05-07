@@ -952,4 +952,18 @@ public class ConsoleView implements IView{
             }
         }
     }
+
+    @Override
+    public void shroomerNext(String playerName){
+        /**
+         * no-op
+         */
+    }
+
+    @Override
+    public void buggerNext(String playerName){
+        /**
+         * no-op
+         */
+    }
 }
