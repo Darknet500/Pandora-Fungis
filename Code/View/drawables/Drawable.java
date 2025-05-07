@@ -18,4 +18,5 @@ public interface Drawable {
      * @return
      */
     Point getPosition();
+
 }

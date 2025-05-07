@@ -5,6 +5,7 @@ import Model.Tekton.*;
 import Model.Shroomer.*;
 import View.hitboxes.BugHitbox;
 import View.hitboxes.Hitbox;
+import View.hitboxes.MushroomHitbox;
 
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
@@ -53,7 +54,9 @@ public class Bug {
         return bugger;
     }
 
-
+    public void addObserver(BugHitbox hitbox){
+        this.hitbox = hitbox;
+    }
 
     /**
      * Beállítja a Bug stratégiáját.

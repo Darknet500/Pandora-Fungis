@@ -17,7 +17,7 @@ import java.util.Random;
  * A Peat egy speciális Tekton típus, amelyen több fonal (Hypa) is keresztezheti egymást.
  * Ez azt jelenti, hogy az acceptHypa metódus mindig igaz értéket ad vissza.
  */
-public class Peat extends TektonBase implements Observable {
+public class Peat extends TektonBase {
 
     /**
      * Alapértelmezett konstruktor, amely meghívja az ősosztály (Tekton) konstruktorát.
@@ -94,7 +94,6 @@ public class Peat extends TektonBase implements Observable {
     @Override
     public void breakTekton(long seed) {
         Peat newTekton = new Peat();
-        notifyObservers(EventType.TEKTON_BROKEN, newTekton);
 
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
@@ -105,7 +104,6 @@ public class Peat extends TektonBase implements Observable {
         for (TektonBase neighbour: neighbours) {
             if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
                 newNeighbours.add(neighbour);
-                notifyObservers(EventType.NEIGHBOUR_REMOVED, neighbour);
             } else{
                 remain.add(neighbour);
             }
@@ -113,7 +111,6 @@ public class Peat extends TektonBase implements Observable {
 
         this.setNeighbours(remain);
         newTekton.setNeighbours(newNeighbours);
-        notifyObservers(EventType.NEIGHBOUR_ADDED, newTekton);
         // A régi és az új szomszédok lesznek
         addNeighbour(newTekton);
         newTekton.addNeighbour(this);
@@ -123,7 +120,6 @@ public class Peat extends TektonBase implements Observable {
         hypasList.addAll(connectedHypas);
         for(Hypa h : hypasList){
             h.die();
-            notifyObservers(EventType.HYPA_REMOVED, h);
         }
     }
 
