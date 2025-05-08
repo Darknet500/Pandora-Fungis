@@ -54,6 +54,7 @@ public class GameBoard {
     private static int stoneID = 1;
     private static int swampID = 1;
     private static int tektonID = 1;
+    private static final Random rand = new Random();
 
     public GameBoard(){
         view = null;
@@ -144,7 +145,11 @@ public class GameBoard {
         int tektonsCount = allTektons.size();
         int ystep = view.getDrawingSurfaceHeight()/6;
         int xstep = view.getDrawingSurfaceWidth()/6;
-        Point point = new Point(xstep+tektonsCount%5*xstep,ystep+(int)Math.floor((double)tektonsCount/5)*ystep);
+        double randmovx = (rand.nextDouble()-1)/4;
+        double randmovy = (rand.nextDouble()-1)/4;
+        Point point = new Point(xstep+tektonsCount%5*xstep+(int)(randmovx*xstep),ystep+(int)Math.floor((double)tektonsCount/5)*ystep+(int)(randmovy*ystep));
+
+
 
         //spórákhoz tartozó előre beállítások
         Point sporepoint = new Point(0,0);
