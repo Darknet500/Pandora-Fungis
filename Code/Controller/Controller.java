@@ -7,6 +7,7 @@ import Model.Tekton.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -72,32 +73,23 @@ public class Controller {
         }
 */
         //játékosok kezdő objektumainak elhelyezése
-        for (int i = 0; i < gameBoard.getNumberOfPlayers(); i++) {
-            /*int j=1;
-            while (true){
-                if((gameBoard.getBuggers().containsKey(j))){
-                    Bug bug = new Bug (gameBoard.getBuggers().get(j));
-                    gameBoard.getBuggers().get(j).addBug(bug);
-                    bug.setLocation(gameBoard.getTektons().get(j*2));
-                }j++;
-            }*/
-            /*
-            while(true){
+
+        for(Shroomer s: gameBoard.getShroomers().values()){
+            for (int z=0;z<100;z++) {
                 int ir = rand.nextInt(25);
-
-                if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null&&normalTektonsNumber.contains(ir)) {
-                    if(gameBoard.getShroomers().containsKey(i)){
-                        //gameBoard.getShroomers().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
-                    }else{
-                        Bug bug = new Bug(gameBoard.getBuggers().get(i));
-                        gameBoard.getBuggers().get(i).addBug(bug);
-                        bug.setLocation(gameBoard.getTektons().get(ir));
-                    }
-
+                TektonBase tekton = gameBoard.getTektons().get(ir);
+                if(tekton.canMushroomGrow()&&!tekton.hasMushroom()){
+                    s.growFirstMushroom(tekton);
                     break;
                 }
-            }*/
+                if(z==99) System.out.println("nem sikerült megfelelő tektont találni");
+            }
         }
+
+            /**
+             * TO DO : buggersek hozzáadása, megfelelő tektonra
+             */
+
     }
 
     public void gameCycle(){

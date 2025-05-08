@@ -25,6 +25,11 @@ public class Stone extends TektonBase {
     }
 
     @Override
+    public boolean canMushroomGrow(){
+        return false;
+    }
+
+    @Override
     public void endOfRound(){}
 
     /**

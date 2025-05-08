@@ -135,4 +135,7 @@ public abstract class Mushroom {
         this.hitbox = hitbox;
     }
 
+    public MushroomHitbox getHitbox(){
+        return hitbox;
+    }
 }

@@ -38,10 +38,10 @@ public class DrawableTexture implements Drawable {
      * @param pos Middle position of the texture
      * @param image Textures image file
      */
-    public DrawableTexture(Point pos, BufferedImage image) {
+    public DrawableTexture(Point pos, BufferedImage image, int width) {
         this.Position = pos;
         this.image = image;
-        this.Width = image.getWidth();
+        this.Width = width;
     }
 
     /**
@@ -93,7 +93,7 @@ public class DrawableTexture implements Drawable {
         int drawX = Position.x - image.getWidth() / 2;
         int drawY = Position.y - image.getHeight() / 2;
 
-        g2d.drawImage(image, drawX, drawY, null);
+        g2d.drawImage(image, drawX, drawY,Width,Width, null);
         g2d.dispose();
     }
 
@@ -116,6 +116,9 @@ public class DrawableTexture implements Drawable {
      */
     public int getWidth() {
         return Width;
+    }
+    public void setWidth(int width) {
+        Width = width;
     }
 
     public BufferedImage getImage() {

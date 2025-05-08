@@ -2,6 +2,7 @@ package View;
 
 import Model.Bridge.GameBoard;
 import Model.Bug.Bugger;
+import Model.Shroomer.Shroomer;
 import Model.Tekton.Tekton;
 import Model.Tekton.TektonBase;
 import View.hitboxes.TektonHitbox;
@@ -49,6 +50,12 @@ public class DrawingSurface extends JPanel {
         for (Bugger b : gameBoard.getBuggers().values()){
             for (int i = 0; i < b.getBugs().size(); i++){
                 b.getBugs().get(i).getHitbox().getDrawable().draw(canvas);
+            }
+        }
+
+        for (Shroomer s: gameBoard.getShroomers().values()){
+            for (int i = 0; i < s.getMushrooms().size(); i++){
+                s.getMushrooms().get(i).getHitbox().getDrawable().draw(canvas);
             }
         }
 

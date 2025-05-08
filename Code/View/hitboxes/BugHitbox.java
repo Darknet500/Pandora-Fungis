@@ -35,7 +35,7 @@ public class BugHitbox extends Hitbox{
             e.printStackTrace();
         }
 
-        drawable = new DrawableTexture(centerPoint, image);
+        drawable = new DrawableTexture(centerPoint, image, 45);
     }
 
     private String setColor(Color color){

@@ -11,13 +11,15 @@ import java.io.File;
 public class TektonHitbox extends Hitbox{
     private TektonBase tekton;
     private Point centerPoint;
+    private int width;
     /**
      * TektonHitbox konstruktor
      * @param
      */
-    public TektonHitbox(Point centerPoint, TektonBase tekton, String tektonType ) {
+    public TektonHitbox(Point centerPoint, TektonBase tekton, String tektonType, int width) {
         this.centerPoint = centerPoint;
         this.tekton = tekton;
+        this.width = width;
         BufferedImage image = null;
 
         try {
@@ -30,7 +32,7 @@ public class TektonHitbox extends Hitbox{
             throw new IllegalArgumentException("Image could not be loaded for type: " + tektonType);
         }
 
-        drawable=new DrawableTexture(centerPoint, image);
+        drawable=new DrawableTexture(centerPoint, image, width);
     }
 
     /**
@@ -49,6 +51,12 @@ public class TektonHitbox extends Hitbox{
         return centerPoint;
     }
 
+    public void setWidth(int width){
+        width = width;
+    }
+    public int getWidth(){
+        return width;
+    }
 
 
 }

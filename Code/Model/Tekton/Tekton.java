@@ -106,8 +106,9 @@ public class Tekton  extends TektonBase {
      */
     @Override
     public boolean canMushroomGrow(Shroomer s) {
-        if (hasMushroom())
+        if (hasMushroom()) {
             return false;
+        }
         if (s == null) {
             return false;  // Ha a Shroomer null, akkor nem tud nőni gomba
         }

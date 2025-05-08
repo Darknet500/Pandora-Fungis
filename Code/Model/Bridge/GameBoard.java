@@ -221,7 +221,8 @@ public class GameBoard {
             }
             case "biteblockermushroom":{
                 name = type + biteBlockerMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "biteblockermushroom");
+                int tektonsize = (int)(ystep*0.8);
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "biteblocker",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -234,8 +235,9 @@ public class GameBoard {
                 break;
             }
             case "boostermushroom":{
+                int tektonsize = (int)(ystep*0.8);
                 name = type + boosterMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "boostermushroom");
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "booster",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -253,8 +255,9 @@ public class GameBoard {
                 break;
             }
             case "paralyzermushroom":{
+                int tektonsize = (int)(ystep*0.8);
                 name = type + paralyzerMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "paralyzermushroom");
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "paralyzer",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -267,8 +270,9 @@ public class GameBoard {
                 break;
             }
             case "proliferatingmushroom":{
+                int tektonsize = (int)(ystep*0.8);
                 name = type + proliferatingMmushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "proliferatingmushroom");
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "proliferating",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -286,8 +290,9 @@ public class GameBoard {
                 break;
             }
             case "slowermushroom":{
+                int tektonsize = (int)(ystep*0.8);
                 name = type + slowerMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "slowermushroom");
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "slower",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -302,7 +307,7 @@ public class GameBoard {
             case "peat":{
                 name = type + peatID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "peat");
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "peat", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
 
@@ -311,7 +316,7 @@ public class GameBoard {
             case "soil":{
                 name = type + soilID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "soil");
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "soil", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -319,7 +324,7 @@ public class GameBoard {
             case "stone":{
                 name = type + stoneID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "stone");
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "stone", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -327,7 +332,7 @@ public class GameBoard {
             case "swamp":{
                 name = type + swampID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "swamp");
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "swamp", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -336,7 +341,7 @@ public class GameBoard {
                 name = type + tektonID++;
 
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "tekton");
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "tekton", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
