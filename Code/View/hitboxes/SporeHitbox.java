@@ -23,7 +23,7 @@ public class SporeHitbox extends Hitbox {
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(2,43,226));
                 break;
             case "Slower":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(250,163,0);
+                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(250,163,0));
                 break;
             case "Proliferating":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(255,45,198));

@@ -149,7 +149,7 @@ public class GameBoard {
         //spórákhoz tartozó előre beállítások
         Point sporepoint = new Point(0,0);
         if(type.equals("boosterspore")||type=="paralyzerspore"||type=="proliferatingspore"||type=="slowerspore") {
-            TektonBase sporelocation;
+            TektonBase sporelocation=null;
             for (TektonBase tektonBase : allTektons) {
                 List<Spore> tektonsspore = tektonBase.getStoredSpores();
                 for (Spore spore: tektonsspore){
@@ -159,10 +159,19 @@ public class GameBoard {
                     }
                 }
             }
-/*            if(sporelocation!=null){
-                ((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint().
+            if(sporelocation!=null){
+                /**
+                 * Megnézem hogy mennyi spóra van létrehozva és aszerint 1/12-ed arréb mozgatom a tekton origójú 50 usgarú körön
+                 */
+
+                int sporecount = sporelocation.getStoredSpores().size()-1;
+                double angle =  sporecount*Math.PI/6;
+                Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
+                int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*50);
+                int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*50);
+                sporepoint.setLocation(x, y);
             }
-  */      }
+        }
 
         ///mushroom létrehozásához közös dolgok beállítása
         Point tektoncenterpoint = new Point(0,0);
