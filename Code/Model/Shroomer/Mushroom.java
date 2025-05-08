@@ -75,7 +75,7 @@ public abstract class Mushroom {
     public void age() {
         age++;
         if(age==5)
-            hitbox.onBecameOld();
+            hitbox.onTextureChanged();
     }
 
     /**
@@ -111,7 +111,7 @@ public abstract class Mushroom {
     public void increaseNumberofSpores() {
         numberOfSpores++;
         if(numberOfSpores==1)
-            hitbox.onSporeThrowableChanged();
+            hitbox.onTextureChanged();
     }
 
     /**

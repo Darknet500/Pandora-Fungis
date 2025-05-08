@@ -68,7 +68,6 @@ public class Bug {
             GameBoard.removeReferenceFromMaps(strategy);
         }
         strategy = s;
-        hitbox.onStrategyChanged();
     }
 
     public Strategy getStrategy() {

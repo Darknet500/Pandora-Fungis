@@ -247,7 +247,6 @@ public class Shroomer extends Player {
             Hypa hyp = iterator.next();
             if (hyp.getIsDyingSinceDisconnected()!=1&&hyp.getIsDyingSinceBitten()!=hypaDieAfterBite)
                 hyp.age();
-
             else {
                 if (hyp.getIsDyingSinceDisconnected() == 1) {
                     TektonBase end1 = hyp.getEnd1();
@@ -304,8 +303,9 @@ public class Shroomer extends Player {
             if (inNetworkTektons.contains(hypa.getEnd1())||inNetworkTektons.contains(hypa.getEnd2())) {
                 hypa.setIsDyingSinceDisconnected(-1);
             }else{
-                if (hypa.getIsDyingSinceDisconnected() == -1)
+                if (hypa.getIsDyingSinceDisconnected() == -1) {
                     hypa.setIsDyingSinceDisconnected(0);
+                }
             }
         }
     }

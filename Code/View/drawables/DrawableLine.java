@@ -1,7 +1,5 @@
 package View.drawables;
 
-import View.Coordinate;
-
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
@@ -54,6 +52,11 @@ public class DrawableLine implements Drawable {
         this.Color = color;
         this.line = new Line2D.Double(End1, End2);
 
+    }
+
+
+    public void changecolorA(int a){
+        this.Color = new Color(this.Color.getRed(), this.Color.getGreen(), this.Color.getBlue(), a);
     }
 
     @Override

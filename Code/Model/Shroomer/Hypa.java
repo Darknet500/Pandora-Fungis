@@ -4,6 +4,8 @@ import java.util.*;
 
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
+import View.hitboxes.HypaHitbox;
+import View.hitboxes.MushroomHitbox;
 
 
 /**
@@ -12,6 +14,7 @@ import Model.Tekton.*;
  */
 public class Hypa {
 
+    protected HypaHitbox hitbox;
     /**
      * A Hypa egyik végpontja.
      */
@@ -75,6 +78,7 @@ public class Hypa {
      */
     public void setIsDyingSinceDisconnected(int isDyingSinceDisconnected) {
         this.isDyingSinceDisconnected = isDyingSinceDisconnected;
+        hitbox.onHypaChanged(1-isDyingSinceDisconnected);
     }
 
     /**
@@ -92,6 +96,7 @@ public class Hypa {
      * @param isDyingSinceBitten - Az új érték, amely jelzi az elharapás óta eltelt köröket.
      */
     public void setIsDyingSinceBitten(int isDyingSinceBitten) {
+
         this.isDyingSinceBitten = isDyingSinceBitten;
     }
 
@@ -153,5 +158,10 @@ public class Hypa {
         if (isDyingSinceBitten!=-1) isDyingSinceBitten++;
         if (isDyingSinceDisconnected!=-1) isDyingSinceDisconnected++;
     }
+
+    public void addObserver(HypaHitbox hitbox){
+        this.hitbox = hitbox;
+    }
+
 
 }

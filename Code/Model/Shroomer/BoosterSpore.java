@@ -33,6 +33,7 @@ public class BoosterSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy boosted = new Boosted();
         b.setStrategy(boosted);
+        b.getHitbox().onStrategyChanged("boosted");
         return 1;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

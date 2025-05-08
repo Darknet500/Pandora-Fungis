@@ -6,39 +6,48 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+import java.io.File;
 
 public class TektonHitbox extends Hitbox{
-    TektonBase tekton;
-    Point centerPoint;
+    private TektonBase tekton;
+    private Point centerPoint;
     /**
      * TektonHitbox konstruktor
      * @param
-     *
      */
     public TektonHitbox(Point centerPoint, TektonBase tekton, String tektonType ) {
         this.centerPoint = centerPoint;
         this.tekton = tekton;
         BufferedImage image = null;
+
         try {
-                    image=ImageIO.read(Objects.requireNonNull(getClass().getResource("/Assets/Tektons/"+tektonType+".png")));
+            image=ImageIO.read(new File(System.getProperty("user.dir"), "\\Assets\\Tektons\\"+tektonType+".png"));
 
         }catch (IOException e){
             e.printStackTrace();
         }
+        if (image == null) {
+            throw new IllegalArgumentException("Image could not be loaded for type: " + tektonType);
+        }
 
-        //drawable=new DrawableTexture(centerPoint, image);
+        drawable=new DrawableTexture(centerPoint, image);
     }
 
     /**
      *
      */
+    @Override
     public boolean isHit(Point point){
-        if(point.x>=centerPoint.x-16&&point.x<=centerPoint.x+16&&point.y>=centerPoint.y-16&&point.y<=centerPoint.y+16)
+        if(point.distance(centerPoint)<=64){
+            System.out.println("Tektonhitbox Hit!");
             return true;
+        }
         return false;
     }
 
+    public Point getCenterPoint() {
+        return centerPoint;
+    }
 
 
 

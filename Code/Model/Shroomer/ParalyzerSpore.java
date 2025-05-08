@@ -30,6 +30,7 @@ public class ParalyzerSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy paralyzed = new Paralyzed();
         b.setStrategy(paralyzed);
+        b.getHitbox().onStrategyChanged("paralyzed");
         return 4;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

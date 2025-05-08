@@ -1,11 +1,14 @@
 package View.hitboxes;
 
+import Model.Bridge.GameBoard;
 import Model.Bug.Bug;
 import View.drawables.DrawableTexture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -13,23 +16,43 @@ import java.util.Objects;
 public class BugHitbox extends Hitbox{
     Bug bug;
     Point centerPoint;
+    String bugColor;
 
-    public BugHitbox(Bug bug, Point centerPoint, String bugTexture) {
+    public BugHitbox(Bug bug, Point centerPoint, Color Color) {
         this.bug = bug;
         this.centerPoint = centerPoint;
+        this.bugColor = setColor(Color);
+
+
         bug.addObserver(this);
 
         BufferedImage image = null;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Assets/BUGS/"+ image.getColorModel().toString() +"Normal.png"))); // itt nem tudom hogy kellene lekérdezni a színét :D
+            image = ImageIO.read(new File(System.getProperty("user.dir"),
+                    "\\Assets\\BUGS\\"+ bugColor + "Normal.png"));
 
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        drawable=new DrawableTexture(centerPoint, image);
+        drawable = new DrawableTexture(centerPoint, image);
     }
 
+    private String setColor(Color color){
+        if(color == Color.BLUE){
+            return "blue";
+        }
+        else if(color == Color.RED){
+            return "red";
+        }
+        else if(color == Color.GREEN){
+            return "green";
+        }
+        else if(color == Color.MAGENTA){
+            return "purple";
+        }
+        return "A kurva anyád";
+    }
 
     /**
      * Checks if the object was clicked
@@ -42,32 +65,24 @@ public class BugHitbox extends Hitbox{
         return false;
     }
 
-    public void onStrategyChanged() {
-        String strategyName = bug.getStrategy().toString();
+    public void onStrategyChanged(String strategy) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
-                    "/Assets/BUGS/" + image.getColorModel().toString() + strategyName + ".png"
+                    "/Assets/BUGS/" + bugColor + strategy +".png"
             )));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        drawable = new DrawableTexture(centerPoint, image);
+        ((DrawableTexture)drawable).refreshImage(image);
     }
 
+
     public void onPositionChanged() {
-        String strategyName = bug.getStrategy().toString();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
-                    "/Assets/BUGS/" + image.getColorModel().toString() + strategyName + ".png"
-            )));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (drawable != null) {
-           // drawable = new DrawableTexture(bug.getLocation()., image); // Hogy lehet lekérdezni egy tekton pozícióját? Tektonnak nincs referenciája a hitboxára
+            Point nPoint = new Point(bug.getLocation().getHitbox().getCenterPoint().x + 10, bug.getLocation().getHitbox().getCenterPoint().y);
+            ((DrawableTexture)drawable).setPosition(nPoint);
         }
     }
 }

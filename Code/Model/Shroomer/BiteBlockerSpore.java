@@ -33,6 +33,7 @@ public class BiteBlockerSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy biteBlocked = new BiteBlocked();
         b.setStrategy(biteBlocked);
+        b.getHitbox().onStrategyChanged("biteBlocked");
         return 2; //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

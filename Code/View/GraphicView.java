@@ -5,6 +5,8 @@ import Model.Bridge.GameBoard;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 import Model.Bug.*;
+import View.hitboxes.Hitbox;
+import View.hitboxes.TektonHitbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,6 +26,8 @@ public class GraphicView extends JFrame implements IView{
     private Controller controller;
 
     private Dimension screensize;
+    private DrawingSurface drawingsurface;
+
     private JButton moveBtn;
     private JButton eatBtn;
     private JButton biteBtn;
@@ -45,7 +49,9 @@ public class GraphicView extends JFrame implements IView{
         super("Pandora-Fungorium");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         screensize = Toolkit.getDefaultToolkit().getScreenSize();
+
         this.setUndecorated(true);
         this.setResizable(false);
 
@@ -81,7 +87,7 @@ public class GraphicView extends JFrame implements IView{
         growHypaBtn = new PandoraButton("GROWHYPA");
         growHypaBtn.addActionListener(e -> {
             clearSelection();
-            selectedAction=SelectedAction.BITE;
+            selectedAction=SelectedAction.GROWHYPA;
         });
 
         growHypaFarBtn = new PandoraButton("GROWHYPAFAR");
@@ -108,10 +114,22 @@ public class GraphicView extends JFrame implements IView{
     }
 
     @Override
+    public int getDrawingSurfaceWidth(){
+        return drawingsurface.getWidth();
+    }
+
+    @Override
+    public int getDrawingSurfaceHeight(){
+        return drawingsurface.getHeight();
+    }
+
+    @Override
     public void connectObjects(GameBoard gameBoard, Controller controller) {
         this.gameBoard = gameBoard;
         this.controller = controller;
+        drawingsurface = new DrawingSurface(screensize.width,screensize.height-50, gameBoard);
         controller.connectObjects(this, gameBoard);
+        gameBoard.connectToView(this);
         controller.setSeed(12345L);
 
     }
@@ -241,6 +259,8 @@ public class GraphicView extends JFrame implements IView{
          */
         startButton.addActionListener(e -> {
             //initmap konstruktorban
+            controller.gameCycle();
+            controller.initMap();
             layout.show(cards, "gameboard");
         });
         bottomControlPanel.add(startButton);
@@ -499,7 +519,7 @@ public class GraphicView extends JFrame implements IView{
         JButton addBuggerButton = new PandoraButton("+");
         addBuggerButton.addActionListener(e -> {
             Bugger newBugger = new Bugger();
-            gameBoard.addBugger(newBugger, buggerNameTf.getText());
+            gameBoard.addBugger(newBugger, buggerNameTf.getText(), colorSelectorButton.getBackground());
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
@@ -530,15 +550,17 @@ public class GraphicView extends JFrame implements IView{
     private JPanel gameBoardPanel(CardLayout layout, JPanel cards){
         JPanel gameBoardPanel = new JPanel(new BorderLayout());
         gameBoardPanel.setSize(this.getSize());
+
         /**
          * palya kirajzolo felulete
          * kattintasokra mouseListener figyel, kivalasztott akcio kontextusaban gyujti a parametereket,
          * ha megvan minden, hivja a controllert
          */
-        DrawingSurface drawingsurface = new DrawingSurface(screensize.width,screensize.height-50, gameBoard);
+
         drawingsurface.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                System.out.println("X: "+e.getPoint().getX()+", Y:"+e.getPoint().getY());
                 if(selectedAction==null){
                     System.out.println("ERROR: no action was selected");
                     return;
@@ -601,7 +623,9 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPA: {
+                        System.out.println("growHypa parameter selection");
                         if(selectedTektons[0]==null){
+                            System.out.println("selecting 1st parameter");
                             selectTekton(e);
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
@@ -700,7 +724,7 @@ public class GraphicView extends JFrame implements IView{
 
     private void clearSelection(){
         selectedAction = null;
-        selectedTektons = new Tekton[3];
+        selectedTektons = new TektonBase[3];
         for(int i = 0; i < 3; i++){
             selectedTektons[i] = null;
         }
@@ -712,7 +736,8 @@ public class GraphicView extends JFrame implements IView{
 
     private void selectTekton(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
-            if(false/* && gameBoard.getHitbox(t).isHit(e)*/){
+            Hitbox h = gameBoard.getObjectHitbox(t);
+            if(h!=null && h.isHit(e.getPoint())){
                 for(int i = 0; i<3; i++){
                     if(selectedTektons[i] == null){
                         selectedTektons[i] = t;
@@ -727,9 +752,12 @@ public class GraphicView extends JFrame implements IView{
     private void selectBug(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             Bug b = t.getBug();
-            if(b!=null /* && gameBoard.getHitbox(b).isHit(e)*/){
-                selectedBug=b;
-                return;
+            if(b!=null){
+                Hitbox h = gameBoard.getObjectHitbox(b);
+                if(h!=null&&h.isHit(e.getPoint())){
+                    selectedBug=b;
+                    return;
+                }
             }
         }
     }
@@ -737,7 +765,8 @@ public class GraphicView extends JFrame implements IView{
     private void selectHypa(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             for(Hypa h: t.getHypas()){
-                if(false/* && gameBoard.getHitbox(h).isHit(e)*/){
+                Hitbox hitb = gameBoard.getObjectHitbox(h);
+                if(hitb!=null && hitb.isHit(e.getPoint())){
                     selectedHypa=h;
                     return;
                 }
@@ -748,7 +777,8 @@ public class GraphicView extends JFrame implements IView{
     private void selectSpore(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             for(Spore s: t.getStoredSpores()){
-                if(false/* && gameBoard.getHitbox(s).isHit(e)*/){
+                Hitbox h = gameBoard.getObjectHitbox(s);
+                if(h!=null && h.isHit(e.getPoint())){
                     selectedSpore=s;
                     return;
                 }
@@ -759,9 +789,12 @@ public class GraphicView extends JFrame implements IView{
     private void selectMushroom(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             Mushroom m = t.getMushroom();
-            if(m!=null /* && gameBoard.getHitbox(m).isHit(e)*/){
-                selectedMushroom=m;
-                return;
+            if(m!=null){
+                Hitbox h = gameBoard.getObjectHitbox(m);
+                if(h!=null && h.isHit(e.getPoint())){
+                    selectedMushroom=m;
+                    return;
+                }
             }
         }
     }

@@ -7,8 +7,6 @@ import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
 
-import Model.Observer.Observable;
-import Model.Observer.EventType;
 
 import java.util.*;
 

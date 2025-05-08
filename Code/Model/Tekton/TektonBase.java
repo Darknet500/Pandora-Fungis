@@ -6,8 +6,8 @@ import Model.Shroomer.Hypa;
 import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
-import Model.Observer.EventType;
 import View.hitboxes.Hitbox;
+import View.hitboxes.TektonHitbox;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,14 +41,28 @@ public abstract class TektonBase {
      */
     protected List<Hypa> connectedHypas;
 
+    protected TektonHitbox hitbox;
+
     public TektonBase() {
         this.bug = null;
         this.mushroom = null;
         this.storedSpores = new ArrayList<>();
         this.neighbours = new ArrayList<>();
         this.connectedHypas = new ArrayList<>();
+        this.hitbox = null;
     }
 
+    /**
+     * Sets the Hitbox of the tekton
+     * @param h Hitbox wich will be set
+     */
+    public void addObserver(TektonHitbox h){
+        this.hitbox = h;
+    }
+
+    public TektonHitbox getHitbox(){
+        return this.hitbox;
+    }
 
     /**
      * Ezt utólag írtam hozzá.

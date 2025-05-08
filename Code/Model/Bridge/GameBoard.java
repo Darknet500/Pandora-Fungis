@@ -3,26 +3,30 @@ package Model.Bridge;
 import Model.Tekton.*;
 import Model.Shroomer.*;
 import Model.Bug.*;
-import View.hitboxes.BugHitbox;
-import View.hitboxes.Hitbox;
-import View.hitboxes.TektonHitbox;
+import View.IView;
+import View.hitboxes.*;
 
+import java.awt.*;
 import java.util.*;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class GameBoard {
-    private List<TektonBase> allTektons;
+    static private IView view;
+
+    static private List<TektonBase> allTektons;
+
     private HashMap<Integer, Shroomer> shroomers;
     private HashMap<Integer, Bugger> buggers;
+
     private static HashMap<String, Object> nameObjectMap;
     private static HashMap<Object, String> objectNameMap;
     private static HashMap<Player, String> playerDisplayNameMap;
-
     private static HashMap<Player, String> playersTypeMap;
     private static HashMap<Object, Hitbox> objectHitboxMap;
     private static HashMap<Hitbox, Object> hitboxObjectMap;
-
+    private static HashMap<Bugger, Color> buggerColorMap;
     /**
      * ID számlálók minden modell osztályhoz
      */
@@ -52,6 +56,8 @@ public class GameBoard {
     private static int tektonID = 1;
 
     public GameBoard(){
+        view = null;
+
         allTektons = new ArrayList<>();
         shroomers = new HashMap<>();
         buggers = new HashMap<>();
@@ -61,6 +67,11 @@ public class GameBoard {
         objectHitboxMap = new HashMap<>();
         hitboxObjectMap = new HashMap<>();
         playersTypeMap = new HashMap<>();
+        buggerColorMap = new HashMap<>();
+    }
+
+    public void connectToView(IView view){
+        this.view = view;
     }
 
     public void addShroomer(Shroomer shroomer, String name){
@@ -73,7 +84,7 @@ public class GameBoard {
         playerDisplayNameMap.put(shroomer, name);
     }
 
-    public void addBugger(Bugger bugger, String name){
+    public void addBugger(Bugger bugger, String name, Color c){
         if (name.isEmpty()) name = "anonymous";
         int lastplayer = 0;
         while (shroomers.containsKey(lastplayer)||buggers.containsKey(lastplayer)){
@@ -81,19 +92,18 @@ public class GameBoard {
         }
         buggers.put(lastplayer, bugger);
         playerDisplayNameMap.put(bugger, name);
+        buggerColorMap.put(bugger, c);
     }
 
     public String getPlayerName(Player player){
         return playerDisplayNameMap.get(player);
-        /*Player player;
-        if (shroomers.containsKey(playerID)){
-            player = shroomers.get(playerID);
-            return playerDisplayNameMap.get(player);
-        }else if (buggers.containsKey(playerID)){
-            player = buggers.get(playerID);
-            return playerDisplayNameMap.get(player);
+    }
+
+    public Hitbox getObjectHitbox(Object o){
+        if(objectHitboxMap.containsKey(o)){
+            return objectHitboxMap.get(o);
         }
-        return null;*/
+        return null;
     }
 
     public HashMap<Integer, Shroomer> getShroomers(){
@@ -104,9 +114,9 @@ public class GameBoard {
         return buggers;
     }
 
-    public void addTekton(TektonBase tekton){
-        allTektons.add(tekton);
-    }
+    //public void addTekton(TektonBase tekton){
+    //    allTektons.add(tekton);
+    //}
 
     public List<TektonBase> getTektons(){
         return allTektons;
@@ -130,67 +140,202 @@ public class GameBoard {
 
     static public void addReferenceToMaps(String type, Object refe ){
         String name = null;
+        //tektonokhoz tartozó előre beállítáűsok
+        int tektonsCount = allTektons.size();
+        int ystep = view.getDrawingSurfaceHeight()/6;
+        int xstep = view.getDrawingSurfaceWidth()/6;
+        Point point = new Point(xstep+tektonsCount%5*xstep,ystep+(int)Math.floor((double)tektonsCount/5)*ystep);
+
+        //spórákhoz tartozó előre beállítások
+        Point sporepoint = new Point(0,0);
+        if(type.equals("boosterspore")||type=="paralyzerspore"||type=="proliferatingspore"||type=="slowerspore") {
+            TektonBase sporelocation;
+            for (TektonBase tektonBase : allTektons) {
+                List<Spore> tektonsspore = tektonBase.getStoredSpores();
+                for (Spore spore: tektonsspore){
+                    if(spore==(Spore)refe){
+                        sporelocation=tektonBase;
+                        break;
+                    }
+                }
+            }
+/*            if(sporelocation!=null){
+                ((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint().
+            }
+  */      }
+
+        ///mushroom létrehozásához közös dolgok beállítása
+        Point tektoncenterpoint = new Point(0,0);
+        if(type.equals("biteblockermushroom")||type.equals("paralyzermushroom")||type.equals("boostermushroom")||type.equals("slowermushroom")||type.equals("proliferatingmushroom")) {
+            TektonBase location = ((Mushroom) refe).getLocation();
+            TektonHitbox locationhitbox = (TektonHitbox) objectHitboxMap.get(location);
+            tektoncenterpoint = locationhitbox.getDrawable().getPosition();
+        }
         switch (type){
-            case "biteblocked" -> name = type + biteBlockedID++;
-            case "boosted" -> name = type + boostedID++;
-            case "bug" -> {
+            case "biteblocked":{
+                name = type + biteBlockedID++;
+
+                break;
+            }
+            case "boosted":{
+                name = type + boostedID++;
+
+                break;
+            }
+            case "bug":{
                 name = type + bugID++;
                 TektonBase location = ((Bug)refe).getLocation();
                 TektonHitbox locationhitbox = (TektonHitbox) objectHitboxMap.get(location);
-                new BugHitbox((Bug)refe, locationhitbox.getDrawable().getPosition(), playersTypeMap.get(((Bug)refe).getBugger()));
+                new BugHitbox((Bug)refe, locationhitbox.getDrawable().getPosition(), GameBoard.buggerColorMap.get((Bugger)refe));
+
+                break;
             }
-            case "bugger" -> name = type + buggerID++;
-            case "normal" -> name = type + normalID++;
-            case "paralyzed" -> name = type + paralyzedID++;
-            case "slowed" -> name = type + slowedID++;
-            case "biteblockermushroom" -> {
+            case "bugger":{
+                name = type + buggerID++;
+
+                break;
+            }
+            case "normal":{
+                name = type + normalID++;
+
+                break;
+            }
+            case "paralyzed":{
+                name = type + paralyzedID++;
+
+                break;
+            }
+            case "slowed":{
+                name = type + slowedID++;
+
+                break;
+            }
+            case "biteblockermushroom":{
                 name = type + biteBlockerMushroomID++;
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "biteblockermushroom");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "biteblockerspore" ->{
+            case "biteblockerspore":{
                 name = type + biteBlockerSporeID++;
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "biteblockerspore");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "boostermushroom" -> {
+            case "boostermushroom":{
                 name = type + boosterMushroomID++;
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "boostermushroom");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "boosterspore" -> {
+            case "boosterspore":{
                 name = type + boosterSporeID++;
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "boosterspore");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "hypa" -> {
+            case "hypa":{
                 name = type + hypaID++;
+
+                break;
             }
-            case "paralyzermushroom" -> {
+            case "paralyzermushroom":{
                 name = type + paralyzerMushroomID++;
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "paralyzermushroom");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "paralyzerspore" -> {
+            case "paralyzerspore":{
                 name = type + paralyzerSporeID++;
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "paralyzerspore");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "proliferatingmushroom" -> {
+            case "proliferatingmushroom":{
                 name = type + proliferatingMmushroomID++;
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "proliferatingmushroom");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
             }
-            case "proliferatingspore" -> name = type + proliferatingSporeID++;
-            case "shroomer" -> name = type + shroomerID++;
-            case "slowermushroom" -> name = type + slowerMushroomID++;
-            case "slowerspore" -> name = type + slowerSporeID++;
-            case "peat" -> name = type + peatID++;
-            case "soil" -> name = type + soilID++;
-            case "stone" -> name = type + stoneID++;
-            case "swamp" -> name = type + swampID++;
-            case "tekton" -> name = type + tektonID++;
+            case "proliferatingspore":{
+                name = type + proliferatingSporeID++;
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "proliferatingspore");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
+            }
+            case "shroomer":{
+                name = type + shroomerID++;
+
+                break;
+            }
+            case "slowermushroom":{
+                name = type + slowerMushroomID++;
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-20, tektoncenterpoint.y), "slowermushroom");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
+            }
+            case "slowerspore":{
+                name = type + slowerSporeID++;
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "slowerspore");
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
+                break;
+            }
+            case "peat":{
+                name = type + peatID++;
+                allTektons.add((TektonBase)refe);
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "peat");
+                objectHitboxMap.put(refe, tektonHitbox);
+                hitboxObjectMap.put(tektonHitbox, refe);
+
+                break;
+            }
+            case "soil":{
+                name = type + soilID++;
+                allTektons.add((TektonBase)refe);
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "soil");
+                objectHitboxMap.put(refe, tektonHitbox);
+                hitboxObjectMap.put(tektonHitbox, refe);
+                break;
+            }
+            case "stone":{
+                name = type + stoneID++;
+                allTektons.add((TektonBase)refe);
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "stone");
+                objectHitboxMap.put(refe, tektonHitbox);
+                hitboxObjectMap.put(tektonHitbox, refe);
+                break;
+            }
+            case "swamp":{
+                name = type + swampID++;
+                allTektons.add((TektonBase)refe);
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "swamp");
+                objectHitboxMap.put(refe, tektonHitbox);
+                hitboxObjectMap.put(tektonHitbox, refe);
+                break;
+            }
+            case "tekton":{
+                name = type + tektonID++;
+
+                allTektons.add((TektonBase)refe);
+                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "tekton");
+                objectHitboxMap.put(refe, tektonHitbox);
+                hitboxObjectMap.put(tektonHitbox, refe);
+                break;
+            }
         }
         if(name!=null){
             objectNameMap.put(refe, name);
             nameObjectMap.put(name, refe);
-/*
-            if (type.equalsIgnoreCase("bug")||
-                    type.equalsIgnoreCase("biteblockermushroom")||
-                    type.equalsIgnoreCase("boostermushroom")||
-                    type.equalsIgnoreCase("hypa")||
-                    type.equalsIgnoreCase("paralyzermushroom")||
-                    type.equalsIgnoreCase("proliferatingmushroom")){
-
-            }
-*/
-
         }
     }
 

@@ -1,6 +1,7 @@
 package Model.Shroomer;
 
 import Model.Bug.*;
+import View.hitboxes.SporeHitbox;
 
 import java.util.Collections;
 
@@ -10,7 +11,10 @@ import java.util.Collections;
  * Minden spóra egy adott Shroomerhez tartozik (A Mushroom-jai hozzák létre), és hatást gyakorolhat egy Bug-ra.
  */
 public abstract class Spore {
-
+    /**
+     * eltárolja a hozzá kapcsolódó hitbox-ot, hogy tudja azt értesíteni az őt ért változásokról
+     */
+    protected SporeHitbox hitbox;
     /**
      * A Spore tulajdonosa, az a Shroomer, aki létrehozta a gombájával.
      */
@@ -42,5 +46,9 @@ public abstract class Spore {
      */
     public Shroomer getShroomer() {
         return shroomer;
+    }
+
+    public void addObserver(SporeHitbox hitbox){
+        this.hitbox = hitbox;
     }
 }

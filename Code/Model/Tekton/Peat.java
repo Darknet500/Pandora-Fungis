@@ -1,11 +1,11 @@
 package Model.Tekton;
 
 import Model.Bridge.GameBoard;
-import Model.Observer.EventType;
-import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
+import View.hitboxes.Hitbox;
+import View.hitboxes.TektonHitbox;
 
 import java.util.ArrayList;
 import java.util.Collections;

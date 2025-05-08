@@ -3,6 +3,7 @@ package View;
 import java.io.*;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.awt.Color;
 
 import Controller.Controller;
 import Model.Bridge.*;
@@ -37,7 +38,6 @@ public class ConsoleView implements IView{
     public void setEndOfGame(){
         this.endOfGame = true;
     }
-
 
     public void run(){
         ///ha minden tesztfájlt le kell hogy futtasson
@@ -115,19 +115,19 @@ public class ConsoleView implements IView{
                     case TEKTONS -> {
                         switch (parts[0]) {
                             case "Tekton" -> {
-                                gameBoard.addTekton(new Tekton());
+                                new Tekton();
                             }
                             case "Peat" -> {
-                                gameBoard.addTekton(new Peat());
+                                new Peat();
                             }
                             case "Soil" -> {
-                                gameBoard.addTekton(new Soil());
+                                new Soil();
                             }
                             case "Stone" -> {
-                                gameBoard.addTekton(new Stone());
+                                new Stone();
                             }
                             case "Swamp" -> {
-                                gameBoard.addTekton(new Swamp());
+                                new Swamp();
                             }
                         }
                     }
@@ -199,7 +199,7 @@ public class ConsoleView implements IView{
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
                     }
                     case BUGGERS -> {
-                        gameBoard.addBugger(new Bugger(), "");
+                        gameBoard.addBugger(new Bugger(), "", Color.BLACK);
                     }
                     case STRATEGIES -> {
                         switch (parts[0].toLowerCase()) {
@@ -965,5 +965,14 @@ public class ConsoleView implements IView{
         /**
          * no-op
          */
+    }
+
+    @Override
+    public int getDrawingSurfaceWidth(){
+        return 0;
+    }
+    @Override
+    public int getDrawingSurfaceHeight(){
+        return 0;
     }
 }

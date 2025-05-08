@@ -1,6 +1,5 @@
 package View.hitboxes;
 
-import View.Coordinate;
 import View.drawables.Drawable;
 import java.awt.*;
 

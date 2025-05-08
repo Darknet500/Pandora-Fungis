@@ -9,6 +9,9 @@ public interface IView {
     void setEndOfGame();
     void run();
 
+    int getDrawingSurfaceWidth();
+    int getDrawingSurfaceHeight();
+
     /**
      * kontroller ertesiti a view-t, grafikusban letiltjuk a hatasara a masik jatekosfajta akcio kivalaszto gombjait
      */

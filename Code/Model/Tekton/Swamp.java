@@ -3,8 +3,6 @@ package Model.Tekton;
 import java.util.*;
 
 import Model.Bridge.GameBoard;
-import Model.Observer.EventType;
-import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;

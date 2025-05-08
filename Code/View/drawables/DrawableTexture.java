@@ -1,7 +1,5 @@
 package View.drawables;
 
-import View.Coordinate;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -47,6 +45,13 @@ public class DrawableTexture implements Drawable {
     }
 
     /**
+     * Frissíti az image-t egy új képre
+     */
+    public void refreshImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    /**
      * Constructor of the drawableTexture object
      * @param x The x position of the textures middle point
      * @param y The y position of the textures middle point
@@ -60,6 +65,8 @@ public class DrawableTexture implements Drawable {
             e.printStackTrace();
         }
     }
+
+
     /**
      * Constructor of the drawableTexture object
      * @param pos Middle position of the texture
@@ -99,6 +106,10 @@ public class DrawableTexture implements Drawable {
         return Position;
     }
 
+    public void setPosition(Point position) {
+        this.Position = position;
+    }
+
     /**
      * Gets the width of the texture
      * @return width of the texture
@@ -110,4 +121,5 @@ public class DrawableTexture implements Drawable {
     public BufferedImage getImage() {
         return this.image;
     }
+
 }

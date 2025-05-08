@@ -33,6 +33,7 @@ public class SlowerSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy slowed = new Slowed();
         b.setStrategy(slowed);
+        b.getHitbox().onStrategyChanged("slowed");
         return 3;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

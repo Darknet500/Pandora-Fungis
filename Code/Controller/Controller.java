@@ -52,9 +52,9 @@ public class Controller {
             } else {
                 tekton = new Soil();
             }
-            gameBoard.addTekton(tekton);
         }
-        for (int k = 1; k <= 25; k++) {
+
+        /*for (int k = 1; k <= 25; k++) {
             for (int i = 0; i < 25; i++) {
                 for (int j = 0; j < 25; j++) {
                     if (i != j) {
@@ -70,15 +70,24 @@ public class Controller {
                 }
             }
         }
-
+*/
         //játékosok kezdő objektumainak elhelyezése
         for (int i = 0; i < gameBoard.getNumberOfPlayers(); i++) {
+            /*int j=1;
+            while (true){
+                if((gameBoard.getBuggers().containsKey(j))){
+                    Bug bug = new Bug (gameBoard.getBuggers().get(j));
+                    gameBoard.getBuggers().get(j).addBug(bug);
+                    bug.setLocation(gameBoard.getTektons().get(j*2));
+                }j++;
+            }*/
+            /*
             while(true){
                 int ir = rand.nextInt(25);
 
                 if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null&&normalTektonsNumber.contains(ir)) {
                     if(gameBoard.getShroomers().containsKey(i)){
-                        gameBoard.getShroomers().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
+                        //gameBoard.getShroomers().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
                     }else{
                         Bug bug = new Bug(gameBoard.getBuggers().get(i));
                         gameBoard.getBuggers().get(i).addBug(bug);
@@ -87,12 +96,12 @@ public class Controller {
 
                     break;
                 }
-            }
+            }*/
         }
     }
 
     public void gameCycle(){
-
+        notifyViewNextPlayer();
     }
 
     private void endOfRound(){
@@ -202,17 +211,7 @@ public class Controller {
              */
             round++;
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
-            /**
-             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
-             */
-            Player next;
-            if(gameBoard.getShroomers().containsKey(actualPlayer)){
-                next = gameBoard.getShroomers().get(actualPlayer);
-                view.shroomerNext(gameBoard.getPlayerName(next));
-            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
-                next = gameBoard.getBuggers().get(actualPlayer);
-                view.buggerNext(gameBoard.getPlayerName(next));
-            }
+            notifyViewNextPlayer();
             endOfRound();
             view.displayMessage("SUCESS: Round: "+round+", The next player is: "+ actualPlayer);
         } else{
@@ -220,20 +219,24 @@ public class Controller {
              * a jatekos sikeres akciot hajtott vegre, kovetkezo jatekos jon
              */
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
-            /**
-             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
-             */
-            Player next;
-            if(gameBoard.getShroomers().containsKey(actualPlayer)){
-                next = gameBoard.getShroomers().get(actualPlayer);
-                view.shroomerNext(gameBoard.getPlayerName(next));
-            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
-                next = gameBoard.getBuggers().get(actualPlayer);
-                view.buggerNext(gameBoard.getPlayerName(next));
-            }
+            notifyViewNextPlayer();
             view.displayMessage("SUCCESS: Round: "+round+", The next player is: "+ actualPlayer);
         }
     }
+    private void notifyViewNextPlayer(){
+        /**
+         * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
+         */
+        Player next;
+        if(gameBoard.getShroomers().containsKey(actualPlayer)){
+            next = gameBoard.getShroomers().get(actualPlayer);
+            view.shroomerNext(gameBoard.getPlayerName(next));
+        }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
+            next = gameBoard.getBuggers().get(actualPlayer);
+            view.buggerNext(gameBoard.getPlayerName(next));
+        }
+    }
+
 }
 
 

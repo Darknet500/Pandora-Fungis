@@ -1,7 +1,5 @@
 package View.drawables;
 
-import View.Coordinate;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
