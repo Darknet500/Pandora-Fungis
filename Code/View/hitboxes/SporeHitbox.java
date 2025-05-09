@@ -19,19 +19,19 @@ public class SporeHitbox extends Hitbox {
         spore.addObserver(this);
 
         switch (sporeType) {
-            case "Booster":
+            case "booster":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(2,43,226));
                 break;
-            case "Slower":
+            case "slower":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(250,163,0));
                 break;
-            case "Proliferating":
+            case "proliferating":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(255,45,198));
                 break;
-            case "BiteBlocker":
+            case "biteBlocker":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(240,232,82));
                 break;
-            case "Paralyzer":
+            case "paralyzer":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(93,215,82));
                 break;
             default:

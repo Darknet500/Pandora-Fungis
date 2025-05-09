@@ -275,7 +275,7 @@ public class GameBoard {
             }
             case "biteblockerspore":{
                 name = type + biteBlockerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "biteblockerspore");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "biteblocker");
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -289,7 +289,7 @@ public class GameBoard {
             }
             case "boosterspore":{
                 name = type + boosterSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "boosterspore");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "booster");
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -308,7 +308,7 @@ public class GameBoard {
             }
             case "paralyzerspore":{
                 name = type + paralyzerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "paralyzerspore");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "paralyzer");
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -322,7 +322,7 @@ public class GameBoard {
             }
             case "proliferatingspore":{
                 name = type + proliferatingSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "proliferatingspore");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "proliferating");
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -341,7 +341,7 @@ public class GameBoard {
             }
             case "slowerspore":{
                 name = type + slowerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "slowerspore");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "slower");
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
