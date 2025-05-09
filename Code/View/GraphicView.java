@@ -399,36 +399,42 @@ public class GraphicView extends JFrame implements IView{
             BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor = null;
             int hypaDieAfter = 0;
             String selectedType = typeSelectorButton.getText();
+            Color color = Color.BLACK;
             switch (selectedType) {
                 case "booster": {
                     mushroomctor = (x, y) -> new BoosterMushroom(x, y);
                     hypaDieAfter = 4;
+                    color = new Color(2, 43, 226);
                     break;
                 }
                 case "slower": {
                     mushroomctor = (x, y) -> new SlowerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(250, 163, 0);
                     break;
                 }
                 case "paralyzer": {
                     mushroomctor = (x, y) -> new ParalyzerMushroom(x, y);
                     hypaDieAfter = 2;
+                    color = new Color(93, 215, 82);
                     break;
                 }
                 case "biteblocker": {
                     mushroomctor = (x, y) -> new BiteBlockerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(240, 232, 82);
                     break;
                 }
                 case "proliferating": {
                     mushroomctor = (x, y) -> new ProliferatingMushroom(x, y);
                     hypaDieAfter = 5;
+                    color = new Color(255, 45, 198);
                     break;
                 }
             }
             if(mushroomctor != null) {
                 Shroomer newShroomer = new Shroomer(mushroomctor, hypaDieAfter);
-                gameBoard.addShroomer(newShroomer, nameTf.getText());
+                gameBoard.addShroomer(newShroomer, nameTf.getText(), color );
                 String name = gameBoard.getPlayerName(newShroomer);
                 shroomerModel.addElement(Map.entry(name, typeSelectorButton.getText()));
                 availableTypes.remove(selectedType);

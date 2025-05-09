@@ -1,6 +1,7 @@
 package View.hitboxes;
 
 import Model.Shroomer.Spore;
+import View.drawables.Drawable;
 import View.drawables.DrawableRect;
 
 import java.awt.*;
@@ -9,35 +10,16 @@ import java.awt.image.BufferedImage;
 public class SporeHitbox extends Hitbox {
     private Point centerPoint;
     private Spore spore;
-    private String sporeType;
+    private Color color;
 
-    public SporeHitbox(Point centerPoint, Spore spore, String sporeType) {
+    public SporeHitbox(Point centerPoint, Spore spore, Color color) {
         this.centerPoint = centerPoint;
         this.spore = spore;
-        this.sporeType = sporeType;
+        this.color = color;
 
         spore.addObserver(this);
+        drawable = new DrawableRect(centerPoint, 15, color);
 
-        switch (sporeType) {
-            case "booster":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(2,43,226));
-                break;
-            case "slower":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(250,163,0));
-                break;
-            case "proliferating":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(255,45,198));
-                break;
-            case "biteBlocker":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(240,232,82));
-                break;
-            case "paralyzer":
-                drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(93,215,82));
-                break;
-            default:
-                throw new IllegalArgumentException("Ismeretlen gombatípus: " + sporeType);
-
-        }
     }
     @Override
     public boolean isHit(Point point) {
@@ -48,4 +30,6 @@ public class SporeHitbox extends Hitbox {
 
         return squaredDistance <= 9;
     }
+
+
 }

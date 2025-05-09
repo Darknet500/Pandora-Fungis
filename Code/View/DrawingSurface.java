@@ -3,6 +3,7 @@ package View;
 import Model.Bridge.GameBoard;
 import Model.Bug.Bugger;
 import Model.Shroomer.Shroomer;
+import Model.Shroomer.Spore;
 import Model.Tekton.Tekton;
 import Model.Tekton.TektonBase;
 import View.drawables.DrawableLine;
@@ -58,11 +59,24 @@ public class DrawingSurface extends JPanel {
             }
 
 
-
             for(TektonBase tekton:gameBoard.getTektons()){
                 gameBoard.getObjectHitbox(tekton).getDrawable().draw(canvas);
+                if (!tekton.getHypas().isEmpty()){
+                    for (int i = 0; i < tekton.getHypas().size(); i++) {
+                        tekton.getHypas().get(i).getHitbox().getDrawable().draw(canvas);
+                    }
+                }
+                if(!tekton.getStoredSpores().isEmpty()){
+                    for (int i = 0; i < tekton.getStoredSpores().size(); i++) {
+                        tekton.getStoredSpores().get(i).getHitbox().getDrawable().draw(canvas);
+                    }
+                }
             }
         }
+
+
+
+
 
         for (Bugger b : gameBoard.getBuggers().values()){
             for (int i = 0; i < b.getBugs().size(); i++){
@@ -75,6 +89,8 @@ public class DrawingSurface extends JPanel {
                 s.getMushrooms().get(i).getHitbox().getDrawable().draw(canvas);
             }
         }
+
+
 
         g2d.dispose();
         g.drawImage(canvas, 0, 0, null);

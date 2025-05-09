@@ -172,7 +172,7 @@ public class ConsoleView implements IView{
                         }
 
 
-                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "");
+                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "", Color.BLACK );
 
                     }
                     case MUSHROOMS -> {

@@ -23,7 +23,7 @@ public class GameBoard {
     private static HashMap<String, Object> nameObjectMap;
     private static HashMap<Object, String> objectNameMap;
     private static HashMap<Player, String> playerDisplayNameMap;
-    private static HashMap<Player, String> playersTypeMap;
+    private static HashMap<Shroomer, Color> shroomerColorMap;
     private static HashMap<Object, Hitbox> objectHitboxMap;
     private static HashMap<Hitbox, Object> hitboxObjectMap;
     private static HashMap<Bugger, Color> buggerColorMap;
@@ -69,7 +69,7 @@ public class GameBoard {
         playerDisplayNameMap = new HashMap<>();
         objectHitboxMap = new HashMap<>();
         hitboxObjectMap = new HashMap<>();
-        playersTypeMap = new HashMap<>();
+        shroomerColorMap = new HashMap<>();
         buggerColorMap = new HashMap<>();
     }
 
@@ -77,7 +77,7 @@ public class GameBoard {
         this.view = view;
     }
 
-    public void addShroomer(Shroomer shroomer, String name){
+    public void addShroomer(Shroomer shroomer, String name, Color c){
         if (name.isEmpty()) name = "anonymous";
         int lastplayer = 0;
         while (shroomers.containsKey(lastplayer)||buggers.containsKey(lastplayer)){
@@ -85,6 +85,7 @@ public class GameBoard {
         }
         shroomers.put(lastplayer, shroomer);
         playerDisplayNameMap.put(shroomer, name);
+        shroomerColorMap.put(shroomer, c);
     }
 
     public void addBugger(Bugger bugger, String name, Color c){
@@ -193,32 +194,7 @@ public class GameBoard {
 
         int tektonsize = (int)(ystep*0.8);
 
-        //spórákhoz tartozó előre beállítások
-        Point sporepoint = new Point(0,0);
-        if(type.equals("boosterspore")||type=="paralyzerspore"||type=="proliferatingspore"||type=="slowerspore") {
-            TektonBase sporelocation=null;
-            for (TektonBase tektonBase : allTektons) {
-                List<Spore> tektonsspore = tektonBase.getStoredSpores();
-                for (Spore spore: tektonsspore){
-                    if(spore==(Spore)refe){
-                        sporelocation=tektonBase;
-                        break;
-                    }
-                }
-            }
-            if(sporelocation!=null){
-                /**
-                 * Megnézem hogy mennyi spóra van létrehozva és aszerint 1/12-ed arréb mozgatom a tekton origójú 50 usgarú körön
-                 */
 
-                int sporecount = sporelocation.getStoredSpores().size()-1;
-                double angle =  sporecount*Math.PI/6;
-                Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
-                int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*50);
-                int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*50);
-                sporepoint.setLocation(x, y);
-            }
-        }
 
         ///mushroom létrehozásához közös dolgok beállítása
         Point tektoncenterpoint = new Point(0,0);
@@ -228,6 +204,7 @@ public class GameBoard {
             tektoncenterpoint = locationhitbox.getDrawable().getPosition();
         }
 
+        Point sporepoint = new Point(0,0);
 
         switch (type){
             case "biteblocked":{
@@ -275,7 +252,7 @@ public class GameBoard {
             }
             case "biteblockerspore":{
                 name = type + biteBlockerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "biteblocker");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, shroomerColorMap.get(((Spore)refe).getShroomer()));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -289,14 +266,45 @@ public class GameBoard {
             }
             case "boosterspore":{
                 name = type + boosterSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "booster");
+
+                TektonBase sporelocation=null;
+                    for (TektonBase tektonBase : allTektons) {
+                        List<Spore> tektonsspore = tektonBase.getStoredSpores();
+                        for (Spore spore: tektonsspore){
+                            if(spore==(BoosterSpore)refe){
+                                sporelocation=tektonBase;
+                            }
+
+                        }
+                    }
+                    if(sporelocation!=null){
+                        /**
+                         * Megnézem hogy mennyi spóra van létrehozva és aszerint 1/12-ed arréb mozgatom a tekton origójú 50 usgarú körön
+                         */
+
+                        int sporecount = sporelocation.getStoredSpores().size()-1;
+                        double angle =  sporecount*Math.PI/6;
+                        Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
+                        int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*50);
+                        int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*50);
+                        System.out.println("Spore" + x + y + (locationTektonCenterPoint==null));
+                        sporepoint.setLocation(x, y);
+                        sporepoint=new Point(locationTektonCenterPoint.x+15,locationTektonCenterPoint.y);
+                    }
+
+
+
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, shroomerColorMap.get(((Spore)refe).getShroomer()));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
             }
             case "hypa":{
                 name = type + hypaID++;
-
+                HypaHitbox hitbox = new HypaHitbox((Hypa)refe, shroomerColorMap.get(((Hypa)refe).getShroomer()));
+                ((Hypa)refe).addObserver(hitbox);
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
                 break;
             }
             case "paralyzermushroom":{
@@ -308,7 +316,7 @@ public class GameBoard {
             }
             case "paralyzerspore":{
                 name = type + paralyzerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "paralyzer");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, shroomerColorMap.get(((Spore)refe).getShroomer()));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -322,7 +330,7 @@ public class GameBoard {
             }
             case "proliferatingspore":{
                 name = type + proliferatingSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "proliferating");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, shroomerColorMap.get(((Spore)refe).getShroomer()));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -341,7 +349,7 @@ public class GameBoard {
             }
             case "slowerspore":{
                 name = type + slowerSporeID++;
-                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, "slower");
+                SporeHitbox hitbox = new SporeHitbox(sporepoint, (Spore)refe, shroomerColorMap.get(((Spore)refe).getShroomer()));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
