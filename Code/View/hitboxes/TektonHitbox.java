@@ -20,6 +20,7 @@ public class TektonHitbox extends Hitbox{
         this.centerPoint = centerPoint;
         this.tekton = tekton;
         this.width = width;
+        tekton.addObserver(this);
         BufferedImage image = null;
 
         try {

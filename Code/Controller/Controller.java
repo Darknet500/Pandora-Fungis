@@ -165,6 +165,21 @@ public class Controller {
             /**
              * TO DO : buggersek hozzáadása, megfelelő tektonra
              */
+        for(Bugger b: gameBoard.getBuggers().values()){
+            Bug newbug = new Bug(b, gameBoard.getTektons().get(1) );
+            b.addBug(newbug);
+            for (int z=0;z<100;z++) {
+                int ir = rand.nextInt(25);
+                TektonBase tekton = gameBoard.getTektons().get(ir);
+                System.out.println(ir);
+                if(!tekton.hasMushroom()&&tekton.tryBug(newbug)){
+                    newbug.setLocation(tekton);
+                    break;
+                }
+                if(z==99) System.out.println("nem sikerült megfelelő tektont találni");
+            }
+        }
+
 
     }
 

@@ -34,7 +34,7 @@ public class MushroomHitbox extends Hitbox{
             throw new IllegalArgumentException("Image could not be loaded");
         }
 
-       drawable=new DrawableTexture(centerPoint, image, 45);
+       drawable=new DrawableTexture(centerPoint, image, width);
 
 
     }

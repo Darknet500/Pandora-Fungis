@@ -191,6 +191,7 @@ public class GameBoard {
         //tektonpoint = new Point(xstep+tektonsCount%5*xstep+(int)(randmovx*xstep),ystep+(int)Math.floor((double)tektonsCount/5)*ystep+(int)(randmovy*ystep));
 
 
+        int tektonsize = (int)(ystep*0.8);
 
         //spórákhoz tartozó előre beállítások
         Point sporepoint = new Point(0,0);
@@ -226,6 +227,8 @@ public class GameBoard {
             TektonHitbox locationhitbox = (TektonHitbox) objectHitboxMap.get(location);
             tektoncenterpoint = locationhitbox.getDrawable().getPosition();
         }
+
+
         switch (type){
             case "biteblocked":{
                 name = type + biteBlockedID++;
@@ -238,10 +241,8 @@ public class GameBoard {
                 break;
             }
             case "bug":{
-                name = type + bugID++;
-                TektonBase location = ((Bug)refe).getLocation();
-                TektonHitbox locationhitbox = (TektonHitbox) objectHitboxMap.get(location);
-                new BugHitbox((Bug)refe, locationhitbox.getDrawable().getPosition(), GameBoard.buggerColorMap.get((Bugger)refe));
+
+                new BugHitbox((Bug)refe,new Point(10, 10), GameBoard.buggerColorMap.get(((Bug)refe).getBugger()),(int)(tektonsize*0.45));
 
                 break;
             }
@@ -267,8 +268,7 @@ public class GameBoard {
             }
             case "biteblockermushroom":{
                 name = type + biteBlockerMushroomID++;
-                int tektonsize = (int)(ystep*0.8);
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "biteblocker",(int)(tektonsize*0.45));
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y), "biteblocker",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -281,9 +281,8 @@ public class GameBoard {
                 break;
             }
             case "boostermushroom":{
-                int tektonsize = (int)(ystep*0.8);
                 name = type + boosterMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "booster",(int)(tektonsize*0.45));
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y), "booster",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -301,9 +300,8 @@ public class GameBoard {
                 break;
             }
             case "paralyzermushroom":{
-                int tektonsize = (int)(ystep*0.8);
                 name = type + paralyzerMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "paralyzer",(int)(tektonsize*0.45));
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y), "paralyzer",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -316,9 +314,8 @@ public class GameBoard {
                 break;
             }
             case "proliferatingmushroom":{
-                int tektonsize = (int)(ystep*0.8);
                 name = type + proliferatingMmushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "proliferating",(int)(tektonsize*0.45));
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y), "proliferating",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -336,9 +333,8 @@ public class GameBoard {
                 break;
             }
             case "slowermushroom":{
-                int tektonsize = (int)(ystep*0.8);
                 name = type + slowerMushroomID++;
-                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y-(int)(tektonsize/10)), "slower",(int)(tektonsize*0.45));
+                MushroomHitbox hitbox = new MushroomHitbox((Mushroom)refe, new Point(tektoncenterpoint.x-(int)(tektonsize*0.25), tektoncenterpoint.y), "slower",(int)(tektonsize*0.45));
                 objectHitboxMap.put(refe, hitbox);
                 hitboxObjectMap.put(hitbox, refe);
                 break;
@@ -356,7 +352,6 @@ public class GameBoard {
                 TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "peat", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
-
                 break;
             }
             case "soil":{
@@ -442,6 +437,7 @@ public class GameBoard {
     }
 
     public int getNumberOfPlayers(){return shroomers.size() + buggers.size();}
+
 
 }
 
