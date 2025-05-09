@@ -69,10 +69,10 @@ public class Controller {
                 new Point(22, 23),
                 new Point(12, 22),
                 new Point(5, 16),
-                new Point(0, 5),
+                //new Point(0, 5),
                 new Point(3, 22),
                 new Point(9, 11),
-                new Point(8, 21),
+                //new Point(8, 21),
                 new Point(0, 17),
                 new Point(10, 15),
                 new Point(11, 23),
@@ -82,7 +82,7 @@ public class Controller {
                 new Point(13, 23),
                 new Point(2, 20),
                 new Point(13, 20),
-                new Point(6, 14),
+                //new Point(6, 14),
                 new Point(15, 23),
                 new Point(16, 22),
                 new Point(6, 17),
@@ -93,7 +93,7 @@ public class Controller {
                 new Point(14, 24),
                 new Point(5, 21),
                 new Point(4, 23),
-                new Point(0, 4),
+                //new Point(0, 4),
                 new Point(0, 16),
                 new Point(10, 14),
                 new Point(2, 7),
@@ -110,10 +110,10 @@ public class Controller {
                 new Point(7, 18),
                 new Point(18, 24),
                 new Point(7, 24),
-                new Point(20, 21),
+                //new Point(20, 21),
                 new Point(3, 8),
                 new Point(4, 22),
-                new Point(17, 19),
+                //new Point(17, 19),
                 new Point(1, 4),
                 new Point(7, 11),
                 new Point(0, 12),
@@ -171,7 +171,6 @@ public class Controller {
             for (int z=0;z<100;z++) {
                 int ir = rand.nextInt(25);
                 TektonBase tekton = gameBoard.getTektons().get(ir);
-                System.out.println(ir);
                 if(!tekton.hasMushroom()&&tekton.tryBug(newbug)){
                     newbug.setLocation(tekton);
                     break;
