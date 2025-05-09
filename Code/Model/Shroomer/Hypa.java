@@ -78,7 +78,7 @@ public class Hypa {
      */
     public void setIsDyingSinceDisconnected(int isDyingSinceDisconnected) {
         this.isDyingSinceDisconnected = isDyingSinceDisconnected;
-        hitbox.onHypaChanged(1-isDyingSinceDisconnected);
+        if(hitbox!=null)hitbox.onHypaChanged(1-isDyingSinceDisconnected);
     }
 
     /**
