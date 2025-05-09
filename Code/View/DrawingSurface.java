@@ -5,6 +5,7 @@ import Model.Bug.Bugger;
 import Model.Shroomer.Shroomer;
 import Model.Tekton.Tekton;
 import Model.Tekton.TektonBase;
+import View.drawables.DrawableLine;
 import View.hitboxes.TektonHitbox;
 
 import javax.imageio.ImageIO;
@@ -41,7 +42,23 @@ public class DrawingSurface extends JPanel {
             g2d.drawImage(bg, 0, 0, canvas.getWidth(), canvas.getHeight(),null);
         }
         //  TODO: draw everything
+
+
+
+
         if(gameBoard.getTektons().size()>0){
+            for (TektonBase tektoni: gameBoard.getTektons()) {
+                for (TektonBase tektonj: gameBoard.getTektons()) {
+                    if(tektoni.isNeighbour(tektonj)){
+
+                        DrawableLine line = new DrawableLine(((TektonHitbox)gameBoard.getObjectHitbox(tektoni)).getCenterPoint(),((TektonHitbox)gameBoard.getObjectHitbox(tektonj)).getCenterPoint(),Color.black);
+                        line.draw(canvas);
+                    }
+                }
+            }
+
+
+
             for(TektonBase tekton:gameBoard.getTektons()){
                 gameBoard.getObjectHitbox(tekton).getDrawable().draw(canvas);
             }

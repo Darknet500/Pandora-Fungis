@@ -55,7 +55,10 @@ public class Controller {
             }
         }
 
-        /*for (int k = 1; k <= 25; k++) {
+        gameBoard.getTekton(0).isNeighbour(gameBoard.getTekton(1));
+        gameBoard.getTekton(1).isNeighbour(gameBoard.getTekton(0));
+
+        for (int k = 1; k <= 25; k++) {
             for (int i = 0; i < 25; i++) {
                 for (int j = 0; j < 25; j++) {
                     if (i != j) {
@@ -71,7 +74,7 @@ public class Controller {
                 }
             }
         }
-*/
+
         //játékosok kezdő objektumainak elhelyezése
 
         for(Shroomer s: gameBoard.getShroomers().values()){

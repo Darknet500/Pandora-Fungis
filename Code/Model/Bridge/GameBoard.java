@@ -27,6 +27,8 @@ public class GameBoard {
     private static HashMap<Object, Hitbox> objectHitboxMap;
     private static HashMap<Hitbox, Object> hitboxObjectMap;
     private static HashMap<Bugger, Color> buggerColorMap;
+
+
     /**
      * ID számlálók minden modell osztályhoz
      */
