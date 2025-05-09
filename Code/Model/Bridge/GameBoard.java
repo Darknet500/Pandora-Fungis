@@ -147,9 +147,48 @@ public class GameBoard {
         int tektonsCount = allTektons.size();
         int ystep = view.getDrawingSurfaceHeight()/6;
         int xstep = view.getDrawingSurfaceWidth()/6;
+        int xborder = view.getDrawingSurfaceWidth()/12;
+        int yborder = view.getDrawingSurfaceHeight()/12;
+
+        int drawingSurfaceWidth = view.getDrawingSurfaceWidth()-xborder*2;
+        int drawingSurfaceHeight = view.getDrawingSurfaceHeight()-yborder*2;
         double randmovx = (rand.nextDouble()-1)/4;
         double randmovy = (rand.nextDouble()-1)/4;
-        Point point = new Point(xstep+tektonsCount%5*xstep+(int)(randmovx*xstep),ystep+(int)Math.floor((double)tektonsCount/5)*ystep+(int)(randmovy*ystep));
+
+        List<Point> tektonpoints = Arrays.asList(
+                new Point(xborder + (int)(0.95635 * drawingSurfaceWidth), yborder + (int)(0.5133 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.5844 * drawingSurfaceWidth), yborder + (int)(0.7483 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.1152 * drawingSurfaceWidth), yborder + (int)(0.0606 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.7456 * drawingSurfaceWidth), yborder + (int)(0.1124 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.7058 * drawingSurfaceWidth), yborder + (int)(0.6409 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.99965 * drawingSurfaceWidth), yborder + (int)(0.0143 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.2214 * drawingSurfaceWidth), yborder + (int)(0.9854 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.2385 * drawingSurfaceWidth), yborder + (int)(0.1840 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.6134 * drawingSurfaceWidth), yborder + (int)(0.0884 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.3007 * drawingSurfaceWidth), yborder + (int)(0.4651 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.1205 * drawingSurfaceWidth), yborder + (int)(0.6750 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.3709 * drawingSurfaceWidth), yborder + (int)(0.2387 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.82365 * drawingSurfaceWidth), yborder + (int)(0.4887 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.50355 * drawingSurfaceWidth), yborder + (int)(0.2557 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.0000 * drawingSurfaceWidth), yborder + (int)(0.5503 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.25255 * drawingSurfaceWidth), yborder + (int)(0.7153 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.9300 * drawingSurfaceWidth), yborder + (int)(0.2413 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.8084 * drawingSurfaceWidth), yborder + (int)(0.9656 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.04965 * drawingSurfaceWidth), yborder + (int)(0.3038 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.4417 * drawingSurfaceWidth), yborder + (int)(0.7554 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.4644 * drawingSurfaceWidth), yborder + (int)(0.0002 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.86705 * drawingSurfaceWidth), yborder + (int)(0.0002 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.70225 * drawingSurfaceWidth), yborder + (int)(0.3733 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.4335 * drawingSurfaceWidth), yborder + (int)(0.4839 * drawingSurfaceHeight)),
+                new Point(xborder + (int)(0.2099 * drawingSurfaceWidth), yborder + (int)(0.4198 * drawingSurfaceHeight))
+        );
+
+
+
+        Point tektonpoint = new Point(0,0);
+        if (tektonsCount>=0&&tektonsCount<25)
+            tektonpoint = tektonpoints.get(tektonsCount);
+        //tektonpoint = new Point(xstep+tektonsCount%5*xstep+(int)(randmovx*xstep),ystep+(int)Math.floor((double)tektonsCount/5)*ystep+(int)(randmovy*ystep));
 
 
 
@@ -314,7 +353,7 @@ public class GameBoard {
             case "peat":{
                 name = type + peatID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "peat", (int)(ystep*0.8));
+                TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "peat", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
 
@@ -323,7 +362,7 @@ public class GameBoard {
             case "soil":{
                 name = type + soilID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "soil", (int)(ystep*0.8));
+                TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "soil", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -331,7 +370,7 @@ public class GameBoard {
             case "stone":{
                 name = type + stoneID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "stone", (int)(ystep*0.8));
+                TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "stone", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -339,7 +378,7 @@ public class GameBoard {
             case "swamp":{
                 name = type + swampID++;
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "swamp", (int)(ystep*0.8));
+                TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "swamp", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
@@ -348,7 +387,7 @@ public class GameBoard {
                 name = type + tektonID++;
 
                 allTektons.add((TektonBase)refe);
-                TektonHitbox tektonHitbox = new TektonHitbox(point, (TektonBase)refe, "tekton", (int)(ystep*0.8));
+                TektonHitbox tektonHitbox = new TektonHitbox(tektonpoint, (TektonBase)refe, "tekton", (int)(ystep*0.8));
                 objectHitboxMap.put(refe, tektonHitbox);
                 hitboxObjectMap.put(tektonHitbox, refe);
                 break;
