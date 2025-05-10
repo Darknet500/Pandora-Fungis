@@ -70,9 +70,9 @@ public class BugHitbox extends Hitbox{
     public void onStrategyChanged(String strategy) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
-                    "/Assets/BUGS/" + bugColor + strategy +".png"
-            )));
+            image = ImageIO.read(new File(System.getProperty("user.dir"),
+                    "\\Assets\\BUGS\\"+ bugColor + strategy + ".png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
