@@ -39,8 +39,8 @@ public class ProliferatingMushroom extends Mushroom {
         numberOfSpores = -1;
         if(sporesThrown==5){
             die();
-        }
-        hitbox.onTextureChanged();
+        }else
+            hitbox.onTextureChanged();
 
     }
 }

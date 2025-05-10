@@ -111,7 +111,7 @@ public abstract class Mushroom {
     public void increaseNumberofSpores() {
 
         numberOfSpores++;
-        //if(numberOfSpores==1)
+        if(numberOfSpores==1)
             hitbox.onTextureChanged();
     }
 

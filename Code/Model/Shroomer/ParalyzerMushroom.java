@@ -35,8 +35,8 @@ public class ParalyzerMushroom extends Mushroom {
         numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
-        }
-        hitbox.onTextureChanged();
+        }else
+            hitbox.onTextureChanged();
 
     }
 }
