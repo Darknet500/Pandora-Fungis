@@ -28,6 +28,8 @@ public class SporeHitbox extends Hitbox {
 
         int squaredDistance = dx * dx + dy * dy;
 
+        System.out.println(squaredDistance);
+
         return squaredDistance <= 9;
     }
 

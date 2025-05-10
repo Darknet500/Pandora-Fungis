@@ -793,6 +793,7 @@ public class GraphicView extends JFrame implements IView{
                 Hitbox h = gameBoard.getObjectHitbox(s);
                 if(h!=null && h.isHit(e.getPoint())){
                     selectedSpore=s;
+                    System.out.println("Eltalált");
                     return;
                 }
             }
