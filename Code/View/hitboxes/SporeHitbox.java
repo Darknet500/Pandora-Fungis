@@ -18,7 +18,7 @@ public class SporeHitbox extends Hitbox {
         this.color = color;
 
         spore.addObserver(this);
-        drawable = new DrawableRect(centerPoint, 15, color);
+        drawable = new DrawableRect(centerPoint, 9, color);
 
     }
     @Override

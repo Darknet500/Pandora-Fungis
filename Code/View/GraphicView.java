@@ -571,6 +571,7 @@ public class GraphicView extends JFrame implements IView{
                     System.out.println("ERROR: no action was selected");
                     return;
                 }
+
                 switch(selectedAction){
                     case MOVE: {
                         if(selectedBug==null){
@@ -815,6 +816,7 @@ public class GraphicView extends JFrame implements IView{
         growHypaFarBtn.setEnabled(true);
         eatBugBtn.setEnabled(true);
         nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        drawingsurface.repaint();
     }
 
     @Override
@@ -827,6 +829,7 @@ public class GraphicView extends JFrame implements IView{
         growHypaFarBtn.setEnabled(false);
         eatBugBtn.setEnabled(false);
         nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        drawingsurface.repaint();
     }
 
     @Override

@@ -204,7 +204,31 @@ public class GameBoard {
             tektoncenterpoint = locationhitbox.getDrawable().getPosition();
         }
 
+        //spóráklétehozásához közös dolgok
         Point sporepoint = new Point(0,0);
+        TektonBase sporelocation=null;
+        for (TektonBase tektonBase : allTektons) {
+            List<Spore> tektonsspore = tektonBase.getStoredSpores();
+            for (Spore spore: tektonsspore){
+                if(spore==refe){
+                    sporelocation=tektonBase;
+                }
+
+            }
+        }
+        if(sporelocation!=null){
+            /**
+             * Megnézem hogy mennyi spóra van létrehozva és aszerint 1/12-ed arréb mozgatom a tekton origójú 50 usgarú körön
+             */
+
+            int sporecount = sporelocation.getStoredSpores().size()-1;
+            double angle =  sporecount*Math.PI/5.834;
+            Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
+            int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*tektonsize*0.35);
+            int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35);
+            System.out.println("Spore" + x + y + (locationTektonCenterPoint==null));
+            sporepoint=new Point(x, y);
+        }
 
         switch (type){
             case "biteblocked":{
@@ -267,30 +291,7 @@ public class GameBoard {
             case "boosterspore":{
                 name = type + boosterSporeID++;
 
-                TektonBase sporelocation=null;
-                    for (TektonBase tektonBase : allTektons) {
-                        List<Spore> tektonsspore = tektonBase.getStoredSpores();
-                        for (Spore spore: tektonsspore){
-                            if(spore==(BoosterSpore)refe){
-                                sporelocation=tektonBase;
-                            }
 
-                        }
-                    }
-                    if(sporelocation!=null){
-                        /**
-                         * Megnézem hogy mennyi spóra van létrehozva és aszerint 1/12-ed arréb mozgatom a tekton origójú 50 usgarú körön
-                         */
-
-                        int sporecount = sporelocation.getStoredSpores().size()-1;
-                        double angle =  sporecount*Math.PI/6;
-                        Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
-                        int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*50);
-                        int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*50);
-                        System.out.println("Spore" + x + y + (locationTektonCenterPoint==null));
-                        sporepoint.setLocation(x, y);
-                        sporepoint=new Point(locationTektonCenterPoint.x+15,locationTektonCenterPoint.y);
-                    }
 
 
 

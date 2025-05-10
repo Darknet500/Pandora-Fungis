@@ -39,7 +39,7 @@ public class MushroomHitbox extends Hitbox{
 
     }
     public boolean isHit(Point point){
-        if(point.x>=centerPoint.x-8&&point.x<=centerPoint.x+8&&point.y>=centerPoint.y-8&&point.y<=centerPoint.y+8)
+        if(point.distance(centerPoint)<=width*0.5)
             return true;
         return false;
     }

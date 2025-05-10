@@ -31,14 +31,15 @@ public class BoosterMushroom extends Mushroom {
      * @param target - A cél Tekton, amelyre a spórát elszórja.
      */
     public void sporeThrown(TektonBase target) {
-        hitbox.onTextureChanged();
         Spore booster = new BoosterSpore(this.shroomer);
         target.storeSpore(booster);
+        GameBoard.addReferenceToMaps("boosterspore", booster);
         sporesThrown++;
         numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
         }
+        hitbox.onTextureChanged();
 
     }
 }
