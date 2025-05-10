@@ -58,7 +58,8 @@ public class MushroomHitbox extends Hitbox{
 
 
         try {
-            Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", isyoung?"young":"old"+ mushroomType,spores+(abletothrow?"Y":"N")+".png");
+            Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", (isyoung?"young":"old")+ mushroomType,spores+(abletothrow?"Y":"N")+".png");
+            System.out.println(imagePath);
             image=ImageIO.read(imagePath.toFile());
         }catch (IOException e){
             e.printStackTrace();
