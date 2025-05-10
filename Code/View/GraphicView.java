@@ -574,6 +574,7 @@ public class GraphicView extends JFrame implements IView{
 
                 switch(selectedAction){
                     case MOVE: {
+                        System.out.println("Selected Action: MOVE");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -588,6 +589,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case EAT: {
+                        System.out.println("Selected Action: EAT");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -602,6 +604,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case BITE: {
+                        System.out.println("Selected Action: BITE");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -616,6 +619,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case THROWSPORE: {
+                        System.out.println("Selected Action: THORWSPORE");
                         if(selectedMushroom==null){
                             selectMushroom(e);
                         } else {
@@ -630,7 +634,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPA: {
-                        System.out.println("growHypa parameter selection");
+                        System.out.println("Selected Action: GROWHYPA");
                         if(selectedTektons[0]==null){
                             System.out.println("selecting 1st parameter");
                             selectTekton(e);
@@ -646,6 +650,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPAFAR: {
+                        System.out.println("Selected Action: GROWHYPAFAR");
                         if(selectedTektons[0]==null){
                             selectTekton(e);
                         } else if (selectedTektons[1]==null){
@@ -661,6 +666,7 @@ public class GraphicView extends JFrame implements IView{
                         }
                     }
                     case EATBUG: {
+                        System.out.println("Selected Action: EATBUG");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){

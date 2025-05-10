@@ -243,7 +243,9 @@ public class GameBoard {
             }
             case "bug":{
 
-                new BugHitbox((Bug)refe,new Point(10, 10), GameBoard.buggerColorMap.get(((Bug)refe).getBugger()),(int)(tektonsize*0.45));
+                BugHitbox hitbox = new BugHitbox((Bug)refe,new Point(10, 10), GameBoard.buggerColorMap.get(((Bug)refe).getBugger()),(int)(tektonsize*0.45));
+                objectHitboxMap.put(refe, hitbox);
+                hitboxObjectMap.put(hitbox, refe);
 
                 break;
             }
