@@ -55,8 +55,11 @@ public class MushroomHitbox extends Hitbox{
         int spores = 5-mushroom.getSporesThrown();
         boolean abletothrow = mushroom.getNumberOfSpores()==1;
         BufferedImage image = null;
+
+
         try {
-            image=ImageIO.read(new File(System.getProperty("user.dir"), "\\Assets\\Mushrooms\\"+(isyoung?"young":"old")+mushroomType+"\\"+spores+(abletothrow?"Y":"N")+".png"));
+            Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", isyoung?"young":"old"+ mushroomType,spores+(abletothrow?"Y":"N")+".png");
+            image=ImageIO.read(imagePath.toFile());
         }catch (IOException e){
             e.printStackTrace();
         }

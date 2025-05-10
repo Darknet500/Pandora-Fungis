@@ -73,7 +73,6 @@ public abstract class Mushroom {
      * A gombatest életkorának növelése minden kör után.
      */
     public void age() {
-        System.out.println(age);
         age++;
         if(age==5)
             hitbox.onTextureChanged();
