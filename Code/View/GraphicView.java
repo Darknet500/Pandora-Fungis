@@ -37,6 +37,7 @@ public class GraphicView extends JFrame implements IView{
     private JButton eatBugBtn;
     private JButton skipBtn;
     private JLabel nextPlayerName;
+    private JLabel messageDisplay;
 
     private SelectedAction selectedAction;
     private TektonBase[] selectedTektons;
@@ -64,42 +65,49 @@ public class GraphicView extends JFrame implements IView{
         moveBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.MOVE;
+            displayMessage("MOVE action selected");
         });
 
         eatBtn = new PandoraButton("EAT");
         eatBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.EAT;
+            displayMessage("EAT action selected");
         });
 
         biteBtn = new PandoraButton("BITE");
         biteBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.BITE;
+            displayMessage("BITE action selected");
         });
 
         throwSporeBtn = new PandoraButton("THROWSPORE");
         throwSporeBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.THROWSPORE;
+            displayMessage("THROWSPORE action selected");
         });
 
         growHypaBtn = new PandoraButton("GROWHYPA");
         growHypaBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.GROWHYPA;
+            displayMessage("GROWHYPA action selected");
         });
 
         growHypaFarBtn = new PandoraButton("GROWHYPAFAR");
         growHypaFarBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.GROWHYPAFAR;
+            displayMessage("GROWHYPAFAR action selected");
         });
 
         eatBugBtn = new PandoraButton("EATBUG");
         eatBugBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.EATBUG;
+            displayMessage("EATBUG action selected");
 
         });
 
@@ -111,6 +119,12 @@ public class GraphicView extends JFrame implements IView{
         nextPlayerName = new JLabel();
         nextPlayerName.setFont(new Font("Arial", Font.PLAIN, 20));
         nextPlayerName.setForeground(Color.WHITE);
+
+        messageDisplay = new JLabel();
+        messageDisplay.setFont(new Font("Arial", Font.PLAIN, 20));
+        messageDisplay.setText("");
+        messageDisplay.setForeground(Color.WHITE);
+        messageDisplay.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     @Override
@@ -127,7 +141,7 @@ public class GraphicView extends JFrame implements IView{
     public void connectObjects(GameBoard gameBoard, Controller controller) {
         this.gameBoard = gameBoard;
         this.controller = controller;
-        drawingsurface = new DrawingSurface(screensize.width,screensize.height-50, gameBoard);
+        drawingsurface = new DrawingSurface(screensize.width,screensize.height-75, gameBoard);
         controller.connectObjects(this, gameBoard);
         gameBoard.connectToView(this);
         controller.setSeed(12345L);
@@ -530,6 +544,7 @@ public class GraphicView extends JFrame implements IView{
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
+            buggerNameTf.setText("");
             if(gameBoard.getShroomers().size()>=2 &&gameBoard.getBuggers().size()>=2){
                 startButton.setEnabled(true);
             }
@@ -578,6 +593,11 @@ public class GraphicView extends JFrame implements IView{
                         System.out.println("Selected Action: MOVE");
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -593,6 +613,11 @@ public class GraphicView extends JFrame implements IView{
                         System.out.println("Selected Action: EAT");
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectSpore(e);
                             if(selectedSpore!=null){
@@ -608,6 +633,11 @@ public class GraphicView extends JFrame implements IView{
                         System.out.println("Selected Action: BITE");
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectHypa(e);
                             if(selectedHypa!=null){
@@ -623,6 +653,11 @@ public class GraphicView extends JFrame implements IView{
                         System.out.println("Selected Action: THORWSPORE");
                         if(selectedMushroom==null){
                             selectMushroom(e);
+                            if(selectedMushroom!=null){
+                                displayMessage("Mushroom selected successfully");
+                            }else{
+                                displayMessage("Failed to select a mushroom");
+                            }
                         } else {
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -637,8 +672,12 @@ public class GraphicView extends JFrame implements IView{
                     case GROWHYPA: {
                         System.out.println("Selected Action: GROWHYPA");
                         if(selectedTektons[0]==null){
-                            System.out.println("selecting 1st parameter");
                             selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                displayMessage("Start Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
                             if(selectedTektons[1]!=null){
@@ -654,12 +693,22 @@ public class GraphicView extends JFrame implements IView{
                         System.out.println("Selected Action: GROWHYPAFAR");
                         if(selectedTektons[0]==null){
                             selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                displayMessage("Start Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
+                            if(selectedTektons[1]!=null){
+                                displayMessage("Middle Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if(selectedTektons[2]==null){
                             selectTekton(e);
                             if(selectedTektons[2]!=null){
-                                if(controller.growhypa(selectedTektons[0], selectedTektons[1])){
+                                if(controller.growhypafar(selectedTektons[0], selectedTektons[1], selectedTektons[2])){
                                     drawingsurface.repaint();
                                 }
                                 clearSelection();
@@ -689,6 +738,13 @@ public class GraphicView extends JFrame implements IView{
          * kontroll panel a gomboknak, gombok a konstruktorban peldanyositva
          */
         JPanel outerControlPanel = new JPanel(new BorderLayout());
+        JPanel innerControlPanelTop = new JPanel();
+        outerControlPanel.setBackground(Color.BLACK);
+        innerControlPanelTop.setLayout(new BoxLayout(innerControlPanelTop, BoxLayout.X_AXIS));
+        innerControlPanelTop.setBackground(Color.BLACK);
+        outerControlPanel.add(messageDisplay);
+        messageDisplay.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel innerControlPanel = new JPanel();
         innerControlPanel.setLayout(new BoxLayout(innerControlPanel,BoxLayout.X_AXIS));
         innerControlPanel.setBackground(Color.BLACK);
@@ -729,8 +785,9 @@ public class GraphicView extends JFrame implements IView{
         innerControlPanel.add(nextPlayerName);
         nextPlayerName.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
-        outerControlPanel.setPreferredSize(new Dimension(gameBoardPanel.getWidth(), 50));
-        outerControlPanel.add(innerControlPanel, BorderLayout.CENTER);
+        outerControlPanel.setPreferredSize(new Dimension(gameBoardPanel.getWidth(), 75));
+        outerControlPanel.add(innerControlPanel, BorderLayout.NORTH);
+        outerControlPanel.add(innerControlPanel, BorderLayout.SOUTH);
         gameBoardPanel.add(outerControlPanel, BorderLayout.SOUTH);
 
         return gameBoardPanel;
@@ -815,7 +872,7 @@ public class GraphicView extends JFrame implements IView{
     }
 
     @Override
-    public void shroomerNext(String playerName){
+    public void shroomerNext(String playerName, int roundNumber){
         moveBtn.setEnabled(false);
         eatBtn.setEnabled(false);
         biteBtn.setEnabled(false);
@@ -823,12 +880,12 @@ public class GraphicView extends JFrame implements IView{
         growHypaBtn.setEnabled(true);
         growHypaFarBtn.setEnabled(true);
         eatBugBtn.setEnabled(true);
-        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName+", ROUND "+roundNumber);
         drawingsurface.repaint();
     }
 
     @Override
-    public void buggerNext(String playerName){
+    public void buggerNext(String playerName, int roundNumber){
         moveBtn.setEnabled(true);
         eatBtn.setEnabled(true);
         biteBtn.setEnabled(true);
@@ -836,12 +893,14 @@ public class GraphicView extends JFrame implements IView{
         growHypaBtn.setEnabled(false);
         growHypaFarBtn.setEnabled(false);
         eatBugBtn.setEnabled(false);
-        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName+", ROUND "+roundNumber);
         drawingsurface.repaint();
     }
 
     @Override
-    public void displayMessage(String message){}
+    public void displayMessage(String message){
+        messageDisplay.setText(message);
+    }
     @Override
     public void setEndOfGame(){}
 }

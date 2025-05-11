@@ -955,14 +955,14 @@ public class ConsoleView implements IView{
     }
 
     @Override
-    public void shroomerNext(String playerName){
+    public void shroomerNext(String playerName, int roundNumber){
         /**
          * no-op
          */
     }
 
     @Override
-    public void buggerNext(String playerName){
+    public void buggerNext(String playerName, int roundNumber){
         /**
          * no-op
          */

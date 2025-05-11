@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class Controller {
     private int actualPlayer = 0;
-    private int round;
+    private int round = 1;
     private GameBoard gameBoard;
     private IView view;
     private long seed;
@@ -31,7 +31,7 @@ public class Controller {
 
     public void resetActualPlayerandRound() {
         actualPlayer = 0;
-        round = 0;
+        round = 1;
     }
 
     public void initMap(){
@@ -204,6 +204,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -214,6 +215,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -224,6 +226,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -234,6 +237,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -244,6 +248,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -254,6 +259,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -264,6 +270,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -281,6 +288,7 @@ public class Controller {
      * metódus, amit sikeres játékos akciók után kell hívni. Lépteti a kört és az aktuális játékost.
      */
     private void success(){
+        view.displayMessage("Successful Action");
         if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round == 20){
             /**
              * a korben utolso jatekos sikeres akciot hajtott vegre es ez volt az utolso kor
@@ -295,14 +303,13 @@ public class Controller {
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
             notifyViewNextPlayer();
             endOfRound();
-            view.displayMessage("SUCESS: Round: "+round+", The next player is: "+ actualPlayer);
         } else{
             /**
              * a jatekos sikeres akciot hajtott vegre, kovetkezo jatekos jon
              */
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
             notifyViewNextPlayer();
-            view.displayMessage("SUCCESS: Round: "+round+", The next player is: "+ actualPlayer);
+
         }
     }
     private void notifyViewNextPlayer(){
@@ -312,11 +319,15 @@ public class Controller {
         Player next;
         if(gameBoard.getShroomers().containsKey(actualPlayer)){
             next = gameBoard.getShroomers().get(actualPlayer);
-            view.shroomerNext(gameBoard.getPlayerName(next));
+            view.shroomerNext(gameBoard.getPlayerName(next), round);
         }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
             next = gameBoard.getBuggers().get(actualPlayer);
-            view.buggerNext(gameBoard.getPlayerName(next));
+            view.buggerNext(gameBoard.getPlayerName(next), round);
         }
+    }
+
+    private void fail(){
+        view.displayMessage("Failed action");
     }
 
 }
