@@ -29,6 +29,7 @@ public class ConsoleView implements IView{
     public void connectObjects(GameBoard gameBoard, Controller controller) {
         this.gameBoard = gameBoard;
         this.controller = controller;
+        gameBoard.connectToView(this);
         controller.connectObjects(this, gameBoard);
         controller.setSeed(12345L);
 
@@ -63,8 +64,8 @@ public class ConsoleView implements IView{
                     FileInputSource assertsource = new FileInputSource(assertfile);
                     assertMethod(assertfile, assertsource);
 
-                } catch (Exception ignored) {
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -89,8 +90,8 @@ public class ConsoleView implements IView{
                 File assertfile = new File(tc , "assert.txt");
                 FileInputSource assertsource = new FileInputSource(assertfile);
                 assertMethod(assertfile, assertsource);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

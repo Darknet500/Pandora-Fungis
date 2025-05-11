@@ -433,6 +433,7 @@ public class GraphicView extends JFrame implements IView{
                 shroomerModel.addElement(Map.entry(name, typeSelectorButton.getText()));
                 availableTypes.remove(selectedType);
                 typeSelectorButton.setText(availableTypes.get(0));
+                nameTf.setText("");
                 if(gameBoard.getShroomers().size() == 4){
                     addShroomerButton.setEnabled(false);
                 }
@@ -523,6 +524,7 @@ public class GraphicView extends JFrame implements IView{
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
+            buggerNameTf.setText("");
             if(gameBoard.getShroomers().size()>=2 &&gameBoard.getBuggers().size()>=2){
                 startButton.setEnabled(true);
             }
@@ -623,9 +625,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPA: {
-                        System.out.println("growHypa parameter selection");
                         if(selectedTektons[0]==null){
-                            System.out.println("selecting 1st parameter");
                             selectTekton(e);
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);

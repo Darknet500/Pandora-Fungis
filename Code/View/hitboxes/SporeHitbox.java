@@ -19,23 +19,23 @@ public class SporeHitbox extends Hitbox {
         spore.addObserver(this);
 
         switch (sporeType) {
-            case "Booster":
+            case "boosterspore":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(2,43,226));
                 break;
-            case "Slower":
+            case "slowerspore":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(250,163,0));
                 break;
-            case "Proliferating":
+            case "proliferatingspore":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(255,45,198));
                 break;
-            case "BiteBlocker":
+            case "biteblockerspore":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(240,232,82));
                 break;
-            case "Paralyzer":
+            case "paralyzerspore":
                 drawable = new DrawableRect(centerPoint.x + 20, centerPoint.y, 3, new Color(93,215,82));
                 break;
             default:
-                throw new IllegalArgumentException("Ismeretlen gombatípus: " + sporeType);
+                throw new IllegalArgumentException("ERROR: unknown spore type: " + sporeType);
 
         }
     }
