@@ -32,14 +32,15 @@ public class ProliferatingMushroom extends Mushroom {
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(TektonBase target) {
-        hitbox.onTextureChanged();
         Spore spore = new ProliferatingSpore(this.shroomer);
         target.storeSpore(spore);
+        GameBoard.addReferenceToMaps("proliferatingspore", spore);
         sporesThrown++;
         numberOfSpores = -1;
         if(sporesThrown==5){
             die();
-        }
+        }else
+            hitbox.onTextureChanged();
 
     }
 }

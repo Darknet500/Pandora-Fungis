@@ -42,9 +42,9 @@ public class Bug {
      * és egy normál stratégiával inicializálja.
      * Elnevezi magát, és beleteszi magát a gameBoard nameObjectMap-jébe
      */
-    public Bug(Bugger bugger) {
+    public Bug(Bugger bugger, TektonBase tekton) {
         this.bugger=bugger;
-        tekton = null;
+        this.tekton = tekton;
         strategy = new Normal();
         GameBoard.addReferenceToMaps("bug", this);
     }
@@ -68,6 +68,7 @@ public class Bug {
             GameBoard.removeReferenceFromMaps(strategy);
         }
         strategy = s;
+
     }
 
     public Strategy getStrategy() {
@@ -130,7 +131,9 @@ public class Bug {
      * @param t Az új Tekton helyszín.
      */
     public void setLocation(TektonBase t){
+
         tekton = t;
+        hitbox.onPositionChanged();
     }
 
     /**

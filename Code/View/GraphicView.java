@@ -399,36 +399,42 @@ public class GraphicView extends JFrame implements IView{
             BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor = null;
             int hypaDieAfter = 0;
             String selectedType = typeSelectorButton.getText();
+            Color color = Color.BLACK;
             switch (selectedType) {
                 case "booster": {
                     mushroomctor = (x, y) -> new BoosterMushroom(x, y);
                     hypaDieAfter = 4;
+                    color = new Color(2, 43, 226);
                     break;
                 }
                 case "slower": {
                     mushroomctor = (x, y) -> new SlowerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(250, 163, 0);
                     break;
                 }
                 case "paralyzer": {
                     mushroomctor = (x, y) -> new ParalyzerMushroom(x, y);
                     hypaDieAfter = 2;
+                    color = new Color(93, 215, 82);
                     break;
                 }
                 case "biteblocker": {
                     mushroomctor = (x, y) -> new BiteBlockerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(240, 232, 82);
                     break;
                 }
                 case "proliferating": {
                     mushroomctor = (x, y) -> new ProliferatingMushroom(x, y);
                     hypaDieAfter = 5;
+                    color = new Color(255, 45, 198);
                     break;
                 }
             }
             if(mushroomctor != null) {
                 Shroomer newShroomer = new Shroomer(mushroomctor, hypaDieAfter);
-                gameBoard.addShroomer(newShroomer, nameTf.getText());
+                gameBoard.addShroomer(newShroomer, nameTf.getText(), color );
                 String name = gameBoard.getPlayerName(newShroomer);
                 shroomerModel.addElement(Map.entry(name, typeSelectorButton.getText()));
                 availableTypes.remove(selectedType);
@@ -524,7 +530,6 @@ public class GraphicView extends JFrame implements IView{
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
-            buggerNameTf.setText("");
             if(gameBoard.getShroomers().size()>=2 &&gameBoard.getBuggers().size()>=2){
                 startButton.setEnabled(true);
             }
@@ -567,8 +572,10 @@ public class GraphicView extends JFrame implements IView{
                     System.out.println("ERROR: no action was selected");
                     return;
                 }
+
                 switch(selectedAction){
                     case MOVE: {
+                        System.out.println("Selected Action: MOVE");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -583,6 +590,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case EAT: {
+                        System.out.println("Selected Action: EAT");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -597,6 +605,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case BITE: {
+                        System.out.println("Selected Action: BITE");
                         if(selectedBug==null){
                             selectBug(e);
                         } else {
@@ -611,6 +620,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case THROWSPORE: {
+                        System.out.println("Selected Action: THORWSPORE");
                         if(selectedMushroom==null){
                             selectMushroom(e);
                         } else {
@@ -625,7 +635,9 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPA: {
+                        System.out.println("Selected Action: GROWHYPA");
                         if(selectedTektons[0]==null){
+                            System.out.println("selecting 1st parameter");
                             selectTekton(e);
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
@@ -639,6 +651,7 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPAFAR: {
+                        System.out.println("Selected Action: GROWHYPAFAR");
                         if(selectedTektons[0]==null){
                             selectTekton(e);
                         } else if (selectedTektons[1]==null){
@@ -654,6 +667,7 @@ public class GraphicView extends JFrame implements IView{
                         }
                     }
                     case EATBUG: {
+                        System.out.println("Selected Action: EATBUG");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){
@@ -780,6 +794,7 @@ public class GraphicView extends JFrame implements IView{
                 Hitbox h = gameBoard.getObjectHitbox(s);
                 if(h!=null && h.isHit(e.getPoint())){
                     selectedSpore=s;
+                    System.out.println("Eltalált");
                     return;
                 }
             }
@@ -809,6 +824,7 @@ public class GraphicView extends JFrame implements IView{
         growHypaFarBtn.setEnabled(true);
         eatBugBtn.setEnabled(true);
         nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        drawingsurface.repaint();
     }
 
     @Override
@@ -821,6 +837,7 @@ public class GraphicView extends JFrame implements IView{
         growHypaFarBtn.setEnabled(false);
         eatBugBtn.setEnabled(false);
         nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        drawingsurface.repaint();
     }
 
     @Override

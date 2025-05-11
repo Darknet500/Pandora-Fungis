@@ -21,7 +21,7 @@ public class BiteBlockerSpore extends Spore {
      */
     public BiteBlockerSpore(Shroomer shroomer) {
         super(shroomer);
-        GameBoard.addReferenceToMaps("biteblockerspore", this);
+        //GameBoard.addReferenceToMaps("biteblockerspore", this);
     }
 
     /**

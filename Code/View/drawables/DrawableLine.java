@@ -63,7 +63,7 @@ public class DrawableLine implements Drawable {
     public void draw(BufferedImage target) {
         Graphics2D g2d = target.createGraphics();
         g2d.setColor(Color);
-        g2d.setStroke(new BasicStroke(3));
+        g2d.setStroke(new BasicStroke(6));
         g2d.draw(line);
         g2d.dispose();
     }

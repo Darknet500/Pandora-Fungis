@@ -14,14 +14,16 @@ import java.util.Objects;
 
 
 public class BugHitbox extends Hitbox{
-    Bug bug;
-    Point centerPoint;
-    String bugColor;
+    private Bug bug;
+    private Point centerPoint;
+    private String bugColor;
+    private int width;
 
-    public BugHitbox(Bug bug, Point centerPoint, Color Color) {
+    public BugHitbox(Bug bug, Point centerPoint, Color Color, int width) {
         this.bug = bug;
         this.centerPoint = centerPoint;
         this.bugColor = setColor(Color);
+        this.width = width;
 
 
         bug.addObserver(this);
@@ -35,7 +37,7 @@ public class BugHitbox extends Hitbox{
             e.printStackTrace();
         }
 
-        drawable = new DrawableTexture(centerPoint, image, 45);
+        drawable = new DrawableTexture(centerPoint, image, width);
     }
 
     private String setColor(Color color){
@@ -60,7 +62,7 @@ public class BugHitbox extends Hitbox{
      * @return The logical value if it was hit or not
      */
     public boolean isHit(Point point){
-        if(point.x>=centerPoint.x-8&&point.x<=centerPoint.x+8&&point.y>=centerPoint.y-8&&point.y<=centerPoint.y+8)
+        if(point.distance(centerPoint)<=width*0.5)
             return true;
         return false;
     }
@@ -68,9 +70,9 @@ public class BugHitbox extends Hitbox{
     public void onStrategyChanged(String strategy) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResource(
-                    "/Assets/BUGS/" + bugColor + strategy +".png"
-            )));
+            image = ImageIO.read(new File(System.getProperty("user.dir"),
+                    "\\Assets\\BUGS\\"+ bugColor + strategy + ".png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,8 +83,9 @@ public class BugHitbox extends Hitbox{
 
     public void onPositionChanged() {
         if (drawable != null) {
-            Point nPoint = new Point(bug.getLocation().getHitbox().getCenterPoint().x + 10, bug.getLocation().getHitbox().getCenterPoint().y);
-            ((DrawableTexture)drawable).setPosition(nPoint);
+            centerPoint = new Point(bug.getLocation().getHitbox().getCenterPoint().x+(int)(width*0.5555), bug.getLocation().getHitbox().getCenterPoint().y);
+
+            ((DrawableTexture)drawable).setPosition(centerPoint);
         }
     }
 }

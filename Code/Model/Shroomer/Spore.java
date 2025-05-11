@@ -51,4 +51,8 @@ public abstract class Spore {
     public void addObserver(SporeHitbox hitbox){
         this.hitbox = hitbox;
     }
+
+    public SporeHitbox getHitbox() {
+        return hitbox;
+    }
 }

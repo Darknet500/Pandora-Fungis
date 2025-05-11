@@ -90,8 +90,8 @@ public class DrawableTexture implements Drawable {
         Graphics2D g2d = target.createGraphics();
 
         /** Getting the left top corners coordinates to draw **/
-        int drawX = Position.x - image.getWidth() / 2;
-        int drawY = Position.y - image.getHeight() / 2;
+        int drawX = Position.x - Width / 2;
+        int drawY = Position.y - Width / 2;
 
         g2d.drawImage(image, drawX, drawY,Width,Width, null);
         g2d.dispose();

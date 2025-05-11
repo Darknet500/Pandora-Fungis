@@ -34,12 +34,12 @@ public class MushroomHitbox extends Hitbox{
             throw new IllegalArgumentException("Image could not be loaded");
         }
 
-       drawable=new DrawableTexture(centerPoint, image, 45);
+       drawable=new DrawableTexture(centerPoint, image, width);
 
 
     }
     public boolean isHit(Point point){
-        if(point.x>=centerPoint.x-8&&point.x<=centerPoint.x+8&&point.y>=centerPoint.y-8&&point.y<=centerPoint.y+8)
+        if(point.distance(centerPoint)<=width*0.5)
             return true;
         return false;
     }
@@ -55,8 +55,12 @@ public class MushroomHitbox extends Hitbox{
         int spores = 5-mushroom.getSporesThrown();
         boolean abletothrow = mushroom.getNumberOfSpores()==1;
         BufferedImage image = null;
+
+
         try {
-            image=ImageIO.read(new File(System.getProperty("user.dir"), "\\Assets\\Mushrooms\\"+(isyoung?"young":"old")+mushroomType+"\\"+spores+(abletothrow?"Y":"N")+".png"));
+            Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", (isyoung?"young":"old")+ mushroomType,spores+(abletothrow?"Y":"N")+".png");
+            System.out.println(imagePath);
+            image=ImageIO.read(imagePath.toFile());
         }catch (IOException e){
             e.printStackTrace();
         }

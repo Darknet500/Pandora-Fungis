@@ -32,13 +32,14 @@ public class BiteBlockerMushroom extends Mushroom {
      * @param target A Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(TektonBase target) {
-        hitbox.onTextureChanged();
         Spore biteBloskerSpore = new BiteBlockerSpore(this.shroomer);
         target.storeSpore(biteBloskerSpore);
+        GameBoard.addReferenceToMaps("biteblockerspore", biteBloskerSpore);
         sporesThrown++;
         numberOfSpores = -1;
         if(getSporesThrown()==5){
             die();
-        }
+        }else
+            hitbox.onTextureChanged();
     }
 }

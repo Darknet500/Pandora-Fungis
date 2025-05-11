@@ -61,10 +61,11 @@ public class DrawableRect implements Drawable {
         /** Getting the left top corners coordinates to draw **/
         int drawX = Position.x - Width / 2;
         int drawY = Position.y - Width / 2;
-
+        g2d.setStroke(new BasicStroke(5));
+        g2d.setColor(Color.BLACK);
+        g2d.draw(rect);
         g2d.setColor(Color);
         g2d.fill(rect);
-        g2d.draw(rect);
         g2d.dispose();
     }
 

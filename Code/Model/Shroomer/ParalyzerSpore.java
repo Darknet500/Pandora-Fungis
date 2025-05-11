@@ -18,7 +18,7 @@ public class ParalyzerSpore extends Spore {
      */
     public ParalyzerSpore(Shroomer shroomer) {
         super(shroomer);
-        GameBoard.addReferenceToMaps("paralyzerspore", this);
+        //GameBoard.addReferenceToMaps("paralyzerspore", this);
     }
 
     /**

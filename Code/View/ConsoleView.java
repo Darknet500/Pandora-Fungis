@@ -173,7 +173,7 @@ public class ConsoleView implements IView{
                         }
 
 
-                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "");
+                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "", Color.BLACK );
 
                     }
                     case MUSHROOMS -> {
@@ -217,7 +217,7 @@ public class ConsoleView implements IView{
                         }
                     }
                     case BUGS -> {
-                        Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]));
+                        Bug bug = new Bug((Bugger) gameBoard.getReferenceByObjectName(parts[1]), (TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                         bug.setStrategy((Strategy) gameBoard.getReferenceByObjectName(parts[0]));
                         bug.setLocation((TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setBug(bug);

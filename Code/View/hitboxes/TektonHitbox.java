@@ -20,6 +20,7 @@ public class TektonHitbox extends Hitbox{
         this.centerPoint = centerPoint;
         this.tekton = tekton;
         this.width = width;
+        tekton.addObserver(this);
         BufferedImage image = null;
 
         try {
@@ -40,7 +41,7 @@ public class TektonHitbox extends Hitbox{
      */
     @Override
     public boolean isHit(Point point){
-        if(point.distance(centerPoint)<=64){
+        if(point.distance(centerPoint)<=width*0.5){
             System.out.println("Tektonhitbox Hit!");
             return true;
         }
@@ -52,7 +53,7 @@ public class TektonHitbox extends Hitbox{
     }
 
     public void setWidth(int width){
-        width = width;
+        this.width = width;
     }
     public int getWidth(){
         return width;

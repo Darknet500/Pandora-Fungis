@@ -21,7 +21,7 @@ public class SlowerSpore extends Spore {
      */
     public SlowerSpore(Shroomer shroomer) {
         super(shroomer);
-        GameBoard.addReferenceToMaps("slowerspore", this);
+        //GameBoard.addReferenceToMaps("slowerspore", this);
     }
 
     /**
