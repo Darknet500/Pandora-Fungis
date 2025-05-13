@@ -213,6 +213,7 @@ public class Shroomer extends Player {
             Mushroom mush = mushroomctor.apply(this, target);
             mushrooms.add(mush);
             target.setMushroomRemoveSpores(mush);
+            increaseScore(1);
             traverseHypaNetwork();
         }
     }

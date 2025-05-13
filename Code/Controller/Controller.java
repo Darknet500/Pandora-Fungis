@@ -189,6 +189,7 @@ public class Controller {
     private void endOfRound(){
         gameBoard.getTektons().forEach(TektonBase::endOfRound);
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
+        gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
         ///random vagy enm random tekton törése
         if(seed!=12345L) {
             Random rand = new Random(seed);

@@ -16,9 +16,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 
 public class GraphicView extends JFrame implements IView{
@@ -28,6 +27,8 @@ public class GraphicView extends JFrame implements IView{
     private Dimension screensize;
     private DrawingSurface drawingsurface;
 
+    private CardLayout layout;
+    private JPanel cards;
     private JButton moveBtn;
     private JButton eatBtn;
     private JButton biteBtn;
@@ -52,6 +53,9 @@ public class GraphicView extends JFrame implements IView{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         screensize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        layout = new CardLayout();
+        cards = new JPanel(layout);
 
         this.setUndecorated(true);
         this.setResizable(false);
@@ -154,16 +158,16 @@ public class GraphicView extends JFrame implements IView{
             System.out.println("ERROR: cannot start without connecting to a Controller and a GameBoard");
             return;
         }
-        CardLayout layout = new CardLayout();
-        JPanel cards = new JPanel(layout);
-        cards.add(startMenuSetup(layout, cards), "startmenu");
-        cards.add(gameSettingsPanelSetup(layout, cards), "gamesettingsmenu");
-        cards.add(gameBoardPanel(layout, cards), "gameboard");
+
+
+        cards.add(startMenuSetup(), "startmenu");
+        cards.add(gameSettingsPanelSetup(), "gamesettingsmenu");
+        cards.add(gameBoardPanel(), "gameboard");
         this.add(cards);
         this.setVisible(true);
     }
 
-    private JPanel startMenuSetup(CardLayout layout, JPanel cards){
+    private JPanel startMenuSetup(){
         JPanel startMenuPanel = new JPanel(new BorderLayout());
         startMenuPanel.setBackground(Color.BLACK);
 
@@ -231,7 +235,7 @@ public class GraphicView extends JFrame implements IView{
      *                              --> szin valasztas gomb a jobb oldalon
      *                      --> hozzaado gomb kozepre igazitva
      */
-    private JPanel gameSettingsPanelSetup(CardLayout layout, JPanel cards){
+    private JPanel gameSettingsPanelSetup(){
         Dimension btnSize = new Dimension(300, 60);
         JPanel gameSettingsMenuPanel = new JPanel(new BorderLayout());
         gameSettingsMenuPanel.setBackground(Color.BLACK);
@@ -252,7 +256,7 @@ public class GraphicView extends JFrame implements IView{
              */
             gameBoard.clear();
             layout.removeLayoutComponent(gameSettingsMenuPanel);
-            cards.add(gameSettingsPanelSetup(layout, cards), "gamesettingsmenu");
+            cards.add(gameSettingsPanelSetup(), "gamesettingsmenu");
             layout.show(cards, "startmenu");
         });
         bottomControlPanel.add(exitButton);
@@ -569,7 +573,7 @@ public class GraphicView extends JFrame implements IView{
         return gameSettingsMenuPanel;
     }
 
-    private JPanel gameBoardPanel(CardLayout layout, JPanel cards){
+    private JPanel gameBoardPanel(){
         JPanel gameBoardPanel = new JPanel(new BorderLayout());
         gameBoardPanel.setSize(this.getSize());
 
@@ -902,5 +906,177 @@ public class GraphicView extends JFrame implements IView{
         messageDisplay.setText(message);
     }
     @Override
-    public void setEndOfGame(){}
+    public void setEndOfGame(){
+        JPanel endOfGamePanel = new JPanel(new BorderLayout());
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(Color.BLACK);
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        JLabel label = new JLabel("END OF GAME - SCOREBOARD");
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.BOLD, 40));
+        label.setForeground(Color.WHITE);
+        titlePanel.add(label);
+        titlePanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        try{
+            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\LOGOBIG.png"));
+            JLabel imgLabel = new JLabel(new ImageIcon(titleLogo));
+            imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            titlePanel.add(imgLabel);
+            titlePanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        } catch(IOException e){
+            System.out.println("ERROR: cannot load image");
+        }
+        endOfGamePanel.add(titlePanel, BorderLayout.NORTH);
+
+        JPanel scoreBoardPanel = new JPanel(new GridLayout(1,2));
+
+        JPanel shroomersPanel = new JPanel();
+        shroomersPanel.setLayout(new BoxLayout(shroomersPanel, BoxLayout.Y_AXIS));
+        shroomersPanel.setBackground(Color.BLACK);
+        shroomersPanel.add(Box.createVerticalGlue());
+        JLabel shroomersLabel = new JLabel("SHROOMERS");
+        shroomersLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        shroomersLabel.setForeground(Color.WHITE);
+        shroomersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        shroomersPanel.add(shroomersLabel);
+        shroomersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        List<Map.Entry<String, Integer>> shroomerList = new ArrayList<>();
+        for(Shroomer s: gameBoard.getShroomers().values()){
+            shroomerList.add(Map.entry(gameBoard.getPlayerName(s), s.getScore()));
+        }
+        shroomerList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        Map.Entry<String, Integer>[] shroomerArray = shroomerList.toArray(new Map.Entry[0]);
+        JList<Map.Entry<String, Integer>> shroomerJList = new JList<>(shroomerArray);
+
+        /**
+         * cellRenderer osszerak egy 1 soros, 3 oszlopos Grid layoutos panelt,
+         * bal oldalon a helyezes, kozepen a jatekosnev, jobb oldalon a pontszam
+         */
+        shroomerJList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
+            JPanel listItem = new JPanel(new GridLayout(1, 3, 10, 0));
+            listItem.setBackground(Color.BLACK);
+            JLabel pos = new JLabel(idx+1+".");
+            pos.setForeground(Color.WHITE);
+            pos.setBackground(Color.BLACK);
+            pos.setOpaque(true);
+            pos.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(pos);
+            JLabel name = new JLabel(val.getKey());
+            name.setForeground(Color.WHITE);
+            name.setBackground(Color.BLACK);
+            name.setOpaque(true);
+            name.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(name);
+            JLabel type = new JLabel(val.getValue().toString());
+            type.setForeground(Color.WHITE);
+            type.setBackground(Color.BLACK);
+            type.setOpaque(true);
+            type.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(type);
+            listItem.setOpaque(true);
+            return listItem;
+        });
+        shroomerJList.setFont(new Font("Arial", Font.PLAIN, 20));
+        shroomerJList.setBackground(Color.BLACK);
+        shroomerJList.setForeground(Color.WHITE);
+        /**
+         * no-op selection model, hogy ne lehessen kattintani, kivalasztani stb. a lista elemeit
+         */
+        shroomerJList.setSelectionModel(new DefaultListSelectionModel() {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {}
+        });
+        shroomerJList.setFixedCellHeight(30);
+        shroomerJList.setAlignmentX(Component.CENTER_ALIGNMENT);
+        shroomersPanel.add(shroomerJList);
+        scoreBoardPanel.add(shroomersPanel);
+
+        JPanel buggersPanel = new JPanel();
+        buggersPanel.setLayout(new BoxLayout(buggersPanel, BoxLayout.Y_AXIS));
+        buggersPanel.setBackground(Color.BLACK);
+        buggersPanel.add(Box.createVerticalGlue());
+        JLabel buggersLabel = new JLabel("BUGGERS");
+        buggersLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        buggersLabel.setForeground(Color.WHITE);
+        buggersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buggersPanel.add(buggersLabel);
+        buggersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        List<Map.Entry<String, Integer>> buggerList = new ArrayList<>();
+        for(Bugger b: gameBoard.getBuggers().values()){
+            buggerList.add(Map.entry(gameBoard.getPlayerName(b), b.getScore()));
+        }
+        buggerList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        Map.Entry<String, Integer>[] buggerArray = buggerList.toArray(new Map.Entry[0]);
+        JList<Map.Entry<String, Integer>> buggerJList = new JList<>(buggerArray);
+
+        /**
+         * cellRenderer osszerak egy 1 soros, 3 oszlopos Grid layoutos panelt,
+         * bal oldalon a helyezes, kozepen a jatekosnev, jobb oldalon a pontszam
+         */
+        buggerJList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
+            JPanel listItem = new JPanel(new GridLayout(1, 3, 10, 0));
+            listItem.setBackground(Color.BLACK);
+            JLabel pos = new JLabel(idx+1+".");
+            pos.setForeground(Color.WHITE);
+            pos.setBackground(Color.BLACK);
+            pos.setOpaque(true);
+            pos.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(pos);
+            JLabel name = new JLabel(val.getKey());
+            name.setForeground(Color.WHITE);
+            name.setBackground(Color.BLACK);
+            name.setOpaque(true);
+            name.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(name);
+            JLabel type = new JLabel(val.getValue().toString());
+            type.setForeground(Color.WHITE);
+            type.setBackground(Color.BLACK);
+            type.setOpaque(true);
+            type.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(type);
+            listItem.setOpaque(true);
+            return listItem;
+        });
+        buggerJList.setFont(new Font("Arial", Font.PLAIN, 20));
+        buggerJList.setBackground(Color.BLACK);
+        buggerJList.setForeground(Color.WHITE);
+        /**
+         * no-op selection model, hogy ne lehessen kattintani, kivalasztani stb. a lista elemeit
+         */
+        buggerJList.setSelectionModel(new DefaultListSelectionModel() {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {}
+        });
+        buggerJList.setFixedCellHeight(30);
+        buggerJList.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buggersPanel.add(buggerJList);
+        scoreBoardPanel.add(buggersPanel);
+
+        endOfGamePanel.add(scoreBoardPanel, BorderLayout.CENTER);
+
+        /**
+         * bottomControlPanel felhozva, hogy az add gombok event handler-jei lassak a start gombot
+         */
+        JPanel bottomControlPanel = new JPanel();
+        bottomControlPanel.setBackground(Color.BLACK);
+        bottomControlPanel.setLayout(new BoxLayout(bottomControlPanel, BoxLayout.X_AXIS));
+
+        Dimension dim = new Dimension(300, 25);
+        JButton exitButton = new PandoraButton("EXIT");
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+        bottomControlPanel.add(exitButton);
+        exitButton.setPreferredSize(dim);
+        exitButton.setMinimumSize(dim);
+        exitButton.setMaximumSize(dim);
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        endOfGamePanel.add(bottomControlPanel, BorderLayout.SOUTH);
+        cards.add(endOfGamePanel, "endofgame");
+        layout.show(cards,"endofgame");
+    }
 }

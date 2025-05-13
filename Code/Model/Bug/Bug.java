@@ -66,6 +66,7 @@ public class Bug {
     public void setStrategy(Strategy s) {
         if(strategy!=null){
             GameBoard.removeReferenceFromMaps(strategy);
+            resetUnderEffectSince();
         }
         strategy = s;
 
@@ -151,6 +152,7 @@ public class Bug {
     }
 
     public void endOfTurn(){
+        System.out.println(underEffectSince);
         strategy.endOfTurn(this);
 
     }

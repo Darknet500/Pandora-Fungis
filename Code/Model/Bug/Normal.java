@@ -49,7 +49,7 @@ public class Normal implements Strategy {
             b.getBugger().increaseScore(value);
             b.getLocation().removeSpore(s);
             GameBoard.removeReferenceFromMaps(s);
-            b.resetUnderEffectSince();
+            //b.resetUnderEffectSince();
             return true;
         }
         return false;
