@@ -152,9 +152,7 @@ public class Bug {
     }
 
     public void endOfTurn(){
-        System.out.println(underEffectSince);
         strategy.endOfTurn(this);
-
     }
 
     public void resetUnderEffectSince(){

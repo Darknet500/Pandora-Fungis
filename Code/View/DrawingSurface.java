@@ -12,6 +12,9 @@ import View.hitboxes.TektonHitbox;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,9 +46,6 @@ public class DrawingSurface extends JPanel {
             g2d.drawImage(bg, 0, 0, canvas.getWidth(), canvas.getHeight(),null);
         }
         //  TODO: draw everything
-
-
-
 
         if(gameBoard.getTektons().size()>0){
             for (TektonBase tektoni: gameBoard.getTektons()) {

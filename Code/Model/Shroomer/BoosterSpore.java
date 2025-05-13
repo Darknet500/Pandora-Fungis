@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import Model.Bug.Strategy;
 import Model.Bug.Boosted;
+import Model.Tekton.TektonBase;
 
 /**
  * A BoosterSpore egy speciális spóra, amely hatást gyakorol a Bug mozgására.
@@ -19,9 +20,9 @@ public class BoosterSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public BoosterSpore(Shroomer shroomer) {
-        super(shroomer);
-        //GameBoard.addReferenceToMaps("boosterspore", this);
+    public BoosterSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
+        GameBoard.addReferenceToMaps("boosterspore", this);
     }
 
     /**

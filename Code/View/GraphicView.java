@@ -584,9 +584,10 @@ public class GraphicView extends JFrame implements IView{
          */
 
         drawingsurface.addMouseListener(new MouseAdapter() {
+
+
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("X: "+e.getPoint().getX()+", Y:"+e.getPoint().getY());
                 if(selectedAction==null){
                     System.out.println("ERROR: no action was selected");
                     return;
@@ -594,7 +595,6 @@ public class GraphicView extends JFrame implements IView{
 
                 switch(selectedAction){
                     case MOVE: {
-                        System.out.println("Selected Action: MOVE");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){
@@ -614,7 +614,6 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case EAT: {
-                        System.out.println("Selected Action: EAT");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){
@@ -634,7 +633,6 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case BITE: {
-                        System.out.println("Selected Action: BITE");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){
@@ -654,7 +652,6 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case THROWSPORE: {
-                        System.out.println("Selected Action: THORWSPORE");
                         if(selectedMushroom==null){
                             selectMushroom(e);
                             if(selectedMushroom!=null){
@@ -674,7 +671,6 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPA: {
-                        System.out.println("Selected Action: GROWHYPA");
                         if(selectedTektons[0]==null){
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -694,7 +690,6 @@ public class GraphicView extends JFrame implements IView{
                         break;
                     }
                     case GROWHYPAFAR: {
-                        System.out.println("Selected Action: GROWHYPAFAR");
                         if(selectedTektons[0]==null){
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -720,7 +715,6 @@ public class GraphicView extends JFrame implements IView{
                         }
                     }
                     case EATBUG: {
-                        System.out.println("Selected Action: EATBUG");
                         if(selectedBug==null){
                             selectBug(e);
                             if(selectedBug!=null){
@@ -855,7 +849,6 @@ public class GraphicView extends JFrame implements IView{
                 Hitbox h = gameBoard.getObjectHitbox(s);
                 if(h!=null && h.isHit(e.getPoint())){
                     selectedSpore=s;
-                    System.out.println("Eltalált");
                     return;
                 }
             }

@@ -25,7 +25,6 @@ public class MushroomHitbox extends Hitbox{
         BufferedImage image = null;
         try {
             Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", "young"+ mushroomType,"5Y.png");
-            //System.out.println(imagePath);
             image=ImageIO.read(imagePath.toFile());
         }catch (IOException e){
             e.printStackTrace();
@@ -59,7 +58,6 @@ public class MushroomHitbox extends Hitbox{
 
         try {
             Path imagePath = Path.of(System.getProperty("user.dir"), "Assets", "Mushrooms", (isyoung?"young":"old")+ mushroomType,spores+(abletothrow?"Y":"N")+".png");
-            System.out.println(imagePath);
             image=ImageIO.read(imagePath.toFile());
         }catch (IOException e){
             e.printStackTrace();

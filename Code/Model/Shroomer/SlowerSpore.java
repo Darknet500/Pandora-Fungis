@@ -3,6 +3,7 @@ package Model.Shroomer;
 
 import Model.Bridge.GameBoard;
 import Model.Bug.*;
+import Model.Tekton.TektonBase;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,9 +20,9 @@ public class SlowerSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public SlowerSpore(Shroomer shroomer) {
-        super(shroomer);
-        //GameBoard.addReferenceToMaps("slowerspore", this);
+    public SlowerSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
+        GameBoard.addReferenceToMaps("slowerspore", this);
     }
 
     /**

@@ -41,7 +41,7 @@ public class Controller {
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
             TektonBase tekton;
-            if (r < 0.48) {
+            if (r < 0.30) {
                 tekton = new Tekton();
                 normalTektonsNumber.add(k-1);
 
@@ -195,7 +195,6 @@ public class Controller {
             Random rand = new Random(seed);
             gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
         }
-
     }
 
     public boolean move(Bug bug, TektonBase to){

@@ -34,9 +34,8 @@ public class SlowerMushroom extends Mushroom {
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(TektonBase target) {
-        SlowerSpore spore = new SlowerSpore(this.shroomer);
+        SlowerSpore spore = new SlowerSpore(this.shroomer, target);
         target.storeSpore(spore);
-        GameBoard.addReferenceToMaps("slowerspore", spore);
         sporesThrown++;
         numberOfSpores = -1;
         if(getSporesThrown()==5){

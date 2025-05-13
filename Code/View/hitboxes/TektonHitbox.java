@@ -42,7 +42,6 @@ public class TektonHitbox extends Hitbox{
     @Override
     public boolean isHit(Point point){
         if(point.distance(centerPoint)<=width*0.5){
-            System.out.println("Tektonhitbox Hit!");
             return true;
         }
         return false;

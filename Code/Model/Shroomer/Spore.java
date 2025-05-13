@@ -1,6 +1,7 @@
 package Model.Shroomer;
 
 import Model.Bug.*;
+import Model.Tekton.TektonBase;
 import View.hitboxes.SporeHitbox;
 
 import java.util.Collections;
@@ -20,14 +21,18 @@ public abstract class Spore {
      */
     private Shroomer shroomer;
 
+    private TektonBase tekton;
+
     /**
      * Alapértelmezett konstruktor.
      * Létrehoz egy új Spore példányt egy adott Shroomer számára.
      *
      * @param shroomer - Az a Shroomer, aki létrehozza a spórát.
      */
-    public Spore(Shroomer shroomer) {
+    public Spore(Shroomer shroomer, TektonBase tekton)
+    {
         this.shroomer = shroomer;
+        this.tekton = tekton;
     }
 
     /**
@@ -55,4 +60,6 @@ public abstract class Spore {
     public SporeHitbox getHitbox() {
         return hitbox;
     }
+
+    public TektonBase getTekton() {return tekton;}
 }

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import Model.Bug.Strategy;
 import Model.Bug.BiteBlocked;
+import Model.Tekton.TektonBase;
 
 /**
  * A BiteBlockerSpore egy speciális spóra, amely megakadályozza a Bug harapását.
@@ -19,9 +20,9 @@ public class BiteBlockerSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public BiteBlockerSpore(Shroomer shroomer) {
-        super(shroomer);
-        //GameBoard.addReferenceToMaps("biteblockerspore", this);
+    public BiteBlockerSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
+        GameBoard.addReferenceToMaps("biteblockerspore", this);
     }
 
     /**

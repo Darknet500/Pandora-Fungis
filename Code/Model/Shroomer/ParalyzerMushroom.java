@@ -28,9 +28,8 @@ public class ParalyzerMushroom extends Mushroom {
      * @param target - A cél Tekton, amelyre a spóra kerül.
      */
     public void sporeThrown(TektonBase target) {
-        Spore spore = new ParalyzerSpore(this.shroomer);
+        Spore spore = new ParalyzerSpore(this.shroomer, target);
         target.storeSpore(spore);
-        GameBoard.addReferenceToMaps("paralyzerspore", spore);
         sporesThrown++;
         numberOfSpores = -1;
         if(getSporesThrown()==5){

@@ -16,9 +16,9 @@ public class ProliferatingSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public ProliferatingSpore(Shroomer shroomer) {
-        super(shroomer);
-        //GameBoard.addReferenceToMaps("proliferatingspore", this);
+    public ProliferatingSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
+        GameBoard.addReferenceToMaps("proliferatingspore", this);
     }
 
     /**

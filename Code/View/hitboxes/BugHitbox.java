@@ -53,7 +53,7 @@ public class BugHitbox extends Hitbox{
         else if(color == Color.MAGENTA){
             return "purple";
         }
-        return "A kurva anyád";
+        return "";
     }
 
     /**

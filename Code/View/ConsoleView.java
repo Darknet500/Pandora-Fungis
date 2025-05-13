@@ -17,8 +17,6 @@ public class ConsoleView implements IView{
     private ArrangeSection arrangeSection;
     private String testCase;
     private GameMode gameMode;
-    private boolean endOfGame = false;
-
 
     public ConsoleView(GameMode gameMode, String testCase) {
         this.gameMode = gameMode;
@@ -37,7 +35,9 @@ public class ConsoleView implements IView{
 
     @Override
     public void setEndOfGame(){
-        this.endOfGame = true;
+        /**
+         * no-op
+         */
     }
 
     public void run(){
@@ -173,7 +173,7 @@ public class ConsoleView implements IView{
                         }
 
 
-                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "", Color.BLACK );
+                        gameBoard.addShroomer(new Shroomer(mushroomctor, hypaDieAfter), "", Color.BLUE );
 
                     }
                     case MUSHROOMS -> {
@@ -200,7 +200,7 @@ public class ConsoleView implements IView{
                         ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).setMushroom(mushroom);
                     }
                     case BUGGERS -> {
-                        gameBoard.addBugger(new Bugger(), "", Color.BLACK);
+                        gameBoard.addBugger(new Bugger(), "", Color.RED);
                     }
                     case STRATEGIES -> {
                         switch (parts[0].toLowerCase()) {
@@ -231,17 +231,17 @@ public class ConsoleView implements IView{
                         ((Shroomer) gameBoard.getReferenceByObjectName(parts[2])).addHypa(hypa);
                     }
                     case SPORES -> {
-                        Spore spore;
+                        Spore spore = null;
                         Shroomer shroomer = ((Shroomer) gameBoard.getReferenceByObjectName(parts[1]));
+                        TektonBase tekton = ((TektonBase) gameBoard.getReferenceByObjectName(parts[2]));
                         switch (parts[0].toLowerCase()) {
-                            case "boosterspore" -> spore = new BoosterSpore(shroomer);
-                            case "slowerspore" -> spore = new SlowerSpore(shroomer);
-                            case "paralyzerspore" -> spore = new ParalyzerSpore(shroomer);
-                            case "biteblockerspore" -> spore = new BiteBlockerSpore(shroomer);
-                            case "proliferatingspore" -> spore = new ProliferatingSpore(shroomer);
-                            default -> spore = null;
+                            case "boosterspore" -> spore = new BoosterSpore(shroomer, tekton);
+                            case "slowerspore" -> spore = new SlowerSpore(shroomer, tekton);
+                            case "paralyzerspore" -> spore = new ParalyzerSpore(shroomer, tekton);
+                            case "biteblockerspore" -> spore = new BiteBlockerSpore(shroomer, tekton);
+                            case "proliferatingspore" -> spore = new ProliferatingSpore(shroomer, tekton);
                         }
-                        ((TektonBase) gameBoard.getReferenceByObjectName(parts[2])).storeSpore(spore);
+                        tekton.storeSpore(spore);
                     }
                 }
             }
@@ -253,7 +253,7 @@ public class ConsoleView implements IView{
     public void actMethod(File tc, FileInputSource source) throws IOException {
         System.out.println("ACT");
         try {
-            while (source.hasNextLine() && !endOfGame) {
+            while (source.hasNextLine()) {
                 String line = source.readLine();
                 /**
                  * valódi act parancsok beolvasása értelmezése
@@ -269,62 +269,55 @@ public class ConsoleView implements IView{
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.move((Bug)gameBoard.getReferenceByObjectName(parts[1]),
-                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
-                            System.out.println("action failed");
+                        controller.move((Bug)gameBoard.getReferenceByObjectName(parts[1]),
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2]));
                     }
                     case "bite" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.bite((Bug)gameBoard.getReferenceByObjectName(parts[1]),
-                                (Hypa)gameBoard.getReferenceByObjectName(parts[2])))
-                            System.out.println("action failed");
+                        controller.bite((Bug)gameBoard.getReferenceByObjectName(parts[1]),
+                                (Hypa)gameBoard.getReferenceByObjectName(parts[2]));
                     }
                     case "eat" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.eat((Bug)gameBoard.getReferenceByObjectName(parts[1]),
-                                (Spore)gameBoard.getReferenceByObjectName(parts[2])))
-                            System.out.println("action failed");
+                        controller.eat((Bug)gameBoard.getReferenceByObjectName(parts[1]),
+                                (Spore)gameBoard.getReferenceByObjectName(parts[2]));
                     }
                     case "growhypa" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.growhypa((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
-                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
-                            System.out.println("action failed");
+                        controller.growhypa((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[2]));
                     }
                     case "growhypafar" -> {
                         if(parts.length<4){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if (!controller.growhypafar((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
+                        controller.growhypafar((TektonBase)gameBoard.getReferenceByObjectName(parts[1]),
                                 (TektonBase)gameBoard.getReferenceByObjectName(parts[2]),
-                                (TektonBase)gameBoard.getReferenceByObjectName(parts[3])))
-                            System.out.println("action failed");
+                                (TektonBase)gameBoard.getReferenceByObjectName(parts[3]));
                     }
                     case "throwspore" -> {
                         if(parts.length<3){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.throwspore((Mushroom)gameBoard.getReferenceByObjectName(parts[1]), (TektonBase)gameBoard.getReferenceByObjectName(parts[2])))
-                            System.out.println("action failed");
+                        controller.throwspore((Mushroom)gameBoard.getReferenceByObjectName(parts[1]), (TektonBase)gameBoard.getReferenceByObjectName(parts[2]));
                     }
                     case "eatbug" -> {
                         if(parts.length<2){
                             System.out.println("not enough parameters");
                             break;
                         }
-                        if(!controller.eatbug((Bug)gameBoard.getReferenceByObjectName(parts[1])))
-                            System.out.println("action failed");
+                        controller.eatbug((Bug)gameBoard.getReferenceByObjectName(parts[1]));
                     }
                     case "skip" -> {
                         controller.endturn();
@@ -332,10 +325,6 @@ public class ConsoleView implements IView{
                     default -> System.out.println("action failed because of invalid command or assert command");
                 }
                 if(line.equalsIgnoreCase("esc")){
-                    return;
-                }
-                if(endOfGame){
-                    endOfGameTable();
                     return;
                 }
             }
@@ -894,64 +883,6 @@ public class ConsoleView implements IView{
             return false;
         }
         return true;
-    }
-    private void endOfGameTable(){
-        System.out.println("Score board");
-        List<Integer> shroomerSortedKeys = new ArrayList<>(gameBoard.getShroomers().keySet());
-        Collections.sort(shroomerSortedKeys);
-        List<Integer> buggerSortedKeys = new ArrayList<>(gameBoard.getBuggers().keySet());
-        Collections.sort(buggerSortedKeys);
-        List<Integer> shroomerScores = new ArrayList<>();
-        List<Integer> buggerScores = new ArrayList<>();
-
-        int maxScoreBugger=0;
-        List<Integer> maxScoreBuggerIds = new ArrayList<>();
-        for(int i=0;i<gameBoard.getBuggers().size();i++){
-              int score = gameBoard.getBuggers().get(buggerSortedKeys.get(i)).getScore();
-              if(score>=maxScoreBugger){
-                  maxScoreBugger=score;
-                  maxScoreBuggerIds.add(i);
-              }
-            buggerScores.add(score);
-        }
-        int maxScoreShroomer=0;
-        List<Integer> maxScoreShroomerIds=new ArrayList<>();
-        for(int i=0;i<gameBoard.getShroomers().size();i++){
-            int score = gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getScore();
-            if(score>=maxScoreShroomer){
-                maxScoreShroomer=score;
-                maxScoreShroomerIds.add(i);
-            }
-            shroomerScores.add(score);
-        }
-
-        System.out.print("The winner bugger(s) is ");
-        for(int i=0;i<maxScoreBuggerIds.size();i++){
-            System.out.print(gameBoard.getObjectNameByReference(gameBoard.getBuggers().get(buggerSortedKeys.get(maxScoreBuggerIds.get(i))))
-            + (i==maxScoreBuggerIds.size()-1?" ":"; ") );
-        }
-        System.out.println("with " + maxScoreBugger + " points");
-
-        System.out.print("The winner shroomer(s) is ");
-        for(int i=0;i<maxScoreShroomerIds.size();i++){
-            System.out.print(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(maxScoreShroomerIds.get(i))))
-                    + (i==maxScoreShroomerIds.size()-1?" ":"; ") );
-        }
-        System.out.println("with " + maxScoreShroomer + " points");
-
-        System.out.println("The other players with the points they have achieved");
-        for (int i=0;i< gameBoard.getBuggers().size();i++){
-            if(!maxScoreBuggerIds.contains(i)) {
-                System.out.println(gameBoard.getObjectNameByReference(gameBoard.getBuggers().get(buggerSortedKeys.get(i)))+
-                        " - " + gameBoard.getBuggers().get(buggerSortedKeys.get(i)).getScore()+ " points");
-            }
-        }
-        for (int i=0;i< gameBoard.getShroomers().size();i++){
-            if(maxScoreShroomerIds.contains(i)) {
-                System.out.println(gameBoard.getObjectNameByReference(gameBoard.getShroomers().get(shroomerSortedKeys.get(i))) +
-                        " - " + gameBoard.getShroomers().get(shroomerSortedKeys.get(i)).getScore() + " points");
-            }
-        }
     }
 
     @Override

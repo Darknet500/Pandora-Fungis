@@ -18,19 +18,14 @@ public class SporeHitbox extends Hitbox {
         this.color = color;
 
         spore.addObserver(this);
-        drawable = new DrawableRect(centerPoint, 9, color);
+        drawable = new DrawableRect(centerPoint, 10, color);
 
     }
     @Override
     public boolean isHit(Point point) {
         int dx = point.x - centerPoint.x;
         int dy = point.y - centerPoint.y;
-
-        int squaredDistance = dx * dx + dy * dy;
-
-        System.out.println(squaredDistance);
-
-        return squaredDistance <= 9;
+        return (-5<dx&&dx<5&&-5<dy&&dy<5);
     }
 
 
