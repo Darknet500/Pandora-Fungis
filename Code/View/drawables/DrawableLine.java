@@ -93,5 +93,11 @@ public class DrawableLine implements Drawable {
     public Point getEnd2() {
         return End2;
     }
+
+    public void refreshPosition(Point point1, Point point2){
+        this.End1 = point1;
+        this.End2 = point2;
+        line.setLine(End1, End2);
+    }
     
 }

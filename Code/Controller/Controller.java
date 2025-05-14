@@ -41,7 +41,7 @@ public class Controller {
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
             TektonBase tekton;
-            if (r < 0.30) {
+            if (r < 0.10) {
                 tekton = new Tekton();
                 normalTektonsNumber.add(k-1);
 

@@ -86,5 +86,11 @@ public class DrawableRect implements Drawable {
     public int getWidth() {
         return Width;
     }
+
+    public void refreshPosition(Point point){
+        Position = point;
+        rect.setRect(Position.x , Position.y , Width, Width);
+
+    }
 }
 

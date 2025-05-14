@@ -1,4 +1,5 @@
 package View.hitboxes;
+import Model.Shroomer.Hypa;
 import Model.Shroomer.Spore;
 import Model.Tekton.*;
 import View.drawables.DrawableTexture;
@@ -76,6 +77,7 @@ public class TektonHitbox extends Hitbox{
     }
 
     public void refreshCenterPoint(Point newCenterPoint){
+
         Point movedVector = new Point(newCenterPoint.x-centerPoint.x,newCenterPoint.y-centerPoint.y );
         centerPoint = newCenterPoint;
         ((DrawableTexture)drawable).setPosition(centerPoint);
@@ -85,6 +87,9 @@ public class TektonHitbox extends Hitbox{
             tekton.getBug().getHitbox().onPositionChanged();
         for(Spore s: tekton.getStoredSpores()){
             s.getHitbox().onPositionChanged(movedVector);
+        }
+        for(Hypa h: tekton.getHypas()){
+            h.getHitbox().onPositionChanged();
         }
     }
 

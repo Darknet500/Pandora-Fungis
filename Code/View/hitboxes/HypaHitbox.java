@@ -15,6 +15,7 @@
         private Point end1;
         private Point end2;
         private Color color;
+        private int placing;
 
 
         public HypaHitbox(Hypa hypa, Color mushroomtype) {
@@ -23,34 +24,33 @@
             this.end2 = hypa.getEnd2().getHitbox().getCenterPoint();
             this.color = mushroomtype;
 
-            int movingvalue=0;
-
-            int nx = end2.y-end1.y;
-            int ny = end1.x-end2.x;
-
-            double l = Math.sqrt(Math.pow(nx,2)+Math.pow(ny,2));
-            for (int i=1;i<5;i++){
-                boolean isthatplaytaken = false;
+            Point normal = getNormalVectorUpDir();
+            for (int i=0;i<5;i++){
+                boolean isthatplacetaken = false;
+                int movingvalue = i%2==0?-i/2:(i+1)/2;
                 for(Hypa h: hypa.getEnd1().getHypas()){
                     if ((h.getEnd1()==hypa.getEnd1()&&h.getEnd2()==hypa.getEnd2())||(h.getEnd1()==hypa.getEnd2()&&h.getEnd2()==hypa.getEnd1())){
-                        Point temppoint = new Point((int)(end1.x+movingvalue*8*(nx/l)), (int)(end1.y+movingvalue*8*(ny/l)));
+
+                        if(h.getHitbox().getPlacing()==i){
+                            isthatplacetaken = true;
+                            break;
+                        }
+
+/*
+                        Point temppoint = new Point(end1.x+movingvalue* normal.x, end1.y+movingvalue* normal.y);
                         if((h.getHitbox().getEnd1().getX()==temppoint.getX()&&h.getHitbox().getEnd1().getY()==temppoint.getY())||
                                 (h.getHitbox().getEnd2().getX()==temppoint.getX()&&h.getHitbox().getEnd2().getY()==temppoint.getY())) {
-                            isthatplaytaken = true;
+                            isthatplacetaken = true;
+                            break;
                         }
-                    }
+  */                  }
                 }
-                if(!isthatplaytaken){
-                    Point movedend1= new Point((int)(end1.x+movingvalue*8*(nx/l)), (int)(end1.y+movingvalue*8*(ny/l)));
-                    Point movedend2= new Point((int)(end2.x+movingvalue*8*(nx/l)), (int)(end2.y+movingvalue*8*(ny/l)));
-                    end1 = movedend1;
-                    end2 = movedend2;
+                if(!isthatplacetaken){
+                    System.out.println("hypa put: " + i);
+                    placing = i;
+                    end1 = new Point(end1.x+movingvalue*normal.x, end1.y+movingvalue*normal.y);
+                    end2 = new Point(end2.x+movingvalue*normal.x, end2.y+movingvalue*normal.y);
                     break;
-                }else{
-                    if(i%2==0)
-                        movingvalue+=i;
-                    else
-                        movingvalue-=i;
                 }
             }
 
@@ -69,6 +69,10 @@
             double threshold = 5.0;
             double dist = pointToSegmentDistance(point, end1, end2);
             return dist <= threshold;
+        }
+
+        public int getPlacing(){
+            return placing;
         }
 
         /**
@@ -117,7 +121,30 @@
         }
 
         public void onPositionChanged(){
+            this.end1 = hypa.getEnd1().getHitbox().getCenterPoint();
+            this.end2 = hypa.getEnd2().getHitbox().getCenterPoint();
+            Point normal = getNormalVectorUpDir();
 
+
+            int movingvalue = placing%2==0?-placing/2:(placing+1)/2;
+
+            end1 = new Point(end1.x+movingvalue*normal.x, end1.y+movingvalue*normal.y);
+            end2 = new Point(end2.x+movingvalue*normal.x, end2.y+movingvalue*normal.y);
+            ((DrawableLine)drawable).refreshPosition(end1, end2);
+
+
+        }
+
+        private Point getNormalVectorUpDir(){
+            Point rightend = end1.x>end2.x?end1:end2;
+            Point leftend = end1.x>end2.x?end2:end1;
+            Point normal = new Point(leftend.y-rightend.y, rightend.x-leftend.x);
+            double l = Math.sqrt(Math.pow(normal.x,2)+Math.pow(normal.y,2));
+            return new Point((int)(normal.x*8/l), (int)(normal.y*8/l));
+        }
+
+        public boolean comparePlacing(int pl){
+            return placing==pl;
         }
 
 
