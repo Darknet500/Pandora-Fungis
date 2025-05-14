@@ -41,7 +41,7 @@ public class Controller {
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
             TektonBase tekton;
-            if (r < 0.30) {
+            if (r < 0.10) {
                 tekton = new Tekton();
                 normalTektonsNumber.add(k-1);
 
@@ -56,9 +56,9 @@ public class Controller {
             }
         }
 
-        gameBoard.getTekton(0).isNeighbour(gameBoard.getTekton(1));
-        gameBoard.getTekton(1).isNeighbour(gameBoard.getTekton(0));
-
+        //gameBoard.getTekton(0).isNeighbour(gameBoard.getTekton(1));
+        //gameBoard.getTekton(1).isNeighbour(gameBoard.getTekton(0));
+        gameBoard.tektonSpreading();
 
         List<Point> triangulationEdges = List.of(
                 new Point(6, 15),
@@ -190,11 +190,21 @@ public class Controller {
         gameBoard.getTektons().forEach(TektonBase::endOfRound);
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
         gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
+        Random rnd = new Random();
+        if (rnd.nextDouble()<0.20) {
+            for (int i = 0; i < 100; i++) {
+                TektonBase tektonN = gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size()));
+                if (!tektonN.hasMushroom() && tektonN.getBug() == null) {
+                    gameBoard.breakATekton(tektonN);
+                    break;
+                }
+            }
+        }
         ///random vagy enm random tekton törése
-        if(seed!=12345L) {
+        /*if(seed!=12345L) {
             Random rand = new Random(seed);
             gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
-        }
+        }*/
     }
 
     public boolean move(Bug bug, TektonBase to){
@@ -256,6 +266,11 @@ public class Controller {
         if (gameBoard.getShroomers().containsKey(actualPlayer)) {
             if(gameBoard.getShroomers().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
+                for(Shroomer s: gameBoard.getShroomers().values()){
+                    s.tryGrowMushroom(mushroom.getLocation());
+                    s.traverseHypaNetwork();
+                }
+
                 return true;
             }
         }

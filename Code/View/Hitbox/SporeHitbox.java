@@ -26,5 +26,10 @@ public class SporeHitbox extends Hitbox {
         return (-5<dx&&dx<5&&-5<dy&&dy<5);
     }
 
+    public void onPositionChanged(Point movedVec){
+        centerPoint = new Point(centerPoint.x+movedVec.x, centerPoint.y+movedVec.y);
+        ((DrawableRect)drawable).refreshPosition(centerPoint);
+    }
+
 
 }

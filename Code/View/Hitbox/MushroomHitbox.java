@@ -14,7 +14,7 @@ public class MushroomHitbox extends Hitbox{
     private int width;
     public MushroomHitbox(Mushroom mushroom,Point centerPoint, String mushroomType, int width) {
         this.mushroom = mushroom;
-        this.centerPoint = centerPoint;
+        this.centerPoint = new Point((int)(mushroom.getLocation().getHitbox().getCenterPoint().x-width*0.5555),mushroom.getLocation().getHitbox().getCenterPoint().y);
         this.mushroomType = mushroomType;
         this.width = width;
 
@@ -65,6 +65,11 @@ public class MushroomHitbox extends Hitbox{
         }
 
         ((DrawableTexture)drawable).refreshImage(image);
+    }
+
+    public void onPositionChanged(){
+        centerPoint = new Point((int)(mushroom.getLocation().getHitbox().getCenterPoint().getX()-width*0.5555),(int)(mushroom.getLocation().getHitbox().getCenterPoint().getY()));
+        ((DrawableTexture)drawable).setPosition(centerPoint);
     }
 
 
