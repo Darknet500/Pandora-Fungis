@@ -4,11 +4,8 @@ import Model.Bridge.GameBoard;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
-import View.hitboxes.Hitbox;
-import View.hitboxes.TektonHitbox;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 

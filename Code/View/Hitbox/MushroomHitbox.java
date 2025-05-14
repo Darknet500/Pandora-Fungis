@@ -1,13 +1,11 @@
-package View.hitboxes;
+package View.Hitbox;
 import Model.Shroomer.*;
-import View.drawables.DrawableTexture;
+import View.Drawable.DrawableTexture;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Objects;
 
 public class MushroomHitbox extends Hitbox{
     private Mushroom mushroom;

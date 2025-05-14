@@ -1,6 +1,6 @@
-package View.hitboxes;
+package View.Hitbox;
 import Model.Tekton.*;
-import View.drawables.DrawableTexture;
+import View.Drawable.DrawableTexture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

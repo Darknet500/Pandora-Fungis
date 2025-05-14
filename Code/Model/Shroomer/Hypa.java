@@ -1,11 +1,8 @@
 package Model.Shroomer;
 
-import java.util.*;
-
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
-import View.hitboxes.HypaHitbox;
-import View.hitboxes.MushroomHitbox;
+import View.Hitbox.HypaHitbox;
 
 
 /**

@@ -3,9 +3,7 @@ package Model.Bug;
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 import Model.Shroomer.*;
-import View.hitboxes.BugHitbox;
-import View.hitboxes.Hitbox;
-import View.hitboxes.MushroomHitbox;
+import View.Hitbox.BugHitbox;
 
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.

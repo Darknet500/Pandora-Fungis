@@ -1,7 +1,7 @@
 package Model.Shroomer;
 
 import Model.Tekton.*;
-import View.hitboxes.MushroomHitbox;
+import View.Hitbox.MushroomHitbox;
 
 /**
  * A Mushroom osztály egy absztrakt osztály, amely a gombatesteket reprezentálja a játékban.

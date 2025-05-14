@@ -3,22 +3,16 @@ package View;
 import Model.Bridge.GameBoard;
 import Model.Bug.Bugger;
 import Model.Shroomer.Shroomer;
-import Model.Shroomer.Spore;
-import Model.Tekton.Tekton;
 import Model.Tekton.TektonBase;
-import View.drawables.DrawableLine;
-import View.hitboxes.TektonHitbox;
+import View.Drawable.DrawableLine;
+import View.Hitbox.TektonHitbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class DrawingSurface extends JPanel {
     private BufferedImage canvas;

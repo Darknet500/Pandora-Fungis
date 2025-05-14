@@ -1,8 +1,7 @@
-package View.hitboxes;
+package View.Hitbox;
 
-import Model.Bridge.GameBoard;
 import Model.Bug.Bug;
-import View.drawables.DrawableTexture;
+import View.Drawable.DrawableTexture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +9,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class BugHitbox extends Hitbox{

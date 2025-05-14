@@ -1,14 +1,9 @@
-    package View.hitboxes;
+    package View.Hitbox;
 
     import Model.Shroomer.Hypa;
-    import View.drawables.Drawable;
-    import View.drawables.DrawableLine;
+    import View.Drawable.DrawableLine;
 
-    import javax.imageio.ImageIO;
     import java.awt.*;
-    import java.awt.image.BufferedImage;
-    import java.io.File;
-    import java.io.IOException;
 
     public class HypaHitbox extends Hitbox {
         private Hypa hypa;

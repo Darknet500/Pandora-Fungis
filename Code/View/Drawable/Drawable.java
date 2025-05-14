@@ -1,4 +1,4 @@
-package View.drawables;
+package View.Drawable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

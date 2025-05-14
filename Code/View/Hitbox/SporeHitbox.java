@@ -1,11 +1,9 @@
-package View.hitboxes;
+package View.Hitbox;
 
 import Model.Shroomer.Spore;
-import View.drawables.Drawable;
-import View.drawables.DrawableRect;
+import View.Drawable.DrawableRect;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class SporeHitbox extends Hitbox {
     private Point centerPoint;

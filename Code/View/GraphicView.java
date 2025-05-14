@@ -5,8 +5,7 @@ import Model.Bridge.GameBoard;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 import Model.Bug.*;
-import View.hitboxes.Hitbox;
-import View.hitboxes.TektonHitbox;
+import View.Hitbox.Hitbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -158,7 +157,6 @@ public class GraphicView extends JFrame implements IView{
             System.out.println("ERROR: cannot start without connecting to a Controller and a GameBoard");
             return;
         }
-
 
         cards.add(startMenuSetup(), "startmenu");
         cards.add(gameSettingsPanelSetup(), "gamesettingsmenu");
@@ -1051,23 +1049,23 @@ public class GraphicView extends JFrame implements IView{
 
         endOfGamePanel.add(scoreBoardPanel, BorderLayout.CENTER);
 
-        /**
-         * bottomControlPanel felhozva, hogy az add gombok event handler-jei lassak a start gombot
-         */
+
         JPanel bottomControlPanel = new JPanel();
         bottomControlPanel.setBackground(Color.BLACK);
-        bottomControlPanel.setLayout(new BoxLayout(bottomControlPanel, BoxLayout.X_AXIS));
+        bottomControlPanel.setLayout(new BoxLayout(bottomControlPanel, BoxLayout.Y_AXIS));
 
         Dimension dim = new Dimension(300, 25);
         JButton exitButton = new PandoraButton("EXIT");
         exitButton.addActionListener(e -> {
             System.exit(0);
         });
-        bottomControlPanel.add(exitButton);
+        bottomControlPanel.add(Box.createRigidArea(new Dimension(0, 100)));
         exitButton.setPreferredSize(dim);
         exitButton.setMinimumSize(dim);
         exitButton.setMaximumSize(dim);
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        bottomControlPanel.add(exitButton);
+        bottomControlPanel.add(Box.createRigidArea(new Dimension(0, 100)));
         endOfGamePanel.add(bottomControlPanel, BorderLayout.SOUTH);
         cards.add(endOfGamePanel, "endofgame");
         layout.show(cards,"endofgame");

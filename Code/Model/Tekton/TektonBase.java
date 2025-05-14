@@ -6,13 +6,11 @@ import Model.Shroomer.Hypa;
 import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
-import View.hitboxes.Hitbox;
-import View.hitboxes.TektonHitbox;
+import View.Hitbox.TektonHitbox;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class TektonBase {
 

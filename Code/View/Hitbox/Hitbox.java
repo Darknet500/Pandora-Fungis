@@ -1,6 +1,6 @@
-package View.hitboxes;
+package View.Hitbox;
 
-import View.drawables.Drawable;
+import View.Drawable.Drawable;
 import java.awt.*;
 
 public abstract class Hitbox {

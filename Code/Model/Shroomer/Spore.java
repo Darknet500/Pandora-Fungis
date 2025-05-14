@@ -2,9 +2,7 @@ package Model.Shroomer;
 
 import Model.Bug.*;
 import Model.Tekton.TektonBase;
-import View.hitboxes.SporeHitbox;
-
-import java.util.Collections;
+import View.Hitbox.SporeHitbox;
 
 
 /**

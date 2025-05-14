@@ -4,7 +4,7 @@ import Model.Tekton.*;
 import Model.Shroomer.*;
 import Model.Bug.*;
 import View.IView;
-import View.hitboxes.*;
+import View.Hitbox.*;
 
 import java.awt.*;
 import java.util.*;
