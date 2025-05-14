@@ -39,9 +39,23 @@ public class Tekton  extends TektonBase {
      */
     @Override
     public void breakTekton(long seed) {
+
         Tekton newTekton = new Tekton();
 
+        if(seed == 42) {
+            for(TektonBase neighbour: this.getNeighbours()){
+                neighbour.removeNeighbour(this);
+            }
+            this.setNeighbours(new ArrayList<>());
+            List<Hypa> hypasList = new ArrayList<Hypa>();
+            hypasList.addAll(connectedHypas);
+            for(Hypa h : hypasList){
+                h.die();
 
+            }
+
+            return;
+        }
         // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
 

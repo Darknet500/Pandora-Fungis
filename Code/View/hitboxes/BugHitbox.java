@@ -88,4 +88,6 @@ public class BugHitbox extends Hitbox{
             ((DrawableTexture)drawable).setPosition(centerPoint);
         }
     }
+
+
 }

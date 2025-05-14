@@ -56,9 +56,9 @@ public class Controller {
             }
         }
 
-        gameBoard.getTekton(0).isNeighbour(gameBoard.getTekton(1));
-        gameBoard.getTekton(1).isNeighbour(gameBoard.getTekton(0));
-
+        //gameBoard.getTekton(0).isNeighbour(gameBoard.getTekton(1));
+        //gameBoard.getTekton(1).isNeighbour(gameBoard.getTekton(0));
+        gameBoard.tektonSpreading();
 
         List<Point> triangulationEdges = List.of(
                 new Point(6, 15),
@@ -190,6 +190,8 @@ public class Controller {
         gameBoard.getTektons().forEach(TektonBase::endOfRound);
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
         gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
+        Random rnd = new Random();
+        gameBoard.breakATekton(gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size())));
         ///random vagy enm random tekton törése
         if(seed!=12345L) {
             Random rand = new Random(seed);

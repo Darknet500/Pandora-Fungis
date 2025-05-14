@@ -78,7 +78,19 @@ public class Stone extends TektonBase {
     public void breakTekton(long seed) {
         Stone newTekton = new Stone();
 
-        // Szétosztjuk a szomszédokat 50-50%
+        if(seed == 42) {
+            for(TektonBase neighbour: this.getNeighbours()){
+                neighbour.removeNeighbour(this);
+            }
+            this.setNeighbours(new ArrayList<>());
+            List<Hypa> hypasList = new ArrayList<Hypa>();
+            hypasList.addAll(connectedHypas);
+            for(Hypa h : hypasList){
+                h.die();
+
+            }
+            return;
+        }        // Szétosztjuk a szomszédokat 50-50%
         Random rnd = new Random(seed);
 
         List<TektonBase> remain = new ArrayList<>();
