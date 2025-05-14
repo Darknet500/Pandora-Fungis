@@ -514,10 +514,39 @@ public class GameBoard {
         TektonBase newTekton = allTektons.get(tektoncount);
         tekton.addNeighbour(newTekton);
         newTekton.addNeighbour(tekton);
-        newTekton.getHitbox().refreshCenterPoint(new Point(tekton.getHitbox().getCenterPoint().x+(view.getDrawingSurfaceHeight() * 2)/15+20,tekton.getHitbox().getCenterPoint().y));
-        //newTekton.getHitbox().setWeight(tekton.getHitbox().getWeight()*10);
+
+
+        // megyünk egy kört a régi tekton körül, és oda helyezzük el az újat, ahol a maximális a távolság a többitől
+        int circleSteps = 32;
+        double maxdistance=0;
+        Point bestPoint = new Point(0,0);
+        for (int i=0;i<circleSteps;i++){
+            Point tmppoint = new Point(tekton.getHitbox().getCenterPoint().x+(int)(Math.cos(i*Math.PI*2/circleSteps)*((double)(view.getDrawingSurfaceHeight()*2/15)+5)),tekton.getHitbox().getCenterPoint().y+(int)(Math.sin(i*Math.PI*2/circleSteps)*((double)(view.getDrawingSurfaceHeight()*2/15)+5)));
+            double mindistance = 100000;
+            for(TektonBase tekt: allTektons){
+                if(tekt!=tekton){
+                    double dist = Math.sqrt(Math.pow(tmppoint.x-tekt.getHitbox().getCenterPoint().getX(),2)+Math.pow(tmppoint.y-tekt.getHitbox().getCenterPoint().getY(),2));
+                    if (dist<mindistance)
+                        mindistance=dist;
+                }
+            }
+            if (mindistance>maxdistance&&(tmppoint.x>view.getDrawingSurfaceHeight()/15)&&tmppoint.y>(view.getDrawingSurfaceHeight()*2/15)&&tmppoint.x<(view.getDrawingSurfaceWidth()-(view.getDrawingSurfaceHeight()*2/15))&&tmppoint.y<(view.getDrawingSurfaceHeight()-(view.getDrawingSurfaceHeight()*2/15))){
+                maxdistance=mindistance;
+                bestPoint= new Point(tmppoint);
+            }
+
+        }
+        newTekton.getHitbox().refreshCenterPoint(bestPoint);
+
+
+
+
+
+
+
+        newTekton.getHitbox().setWeight(tekton.getHitbox().getWeight()*2);
+        tekton.getHitbox().setWeight(tekton.getHitbox().getWeight()*2);
         tektonSpreading();
-        //newTekton.getHitbox().setWeight(tekton.getHitbox().getWeight()/10);
         for(TektonBase neighbour: oldneighbours){
             if(neighbour.getHitbox().getCenterPoint().distance(tekton.getHitbox().getCenterPoint())<
             neighbour.getHitbox().getCenterPoint().distance(newTekton.getHitbox().getCenterPoint())){
