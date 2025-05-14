@@ -26,7 +26,7 @@ public class TektonHitbox extends Hitbox{
         this.width = width;
 
         Random rand = new Random();
-        weight = 50*(3+Math.max(-3,Math.min(3,rand.nextGaussian())));
+        weight = 25*(3+Math.max(-3,Math.min(3,rand.nextGaussian())));
         //weight = 300;
 
 

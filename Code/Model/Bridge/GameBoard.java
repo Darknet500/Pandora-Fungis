@@ -494,7 +494,7 @@ public class GameBoard {
             if (spreadEnough){
                 break;
             }
-
+            if(i==9999) System.out.println("nem sikerült");
         }
 
         ///hypák hitboxainak mozgatása (többi objektum a tekton setLocation metódusában belül mozgatódik)
@@ -502,6 +502,7 @@ public class GameBoard {
             for(Hypa h: tekton.getHypas()){
 
             }
+
         }
 
     }

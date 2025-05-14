@@ -36,14 +36,7 @@
                             break;
                         }
 
-/*
-                        Point temppoint = new Point(end1.x+movingvalue* normal.x, end1.y+movingvalue* normal.y);
-                        if((h.getHitbox().getEnd1().getX()==temppoint.getX()&&h.getHitbox().getEnd1().getY()==temppoint.getY())||
-                                (h.getHitbox().getEnd2().getX()==temppoint.getX()&&h.getHitbox().getEnd2().getY()==temppoint.getY())) {
-                            isthatplacetaken = true;
-                            break;
-                        }
-  */                  }
+                  }
                 }
                 if(!isthatplacetaken){
                     System.out.println("hypa put: " + i);
@@ -143,9 +136,6 @@
             return new Point((int)(normal.x*8/l), (int)(normal.y*8/l));
         }
 
-        public boolean comparePlacing(int pl){
-            return placing==pl;
-        }
 
 
     }

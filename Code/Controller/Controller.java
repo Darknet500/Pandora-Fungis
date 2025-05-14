@@ -191,7 +191,7 @@ public class Controller {
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
         gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
         Random rnd = new Random();
-        if (rnd.nextDouble()<0.4) {
+        if (rnd.nextDouble()<0.20) {
             for (int i = 0; i < 100; i++) {
                 TektonBase tektonN = gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size()));
                 if (!tektonN.hasMushroom() && tektonN.getBug() == null) {
@@ -201,10 +201,10 @@ public class Controller {
             }
         }
         ///random vagy enm random tekton törése
-        if(seed!=12345L) {
+        /*if(seed!=12345L) {
             Random rand = new Random(seed);
             gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
-        }
+        }*/
     }
 
     public boolean move(Bug bug, TektonBase to){
@@ -266,6 +266,11 @@ public class Controller {
         if (gameBoard.getShroomers().containsKey(actualPlayer)) {
             if(gameBoard.getShroomers().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
+                for(Shroomer s: gameBoard.getShroomers().values()){
+                    s.tryGrowMushroom(mushroom.getLocation());
+                    s.traverseHypaNetwork();
+                }
+
                 return true;
             }
         }
