@@ -191,7 +191,15 @@ public class Controller {
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
         gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
         Random rnd = new Random();
-        gameBoard.breakATekton(gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size())));
+        if (rnd.nextDouble()<0.4) {
+            for (int i = 0; i < 100; i++) {
+                TektonBase tektonN = gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size()));
+                if (!tektonN.hasMushroom() && tektonN.getBug() == null) {
+                    gameBoard.breakATekton(tektonN);
+                    break;
+                }
+            }
+        }
         ///random vagy enm random tekton törése
         if(seed!=12345L) {
             Random rand = new Random(seed);
