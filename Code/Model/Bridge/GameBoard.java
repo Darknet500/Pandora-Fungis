@@ -57,6 +57,7 @@ public class GameBoard {
     private static int swampID = 1;
     private static int tektonID = 1;
     private static final Random rand = new Random();
+    private static List<Point> tektonpoints;
 
     public GameBoard(){
         view = null;
@@ -71,6 +72,37 @@ public class GameBoard {
         hitboxObjectMap = new HashMap<>();
         shroomerColorMap = new HashMap<>();
         buggerColorMap = new HashMap<>();
+
+
+        tektonpoints = Arrays.asList(
+                new Point(95635, 51330),
+                new Point(58440, 74830),
+                new Point(11520, 6060),
+                new Point(74560, 11240),
+                new Point(70580, 64090),
+                new Point(99965, 1430),
+                new Point(22140, 98540),
+                new Point(23850, 18400),
+                new Point(61340, 8840),
+                new Point(30070, 46510),
+                new Point(12050, 67500),
+                new Point(37090, 23870),
+                new Point(82365, 48870),
+                new Point(50355, 25570),
+                new Point(0, 55030),
+                new Point(25255, 71530),
+                new Point(93000, 24130),
+                new Point(80840, 96560),
+                new Point(4965, 30380),
+                new Point(44170, 75540),
+                new Point(46440, 20),
+                new Point(86705, 20),
+                new Point(70225, 37330),
+                new Point(43350, 48390),
+                new Point(20990, 41980)
+        );
+
+
     }
 
     public void connectToView(IView view){
@@ -156,41 +188,16 @@ public class GameBoard {
         double randmovx = (rand.nextDouble()-1)/4;
         double randmovy = (rand.nextDouble()-1)/4;
 
-        List<Point> tektonpoints = Arrays.asList(
-                new Point(xborder + (int)(0.95635 * drawingSurfaceWidth), yborder + (int)(0.5133 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.5844 * drawingSurfaceWidth), yborder + (int)(0.7483 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.1152 * drawingSurfaceWidth), yborder + (int)(0.0606 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.7456 * drawingSurfaceWidth), yborder + (int)(0.1124 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.7058 * drawingSurfaceWidth), yborder + (int)(0.6409 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.99965 * drawingSurfaceWidth), yborder + (int)(0.0143 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.2214 * drawingSurfaceWidth), yborder + (int)(0.9854 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.2385 * drawingSurfaceWidth), yborder + (int)(0.1840 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.6134 * drawingSurfaceWidth), yborder + (int)(0.0884 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.3007 * drawingSurfaceWidth), yborder + (int)(0.4651 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.1205 * drawingSurfaceWidth), yborder + (int)(0.6750 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.3709 * drawingSurfaceWidth), yborder + (int)(0.2387 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.82365 * drawingSurfaceWidth), yborder + (int)(0.4887 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.50355 * drawingSurfaceWidth), yborder + (int)(0.2557 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.0000 * drawingSurfaceWidth), yborder + (int)(0.5503 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.25255 * drawingSurfaceWidth), yborder + (int)(0.7153 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.9300 * drawingSurfaceWidth), yborder + (int)(0.2413 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.8084 * drawingSurfaceWidth), yborder + (int)(0.9656 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.04965 * drawingSurfaceWidth), yborder + (int)(0.3038 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.4417 * drawingSurfaceWidth), yborder + (int)(0.7554 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.4644 * drawingSurfaceWidth), yborder + (int)(0.0002 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.86705 * drawingSurfaceWidth), yborder + (int)(0.0002 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.70225 * drawingSurfaceWidth), yborder + (int)(0.3733 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.4335 * drawingSurfaceWidth), yborder + (int)(0.4839 * drawingSurfaceHeight)),
-                new Point(xborder + (int)(0.2099 * drawingSurfaceWidth), yborder + (int)(0.4198 * drawingSurfaceHeight))
-        );
 
 
 
+        ///tektonok létrehozásához közös dolgok
         Point tektonpoint = new Point(0,0);
-        if (tektonsCount>=0&&tektonsCount<25)
-            tektonpoint = tektonpoints.get(tektonsCount);
-        //tektonpoint = new Point(xstep+tektonsCount%5*xstep+(int)(randmovx*xstep),ystep+(int)Math.floor((double)tektonsCount/5)*ystep+(int)(randmovy*ystep));
-
+        if (tektonsCount<25) {
+            double calculatedX = tektonpoints.get(tektonsCount).getX()/100000.0;
+            double calculatedY = tektonpoints.get(tektonsCount).getY()/100000.0;
+            tektonpoint = new Point(xborder+(int)Math.floor(calculatedX*drawingSurfaceWidth),yborder+(int)Math.floor(calculatedY*drawingSurfaceHeight));
+        }
 
         int tektonsize = (int)(ystep*0.8);
 
