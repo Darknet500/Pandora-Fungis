@@ -416,8 +416,6 @@ public class GameBoard {
 
     public int getNumberOfPlayers(){return shroomers.size() + buggers.size();}
 
-
-
     static private Point getSporeHitboxPoint(TektonBase sporelocation){
         int tektonsize=view.getDrawingSurfaceHeight()*2/15;
         int sporecount = sporelocation.getStoredSpores().size()-1;
@@ -430,20 +428,18 @@ public class GameBoard {
 
     /**
      * Antigravitációs erőt szimulálva mozgatja a tektonokat, azaz, hagyja hogy egymástól távolodjanak
+     * Maguk a TektonBase objektumok hívják meg tekton törés után
      */
-    public void tektonSpreading(){
-        List<TektonHitbox> tektonhitboxes = new ArrayList<>();
+    static public void tektonSpreading(){
         double[][] movedCenterpoint=new double[2][allTektons.size()];
-        for(TektonBase tekton: allTektons){
-            tektonhitboxes.add((TektonHitbox)objectHitboxMap.get(tekton));        }
         for (int i=0;i<10000;i++){
             int j=0;
             Arrays.fill(movedCenterpoint[0],0);
             Arrays.fill(movedCenterpoint[1],0);
-            for(TektonHitbox tek: tektonhitboxes){
+            for(TektonBase tek: allTektons){
                 double fx = 0;
                 double fy = 0;
-                for(TektonHitbox otherTek: tektonhitboxes){
+                for(TektonBase otherTek: allTektons){
                     if(tek!=otherTek){
                         int dx = tek.getCenterPoint().x - otherTek.getCenterPoint().x;
                         int dy = tek.getCenterPoint().y - otherTek.getCenterPoint().y;
@@ -467,21 +463,32 @@ public class GameBoard {
                 dx = Math.max(10,(view.getDrawingSurfaceWidth()-tek.getCenterPoint().x));
                 fx+=tek.getWeight()*100/(dx*dx);
 
+                //csekkoljuk hogy ne legyen túl nagy ez az erő
+                while(true){
+                    double forceStrength = Math.sqrt(dx*dx+dy*dy);
+                    if(forceStrength>20){
+                        dx=dx/3;
+                        dy=dy/3;
+                    }else
+                        break;
+                }
+
+
                 movedCenterpoint[0][j]=fx/tek.getWeight()*50;
                 movedCenterpoint[1][j]=fy/tek.getWeight()*50;
                 j++;
             }
             j=0;
-            for(TektonHitbox tek: tektonhitboxes){
+            for(TektonBase tek: allTektons){
                 int movedpointX = (int)(Math.min(view.getDrawingSurfaceWidth()*11/12,Math.max(view.getDrawingSurfaceWidth()/12,tek.getCenterPoint().x+movedCenterpoint[0][j])));
                 int movedpointY = (int)(Math.min(view.getDrawingSurfaceHeight()*11/12,Math.max(view.getDrawingSurfaceHeight()/12,tek.getCenterPoint().y+movedCenterpoint[1][j])));
-                tek.refreshCenterPoint(new Point(movedpointX,movedpointY));
+                tek.setCenterPoint(new Point(movedpointX,movedpointY));
                 j++;
             }
             //lecsekkoljuk hogy eltávolodtak-e már a tektonok amennyire kell
             boolean spreadEnough = true;
-            for(TektonHitbox tek: tektonhitboxes){
-                for(TektonHitbox otherTek: tektonhitboxes){
+            for(TektonBase tek: allTektons){
+                for(TektonBase otherTek: allTektons){
                     if(tek!=otherTek){
                         int dx = tek.getCenterPoint().x - otherTek.getCenterPoint().x;
                         int dy = tek.getCenterPoint().y - otherTek.getCenterPoint().y;
@@ -494,75 +501,8 @@ public class GameBoard {
             if (spreadEnough){
                 break;
             }
-            if(i==9999) System.out.println("nem sikerült");
         }
-
-        ///hypák hitboxainak mozgatása (többi objektum a tekton setLocation metódusában belül mozgatódik)
-        for(TektonBase tekton: allTektons){
-            for(Hypa h: tekton.getHypas()){
-
-            }
-
-        }
-
     }
-
-    public void breakATekton(TektonBase tekton){
-        int tektoncount= allTektons.size();
-
-        List<TektonBase> oldneighbours = tekton.getNeighbours();
-        tekton.breakTekton(42);
-        TektonBase newTekton = allTektons.get(tektoncount);
-        tekton.addNeighbour(newTekton);
-        newTekton.addNeighbour(tekton);
-
-
-        // megyünk egy kört a régi tekton körül, és oda helyezzük el az újat, ahol a maximális a távolság a többitől
-        int circleSteps = 32;
-        double maxdistance=0;
-        Point bestPoint = new Point(0,0);
-        for (int i=0;i<circleSteps;i++){
-            Point tmppoint = new Point(tekton.getHitbox().getCenterPoint().x+(int)(Math.cos(i*Math.PI*2/circleSteps)*((double)(view.getDrawingSurfaceHeight()*2/15)+5)),tekton.getHitbox().getCenterPoint().y+(int)(Math.sin(i*Math.PI*2/circleSteps)*((double)(view.getDrawingSurfaceHeight()*2/15)+5)));
-            double mindistance = 100000;
-            for(TektonBase tekt: allTektons){
-                if(tekt!=tekton){
-                    double dist = Math.sqrt(Math.pow(tmppoint.x-tekt.getHitbox().getCenterPoint().getX(),2)+Math.pow(tmppoint.y-tekt.getHitbox().getCenterPoint().getY(),2));
-                    if (dist<mindistance)
-                        mindistance=dist;
-                }
-            }
-            if (mindistance>maxdistance&&(tmppoint.x>view.getDrawingSurfaceHeight()/15)&&tmppoint.y>(view.getDrawingSurfaceHeight()*2/15)&&tmppoint.x<(view.getDrawingSurfaceWidth()-(view.getDrawingSurfaceHeight()*2/15))&&tmppoint.y<(view.getDrawingSurfaceHeight()-(view.getDrawingSurfaceHeight()*2/15))){
-                maxdistance=mindistance;
-                bestPoint= new Point(tmppoint);
-            }
-
-        }
-        newTekton.getHitbox().refreshCenterPoint(bestPoint);
-
-
-
-
-
-
-
-        newTekton.getHitbox().setWeight(tekton.getHitbox().getWeight()*2);
-        tekton.getHitbox().setWeight(tekton.getHitbox().getWeight()*2);
-        tektonSpreading();
-        for(TektonBase neighbour: oldneighbours){
-            if(neighbour.getHitbox().getCenterPoint().distance(tekton.getHitbox().getCenterPoint())<
-            neighbour.getHitbox().getCenterPoint().distance(newTekton.getHitbox().getCenterPoint())){
-                tekton.addNeighbour(neighbour);
-                neighbour.addNeighbour(tekton);
-            }else{
-                newTekton.addNeighbour(neighbour);
-                neighbour.addNeighbour(newTekton);
-            }
-        }
-
-
-
-    }
-
 }
 
 

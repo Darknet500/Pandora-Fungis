@@ -6,6 +6,7 @@ import java.util.function.BiFunction;
 import java.awt.Color;
 
 import Controller.Controller;
+import Gamemode.GameMode;
 import Model.Bridge.*;
 import Model.Bug.*;
 import Model.Shroomer.*;

@@ -2,6 +2,7 @@ package View.Drawable;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public class DrawableLine implements Drawable {

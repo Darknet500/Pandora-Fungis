@@ -15,7 +15,7 @@ public class TektonHitbox extends Hitbox{
     private TektonBase tekton;
     private Point centerPoint;
     private int width;
-    private double weight;
+
     /**
      * TektonHitbox konstruktor
      * @param
@@ -25,12 +25,6 @@ public class TektonHitbox extends Hitbox{
         this.tekton = tekton;
         this.width = width;
 
-        Random rand = new Random();
-        weight = 25*(3+Math.max(-3,Math.min(3,rand.nextGaussian())));
-        //weight = 300;
-
-
-        tekton.addObserver(this);
         BufferedImage image = null;
 
         try {
@@ -44,14 +38,8 @@ public class TektonHitbox extends Hitbox{
         }
 
         drawable=new DrawableTexture(centerPoint, image, width);
-    }
-
-
-    public double getWeight() {
-        return weight;
-    }
-    public void setWeight(double weight) {
-        this.weight = weight;
+        tekton.addObserver(this);
+        tekton.setCenterPoint(centerPoint);
     }
 
     /**
