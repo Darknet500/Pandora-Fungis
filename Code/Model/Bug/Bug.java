@@ -3,9 +3,7 @@ package Model.Bug;
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
 import Model.Shroomer.*;
-import View.hitboxes.BugHitbox;
-import View.hitboxes.Hitbox;
-import View.hitboxes.MushroomHitbox;
+import View.Hitbox.BugHitbox;
 
 /**
  * Bogárt megvalósító osztály, amit a játékos írányít.
@@ -42,9 +40,9 @@ public class Bug {
      * és egy normál stratégiával inicializálja.
      * Elnevezi magát, és beleteszi magát a gameBoard nameObjectMap-jébe
      */
-    public Bug(Bugger bugger) {
+    public Bug(Bugger bugger, TektonBase tekton) {
         this.bugger=bugger;
-        tekton = null;
+        this.tekton = tekton;
         strategy = new Normal();
         GameBoard.addReferenceToMaps("bug", this);
     }
@@ -66,9 +64,10 @@ public class Bug {
     public void setStrategy(Strategy s) {
         if(strategy!=null){
             GameBoard.removeReferenceFromMaps(strategy);
+            resetUnderEffectSince();
         }
         strategy = s;
-        hitbox.onStrategyChanged();
+
     }
 
     public Strategy getStrategy() {
@@ -131,7 +130,9 @@ public class Bug {
      * @param t Az új Tekton helyszín.
      */
     public void setLocation(TektonBase t){
+
         tekton = t;
+        hitbox.onPositionChanged();
     }
 
     /**
@@ -150,7 +151,6 @@ public class Bug {
 
     public void endOfTurn(){
         strategy.endOfTurn(this);
-
     }
 
     public void resetUnderEffectSince(){

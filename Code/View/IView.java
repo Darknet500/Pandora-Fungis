@@ -9,9 +9,12 @@ public interface IView {
     void setEndOfGame();
     void run();
 
+    int getDrawingSurfaceWidth();
+    int getDrawingSurfaceHeight();
+
     /**
      * kontroller ertesiti a view-t, grafikusban letiltjuk a hatasara a masik jatekosfajta akcio kivalaszto gombjait
      */
-    void shroomerNext(String playerName);
-    void buggerNext(String playerName);
+    void shroomerNext(String playerName, int roundNumber);
+    void buggerNext(String playerName, int roundNumber);
 }

@@ -1,7 +1,7 @@
 package Model.Shroomer;
 
 import Model.Tekton.*;
-import View.hitboxes.MushroomHitbox;
+import View.Hitbox.MushroomHitbox;
 
 /**
  * A Mushroom osztály egy absztrakt osztály, amely a gombatesteket reprezentálja a játékban.
@@ -75,7 +75,7 @@ public abstract class Mushroom {
     public void age() {
         age++;
         if(age==5)
-            hitbox.onBecameOld();
+            hitbox.onTextureChanged();
     }
 
     /**
@@ -109,9 +109,10 @@ public abstract class Mushroom {
     }
 
     public void increaseNumberofSpores() {
+
         numberOfSpores++;
         if(numberOfSpores==1)
-            hitbox.onSporeThrowableChanged();
+            hitbox.onTextureChanged();
     }
 
     /**
@@ -135,4 +136,7 @@ public abstract class Mushroom {
         this.hitbox = hitbox;
     }
 
+    public MushroomHitbox getHitbox(){
+        return hitbox;
+    }
 }

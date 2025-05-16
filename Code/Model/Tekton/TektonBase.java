@@ -6,13 +6,11 @@ import Model.Shroomer.Hypa;
 import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
-import Model.Observer.EventType;
-import View.hitboxes.Hitbox;
+import View.Hitbox.TektonHitbox;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class TektonBase {
 
@@ -41,14 +39,54 @@ public abstract class TektonBase {
      */
     protected List<Hypa> connectedHypas;
 
+    protected TektonHitbox hitbox;
+
+    protected double weight;
+
+    protected Point centerPoint;
+
     public TektonBase() {
         this.bug = null;
         this.mushroom = null;
         this.storedSpores = new ArrayList<>();
         this.neighbours = new ArrayList<>();
         this.connectedHypas = new ArrayList<>();
+        this.hitbox = null;
+
+        Random rand = new Random();
+        weight = 25*(3+Math.max(-3,Math.min(3,rand.nextGaussian())));
     }
 
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setCenterPoint(Point centerPoint) {
+        this.centerPoint = centerPoint;
+        if(hitbox != null) {
+            hitbox.refreshCenterPoint(centerPoint);
+        }
+    }
+
+    public Point getCenterPoint() {
+        return centerPoint;
+    }
+
+    /**
+     * Sets the Hitbox of the tekton
+     * @param h Hitbox wich will be set
+     */
+    public void addObserver(TektonHitbox h){
+        this.hitbox = h;
+    }
+
+    public TektonHitbox getHitbox(){
+        return this.hitbox;
+    }
 
     /**
      * Ezt utólag írtam hozzá.
@@ -78,6 +116,14 @@ public abstract class TektonBase {
     public abstract boolean acceptHypa(Shroomer shroomer);
 
     public abstract boolean canMushroomGrow(Shroomer s);
+
+    /**
+     * az első gombatest növesztésének engedélyezése, vagy elutasítása, cask a stone tekton utasítja el
+     * @return
+     */
+    public boolean canMushroomGrow(){
+        return true;
+    }
 
     public abstract void breakTekton(long seed);
 
@@ -298,6 +344,83 @@ public abstract class TektonBase {
     public void setBug(Bug bug) {
         Bug oldBug = this.bug;
         this.bug = bug;
+    }
+
+    protected Point findBestPointAround(){
+
+        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        HashSet<TektonBase> allTektons = new HashSet<>();
+        Set<TektonBase> visited = new HashSet<>();
+
+        Queue<TektonBase> bfs = new ArrayDeque<>();
+        bfs.addAll(neighbours);
+        visited.addAll(neighbours);
+
+        while (!bfs.isEmpty()) {
+            TektonBase t = bfs.poll();
+            allTektons.add(t);
+
+            for (TektonBase tneighbour : t.getNeighbours()) {
+                if (!visited.contains(tneighbour)) {
+                    bfs.add(tneighbour);
+                    visited.add(tneighbour);
+                }
+            }
+        }
+
+        // megyünk egy kört a régi tekton körül, és oda helyezzük el az újat, ahol a maximális a távolság a többitől
+        int circleSteps = 32;
+        double maxdistance=0;
+        Point bestPoint = new Point(0,0);
+        for (int i=0;i<circleSteps;i++){
+            Point tmppoint = new Point(centerPoint.x+(int)(Math.cos(i*Math.PI*2/circleSteps)*((double)((screensize.getHeight()-75)*2/15)+5)),centerPoint.y+(int)(Math.sin(i*Math.PI*2/circleSteps)*((double)((screensize.getHeight()-75)*2/15)+5)));
+            double mindistance = 100000;
+            for(TektonBase tekt: allTektons){
+                double dist = Math.sqrt(Math.pow(tmppoint.x-tekt.getCenterPoint().getX(),2)+Math.pow(tmppoint.y-tekt.getCenterPoint().getY(),2));
+                if (dist<mindistance)
+                    mindistance=dist;
+            }
+            if (mindistance>maxdistance&&(tmppoint.x>(screensize.getHeight()-75)/15)&&tmppoint.y>(screensize.getHeight()-75)*2/15&&tmppoint.x<(screensize.getWidth()-((screensize.getHeight()-75)*2/15))&&tmppoint.y<((screensize.getHeight()-75)-(screensize.getHeight()-75)*2/15)){
+                maxdistance=mindistance;
+                bestPoint= new Point(tmppoint);
+            }
+
+        }
+        return bestPoint;
+    }
+
+    protected void distributeNeighbours(TektonBase newTekton){
+        newTekton.setCenterPoint(findBestPointAround());
+        newTekton.setWeight(weight*2);
+        weight *=2;
+        List<TektonBase> oldneighbours = new ArrayList<>();
+        oldneighbours.addAll(neighbours);
+
+
+        for(TektonBase neighbour: this.getNeighbours()){
+            neighbour.removeNeighbour(this);
+        }
+        this.setNeighbours(new ArrayList<>());
+        List<Hypa> hypasList = new ArrayList<Hypa>();
+        hypasList.addAll(connectedHypas);
+        for(Hypa h : hypasList){
+            h.die();
+        }
+        newTekton.addNeighbour(this);
+        addNeighbour(newTekton);
+
+        for(TektonBase neighbour: oldneighbours){
+            if(neighbour.getCenterPoint().distance(centerPoint)<
+                    neighbour.getCenterPoint().distance(newTekton.getCenterPoint())){
+                this.addNeighbour(neighbour);
+                neighbour.addNeighbour(this);
+            }else{
+                newTekton.addNeighbour(neighbour);
+                neighbour.addNeighbour(newTekton);
+            }
+        }
+        GameBoard.tektonSpreading();
     }
 
 }

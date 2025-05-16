@@ -1,6 +1,12 @@
 package View;
 
 import Model.Bridge.GameBoard;
+import Model.Bug.Bugger;
+import Model.Shroomer.Shroomer;
+import Model.Tekton.TektonBase;
+import View.Drawable.DrawableLine;
+import View.Hitbox.TektonHitbox;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +39,53 @@ public class DrawingSurface extends JPanel {
         if(bg!=null){
             g2d.drawImage(bg, 0, 0, canvas.getWidth(), canvas.getHeight(),null);
         }
-        //  TODO: draw everyting
+        //  TODO: draw everything
+
+        if(gameBoard.getTektons().size()>0){
+            for (TektonBase tektoni: gameBoard.getTektons()) {
+                for (TektonBase tektonj: gameBoard.getTektons()) {
+                    if(tektoni.isNeighbour(tektonj)){
+
+                        DrawableLine line = new DrawableLine(((TektonHitbox)gameBoard.getObjectHitbox(tektoni)).getCenterPoint(),((TektonHitbox)gameBoard.getObjectHitbox(tektonj)).getCenterPoint(),Color.black);
+                        line.draw(canvas);
+                    }
+                }
+            }
+
+
+            for(TektonBase tekton:gameBoard.getTektons()){
+                gameBoard.getObjectHitbox(tekton).getDrawable().draw(canvas);
+                if (!tekton.getHypas().isEmpty()){
+                    for (int i = 0; i < tekton.getHypas().size(); i++) {
+                        tekton.getHypas().get(i).getHitbox().getDrawable().draw(canvas);
+                    }
+                }
+                if(!tekton.getStoredSpores().isEmpty()){
+                    for (int i = 0; i < tekton.getStoredSpores().size(); i++) {
+                        tekton.getStoredSpores().get(i).getHitbox().getDrawable().draw(canvas);
+                    }
+                }
+            }
+        }
+
+
+
+
+
+        for (Bugger b : gameBoard.getBuggers().values()){
+            for (int i = 0; i < b.getBugs().size(); i++){
+                b.getBugs().get(i).getHitbox().getDrawable().draw(canvas);
+            }
+        }
+
+        for (Shroomer s: gameBoard.getShroomers().values()){
+            for (int i = 0; i < s.getMushrooms().size(); i++){
+                s.getMushrooms().get(i).getHitbox().getDrawable().draw(canvas);
+            }
+        }
+
+
+
         g2d.dispose();
         g.drawImage(canvas, 0, 0, null);
     }

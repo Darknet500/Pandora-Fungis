@@ -51,6 +51,7 @@ public class BiteBlocked extends Normal {
             GameBoard.removeReferenceFromMaps(b.getStrategy());
             Normal normal = new Normal();
             b.setStrategy(normal);
+            b.getHitbox().onStrategyChanged("normal");
         }else
             b.increaseUnderEffectSince();
     }

@@ -1,9 +1,8 @@
 package Model.Shroomer;
 
-import java.util.*;
-
 import Model.Bridge.GameBoard;
 import Model.Tekton.*;
+import View.Hitbox.HypaHitbox;
 
 
 /**
@@ -12,6 +11,7 @@ import Model.Tekton.*;
  */
 public class Hypa {
 
+    protected HypaHitbox hitbox;
     /**
      * A Hypa egyik végpontja.
      */
@@ -52,11 +52,11 @@ public class Hypa {
      * @param shroomer - A Shroomer, aki létrehozza a Hypa-t.
      */
     public Hypa(TektonBase end1, TektonBase end2, Shroomer shroomer) {
-        GameBoard.addReferenceToMaps("hypa", this);
         this.end1 = end1;
         this.end2 = end2;
         this.shroomer = shroomer;
 
+        GameBoard.addReferenceToMaps("hypa", this);
     }
 
     /**
@@ -75,6 +75,7 @@ public class Hypa {
      */
     public void setIsDyingSinceDisconnected(int isDyingSinceDisconnected) {
         this.isDyingSinceDisconnected = isDyingSinceDisconnected;
+        if(hitbox!=null)hitbox.onHypaChanged(1-isDyingSinceDisconnected);
     }
 
     /**
@@ -92,6 +93,7 @@ public class Hypa {
      * @param isDyingSinceBitten - Az új érték, amely jelzi az elharapás óta eltelt köröket.
      */
     public void setIsDyingSinceBitten(int isDyingSinceBitten) {
+
         this.isDyingSinceBitten = isDyingSinceBitten;
     }
 
@@ -153,5 +155,14 @@ public class Hypa {
         if (isDyingSinceBitten!=-1) isDyingSinceBitten++;
         if (isDyingSinceDisconnected!=-1) isDyingSinceDisconnected++;
     }
+
+    public void addObserver(HypaHitbox hitbox){
+        this.hitbox = hitbox;
+    }
+
+    public HypaHitbox getHitbox(){
+        return hitbox;
+    }
+
 
 }

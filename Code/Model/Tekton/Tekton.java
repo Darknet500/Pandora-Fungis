@@ -7,8 +7,6 @@ import Model.Shroomer.Mushroom;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
 
-import Model.Observer.Observable;
-import Model.Observer.EventType;
 
 import java.util.*;
 
@@ -42,37 +40,7 @@ public class Tekton  extends TektonBase {
     @Override
     public void breakTekton(long seed) {
         Tekton newTekton = new Tekton();
-
-
-        // Szétosztjuk a szomszédokat 50-50%
-        Random rnd = new Random(seed);
-
-        List<TektonBase> remain = new ArrayList<>();
-        List<TektonBase> newNeighbours = new ArrayList<>();
-
-        for (TektonBase neighbour: neighbours) {
-            if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
-                newNeighbours.add(neighbour);
-            } else{
-                remain.add(neighbour);
-            }
-        }
-
-        this.setNeighbours(remain);
-        newTekton.setNeighbours(newNeighbours);
-
-        // A régi és az új szomszédok lesznek
-        addNeighbour(newTekton);
-        newTekton.addNeighbour(this);
-
-
-        // A régi Tekton összes fonala elhal
-        List<Hypa> hypasList = new ArrayList<Hypa>();
-        hypasList.addAll(connectedHypas);
-        for(Hypa h : hypasList){
-            h.die();
-
-        }
+        distributeNeighbours(newTekton);
     }
 
     /**
@@ -108,8 +76,9 @@ public class Tekton  extends TektonBase {
      */
     @Override
     public boolean canMushroomGrow(Shroomer s) {
-        if (hasMushroom())
+        if (hasMushroom()) {
             return false;
+        }
         if (s == null) {
             return false;  // Ha a Shroomer null, akkor nem tud nőni gomba
         }

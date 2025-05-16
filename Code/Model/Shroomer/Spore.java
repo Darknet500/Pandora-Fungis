@@ -1,8 +1,8 @@
 package Model.Shroomer;
 
 import Model.Bug.*;
-
-import java.util.Collections;
+import Model.Tekton.TektonBase;
+import View.Hitbox.SporeHitbox;
 
 
 /**
@@ -10,11 +10,16 @@ import java.util.Collections;
  * Minden spóra egy adott Shroomerhez tartozik (A Mushroom-jai hozzák létre), és hatást gyakorolhat egy Bug-ra.
  */
 public abstract class Spore {
-
+    /**
+     * eltárolja a hozzá kapcsolódó hitbox-ot, hogy tudja azt értesíteni az őt ért változásokról
+     */
+    protected SporeHitbox hitbox;
     /**
      * A Spore tulajdonosa, az a Shroomer, aki létrehozta a gombájával.
      */
     private Shroomer shroomer;
+
+    private TektonBase tekton;
 
     /**
      * Alapértelmezett konstruktor.
@@ -22,8 +27,10 @@ public abstract class Spore {
      *
      * @param shroomer - Az a Shroomer, aki létrehozza a spórát.
      */
-    public Spore(Shroomer shroomer) {
+    public Spore(Shroomer shroomer, TektonBase tekton)
+    {
         this.shroomer = shroomer;
+        this.tekton = tekton;
     }
 
     /**
@@ -43,4 +50,14 @@ public abstract class Spore {
     public Shroomer getShroomer() {
         return shroomer;
     }
+
+    public void addObserver(SporeHitbox hitbox){
+        this.hitbox = hitbox;
+    }
+
+    public SporeHitbox getHitbox() {
+        return hitbox;
+    }
+
+    public TektonBase getTekton() {return tekton;}
 }

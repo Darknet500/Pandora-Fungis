@@ -3,6 +3,7 @@ package Model.Shroomer;
 
 import Model.Bridge.GameBoard;
 import Model.Bug.*;
+import Model.Tekton.TektonBase;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +20,8 @@ public class SlowerSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public SlowerSpore(Shroomer shroomer) {
-        super(shroomer);
+    public SlowerSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
         GameBoard.addReferenceToMaps("slowerspore", this);
     }
 
@@ -33,6 +34,7 @@ public class SlowerSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy slowed = new Slowed();
         b.setStrategy(slowed);
+        b.getHitbox().onStrategyChanged("slowed");
         return 3;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

@@ -1,8 +1,6 @@
 package Model.Tekton;
 
 import Model.Bridge.GameBoard;
-import Model.Observer.EventType;
-import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 
@@ -24,6 +22,11 @@ public class Stone extends TektonBase {
     public Stone() {
         super();
         GameBoard.addReferenceToMaps("stone", this);
+    }
+
+    @Override
+    public boolean canMushroomGrow(){
+        return false;
     }
 
     @Override
@@ -73,34 +76,9 @@ public class Stone extends TektonBase {
      */
     @Override
     public void breakTekton(long seed) {
+
         Stone newTekton = new Stone();
-
-        // Szétosztjuk a szomszédokat 50-50%
-        Random rnd = new Random(seed);
-
-        List<TektonBase> remain = new ArrayList<>();
-        List<TektonBase> newNeighbours = new ArrayList<>();
-
-        for (TektonBase neighbour: neighbours) {
-            if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
-                newNeighbours.add(neighbour);
-            } else{
-                remain.add(neighbour);
-            }
-        }
-
-        this.setNeighbours(remain);
-        newTekton.setNeighbours(newNeighbours);
-        // A régi és az új szomszédok lesznek
-        addNeighbour(newTekton);
-        newTekton.addNeighbour(this);
-
-        // A régi Tekton összes fonala elhal
-        List<Hypa> hypasList = new ArrayList<Hypa>();
-        hypasList.addAll(connectedHypas);
-        for(Hypa h : hypasList){
-            h.die();
-        }
+        distributeNeighbours(newTekton);
     }
 
 }

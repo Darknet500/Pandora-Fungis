@@ -5,6 +5,7 @@ import Model.Bridge.GameBoard;
 import Model.Shroomer.*;
 import Model.Tekton.*;
 import Model.Bug.*;
+import View.Hitbox.Hitbox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,9 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 
 public class GraphicView extends JFrame implements IView{
@@ -24,6 +24,10 @@ public class GraphicView extends JFrame implements IView{
     private Controller controller;
 
     private Dimension screensize;
+    private DrawingSurface drawingsurface;
+
+    private CardLayout layout;
+    private JPanel cards;
     private JButton moveBtn;
     private JButton eatBtn;
     private JButton biteBtn;
@@ -33,6 +37,7 @@ public class GraphicView extends JFrame implements IView{
     private JButton eatBugBtn;
     private JButton skipBtn;
     private JLabel nextPlayerName;
+    private JLabel messageDisplay;
 
     private SelectedAction selectedAction;
     private TektonBase[] selectedTektons;
@@ -45,7 +50,12 @@ public class GraphicView extends JFrame implements IView{
         super("Pandora-Fungorium");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         screensize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        layout = new CardLayout();
+        cards = new JPanel(layout);
+
         this.setUndecorated(true);
         this.setResizable(false);
 
@@ -58,42 +68,49 @@ public class GraphicView extends JFrame implements IView{
         moveBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.MOVE;
+            displayMessage("MOVE action selected");
         });
 
         eatBtn = new PandoraButton("EAT");
         eatBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.EAT;
+            displayMessage("EAT action selected");
         });
 
         biteBtn = new PandoraButton("BITE");
         biteBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.BITE;
+            displayMessage("BITE action selected");
         });
 
         throwSporeBtn = new PandoraButton("THROWSPORE");
         throwSporeBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.THROWSPORE;
+            displayMessage("THROWSPORE action selected");
         });
 
         growHypaBtn = new PandoraButton("GROWHYPA");
         growHypaBtn.addActionListener(e -> {
             clearSelection();
-            selectedAction=SelectedAction.BITE;
+            selectedAction=SelectedAction.GROWHYPA;
+            displayMessage("GROWHYPA action selected");
         });
 
         growHypaFarBtn = new PandoraButton("GROWHYPAFAR");
         growHypaFarBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.GROWHYPAFAR;
+            displayMessage("GROWHYPAFAR action selected");
         });
 
         eatBugBtn = new PandoraButton("EATBUG");
         eatBugBtn.addActionListener(e -> {
             clearSelection();
             selectedAction=SelectedAction.EATBUG;
+            displayMessage("EATBUG action selected");
 
         });
 
@@ -105,13 +122,31 @@ public class GraphicView extends JFrame implements IView{
         nextPlayerName = new JLabel();
         nextPlayerName.setFont(new Font("Arial", Font.PLAIN, 20));
         nextPlayerName.setForeground(Color.WHITE);
+
+        messageDisplay = new JLabel();
+        messageDisplay.setFont(new Font("Arial", Font.PLAIN, 20));
+        messageDisplay.setText("");
+        messageDisplay.setForeground(Color.WHITE);
+        messageDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    @Override
+    public int getDrawingSurfaceWidth(){
+        return drawingsurface.getWidth();
+    }
+
+    @Override
+    public int getDrawingSurfaceHeight(){
+        return drawingsurface.getHeight();
     }
 
     @Override
     public void connectObjects(GameBoard gameBoard, Controller controller) {
         this.gameBoard = gameBoard;
         this.controller = controller;
+        drawingsurface = new DrawingSurface(screensize.width,screensize.height-75, gameBoard);
         controller.connectObjects(this, gameBoard);
+        gameBoard.connectToView(this);
         controller.setSeed(12345L);
 
     }
@@ -122,16 +157,15 @@ public class GraphicView extends JFrame implements IView{
             System.out.println("ERROR: cannot start without connecting to a Controller and a GameBoard");
             return;
         }
-        CardLayout layout = new CardLayout();
-        JPanel cards = new JPanel(layout);
-        cards.add(startMenuSetup(layout, cards), "startmenu");
-        cards.add(gameSettingsPanelSetup(layout, cards), "gamesettingsmenu");
-        cards.add(gameBoardPanel(layout, cards), "gameboard");
+
+        cards.add(startMenuSetup(), "startmenu");
+        cards.add(gameSettingsPanelSetup(), "gamesettingsmenu");
+        cards.add(gameBoardPanel(), "gameboard");
         this.add(cards);
         this.setVisible(true);
     }
 
-    private JPanel startMenuSetup(CardLayout layout, JPanel cards){
+    private JPanel startMenuSetup(){
         JPanel startMenuPanel = new JPanel(new BorderLayout());
         startMenuPanel.setBackground(Color.BLACK);
 
@@ -199,7 +233,7 @@ public class GraphicView extends JFrame implements IView{
      *                              --> szin valasztas gomb a jobb oldalon
      *                      --> hozzaado gomb kozepre igazitva
      */
-    private JPanel gameSettingsPanelSetup(CardLayout layout, JPanel cards){
+    private JPanel gameSettingsPanelSetup(){
         Dimension btnSize = new Dimension(300, 60);
         JPanel gameSettingsMenuPanel = new JPanel(new BorderLayout());
         gameSettingsMenuPanel.setBackground(Color.BLACK);
@@ -220,7 +254,7 @@ public class GraphicView extends JFrame implements IView{
              */
             gameBoard.clear();
             layout.removeLayoutComponent(gameSettingsMenuPanel);
-            cards.add(gameSettingsPanelSetup(layout, cards), "gamesettingsmenu");
+            cards.add(gameSettingsPanelSetup(), "gamesettingsmenu");
             layout.show(cards, "startmenu");
         });
         bottomControlPanel.add(exitButton);
@@ -241,6 +275,8 @@ public class GraphicView extends JFrame implements IView{
          */
         startButton.addActionListener(e -> {
             //initmap konstruktorban
+            controller.gameCycle();
+            controller.initMap();
             layout.show(cards, "gameboard");
         });
         bottomControlPanel.add(startButton);
@@ -379,40 +415,47 @@ public class GraphicView extends JFrame implements IView{
             BiFunction<Shroomer, TektonBase, Mushroom> mushroomctor = null;
             int hypaDieAfter = 0;
             String selectedType = typeSelectorButton.getText();
+            Color color = Color.BLACK;
             switch (selectedType) {
                 case "booster": {
                     mushroomctor = (x, y) -> new BoosterMushroom(x, y);
                     hypaDieAfter = 4;
+                    color = new Color(2, 43, 226);
                     break;
                 }
                 case "slower": {
                     mushroomctor = (x, y) -> new SlowerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(250, 163, 0);
                     break;
                 }
                 case "paralyzer": {
                     mushroomctor = (x, y) -> new ParalyzerMushroom(x, y);
                     hypaDieAfter = 2;
+                    color = new Color(93, 215, 82);
                     break;
                 }
                 case "biteblocker": {
                     mushroomctor = (x, y) -> new BiteBlockerMushroom(x, y);
                     hypaDieAfter = 3;
+                    color = new Color(240, 232, 82);
                     break;
                 }
                 case "proliferating": {
                     mushroomctor = (x, y) -> new ProliferatingMushroom(x, y);
                     hypaDieAfter = 5;
+                    color = new Color(255, 45, 198);
                     break;
                 }
             }
             if(mushroomctor != null) {
                 Shroomer newShroomer = new Shroomer(mushroomctor, hypaDieAfter);
-                gameBoard.addShroomer(newShroomer, nameTf.getText());
+                gameBoard.addShroomer(newShroomer, nameTf.getText(), color );
                 String name = gameBoard.getPlayerName(newShroomer);
                 shroomerModel.addElement(Map.entry(name, typeSelectorButton.getText()));
                 availableTypes.remove(selectedType);
                 typeSelectorButton.setText(availableTypes.get(0));
+                nameTf.setText("");
                 if(gameBoard.getShroomers().size() == 4){
                     addShroomerButton.setEnabled(false);
                 }
@@ -499,10 +542,11 @@ public class GraphicView extends JFrame implements IView{
         JButton addBuggerButton = new PandoraButton("+");
         addBuggerButton.addActionListener(e -> {
             Bugger newBugger = new Bugger();
-            gameBoard.addBugger(newBugger, buggerNameTf.getText());
+            gameBoard.addBugger(newBugger, buggerNameTf.getText(), colorSelectorButton.getBackground());
             String name = gameBoard.getPlayerName(newBugger);
             buggerModel.addElement(Map.entry(name, colorSelectorButton.getBackground()));
             availableColors.remove(colorSelectorButton.getBackground());
+            buggerNameTf.setText("");
             if(gameBoard.getShroomers().size()>=2 &&gameBoard.getBuggers().size()>=2){
                 startButton.setEnabled(true);
             }
@@ -527,26 +571,35 @@ public class GraphicView extends JFrame implements IView{
         return gameSettingsMenuPanel;
     }
 
-    private JPanel gameBoardPanel(CardLayout layout, JPanel cards){
+    private JPanel gameBoardPanel(){
         JPanel gameBoardPanel = new JPanel(new BorderLayout());
         gameBoardPanel.setSize(this.getSize());
+
         /**
          * palya kirajzolo felulete
          * kattintasokra mouseListener figyel, kivalasztott akcio kontextusaban gyujti a parametereket,
          * ha megvan minden, hivja a controllert
          */
-        DrawingSurface drawingsurface = new DrawingSurface(screensize.width,screensize.height-50, gameBoard);
+
         drawingsurface.addMouseListener(new MouseAdapter() {
+
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(selectedAction==null){
                     System.out.println("ERROR: no action was selected");
                     return;
                 }
+
                 switch(selectedAction){
                     case MOVE: {
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -561,6 +614,11 @@ public class GraphicView extends JFrame implements IView{
                     case EAT: {
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectSpore(e);
                             if(selectedSpore!=null){
@@ -575,6 +633,11 @@ public class GraphicView extends JFrame implements IView{
                     case BITE: {
                         if(selectedBug==null){
                             selectBug(e);
+                            if(selectedBug!=null){
+                                displayMessage("Bug selected successfully");
+                            }else{
+                                displayMessage("Failed to select a bug");
+                            }
                         } else {
                             selectHypa(e);
                             if(selectedHypa!=null){
@@ -589,6 +652,11 @@ public class GraphicView extends JFrame implements IView{
                     case THROWSPORE: {
                         if(selectedMushroom==null){
                             selectMushroom(e);
+                            if(selectedMushroom!=null){
+                                displayMessage("Mushroom selected successfully");
+                            }else{
+                                displayMessage("Failed to select a mushroom");
+                            }
                         } else {
                             selectTekton(e);
                             if(selectedTektons[0]!=null){
@@ -603,6 +671,11 @@ public class GraphicView extends JFrame implements IView{
                     case GROWHYPA: {
                         if(selectedTektons[0]==null){
                             selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                displayMessage("Start Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
                             if(selectedTektons[1]!=null){
@@ -617,12 +690,22 @@ public class GraphicView extends JFrame implements IView{
                     case GROWHYPAFAR: {
                         if(selectedTektons[0]==null){
                             selectTekton(e);
+                            if(selectedTektons[0]!=null){
+                                displayMessage("Start Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if (selectedTektons[1]==null){
                             selectTekton(e);
+                            if(selectedTektons[1]!=null){
+                                displayMessage("Middle Tekton selected successfully");
+                            }else{
+                                displayMessage("Failed to select a tekton");
+                            }
                         } else if(selectedTektons[2]==null){
                             selectTekton(e);
                             if(selectedTektons[2]!=null){
-                                if(controller.growhypa(selectedTektons[0], selectedTektons[1])){
+                                if(controller.growhypafar(selectedTektons[0], selectedTektons[1], selectedTektons[2])){
                                     drawingsurface.repaint();
                                 }
                                 clearSelection();
@@ -651,6 +734,13 @@ public class GraphicView extends JFrame implements IView{
          * kontroll panel a gomboknak, gombok a konstruktorban peldanyositva
          */
         JPanel outerControlPanel = new JPanel(new BorderLayout());
+        JPanel innerControlPanelTop = new JPanel();
+        outerControlPanel.setBackground(Color.BLACK);
+        innerControlPanelTop.setLayout(new BoxLayout(innerControlPanelTop, BoxLayout.X_AXIS));
+        innerControlPanelTop.setBackground(Color.BLACK);
+        outerControlPanel.add(messageDisplay);
+        messageDisplay.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel innerControlPanel = new JPanel();
         innerControlPanel.setLayout(new BoxLayout(innerControlPanel,BoxLayout.X_AXIS));
         innerControlPanel.setBackground(Color.BLACK);
@@ -691,8 +781,9 @@ public class GraphicView extends JFrame implements IView{
         innerControlPanel.add(nextPlayerName);
         nextPlayerName.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
-        outerControlPanel.setPreferredSize(new Dimension(gameBoardPanel.getWidth(), 50));
-        outerControlPanel.add(innerControlPanel, BorderLayout.CENTER);
+        outerControlPanel.setPreferredSize(new Dimension(gameBoardPanel.getWidth(), 75));
+        outerControlPanel.add(innerControlPanel, BorderLayout.NORTH);
+        outerControlPanel.add(innerControlPanel, BorderLayout.SOUTH);
         gameBoardPanel.add(outerControlPanel, BorderLayout.SOUTH);
 
         return gameBoardPanel;
@@ -700,7 +791,7 @@ public class GraphicView extends JFrame implements IView{
 
     private void clearSelection(){
         selectedAction = null;
-        selectedTektons = new Tekton[3];
+        selectedTektons = new TektonBase[3];
         for(int i = 0; i < 3; i++){
             selectedTektons[i] = null;
         }
@@ -712,7 +803,8 @@ public class GraphicView extends JFrame implements IView{
 
     private void selectTekton(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
-            if(false/* && gameBoard.getHitbox(t).isHit(e)*/){
+            Hitbox h = gameBoard.getObjectHitbox(t);
+            if(h!=null && h.isHit(e.getPoint())){
                 for(int i = 0; i<3; i++){
                     if(selectedTektons[i] == null){
                         selectedTektons[i] = t;
@@ -727,9 +819,12 @@ public class GraphicView extends JFrame implements IView{
     private void selectBug(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             Bug b = t.getBug();
-            if(b!=null /* && gameBoard.getHitbox(b).isHit(e)*/){
-                selectedBug=b;
-                return;
+            if(b!=null){
+                Hitbox h = gameBoard.getObjectHitbox(b);
+                if(h!=null&&h.isHit(e.getPoint())){
+                    selectedBug=b;
+                    return;
+                }
             }
         }
     }
@@ -737,7 +832,8 @@ public class GraphicView extends JFrame implements IView{
     private void selectHypa(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             for(Hypa h: t.getHypas()){
-                if(false/* && gameBoard.getHitbox(h).isHit(e)*/){
+                Hitbox hitb = gameBoard.getObjectHitbox(h);
+                if(hitb!=null && hitb.isHit(e.getPoint())){
                     selectedHypa=h;
                     return;
                 }
@@ -748,7 +844,8 @@ public class GraphicView extends JFrame implements IView{
     private void selectSpore(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             for(Spore s: t.getStoredSpores()){
-                if(false/* && gameBoard.getHitbox(s).isHit(e)*/){
+                Hitbox h = gameBoard.getObjectHitbox(s);
+                if(h!=null && h.isHit(e.getPoint())){
                     selectedSpore=s;
                     return;
                 }
@@ -759,15 +856,18 @@ public class GraphicView extends JFrame implements IView{
     private void selectMushroom(MouseEvent e){
         for(TektonBase t: gameBoard.getTektons()){
             Mushroom m = t.getMushroom();
-            if(m!=null /* && gameBoard.getHitbox(m).isHit(e)*/){
-                selectedMushroom=m;
-                return;
+            if(m!=null){
+                Hitbox h = gameBoard.getObjectHitbox(m);
+                if(h!=null && h.isHit(e.getPoint())){
+                    selectedMushroom=m;
+                    return;
+                }
             }
         }
     }
 
     @Override
-    public void shroomerNext(String playerName){
+    public void shroomerNext(String playerName, int roundNumber){
         moveBtn.setEnabled(false);
         eatBtn.setEnabled(false);
         biteBtn.setEnabled(false);
@@ -775,11 +875,12 @@ public class GraphicView extends JFrame implements IView{
         growHypaBtn.setEnabled(true);
         growHypaFarBtn.setEnabled(true);
         eatBugBtn.setEnabled(true);
-        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName+", ROUND "+roundNumber);
+        drawingsurface.repaint();
     }
 
     @Override
-    public void buggerNext(String playerName){
+    public void buggerNext(String playerName, int roundNumber){
         moveBtn.setEnabled(true);
         eatBtn.setEnabled(true);
         biteBtn.setEnabled(true);
@@ -787,11 +888,186 @@ public class GraphicView extends JFrame implements IView{
         growHypaBtn.setEnabled(false);
         growHypaFarBtn.setEnabled(false);
         eatBugBtn.setEnabled(false);
-        nextPlayerName.setText("ACTUAL PLAYER: "+playerName);
+        nextPlayerName.setText("ACTUAL PLAYER: "+playerName+", ROUND "+roundNumber);
+        drawingsurface.repaint();
     }
 
     @Override
-    public void displayMessage(String message){}
+    public void displayMessage(String message){
+        messageDisplay.setText(message);
+    }
     @Override
-    public void setEndOfGame(){}
+    public void setEndOfGame(){
+        JPanel endOfGamePanel = new JPanel(new BorderLayout());
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(Color.BLACK);
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        JLabel label = new JLabel("END OF GAME - SCOREBOARD");
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.BOLD, 40));
+        label.setForeground(Color.WHITE);
+        titlePanel.add(label);
+        titlePanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        try{
+            BufferedImage titleLogo = ImageIO.read(new File(System.getProperty("user.dir") + "\\Assets\\LOGOBIG.png"));
+            JLabel imgLabel = new JLabel(new ImageIcon(titleLogo));
+            imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            titlePanel.add(imgLabel);
+            titlePanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        } catch(IOException e){
+            System.out.println("ERROR: cannot load image");
+        }
+        endOfGamePanel.add(titlePanel, BorderLayout.NORTH);
+
+        JPanel scoreBoardPanel = new JPanel(new GridLayout(1,2));
+
+        JPanel shroomersPanel = new JPanel();
+        shroomersPanel.setLayout(new BoxLayout(shroomersPanel, BoxLayout.Y_AXIS));
+        shroomersPanel.setBackground(Color.BLACK);
+        shroomersPanel.add(Box.createVerticalGlue());
+        JLabel shroomersLabel = new JLabel("SHROOMERS");
+        shroomersLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        shroomersLabel.setForeground(Color.WHITE);
+        shroomersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        shroomersPanel.add(shroomersLabel);
+        shroomersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        List<Map.Entry<String, Integer>> shroomerList = new ArrayList<>();
+        for(Shroomer s: gameBoard.getShroomers().values()){
+            shroomerList.add(Map.entry(gameBoard.getPlayerName(s), s.getScore()));
+        }
+        shroomerList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        Map.Entry<String, Integer>[] shroomerArray = shroomerList.toArray(new Map.Entry[0]);
+        JList<Map.Entry<String, Integer>> shroomerJList = new JList<>(shroomerArray);
+
+        /**
+         * cellRenderer osszerak egy 1 soros, 3 oszlopos Grid layoutos panelt,
+         * bal oldalon a helyezes, kozepen a jatekosnev, jobb oldalon a pontszam
+         */
+        shroomerJList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
+            JPanel listItem = new JPanel(new GridLayout(1, 3, 10, 0));
+            listItem.setBackground(Color.BLACK);
+            JLabel pos = new JLabel(idx+1+".");
+            pos.setForeground(Color.WHITE);
+            pos.setBackground(Color.BLACK);
+            pos.setOpaque(true);
+            pos.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(pos);
+            JLabel name = new JLabel(val.getKey());
+            name.setForeground(Color.WHITE);
+            name.setBackground(Color.BLACK);
+            name.setOpaque(true);
+            name.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(name);
+            JLabel type = new JLabel(val.getValue().toString());
+            type.setForeground(Color.WHITE);
+            type.setBackground(Color.BLACK);
+            type.setOpaque(true);
+            type.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(type);
+            listItem.setOpaque(true);
+            return listItem;
+        });
+        shroomerJList.setFont(new Font("Arial", Font.PLAIN, 20));
+        shroomerJList.setBackground(Color.BLACK);
+        shroomerJList.setForeground(Color.WHITE);
+        /**
+         * no-op selection model, hogy ne lehessen kattintani, kivalasztani stb. a lista elemeit
+         */
+        shroomerJList.setSelectionModel(new DefaultListSelectionModel() {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {}
+        });
+        shroomerJList.setFixedCellHeight(30);
+        shroomerJList.setAlignmentX(Component.CENTER_ALIGNMENT);
+        shroomersPanel.add(shroomerJList);
+        scoreBoardPanel.add(shroomersPanel);
+
+        JPanel buggersPanel = new JPanel();
+        buggersPanel.setLayout(new BoxLayout(buggersPanel, BoxLayout.Y_AXIS));
+        buggersPanel.setBackground(Color.BLACK);
+        buggersPanel.add(Box.createVerticalGlue());
+        JLabel buggersLabel = new JLabel("BUGGERS");
+        buggersLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        buggersLabel.setForeground(Color.WHITE);
+        buggersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buggersPanel.add(buggersLabel);
+        buggersPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        List<Map.Entry<String, Integer>> buggerList = new ArrayList<>();
+        for(Bugger b: gameBoard.getBuggers().values()){
+            buggerList.add(Map.entry(gameBoard.getPlayerName(b), b.getScore()));
+        }
+        buggerList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        Map.Entry<String, Integer>[] buggerArray = buggerList.toArray(new Map.Entry[0]);
+        JList<Map.Entry<String, Integer>> buggerJList = new JList<>(buggerArray);
+
+        /**
+         * cellRenderer osszerak egy 1 soros, 3 oszlopos Grid layoutos panelt,
+         * bal oldalon a helyezes, kozepen a jatekosnev, jobb oldalon a pontszam
+         */
+        buggerJList.setCellRenderer((lst, val, idx, isSelected, hasFocus) -> {
+            JPanel listItem = new JPanel(new GridLayout(1, 3, 10, 0));
+            listItem.setBackground(Color.BLACK);
+            JLabel pos = new JLabel(idx+1+".");
+            pos.setForeground(Color.WHITE);
+            pos.setBackground(Color.BLACK);
+            pos.setOpaque(true);
+            pos.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(pos);
+            JLabel name = new JLabel(val.getKey());
+            name.setForeground(Color.WHITE);
+            name.setBackground(Color.BLACK);
+            name.setOpaque(true);
+            name.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(name);
+            JLabel type = new JLabel(val.getValue().toString());
+            type.setForeground(Color.WHITE);
+            type.setBackground(Color.BLACK);
+            type.setOpaque(true);
+            type.setFont(new Font("Arial", Font.PLAIN, 20));
+            listItem.add(type);
+            listItem.setOpaque(true);
+            return listItem;
+        });
+        buggerJList.setFont(new Font("Arial", Font.PLAIN, 20));
+        buggerJList.setBackground(Color.BLACK);
+        buggerJList.setForeground(Color.WHITE);
+        /**
+         * no-op selection model, hogy ne lehessen kattintani, kivalasztani stb. a lista elemeit
+         */
+        buggerJList.setSelectionModel(new DefaultListSelectionModel() {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {}
+        });
+        buggerJList.setFixedCellHeight(30);
+        buggerJList.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buggersPanel.add(buggerJList);
+        scoreBoardPanel.add(buggersPanel);
+
+        endOfGamePanel.add(scoreBoardPanel, BorderLayout.CENTER);
+
+
+        JPanel bottomControlPanel = new JPanel();
+        bottomControlPanel.setBackground(Color.BLACK);
+        bottomControlPanel.setLayout(new BoxLayout(bottomControlPanel, BoxLayout.Y_AXIS));
+
+        Dimension dim = new Dimension(300, 25);
+        JButton exitButton = new PandoraButton("EXIT");
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+        bottomControlPanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        exitButton.setPreferredSize(dim);
+        exitButton.setMinimumSize(dim);
+        exitButton.setMaximumSize(dim);
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        bottomControlPanel.add(exitButton);
+        bottomControlPanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        endOfGamePanel.add(bottomControlPanel, BorderLayout.SOUTH);
+        cards.add(endOfGamePanel, "endofgame");
+        layout.show(cards,"endofgame");
+    }
 }

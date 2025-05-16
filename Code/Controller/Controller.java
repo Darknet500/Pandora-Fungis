@@ -1,4 +1,5 @@
 package Controller;
+import Gamemode.GameMode;
 import Model.Bridge.*;
 import View.*;
 import Model.Bug.*;
@@ -7,16 +8,23 @@ import Model.Tekton.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.HashMap;
 
 
 public class Controller {
     private int actualPlayer = 0;
-    private int round;
+    private int round = 1;
     private GameBoard gameBoard;
     private IView view;
     private long seed;
+    private GameMode gameMode;
+
+    public Controller(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
 
     public void connectObjects(IView view, GameBoard gameBoard) {
         this.view = view;
@@ -29,7 +37,7 @@ public class Controller {
 
     public void resetActualPlayerandRound() {
         actualPlayer = 0;
-        round = 0;
+        round = 1;
     }
 
     public void initMap(){
@@ -39,7 +47,7 @@ public class Controller {
         for (int k = 1; k <= 25; k++) {
             r = rand.nextDouble();
             TektonBase tekton;
-            if (r < 0.48) {
+            if (r < 0.10) {
                 tekton = new Tekton();
                 normalTektonsNumber.add(k-1);
 
@@ -52,15 +60,85 @@ public class Controller {
             } else {
                 tekton = new Soil();
             }
-            gameBoard.addTekton(tekton);
         }
+
+
+        List<Point> triangulationEdges = List.of(
+                new Point(6, 15),
+                new Point(7, 20),
+                new Point(12, 16),
+                new Point(4, 12),
+                new Point(3, 16),
+                new Point(22, 23),
+                new Point(12, 22),
+                new Point(5, 16),
+                //new Point(0, 5),
+                new Point(3, 22),
+                new Point(9, 11),
+                //new Point(8, 21),
+                new Point(0, 17),
+                new Point(10, 15),
+                new Point(11, 23),
+                new Point(9, 23),
+                new Point(11, 20),
+                new Point(10, 24),
+                new Point(13, 23),
+                new Point(2, 20),
+                new Point(13, 20),
+                //new Point(6, 14),
+                new Point(15, 23),
+                new Point(16, 22),
+                new Point(6, 17),
+                new Point(14, 18),
+                new Point(4, 17),
+                new Point(3, 21),
+                new Point(9, 10),
+                new Point(14, 24),
+                new Point(5, 21),
+                new Point(4, 23),
+                //new Point(0, 4),
+                new Point(0, 16),
+                new Point(10, 14),
+                new Point(2, 7),
+                new Point(19, 23),
+                new Point(8, 20),
+                new Point(11, 13),
+                new Point(1, 17),
+                new Point(1, 23),
+                new Point(16, 21),
+                new Point(6, 10),
+                new Point(15, 19),
+                new Point(13, 22),
+                new Point(6, 19),
+                new Point(7, 18),
+                new Point(18, 24),
+                new Point(7, 24),
+                //new Point(20, 21),
+                new Point(3, 8),
+                new Point(4, 22),
+                //new Point(17, 19),
+                new Point(1, 4),
+                new Point(7, 11),
+                new Point(0, 12),
+                new Point(8, 13),
+                new Point(9, 15),
+                new Point(9, 24),
+                new Point(8, 22),
+                new Point(2, 18),
+                new Point(11, 24),
+                new Point(1, 19)
+        );
+
         for (int k = 1; k <= 25; k++) {
             for (int i = 0; i < 25; i++) {
                 for (int j = 0; j < 25; j++) {
                     if (i != j) {
                         if(!gameBoard.getTekton(i).isNeighbour(gameBoard.getTekton(j))) {
+
                             r = rand.nextDouble();
-                            if(r < 0.007) {
+                            //if(true){
+                            //if(r < 0.007) {
+                            if(triangulationEdges.contains(new Point(i, j))) {
                                 gameBoard.getTekton(i).addNeighbour(gameBoard.getTekton(j));
                                 gameBoard.getTekton(j).addNeighbour(gameBoard.getTekton(i));
                             }
@@ -71,39 +149,60 @@ public class Controller {
             }
         }
 
+
+
         //játékosok kezdő objektumainak elhelyezése
-        for (int i = 0; i < gameBoard.getNumberOfPlayers(); i++) {
-            while(true){
+
+        for(Shroomer s: gameBoard.getShroomers().values()){
+            for (int z=0;z<100;z++) {
                 int ir = rand.nextInt(25);
-
-                if(!gameBoard.getTektons().get(ir).hasMushroom()&&gameBoard.getTektons().get(ir).getBug()==null&&normalTektonsNumber.contains(ir)) {
-                    if(gameBoard.getShroomers().containsKey(i)){
-                        gameBoard.getShroomers().get(i).growFirstMushroom(gameBoard.getTektons().get(ir));
-                    }else{
-                        Bug bug = new Bug(gameBoard.getBuggers().get(i));
-                        gameBoard.getBuggers().get(i).addBug(bug);
-                        bug.setLocation(gameBoard.getTektons().get(ir));
-                    }
-
+                TektonBase tekton = gameBoard.getTektons().get(ir);
+                if(tekton.canMushroomGrow()&&!tekton.hasMushroom()){
+                    s.growFirstMushroom(tekton);
                     break;
                 }
+                if(z==99) System.out.println("nem sikerült megfelelő tektont találni");
             }
         }
+
+            /**
+             * TO DO : buggersek hozzáadása, megfelelő tektonra
+             */
+        for(Bugger b: gameBoard.getBuggers().values()){
+            Bug newbug = new Bug(b, gameBoard.getTektons().get(1) );
+            b.addBug(newbug);
+            for (int z=0;z<100;z++) {
+                int ir = rand.nextInt(25);
+                TektonBase tekton = gameBoard.getTektons().get(ir);
+                if(!tekton.hasMushroom()&&tekton.tryBug(newbug)){
+                    newbug.setLocation(tekton);
+                    break;
+                }
+                if(z==99) System.out.println("nem sikerült megfelelő tektont találni");
+            }
+        }
+
+
     }
 
     public void gameCycle(){
-
+        notifyViewNextPlayer();
     }
 
     private void endOfRound(){
         gameBoard.getTektons().forEach(TektonBase::endOfRound);
         gameBoard.getShroomers().values().forEach(Shroomer::endOfRoundAdministration);
-        ///random vagy enm random tekton törése
-        if(seed!=12345L) {
-            Random rand = new Random(seed);
-            gameBoard.getTektons().get(rand.nextInt(gameBoard.getTektons().size())).breakTekton(seed);
+        gameBoard.getBuggers().values().forEach(Bugger::endOfTurn);
+        Random rnd = new Random();
+        if (gameMode==GameMode.game && rnd.nextDouble()<1) {
+            for (int i = 0; i < 100; i++) {
+                TektonBase tektonN = gameBoard.getTektons().get(rnd.nextInt(gameBoard.getTektons().size()));
+                if (!tektonN.hasMushroom() && tektonN.getBug() == null) {
+                    tektonN.breakTekton(42);
+                    break;
+                }
+            }
         }
-
     }
 
     public boolean move(Bug bug, TektonBase to){
@@ -113,6 +212,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -123,6 +223,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -133,6 +234,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -143,6 +245,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -153,6 +256,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -160,9 +264,15 @@ public class Controller {
         if (gameBoard.getShroomers().containsKey(actualPlayer)) {
             if(gameBoard.getShroomers().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
+                for(Shroomer s: gameBoard.getShroomers().values()){
+                    s.tryGrowMushroom(mushroom.getLocation());
+                    s.traverseHypaNetwork();
+                }
+
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -173,6 +283,7 @@ public class Controller {
                 return true;
             }
         }
+        fail();
         return false;
     }
 
@@ -190,6 +301,7 @@ public class Controller {
      * metódus, amit sikeres játékos akciók után kell hívni. Lépteti a kört és az aktuális játékost.
      */
     private void success(){
+        view.displayMessage("Successful Action");
         if(actualPlayer == gameBoard.getNumberOfPlayers()-1 && round == 20){
             /**
              * a korben utolso jatekos sikeres akciot hajtott vegre es ez volt az utolso kor
@@ -202,38 +314,35 @@ public class Controller {
              */
             round++;
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
-            /**
-             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
-             */
-            Player next;
-            if(gameBoard.getShroomers().containsKey(actualPlayer)){
-                next = gameBoard.getShroomers().get(actualPlayer);
-                view.shroomerNext(gameBoard.getPlayerName(next));
-            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
-                next = gameBoard.getBuggers().get(actualPlayer);
-                view.buggerNext(gameBoard.getPlayerName(next));
-            }
+            notifyViewNextPlayer();
             endOfRound();
-            view.displayMessage("SUCESS: Round: "+round+", The next player is: "+ actualPlayer);
         } else{
             /**
              * a jatekos sikeres akciot hajtott vegre, kovetkezo jatekos jon
              */
             actualPlayer = (actualPlayer+1)% gameBoard.getNumberOfPlayers();
-            /**
-             * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
-             */
-            Player next;
-            if(gameBoard.getShroomers().containsKey(actualPlayer)){
-                next = gameBoard.getShroomers().get(actualPlayer);
-                view.shroomerNext(gameBoard.getPlayerName(next));
-            }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
-                next = gameBoard.getBuggers().get(actualPlayer);
-                view.buggerNext(gameBoard.getPlayerName(next));
-            }
-            view.displayMessage("SUCCESS: Round: "+round+", The next player is: "+ actualPlayer);
+            notifyViewNextPlayer();
+
         }
     }
+    private void notifyViewNextPlayer(){
+        /**
+         * jelzes a view-nak, grafikus esetben van ertelme, konzolos esetben no-op
+         */
+        Player next;
+        if(gameBoard.getShroomers().containsKey(actualPlayer)){
+            next = gameBoard.getShroomers().get(actualPlayer);
+            view.shroomerNext(gameBoard.getPlayerName(next), round);
+        }else if(gameBoard.getBuggers().containsKey(actualPlayer)){
+            next = gameBoard.getBuggers().get(actualPlayer);
+            view.buggerNext(gameBoard.getPlayerName(next), round);
+        }
+    }
+
+    private void fail(){
+        view.displayMessage("Failed action");
+    }
+
 }
 
 

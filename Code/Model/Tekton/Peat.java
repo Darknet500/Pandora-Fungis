@@ -1,14 +1,11 @@
 package Model.Tekton;
 
 import Model.Bridge.GameBoard;
-import Model.Observer.EventType;
-import Model.Observer.Observable;
 import Model.Shroomer.Hypa;
 import Model.Shroomer.Shroomer;
 import Model.Shroomer.Spore;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -93,34 +90,9 @@ public class Peat extends TektonBase {
      */
     @Override
     public void breakTekton(long seed) {
+
         Peat newTekton = new Peat();
-
-        // Szétosztjuk a szomszédokat 50-50%
-        Random rnd = new Random(seed);
-
-        List<TektonBase> remain = new ArrayList<>();
-        List<TektonBase> newNeighbours = new ArrayList<>();
-
-        for (TektonBase neighbour: neighbours) {
-            if (rnd.nextInt(2)==0) { // 50%, h áthelyezzük az újhoz
-                newNeighbours.add(neighbour);
-            } else{
-                remain.add(neighbour);
-            }
-        }
-
-        this.setNeighbours(remain);
-        newTekton.setNeighbours(newNeighbours);
-        // A régi és az új szomszédok lesznek
-        addNeighbour(newTekton);
-        newTekton.addNeighbour(this);
-
-        // A régi Tekton összes fonala elhal
-        List<Hypa> hypasList = new ArrayList<Hypa>();
-        hypasList.addAll(connectedHypas);
-        for(Hypa h : hypasList){
-            h.die();
-        }
+        distributeNeighbours(newTekton);
     }
 
 }

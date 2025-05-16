@@ -4,6 +4,7 @@ import Model.Bridge.GameBoard;
 import Model.Bug.*;
 import Model.Bug.Paralyzed;
 import Model.Bug.Strategy;
+import Model.Tekton.TektonBase;
 
 /**
  * A ParalyzerSpore egy speciális spóra, amely megbénítja a Bug-ot.
@@ -16,8 +17,8 @@ public class ParalyzerSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public ParalyzerSpore(Shroomer shroomer) {
-        super(shroomer);
+    public ParalyzerSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
         GameBoard.addReferenceToMaps("paralyzerspore", this);
     }
 
@@ -30,6 +31,7 @@ public class ParalyzerSpore extends Spore {
     public int haveEffect(Bug b) {
         Strategy paralyzed = new Paralyzed();
         b.setStrategy(paralyzed);
+        b.getHitbox().onStrategyChanged("paralyzed");
         return 4;  //ennek a spóratípusnak a tápanyagtartalma (pontok)
     }
 }

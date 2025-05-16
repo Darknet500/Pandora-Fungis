@@ -16,8 +16,8 @@ public class ProliferatingSpore extends Spore {
      *
      * @param shroomer - A spórát létrehozó Shroomer.
      */
-    public ProliferatingSpore(Shroomer shroomer) {
-        super(shroomer);
+    public ProliferatingSpore(Shroomer shroomer, TektonBase tekton) {
+        super(shroomer, tekton);
         GameBoard.addReferenceToMaps("proliferatingspore", this);
     }
 
@@ -29,7 +29,7 @@ public class ProliferatingSpore extends Spore {
      */
     public int haveEffect(Bug b) {
         Bugger bugger = b.getBugger();
-        Bug newbug = new Bug(bugger);
+        Bug newbug = new Bug(bugger, b.getLocation());
 
         Queue<TektonBase> closestTektons = new ArrayDeque<>();
         closestTektons.addAll(b.getLocation().getNeighbours());
