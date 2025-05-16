@@ -34,7 +34,6 @@
                   }
                 }
                 if(!isthatplacetaken){
-                    System.out.println("hypa put: " + i);
                     placing = i;
                     end1 = new Point(end1.x+movingvalue*normal.x, end1.y+movingvalue*normal.y);
                     end2 = new Point(end2.x+movingvalue*normal.x, end2.y+movingvalue*normal.y);

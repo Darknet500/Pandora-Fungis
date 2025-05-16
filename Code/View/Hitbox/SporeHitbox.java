@@ -19,6 +19,10 @@ public class SporeHitbox extends Hitbox {
         drawable = new DrawableRect(centerPoint, 10, color);
 
     }
+
+    public Point getCenterPoint() {
+        return centerPoint;
+    }
     @Override
     public boolean isHit(Point point) {
         int dx = point.x - centerPoint.x;

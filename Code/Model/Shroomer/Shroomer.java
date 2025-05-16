@@ -159,7 +159,7 @@ public class Shroomer extends Player {
         List<TektonBase> neighbours = location.getNeighbours();
         int age = mushroom.getAge();
         if(age<=4) {
-            if (!neighbours.contains(target)){
+            if (!neighbours.contains(target)&&location!=target){
                 return false;
             }
 

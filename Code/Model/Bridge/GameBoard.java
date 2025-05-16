@@ -419,11 +419,26 @@ public class GameBoard {
     static private Point getSporeHitboxPoint(TektonBase sporelocation){
         int tektonsize=view.getDrawingSurfaceHeight()*2/15;
         int sporecount = sporelocation.getStoredSpores().size()-1;
-        double angle =  sporecount*Math.PI/5.834;
-        Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
-        int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*tektonsize*0.35);
-        int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35);
-        return new Point(x, y);
+        int i=0;
+        while(true){
+            boolean isPlaceFree = true;
+            double angle =  i*Math.PI/5.05;
+            Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
+            int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
+            int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
+            Point tmpPoint = new Point (x,y);
+            for(Spore s: sporelocation.getStoredSpores()){
+                if(s.getHitbox().getCenterPoint().getX() == tmpPoint.getX()&&s.getHitbox().getCenterPoint().getY()==tmpPoint.getY()){
+                    isPlaceFree = false;
+                }
+            }
+
+            if(isPlaceFree){
+                return tmpPoint;
+            }
+            i++;
+
+        }
     }
 
     /**
