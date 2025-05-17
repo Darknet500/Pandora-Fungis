@@ -435,7 +435,7 @@ public class GameBoard {
             int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
             Point tmpPoint = new Point (x,y);
             for(Spore s: sporelocation.getStoredSpores()){
-                if(s.getHitbox().getCenterPoint().getX() == tmpPoint.getX()&&s.getHitbox().getCenterPoint().getY()==tmpPoint.getY()){
+                if((s.getHitbox().getCenterPoint().x == tmpPoint.x )&&(s.getHitbox().getCenterPoint().y==tmpPoint.y)){
                     isPlaceFree = false;
                 }
             }

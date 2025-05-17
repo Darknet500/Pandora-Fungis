@@ -1,9 +1,10 @@
 package View;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiFunction;
-import java.awt.Color;
 
 import Controller.Controller;
 import Gamemode.GameMode;
@@ -902,10 +903,10 @@ public class ConsoleView implements IView{
 
     @Override
     public int getDrawingSurfaceWidth(){
-        return 0;
+        return (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     }
     @Override
     public int getDrawingSurfaceHeight(){
-        return 0;
+        return (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-75;
     }
 }
