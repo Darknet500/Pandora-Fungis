@@ -334,7 +334,7 @@ public class Shroomer extends Player {
         for (Hypa h: hypasaround) {
             if (h.getShroomer()==this){
                 if (b.beEaten(h)) {
-                    if (location.canMushroomGrow(this)){
+                    if (location.canMushroomGrow()){
                         Mushroom mush = mushroomctor.apply(this, location);
                         mushrooms.add(mush);
                         increaseScore(1);
