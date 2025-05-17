@@ -11,10 +11,10 @@ public class Main {
         GameMode gm = null;
         IView view = null;
 
-        /*args = new String[3];
+        args = new String[3];
         args[0] = "-testmode";
         args[1] = "-f";
-        args[2] = "-a";*/
+        args[2] = "-a";
 
         if(args.length ==3){
             if(args[0].equals("-testmode")){

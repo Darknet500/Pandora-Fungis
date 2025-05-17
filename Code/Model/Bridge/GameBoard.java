@@ -427,25 +427,30 @@ public class GameBoard {
         int tektonsize=view.getDrawingSurfaceHeight()*2/15;
         int sporecount = sporelocation.getStoredSpores().size()-1;
         int i=0;
-        while(true){
-            boolean isPlaceFree = true;
-            double angle =  i*Math.PI/5.05;
-            Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
-            int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
-            int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
-            Point tmpPoint = new Point (x,y);
-            for(Spore s: sporelocation.getStoredSpores()){
-                if((s.getHitbox().getCenterPoint().x == tmpPoint.x )&&(s.getHitbox().getCenterPoint().y==tmpPoint.y)){
-                    isPlaceFree = false;
+        if(tektonsize!=0){
+            while(true){
+                boolean isPlaceFree = true;
+                double angle =  i*Math.PI/5.05;
+                Point locationTektonCenterPoint =((TektonHitbox)objectHitboxMap.get(sporelocation)).getCenterPoint();
+                int x = locationTektonCenterPoint.x + (int)(Math.sin(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
+                int y = locationTektonCenterPoint.y + (int)(Math.cos(angle)*tektonsize*0.35*Math.pow(0.8,i/10));
+                Point tmpPoint = new Point (x,y);
+                for(Spore s: sporelocation.getStoredSpores()){
+                    if((s.getHitbox().getCenterPoint().x == tmpPoint.x )&&(s.getHitbox().getCenterPoint().y==tmpPoint.y)){
+                        isPlaceFree = false;
+                    }
                 }
-            }
 
-            if(isPlaceFree){
-                return tmpPoint;
-            }
-            i++;
+                if(isPlaceFree){
+                    return tmpPoint;
+                }
+                i++;
 
+            }
+        } else{
+            return sporelocation.getCenterPoint();
         }
+
     }
 
     /**

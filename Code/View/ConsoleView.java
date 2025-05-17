@@ -903,10 +903,10 @@ public class ConsoleView implements IView{
 
     @Override
     public int getDrawingSurfaceWidth(){
-        return (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        return 0;
     }
     @Override
     public int getDrawingSurfaceHeight(){
-        return (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-75;
+        return 0;
     }
 }
