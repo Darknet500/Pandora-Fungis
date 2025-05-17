@@ -264,11 +264,6 @@ public class Controller {
         if (gameBoard.getShroomers().containsKey(actualPlayer)) {
             if(gameBoard.getShroomers().get(actualPlayer).throwSpore(mushroom,target)){
                 success();
-                for(Shroomer s: gameBoard.getShroomers().values()){
-                    s.tryGrowMushroom(mushroom.getLocation());
-                    s.traverseHypaNetwork();
-                }
-
                 return true;
             }
         }

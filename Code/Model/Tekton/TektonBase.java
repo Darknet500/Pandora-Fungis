@@ -121,9 +121,7 @@ public abstract class TektonBase {
      * az első gombatest növesztésének engedélyezése, vagy elutasítása, cask a stone tekton utasítja el
      * @return
      */
-    public boolean canMushroomGrow(){
-        return true;
-    }
+    public boolean canMushroomGrow(){ return true; }
 
     public abstract void breakTekton(long seed);
 
